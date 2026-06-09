@@ -3,17 +3,17 @@
   "clownfish_repo": "openclaw/clownfish",
   "head_prefix": "clownfish/",
   "label": "clownfish",
-  "generated_at": "2026-06-09T06:48:20.895Z",
-  "count": 0,
+  "generated_at": "2026-06-09T07:00:43.173Z",
+  "count": 1,
   "summary": {
-    "open_prs": 0,
+    "open_prs": 1,
     "ready_candidates": 0,
     "security_hold": 0,
     "needs_rebase": 0,
     "mergeability_unknown": 0,
-    "needs_checks": 0,
+    "needs_checks": 1,
     "needs_review": 0,
-    "needs_merge_preflight": 0,
+    "needs_merge_preflight": 1,
     "needs_result_backfill": 0
   },
   "dispatch": {
@@ -26,5 +26,82 @@
     "max_prs": 5,
     "candidates": []
   },
-  "prs": []
+  "prs": [
+    {
+      "number": 91649,
+      "title": "fix(line): canonicalize trailing-slash webhook paths",
+      "url": "https://github.com/openclaw/openclaw/pull/91649",
+      "branch": "clownfish/clawsweeper-commit-openclaw-openclaw-4cf228466770",
+      "head_sha": "776d987a6e1df0b563ac922549067ae5ed57aa25",
+      "cluster_id": "clawsweeper-commit-openclaw-openclaw-4cf228466770",
+      "job_path": "jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-4cf228466770.md",
+      "updated_at": "2026-06-09T06:59:54Z",
+      "mergeable": "MERGEABLE",
+      "merge_state_status": "UNSTABLE",
+      "review_decision": "",
+      "security_hold": false,
+      "checks": {
+        "total": 63,
+        "counts": {
+          "FAILURE": 2,
+          "CANCELLED": 5,
+          "IN_PROGRESS": 5,
+          "SKIPPED": 45,
+          "SUCCESS": 6
+        },
+        "blockers": [
+          "Workflow Sanity / no-tabs:FAILURE",
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
+          "CI / preflight:IN_PROGRESS",
+          "OpenGrep — PR Diff / Scan changed paths (precise):IN_PROGRESS",
+          "Real behavior proof:IN_PROGRESS",
+          "Workflow Sanity / actionlint:FAILURE",
+          "CI / security-fast:IN_PROGRESS",
+          "CodeQL Critical Quality / Critical Quality (channel-runtime-boundary):IN_PROGRESS"
+        ]
+      },
+      "review_threads": {
+        "status": "clean",
+        "reason": null,
+        "unresolved_count": 0,
+        "examples": []
+      },
+      "review_bots": {
+        "count": 0,
+        "latest": []
+      },
+      "latest_record": {
+        "run_id": "27188796046",
+        "run_url": "https://github.com/openclaw/clownfish/actions/runs/27188796046",
+        "cluster_id": "clawsweeper-commit-openclaw-openclaw-4cf228466770",
+        "published_at": "2026-06-09T07:00:08.861Z",
+        "workflow_conclusion": "success",
+        "apply_action": {
+          "target": "#91649",
+          "action": "merge_canonical",
+          "status": "blocked",
+          "classification": "fix_pr",
+          "canonical": null,
+          "candidate_fix": null,
+          "title": null,
+          "idempotency_key": null,
+          "source_status": null,
+          "source_reason": null,
+          "reason": "job does not allow merge",
+          "merged_at": null,
+          "merge_commit_sha": null,
+          "live_state": null,
+          "live_updated_at": null
+        }
+      },
+      "blockers": [
+        "needs_merge_state:UNSTABLE",
+        "needs_checks:Workflow Sanity / no-tabs:FAILURE; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED",
+        "needs_merge_preflight"
+      ],
+      "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
+    }
+  ]
 }
