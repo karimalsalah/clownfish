@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 9, 2026, 06:17 UTC
+Last dashboard update: Jun 9, 2026, 06:26 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -52,33 +52,34 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | --- | ---: | ---: |
 | Latest clusters reviewed | 360 | 100% |
 | Policy-archived clusters | 1 | audit |
-| Clean completed clusters | 186 | 51.7% |
+| Clean completed clusters | 185 | 51.4% |
 | Needs-human clusters | 49 | 13.6% |
 | Latest successful clusters | 333 | 92.5% |
 | Latest failed clusters | 4 | 1.1% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 619 | audit |
-| Fix action attempts | 165 | audit |
+| Run attempts archived | 620 | audit |
+| Fix action attempts | 166 | audit |
 | Fix actions executed | 1 | 0.6% |
-| Fix actions failed | 35 | 21.2% |
-| Fix actions blocked | 50 | 30.3% |
+| Fix actions failed | 35 | 21.1% |
+| Fix actions blocked | 50 | 30.1% |
 | Latest clusters with fix failures | 44 | 12.2% |
-| Distinct PRs touched | 1079 | 100% |
-| Open PRs tracked | 124 | 11.5% |
+| Distinct PRs touched | 1080 | 100% |
+| Open PRs tracked | 125 | 11.6% |
 | Closed unmerged PRs tracked | 814 | 75.4% |
-| Completed close actions | 30 | 10.4% |
-| Completed merge actions | 23 | 8.0% |
+| Completed close actions | 30 | 10.3% |
+| Completed merge actions | 23 | 7.9% |
 | Duplicate closes | 22 | 73.3% |
 | Superseded closes | 0 | 0.0% |
 | Fixed-by-candidate closes | 0 | 0.0% |
 | Low-signal PR closes | 0 | 0.0% |
-| Blocked mutation attempts | 119 | 41.2% |
-| Skipped mutation attempts | 117 | 40.5% |
+| Blocked mutation attempts | 120 | 41.4% |
+| Skipped mutation attempts | 117 | 40.3% |
 
 ### Clusters Needing Inspection
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [clawsweeper-commit-openclaw-openclaw-a0fd105e5e41](results/openclaw/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41.md) | apply blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41.md | job does not allow merge | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41.md) | [27187735401](https://github.com/openclaw/clownfish/actions/runs/27187735401) |
 | [ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar](results/openclaw/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md) | needs human | jobs/openclaw/inbox/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md | 2026-06-09T05:41:01.693375Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized,... | [report](results/openclaw/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md) | [27186275552](https://github.com/openclaw/clownfish/actions/runs/27186275552) |
 | [gitcrawl-2955-dedupe-only-20260429d](results/openclaw/gitcrawl-2955-dedupe-only-20260429d.md) | needs human | jobs/openclaw/inbox/gitcrawl-2955-dedupe-only-20260429d.md | #47365: decide whether the fix must preserve the released --local-time flag alongside --utc, use an explicit deprecation path, or be repl... | [report](results/openclaw/gitcrawl-2955-dedupe-only-20260429d.md) | [25142253912](https://github.com/openclaw/clownfish/actions/runs/25142253912) |
 | [gitcrawl-17200-dedupe-only-20260429d](results/openclaw/gitcrawl-17200-dedupe-only-20260429d.md) | needs human | jobs/openclaw/inbox/gitcrawl-17200-dedupe-only-20260429d.md | Maintainer decision needed before merge or automated repair: choose the canonical Firecrawl self-hosting network-policy shape for #63877,... | [report](results/openclaw/gitcrawl-17200-dedupe-only-20260429d.md) | [25142106015](https://github.com/openclaw/clownfish/actions/runs/25142106015) |
@@ -103,7 +104,6 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | [gitcrawl-238856-dedupe-only-20260429c](results/openclaw/gitcrawl-238856-dedupe-only-20260429c.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-238856-dedupe-only-20260429c.md | target changed since worker review | [report](results/openclaw/gitcrawl-238856-dedupe-only-20260429c.md) | [25105234648](https://github.com/openclaw/clownfish/actions/runs/25105234648) |
 | [low-signal-pr-sweep-20260425T2355-03](results/openclaw/low-signal-pr-sweep-20260425t2355-03.md) | apply blocked | jobs/openclaw/inbox/low-signal-pr-sweep-20260425T2355-03.md | target changed since worker review | [report](results/openclaw/low-signal-pr-sweep-20260425t2355-03.md) | [25105232771](https://github.com/openclaw/clownfish/actions/runs/25105232771) |
 | [low-signal-pr-sweep-20260427T0530-01](results/openclaw/low-signal-pr-sweep-20260427t0530-01.md) | apply blocked | jobs/openclaw/inbox/low-signal-pr-sweep-20260427T0530-01.md | target changed since worker review | [report](results/openclaw/low-signal-pr-sweep-20260427t0530-01.md) | [25105230558](https://github.com/openclaw/clownfish/actions/runs/25105230558) |
-| [gitcrawl-238884-dedupe-only-20260429c](results/openclaw/gitcrawl-238884-dedupe-only-20260429c.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-238884-dedupe-only-20260429c.md | target changed since worker review | [report](results/openclaw/gitcrawl-238884-dedupe-only-20260429c.md) | [25100259952](https://github.com/openclaw/clownfish/actions/runs/25100259952) |
 
 ### Fix Failure Queue
 
@@ -144,7 +144,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | blocked: Close is blocked on the canonical fix path or fix PR. | 11 | [ghcrawl-191463-agentic-merge](results/openclaw/ghcrawl-191463-agentic-merge.md) |
 | merge state status is UNSTABLE | 10 | [ghcrawl-156647-autonomous-smoke](results/openclaw/ghcrawl-156647-autonomous-smoke.md) |
 | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled for human review | 9 | [ghcrawl-156679-autonomous-smoke](results/openclaw/ghcrawl-156679-autonomous-smoke.md) |
-| job does not allow merge | 5 | [clawsweeper-commit-openclaw-openclaw-fda8cc2a9d9a](results/openclaw/clawsweeper-commit-openclaw-openclaw-fda8cc2a9d9a.md) |
+| job does not allow merge | 6 | [clawsweeper-commit-openclaw-openclaw-a0fd105e5e41](results/openclaw/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41.md) |
 | mergeable state is CONFLICTING | 5 | [ghcrawl-156651-autonomous-smoke](results/openclaw/ghcrawl-156651-autonomous-smoke.md) |
 | target is not listed in job candidates | 5 | [gitcrawl-238838-dedupe-only-20260429c](results/openclaw/gitcrawl-238838-dedupe-only-20260429c.md) |
 | blocked: Duplicate close is blocked on the replacement fix path. | 4 | [ghcrawl-165995-agentic-merge](results/openclaw/ghcrawl-165995-agentic-merge.md) |
@@ -159,7 +159,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 
 | PR | Title | Cluster | Branch | Blockers | Next action |
 | --- | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+| [#91637](https://github.com/openclaw/openclaw/pull/91637) | docs: include plugin prerelease in release validation approval | clawsweeper-commit-openclaw-openclaw-a0fd105e5e41 | clownfish/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41 | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED, nee... | repair failing checks or document unrelated main flake with touched-surface proof |
 
 ### Latest ProjectClownfish Closures
 
