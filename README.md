@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 9, 2026, 06:26 UTC
+Last dashboard update: Jun 9, 2026, 06:48 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -52,19 +52,19 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | --- | ---: | ---: |
 | Latest clusters reviewed | 360 | 100% |
 | Policy-archived clusters | 1 | audit |
-| Clean completed clusters | 185 | 51.4% |
+| Clean completed clusters | 186 | 51.7% |
 | Needs-human clusters | 49 | 13.6% |
-| Latest successful clusters | 333 | 92.5% |
+| Latest successful clusters | 334 | 92.8% |
 | Latest failed clusters | 4 | 1.1% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 620 | audit |
-| Fix action attempts | 166 | audit |
+| Run attempts archived | 621 | audit |
+| Fix action attempts | 167 | audit |
 | Fix actions executed | 1 | 0.6% |
-| Fix actions failed | 35 | 21.1% |
-| Fix actions blocked | 50 | 30.1% |
+| Fix actions failed | 35 | 21.0% |
+| Fix actions blocked | 50 | 29.9% |
 | Latest clusters with fix failures | 44 | 12.2% |
 | Distinct PRs touched | 1080 | 100% |
-| Open PRs tracked | 125 | 11.6% |
+| Open PRs tracked | 124 | 11.5% |
 | Closed unmerged PRs tracked | 814 | 75.4% |
 | Completed close actions | 30 | 10.3% |
 | Completed merge actions | 23 | 7.9% |
@@ -159,7 +159,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 
 | PR | Title | Cluster | Branch | Blockers | Next action |
 | --- | --- | --- | --- | --- | --- |
-| [#91637](https://github.com/openclaw/openclaw/pull/91637) | docs: include plugin prerelease in release validation approval | clawsweeper-commit-openclaw-openclaw-a0fd105e5e41 | clownfish/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41 | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED, nee... | repair failing checks or document unrelated main flake with touched-surface proof |
+| _None_ |  |  |  |  |  |
 
 ### Latest ProjectClownfish Closures
 

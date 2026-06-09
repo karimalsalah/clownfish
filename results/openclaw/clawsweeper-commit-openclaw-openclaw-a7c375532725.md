@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "clawsweeper-commit-openclaw-openclaw-a7c375532725"
 mode: "autonomous"
-run_id: "25092985539"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25092985539"
-head_sha: "db2288b9d802e0b9301fb4ca00c10b3b45af6b23"
-workflow_conclusion: "skipped"
+run_id: "27188794495"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27188794495"
+head_sha: "cd81a1ed12f0bfe2d72ee44d5a4f00dbc0ec597e"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-29T05:45:57.817Z"
-canonical: null
+published_at: "2026-06-09T06:47:50.852Z"
+canonical: "https://github.com/openclaw/openclaw/commit/56fe1e0c95ee7521a2a584faa66504ba8cee3119"
 canonical_issue: null
 canonical_pr: null
 actions_total: 1
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25092985539](https://github.com/openclaw/clownfish/actions/runs/25092985539)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27188794495](https://github.com/openclaw/clownfish/actions/runs/27188794495)
 
-Workflow conclusion: skipped
+Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/commit/56fe1e0c95ee7521a2a584faa66504ba8cee3119
 
 ## Summary
 
-The runtime change is comment-only and the compatibility facades still expose the same exports and loader paths, but the SDK API baseline check now fails because the tracked generated hash was not updated.
+Latest hydrated main is 56fe1e0c95ee7521a2a584faa66504ba8cee3119 and already contains the tracked plugin SDK API baseline hash file targeted by the ClawSweeper finding, so this job should not open a fix PR. Local execution of pnpm plugin-sdk:api:check was blocked by the read-only worker environment missing pnpm/node_modules; the normal executor can rerun that gate if it needs extra confirmation.
 
 ## Impact
 
@@ -54,7 +54,7 @@ The runtime change is comment-only and the compatibility facades still expose th
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| execute_fix | skipped |  |  | worker marked the fix path as non-executable; closure actions may still apply |
 
 ## Apply Actions
 
@@ -66,7 +66,7 @@ The runtime change is comment-only and the compatibility facades still expose th
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| cluster:clawsweeper-commit-openclaw-openclaw-a7c375532725 | build_fix_artifact | planned |  | ClawSweeper found an actionable commit-level bug/regression candidate. |
+| cluster:clawsweeper-commit-openclaw-openclaw-a7c375532725 | build_fix_artifact | planned |  | The reported stale baseline target is already represented on current main; emit a non-executable no-PR fix artifact rather than opening a redundant implementation PR. |
 
 ## Needs Human
 

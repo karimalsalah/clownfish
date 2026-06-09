@@ -3,17 +3,17 @@
   "clownfish_repo": "openclaw/clownfish",
   "head_prefix": "clownfish/",
   "label": "clownfish",
-  "generated_at": "2026-06-09T06:25:56.092Z",
-  "count": 1,
+  "generated_at": "2026-06-09T06:48:20.895Z",
+  "count": 0,
   "summary": {
-    "open_prs": 1,
+    "open_prs": 0,
     "ready_candidates": 0,
     "security_hold": 0,
     "needs_rebase": 0,
     "mergeability_unknown": 0,
-    "needs_checks": 1,
+    "needs_checks": 0,
     "needs_review": 0,
-    "needs_merge_preflight": 1,
+    "needs_merge_preflight": 0,
     "needs_result_backfill": 0
   },
   "dispatch": {
@@ -26,75 +26,5 @@
     "max_prs": 5,
     "candidates": []
   },
-  "prs": [
-    {
-      "number": 91637,
-      "title": "docs: include plugin prerelease in release validation approval",
-      "url": "https://github.com/openclaw/openclaw/pull/91637",
-      "branch": "clownfish/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41",
-      "head_sha": "f9419ae1f993333f2fd1ccfff08213dfdb02c3a9",
-      "cluster_id": "clawsweeper-commit-openclaw-openclaw-a0fd105e5e41",
-      "job_path": "jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-a0fd105e5e41.md",
-      "updated_at": "2026-06-09T06:25:28Z",
-      "mergeable": "MERGEABLE",
-      "merge_state_status": "UNSTABLE",
-      "review_decision": "",
-      "security_hold": false,
-      "checks": {
-        "total": 72,
-        "counts": {
-          "CANCELLED": 6,
-          "SKIPPED": 52,
-          "SUCCESS": 13,
-          "IN_PROGRESS": 1
-        },
-        "blockers": [
-          "Real behavior proof:CANCELLED",
-          "Real behavior proof:CANCELLED",
-          "Real behavior proof:CANCELLED",
-          "CI / check-docs:IN_PROGRESS"
-        ]
-      },
-      "review_threads": {
-        "status": "clean",
-        "reason": null,
-        "unresolved_count": 0,
-        "examples": []
-      },
-      "review_bots": {
-        "count": 0,
-        "latest": []
-      },
-      "latest_record": {
-        "run_id": "27187735401",
-        "run_url": "https://github.com/openclaw/clownfish/actions/runs/27187735401",
-        "cluster_id": "clawsweeper-commit-openclaw-openclaw-a0fd105e5e41",
-        "published_at": "2026-06-09T06:25:24.401Z",
-        "workflow_conclusion": "success",
-        "apply_action": {
-          "target": "#91637",
-          "action": "merge_canonical",
-          "status": "blocked",
-          "classification": "fix_pr",
-          "canonical": null,
-          "candidate_fix": null,
-          "title": null,
-          "idempotency_key": null,
-          "source_status": null,
-          "source_reason": null,
-          "reason": "job does not allow merge",
-          "merged_at": null,
-          "merge_commit_sha": null,
-          "live_state": null,
-          "live_updated_at": null
-        }
-      },
-      "blockers": [
-        "needs_merge_state:UNSTABLE",
-        "needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED",
-        "needs_merge_preflight"
-      ],
-      "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
-    }
-  ]
+  "prs": []
 }
