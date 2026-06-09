@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "clawsweeper-commit-openclaw-openclaw-1c4262ef87e9"
 mode: "autonomous"
-run_id: "25097577122"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25097577122"
-head_sha: "b6fe63da2d5ba27f177f77ab917d57963f8236e2"
-workflow_conclusion: "skipped"
+run_id: "27241228717"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27241228717"
+head_sha: "649dc1978dd5d24a6184d14d4601b94be66b7026"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-29T08:01:35.462Z"
-canonical: null
+published_at: "2026-06-09T23:02:04.386Z"
+canonical: "https://github.com/openclaw/openclaw/tree/468db12c217708a1ee7f6c254343571d9d13c912"
 canonical_issue: null
 canonical_pr: null
 actions_total: 1
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25097577122](https://github.com/openclaw/clownfish/actions/runs/25097577122)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27241228717](https://github.com/openclaw/clownfish/actions/runs/27241228717)
 
-Workflow conclusion: skipped
+Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/tree/468db12c217708a1ee7f6c254343571d9d13c912
 
 ## Summary
 
-Found one regression in the extracted Docker wait helper usage: the Open WebUI smoke now fails before the Open WebUI container is ever started.
+The ClawSweeper commit finding is already fixed on current main. openclaw/openclaw@468db12c217708a1ee7f6c254343571d9d13c912 uses the gateway container as the readiness guard before Open WebUI starts, so no implementation PR should be opened.
 
 ## Impact
 
@@ -54,7 +54,7 @@ Found one regression in the extracted Docker wait helper usage: the Open WebUI s
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| execute_fix | skipped |  |  | worker marked the fix path as non-executable; closure actions may still apply |
 
 ## Apply Actions
 
@@ -66,7 +66,7 @@ Found one regression in the extracted Docker wait helper usage: the Open WebUI s
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| cluster:clawsweeper-commit-openclaw-openclaw-1c4262ef87e9 | build_fix_artifact | planned |  | ClawSweeper found an actionable commit-level bug/regression candidate. |
+| cluster:clawsweeper-commit-openclaw-openclaw-1c4262ef87e9 | build_fix_artifact | planned |  | The reported regression is already fixed on current main; emit an audited no-PR artifact rather than opening a redundant implementation PR. |
 
 ## Needs Human
 
