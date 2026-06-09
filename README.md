@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 9, 2026, 06:01 UTC
+Last dashboard update: Jun 9, 2026, 06:13 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -52,16 +52,16 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | --- | ---: | ---: |
 | Latest clusters reviewed | 360 | 100% |
 | Policy-archived clusters | 1 | audit |
-| Clean completed clusters | 184 | 51.1% |
-| Needs-human clusters | 50 | 13.9% |
+| Clean completed clusters | 185 | 51.4% |
+| Needs-human clusters | 49 | 13.6% |
 | Latest successful clusters | 332 | 92.2% |
 | Latest failed clusters | 4 | 1.1% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 617 | audit |
-| Fix action attempts | 164 | audit |
-| Fix actions executed | 0 | 0.0% |
-| Fix actions failed | 35 | 21.3% |
-| Fix actions blocked | 50 | 30.5% |
+| Run attempts archived | 618 | audit |
+| Fix action attempts | 165 | audit |
+| Fix actions executed | 1 | 0.6% |
+| Fix actions failed | 35 | 21.2% |
+| Fix actions blocked | 50 | 30.3% |
 | Latest clusters with fix failures | 44 | 12.2% |
 | Distinct PRs touched | 1079 | 100% |
 | Open PRs tracked | 124 | 11.5% |
@@ -103,7 +103,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | [gitcrawl-238856-dedupe-only-20260429c](results/openclaw/gitcrawl-238856-dedupe-only-20260429c.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-238856-dedupe-only-20260429c.md | target changed since worker review | [report](results/openclaw/gitcrawl-238856-dedupe-only-20260429c.md) | [25105234648](https://github.com/openclaw/clownfish/actions/runs/25105234648) |
 | [low-signal-pr-sweep-20260425T2355-03](results/openclaw/low-signal-pr-sweep-20260425t2355-03.md) | apply blocked | jobs/openclaw/inbox/low-signal-pr-sweep-20260425T2355-03.md | target changed since worker review | [report](results/openclaw/low-signal-pr-sweep-20260425t2355-03.md) | [25105232771](https://github.com/openclaw/clownfish/actions/runs/25105232771) |
 | [low-signal-pr-sweep-20260427T0530-01](results/openclaw/low-signal-pr-sweep-20260427t0530-01.md) | apply blocked | jobs/openclaw/inbox/low-signal-pr-sweep-20260427T0530-01.md | target changed since worker review | [report](results/openclaw/low-signal-pr-sweep-20260427t0530-01.md) | [25105230558](https://github.com/openclaw/clownfish/actions/runs/25105230558) |
-| [automerge-openclaw-openclaw-74126](results/openclaw/automerge-openclaw-openclaw-74126.md) | needs human | jobs/openclaw/inbox/automerge-openclaw-openclaw-74126.md | #74126: maintainer needs to complete the live automerge adoption smoke check and close the PR manually if appropriate; the hydrated artif... | [report](results/openclaw/automerge-openclaw-openclaw-74126.md) | [25101630563](https://github.com/openclaw/clownfish/actions/runs/25101630563) |
+| [gitcrawl-238884-dedupe-only-20260429c](results/openclaw/gitcrawl-238884-dedupe-only-20260429c.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-238884-dedupe-only-20260429c.md | target changed since worker review | [report](results/openclaw/gitcrawl-238884-dedupe-only-20260429c.md) | [25100259952](https://github.com/openclaw/clownfish/actions/runs/25100259952) |
 
 ### Fix Failure Queue
 

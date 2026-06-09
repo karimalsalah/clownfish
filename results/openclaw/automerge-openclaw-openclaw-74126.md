@@ -2,59 +2,59 @@
 repo: "openclaw/openclaw"
 cluster_id: "automerge-openclaw-openclaw-74126"
 mode: "autonomous"
-run_id: "25101630563"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25101630563"
-head_sha: "d9e3c14fa23a71b76a4116e7b20f27399c6b4825"
+run_id: "27187424737"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27187424737"
+head_sha: "b5594294eabee455351748dd62278ada69c4ca16"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-04-29T09:46:35.179Z"
+result_status: "planned"
+published_at: "2026-06-09T06:12:00.312Z"
 canonical: "https://github.com/openclaw/openclaw/pull/74126"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/74126"
 actions_total: 1
-fix_executed: 0
+fix_executed: 1
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # automerge-openclaw-openclaw-74126
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25101630563](https://github.com/openclaw/clownfish/actions/runs/25101630563)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27187424737](https://github.com/openclaw/clownfish/actions/runs/27187424737)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: https://github.com/openclaw/openclaw/pull/74126
 
 ## Summary
 
-#74126 is the only hydrated item and remains the canonical PR, but the ClawSweeper finding is an operational/manual blocker rather than a repairable source change. The PR has no file changes, says not to merge, and the branch cannot be updated by maintainers, so no narrow fix artifact or replacement PR is appropriate from this worker run.
+Hydrated canonical PR #74126 is already closed and merged by ClawSweeper at merge commit ab93e428c8504e634360468f8e863d1b3461239c. The PR had zero changed files, no hydrated review comments, and no remaining actionable repair path, so no close, merge, comment, label, or fix PR action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
 | Worker actions | 1 |
-| Fix executed | 0 |
+| Fix executed | 1 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| automerge_repair_outcome_comment | executed | #74126 |  |  |
 
 ## Apply Actions
 
@@ -66,8 +66,8 @@ Canonical: https://github.com/openclaw/openclaw/pull/74126
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #74126 | needs_human | blocked | canonical | The only required next step is maintainer-owned completion/closure of an operational smoke-test PR. Automation should not merge, close, or open an empty replacement PR. |
+| #74126 | keep_closed | skipped | canonical | Already closed and merged; no worker mutation or repair artifact is valid for this cluster. |
 
 ## Needs Human
 
-- #74126: maintainer needs to complete the live automerge adoption smoke check and close the PR manually if appropriate; the hydrated artifact provides no narrow code repair or replacement PR path for Clownfish.
+- none
