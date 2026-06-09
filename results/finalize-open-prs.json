@@ -3,18 +3,18 @@
   "clownfish_repo": "openclaw/clownfish",
   "head_prefix": "clownfish/",
   "label": "clownfish",
-  "generated_at": "2026-04-30T02:08:15.361Z",
-  "count": 3,
+  "generated_at": "2026-06-09T05:42:05.010Z",
+  "count": 0,
   "summary": {
-    "open_prs": 3,
+    "open_prs": 0,
     "ready_candidates": 0,
     "security_hold": 0,
-    "needs_rebase": 2,
+    "needs_rebase": 0,
     "mergeability_unknown": 0,
     "needs_checks": 0,
-    "needs_review": 1,
-    "needs_merge_preflight": 3,
-    "needs_result_backfill": 3
+    "needs_review": 0,
+    "needs_merge_preflight": 0,
+    "needs_result_backfill": 0
   },
   "dispatch": {
     "enabled": false,
@@ -26,176 +26,5 @@
     "max_prs": 5,
     "candidates": []
   },
-  "prs": [
-    {
-      "number": 73390,
-      "title": "Add configurable WebChat send shortcut",
-      "url": "https://github.com/openclaw/openclaw/pull/73390",
-      "branch": "clownfish/ghcrawl-156934-autonomous-smoke",
-      "head_sha": "01b27c1d7108086786592b82cf2c809852316bd3",
-      "cluster_id": "ghcrawl-156934-autonomous-smoke",
-      "job_path": "jobs/openclaw/inbox/ghcrawl-156934-autonomous-smoke.md",
-      "updated_at": "2026-04-28T20:41:53Z",
-      "mergeable": "CONFLICTING",
-      "merge_state_status": "DIRTY",
-      "review_decision": "",
-      "security_hold": false,
-      "checks": {
-        "total": 83,
-        "counts": {
-          "CANCELLED": 4,
-          "SUCCESS": 70,
-          "SKIPPED": 9
-        },
-        "blockers": []
-      },
-      "review_threads": {
-        "status": "blocked",
-        "reason": "unresolved review threads remain",
-        "unresolved_count": 3,
-        "examples": [
-          "https://github.com/openclaw/openclaw/pull/73390#discussion_r3152373827",
-          "https://github.com/openclaw/openclaw/pull/73390#discussion_r3152373970",
-          "https://github.com/openclaw/openclaw/pull/73390#discussion_r3152374130"
-        ]
-      },
-      "review_bots": {
-        "count": 3,
-        "latest": [
-          {
-            "source": "comment",
-            "author": "greptile-apps",
-            "url": "https://github.com/openclaw/openclaw/pull/73390#issuecomment-4333303868",
-            "submitted_at": "2026-04-28T07:47:07Z"
-          },
-          {
-            "source": "comment",
-            "author": "clawsweeper",
-            "url": "https://github.com/openclaw/openclaw/pull/73390#issuecomment-4338580686",
-            "submitted_at": "2026-04-28T19:52:55Z"
-          },
-          {
-            "source": "review",
-            "author": "greptile-apps",
-            "url": null,
-            "submitted_at": "2026-04-28T07:47:16Z"
-          }
-        ]
-      },
-      "latest_record": null,
-      "blockers": [
-        "needs_rebase:CONFLICTING",
-        "needs_merge_state:DIRTY",
-        "unresolved review threads remain",
-        "needs_merge_preflight",
-        "needs_result_backfill"
-      ],
-      "recommended_next_action": "resume branch, rebase onto current main, repair conflicts, run changed checks, rerun review"
-    },
-    {
-      "number": 73389,
-      "title": "feat(slack): publish App Home tab views",
-      "url": "https://github.com/openclaw/openclaw/pull/73389",
-      "branch": "clownfish/ghcrawl-156940-autonomous-smoke",
-      "head_sha": "573ae53579337053a5018baf060ddb9025606fe4",
-      "cluster_id": "ghcrawl-156940-autonomous-smoke",
-      "job_path": "jobs/openclaw/inbox/ghcrawl-156940-autonomous-smoke.md",
-      "updated_at": "2026-04-28T20:41:46Z",
-      "mergeable": "CONFLICTING",
-      "merge_state_status": "DIRTY",
-      "review_decision": "",
-      "security_hold": false,
-      "checks": {
-        "total": 83,
-        "counts": {
-          "CANCELLED": 3,
-          "SUCCESS": 71,
-          "SKIPPED": 9
-        },
-        "blockers": []
-      },
-      "review_threads": {
-        "status": "clean",
-        "reason": null,
-        "unresolved_count": 0,
-        "examples": []
-      },
-      "review_bots": {
-        "count": 2,
-        "latest": [
-          {
-            "source": "comment",
-            "author": "greptile-apps",
-            "url": "https://github.com/openclaw/openclaw/pull/73389#issuecomment-4333297648",
-            "submitted_at": "2026-04-28T07:46:01Z"
-          },
-          {
-            "source": "comment",
-            "author": "clawsweeper",
-            "url": "https://github.com/openclaw/openclaw/pull/73389#issuecomment-4338577727",
-            "submitted_at": "2026-04-28T19:52:29Z"
-          }
-        ]
-      },
-      "latest_record": null,
-      "blockers": [
-        "needs_rebase:CONFLICTING",
-        "needs_merge_state:DIRTY",
-        "needs_merge_preflight",
-        "needs_result_backfill"
-      ],
-      "recommended_next_action": "resume branch, rebase onto current main, repair conflicts, run changed checks, rerun review"
-    },
-    {
-      "number": 73385,
-      "title": "fix: gate sandbox write tools on writable workspace access",
-      "url": "https://github.com/openclaw/openclaw/pull/73385",
-      "branch": "clownfish/ghcrawl-156881-autonomous-smoke",
-      "head_sha": "9bf546e8dbdeb4766265c028402a9eb46995f518",
-      "cluster_id": "ghcrawl-156881-autonomous-smoke",
-      "job_path": "jobs/openclaw/inbox/ghcrawl-156881-autonomous-smoke.md",
-      "updated_at": "2026-04-29T01:52:59Z",
-      "mergeable": "MERGEABLE",
-      "merge_state_status": "CLEAN",
-      "review_decision": "",
-      "security_hold": false,
-      "checks": {
-        "total": 103,
-        "counts": {
-          "SUCCESS": 86,
-          "SKIPPED": 17
-        },
-        "blockers": []
-      },
-      "review_threads": {
-        "status": "clean",
-        "reason": null,
-        "unresolved_count": 0,
-        "examples": []
-      },
-      "review_bots": {
-        "count": 2,
-        "latest": [
-          {
-            "source": "comment",
-            "author": "greptile-apps",
-            "url": "https://github.com/openclaw/openclaw/pull/73385#issuecomment-4333281677",
-            "submitted_at": "2026-04-28T07:43:14Z"
-          },
-          {
-            "source": "comment",
-            "author": "clawsweeper",
-            "url": "https://github.com/openclaw/openclaw/pull/73385#issuecomment-4338580992",
-            "submitted_at": "2026-04-28T19:52:58Z"
-          }
-        ]
-      },
-      "latest_record": null,
-      "blockers": [
-        "needs_merge_preflight",
-        "needs_result_backfill"
-      ],
-      "recommended_next_action": "backfill merge preflight: security cleared, comments resolved, Codex /review passed, validation recorded"
-    }
-  ]
+  "prs": []
 }

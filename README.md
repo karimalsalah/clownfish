@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Apr 30, 2026, 02:08 UTC
+Last dashboard update: Jun 9, 2026, 05:42 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -57,15 +57,15 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | Latest successful clusters | 332 | 92.2% |
 | Latest failed clusters | 4 | 1.1% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 613 | audit |
+| Run attempts archived | 614 | audit |
 | Fix action attempts | 164 | audit |
 | Fix actions executed | 0 | 0.0% |
 | Fix actions failed | 35 | 21.3% |
 | Fix actions blocked | 50 | 30.5% |
 | Latest clusters with fix failures | 44 | 12.2% |
-| Distinct PRs touched | 1079 | 100% |
-| Open PRs tracked | 430 | 39.9% |
-| Closed unmerged PRs tracked | 530 | 49.1% |
+| Distinct PRs touched | 1077 | 100% |
+| Open PRs tracked | 124 | 11.5% |
+| Closed unmerged PRs tracked | 814 | 75.6% |
 | Completed close actions | 30 | 10.4% |
 | Completed merge actions | 23 | 8.0% |
 | Duplicate closes | 22 | 73.3% |
@@ -79,6 +79,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar](results/openclaw/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md) | needs human | jobs/openclaw/inbox/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md | 2026-06-09T05:41:01.693375Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized,... | [report](results/openclaw/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md) | [27186275552](https://github.com/openclaw/clownfish/actions/runs/27186275552) |
 | [gitcrawl-2955-dedupe-only-20260429d](results/openclaw/gitcrawl-2955-dedupe-only-20260429d.md) | needs human | jobs/openclaw/inbox/gitcrawl-2955-dedupe-only-20260429d.md | #47365: decide whether the fix must preserve the released --local-time flag alongside --utc, use an explicit deprecation path, or be repl... | [report](results/openclaw/gitcrawl-2955-dedupe-only-20260429d.md) | [25142253912](https://github.com/openclaw/clownfish/actions/runs/25142253912) |
 | [gitcrawl-17200-dedupe-only-20260429d](results/openclaw/gitcrawl-17200-dedupe-only-20260429d.md) | needs human | jobs/openclaw/inbox/gitcrawl-17200-dedupe-only-20260429d.md | Maintainer decision needed before merge or automated repair: choose the canonical Firecrawl self-hosting network-policy shape for #63877,... | [report](results/openclaw/gitcrawl-17200-dedupe-only-20260429d.md) | [25142106015](https://github.com/openclaw/clownfish/actions/runs/25142106015) |
 | [gitcrawl-3154-dedupe-only-20260429d](results/openclaw/gitcrawl-3154-dedupe-only-20260429d.md) | needs human | jobs/openclaw/inbox/gitcrawl-3154-dedupe-only-20260429d.md | #53522 requires maintainer branch/split decision: it overlaps the focused #53441 Synology fix, includes already-shipped web_fetch/status ... | [report](results/openclaw/gitcrawl-3154-dedupe-only-20260429d.md) | [25142072560](https://github.com/openclaw/clownfish/actions/runs/25142072560) |
@@ -103,7 +104,6 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | [low-signal-pr-sweep-20260425T2355-03](results/openclaw/low-signal-pr-sweep-20260425t2355-03.md) | apply blocked | jobs/openclaw/inbox/low-signal-pr-sweep-20260425T2355-03.md | target changed since worker review | [report](results/openclaw/low-signal-pr-sweep-20260425t2355-03.md) | [25105232771](https://github.com/openclaw/clownfish/actions/runs/25105232771) |
 | [low-signal-pr-sweep-20260427T0530-01](results/openclaw/low-signal-pr-sweep-20260427t0530-01.md) | apply blocked | jobs/openclaw/inbox/low-signal-pr-sweep-20260427T0530-01.md | target changed since worker review | [report](results/openclaw/low-signal-pr-sweep-20260427t0530-01.md) | [25105230558](https://github.com/openclaw/clownfish/actions/runs/25105230558) |
 | [automerge-openclaw-openclaw-74126](results/openclaw/automerge-openclaw-openclaw-74126.md) | needs human | jobs/openclaw/inbox/automerge-openclaw-openclaw-74126.md | #74126: maintainer needs to complete the live automerge adoption smoke check and close the PR manually if appropriate; the hydrated artif... | [report](results/openclaw/automerge-openclaw-openclaw-74126.md) | [25101630563](https://github.com/openclaw/clownfish/actions/runs/25101630563) |
-| [gitcrawl-238884-dedupe-only-20260429c](results/openclaw/gitcrawl-238884-dedupe-only-20260429c.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-238884-dedupe-only-20260429c.md | target changed since worker review | [report](results/openclaw/gitcrawl-238884-dedupe-only-20260429c.md) | [25100259952](https://github.com/openclaw/clownfish/actions/runs/25100259952) |
 
 ### Fix Failure Queue
 
@@ -139,29 +139,27 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 
 | Reason | Latest count | Example cluster |
 | --- | ---: | --- |
-| action status is blocked | 89 | [ghcrawl-156636-autonomous-smoke](results/openclaw/ghcrawl-156636-autonomous-smoke.md) |
 | target changed since worker review | 18 | [gitcrawl-2880-dedupe-only-20260429-remote](results/openclaw/gitcrawl-2880-dedupe-only-20260429-remote.md) |
 | close requires ProjectClownfish fix PR opened/pushed or merge executed first | 13 | [ghcrawl-156593-autonomous-smoke](results/openclaw/ghcrawl-156593-autonomous-smoke.md) |
+| blocked: Close is blocked on the canonical fix path or fix PR. | 11 | [ghcrawl-191463-agentic-merge](results/openclaw/ghcrawl-191463-agentic-merge.md) |
 | merge state status is UNSTABLE | 10 | [ghcrawl-156647-autonomous-smoke](results/openclaw/ghcrawl-156647-autonomous-smoke.md) |
 | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled for human review | 9 | [ghcrawl-156679-autonomous-smoke](results/openclaw/ghcrawl-156679-autonomous-smoke.md) |
 | job does not allow merge | 5 | [clawsweeper-commit-openclaw-openclaw-fda8cc2a9d9a](results/openclaw/clawsweeper-commit-openclaw-openclaw-fda8cc2a9d9a.md) |
 | mergeable state is CONFLICTING | 5 | [ghcrawl-156651-autonomous-smoke](results/openclaw/ghcrawl-156651-autonomous-smoke.md) |
 | target is not listed in job candidates | 5 | [gitcrawl-238838-dedupe-only-20260429c](results/openclaw/gitcrawl-238838-dedupe-only-20260429c.md) |
+| blocked: Duplicate close is blocked on the replacement fix path. | 4 | [ghcrawl-165995-agentic-merge](results/openclaw/ghcrawl-165995-agentic-merge.md) |
+| blocked: Blocked by require_fix_before_close until the credited replacement fix PR for #34574 is opened. | 3 | [ghcrawl-199253-agentic-merge](results/openclaw/ghcrawl-199253-agentic-merge.md) |
+| blocked: Clear duplicate, but closeout is blocked on the canonical fix path. | 3 | [ghcrawl-156584-autonomous-smoke](results/openclaw/ghcrawl-156584-autonomous-smoke.md) |
+| blocked: Closeout is blocked on the canonical fix path #72614 landing. | 3 | [ghcrawl-156598-autonomous-smoke](results/openclaw/ghcrawl-156598-autonomous-smoke.md) |
+| blocked: Superseded classification is clear, but require_fix_before_close blocks closure until the canonical fix path lands. | 3 | [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) |
+| blocked: True duplicate/subreport of #54155, but close is blocked on the canonical fix path or fix PR. | 3 | [ghcrawl-166014-agentic-merge](results/openclaw/ghcrawl-166014-agentic-merge.md) |
 | candidate fix is not listed in job refs | 3 | [gitcrawl-2477-dedupe-only-20260429-remote](results/openclaw/gitcrawl-2477-dedupe-only-20260429-remote.md) |
-| canonical is not listed in job refs | 2 | [ghcrawl-156658-autonomous-smoke](results/openclaw/ghcrawl-156658-autonomous-smoke.md) |
-| Clearly superseded by the canonical PR path, but closure is blocked until the canonical fix lands. | 2 | [ghcrawl-156879-autonomous-smoke](results/openclaw/ghcrawl-156879-autonomous-smoke.md) |
-| Fix-first policy blocks superseded closeout until #49430 is repaired and merged. | 2 | [ghcrawl-156585-autonomous-smoke](results/openclaw/ghcrawl-156585-autonomous-smoke.md) |
-| maintainer issue comment blocks low-signal auto-close | 2 | [low-signal-pr-sweep-20260425T2346-01](results/openclaw/low-signal-pr-sweep-20260425t2346-01.md) |
-| require_fix_before_close blocks superseded PR closeout until the canonical fix path is landed or opened as a concrete fix PR. | 2 | [ghcrawl-156789-autonomous-smoke](results/openclaw/ghcrawl-156789-autonomous-smoke.md) |
-| candidate fix is not merged | 1 | [ghcrawl-191459-agentic-merge](results/openclaw/ghcrawl-191459-agentic-merge.md) |
 
 ### Open PR Finalizer Queue
 
 | PR | Title | Cluster | Branch | Blockers | Next action |
 | --- | --- | --- | --- | --- | --- |
-| [#73390](https://github.com/openclaw/openclaw/pull/73390) | Add configurable WebChat send shortcut | ghcrawl-156934-autonomous-smoke | clownfish/ghcrawl-156934-autonomous-smoke | needs_rebase:CONFLICTING, needs_merge_state:DIRTY, unresolved review threads remain, needs_merge_preflight, needs_result_backfill | resume branch, rebase onto current main, repair conflicts, run changed checks, rerun review |
-| [#73389](https://github.com/openclaw/openclaw/pull/73389) | feat(slack): publish App Home tab views | ghcrawl-156940-autonomous-smoke | clownfish/ghcrawl-156940-autonomous-smoke | needs_rebase:CONFLICTING, needs_merge_state:DIRTY, needs_merge_preflight, needs_result_backfill | resume branch, rebase onto current main, repair conflicts, run changed checks, rerun review |
-| [#73385](https://github.com/openclaw/openclaw/pull/73385) | fix: gate sandbox write tools on writable workspace access | ghcrawl-156881-autonomous-smoke | clownfish/ghcrawl-156881-autonomous-smoke | needs_merge_preflight, needs_result_backfill | backfill merge preflight: security cleared, comments resolved, Codex /review passed, validation recorded |
+| _None_ |  |  |  |  |  |
 
 ### Latest ProjectClownfish Closures
 
