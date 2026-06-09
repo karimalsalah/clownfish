@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 9, 2026, 05:43 UTC
+Last dashboard update: Jun 9, 2026, 05:50 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -54,10 +54,10 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | Policy-archived clusters | 1 | audit |
 | Clean completed clusters | 183 | 50.8% |
 | Needs-human clusters | 51 | 14.2% |
-| Latest successful clusters | 332 | 92.2% |
-| Latest failed clusters | 4 | 1.1% |
+| Latest successful clusters | 331 | 91.9% |
+| Latest failed clusters | 5 | 1.4% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 615 | audit |
+| Run attempts archived | 616 | audit |
 | Fix action attempts | 164 | audit |
 | Fix actions executed | 0 | 0.0% |
 | Fix actions failed | 35 | 21.3% |
@@ -79,7 +79,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
-| [ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d](results/openclaw/ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d.md) | needs human | jobs/openclaw/inbox/ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d.md | 2026-06-09T05:41:30.442966Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized,... | [report](results/openclaw/ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d.md) | [27186274666](https://github.com/openclaw/clownfish/actions/runs/27186274666) |
+| [ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d](results/openclaw/ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d.md) | workflow failure | jobs/openclaw/inbox/ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d.md | 2026-06-09T05:48:28.657269Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized,... | [report](results/openclaw/ghcrawl-143798-bug-managed-browser-and-user-browser-attach-both-fail-on-macos-d.md) | [27186527273](https://github.com/openclaw/clownfish/actions/runs/27186527273) |
 | [ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar](results/openclaw/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md) | needs human | jobs/openclaw/inbox/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md | 2026-06-09T05:41:01.693375Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized,... | [report](results/openclaw/ghcrawl-143800-bug-cron-announce-delivery-reports-success-but-messages-never-ar.md) | [27186275552](https://github.com/openclaw/clownfish/actions/runs/27186275552) |
 | [gitcrawl-2955-dedupe-only-20260429d](results/openclaw/gitcrawl-2955-dedupe-only-20260429d.md) | needs human | jobs/openclaw/inbox/gitcrawl-2955-dedupe-only-20260429d.md | #47365: decide whether the fix must preserve the released --local-time flag alongside --utc, use an explicit deprecation path, or be repl... | [report](results/openclaw/gitcrawl-2955-dedupe-only-20260429d.md) | [25142253912](https://github.com/openclaw/clownfish/actions/runs/25142253912) |
 | [gitcrawl-17200-dedupe-only-20260429d](results/openclaw/gitcrawl-17200-dedupe-only-20260429d.md) | needs human | jobs/openclaw/inbox/gitcrawl-17200-dedupe-only-20260429d.md | Maintainer decision needed before merge or automated repair: choose the canonical Firecrawl self-hosting network-policy shape for #63877,... | [report](results/openclaw/gitcrawl-17200-dedupe-only-20260429d.md) | [25142106015](https://github.com/openclaw/clownfish/actions/runs/25142106015) |
