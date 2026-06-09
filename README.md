@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 9, 2026, 07:01 UTC
+Last dashboard update: Jun 9, 2026, 07:37 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -64,7 +64,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | Fix actions blocked | 50 | 29.8% |
 | Latest clusters with fix failures | 44 | 12.2% |
 | Distinct PRs touched | 1081 | 100% |
-| Open PRs tracked | 125 | 11.6% |
+| Open PRs tracked | 124 | 11.5% |
 | Closed unmerged PRs tracked | 814 | 75.3% |
 | Completed close actions | 30 | 10.3% |
 | Completed merge actions | 23 | 7.9% |
@@ -159,7 +159,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 
 | PR | Title | Cluster | Branch | Blockers | Next action |
 | --- | --- | --- | --- | --- | --- |
-| [#91649](https://github.com/openclaw/openclaw/pull/91649) | fix(line): canonicalize trailing-slash webhook paths | clawsweeper-commit-openclaw-openclaw-4cf228466770 | clownfish/clawsweeper-commit-openclaw-openclaw-4cf228466770 | needs_merge_state:UNSTABLE, needs_checks:Workflow Sanity / no-tabs:FAILURE; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED,... | repair failing checks or document unrelated main flake with touched-surface proof |
+| _None_ |  |  |  |  |  |
 
 ### Latest ProjectClownfish Closures
 
