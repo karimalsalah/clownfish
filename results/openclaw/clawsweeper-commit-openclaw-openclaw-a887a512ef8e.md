@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "clawsweeper-commit-openclaw-openclaw-a887a512ef8e"
 mode: "autonomous"
-run_id: "25093541960"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25093541960"
-head_sha: "c698313b6be6dfbdd55160a9627047fd03b5e009"
-workflow_conclusion: "failure"
+run_id: "27191082125"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27191082125"
+head_sha: "9dc89d79970ed8ee003e1a25c22062a86fa99aaf"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-29T06:07:52.949Z"
-canonical: null
+published_at: "2026-06-09T07:38:00.368Z"
+canonical: "https://github.com/openclaw/openclaw/tree/994f4f99fe25fd7258dbcd2ba81f69f9687fafe6"
 canonical_issue: null
 canonical_pr: null
 actions_total: 1
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25093541960](https://github.com/openclaw/clownfish/actions/runs/25093541960)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27191082125](https://github.com/openclaw/clownfish/actions/runs/27191082125)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/tree/994f4f99fe25fd7258dbcd2ba81f69f9687fafe6
 
 ## Summary
 
-Found one concrete CI regression. The commit adds duplicate `run_checks_node_extensions` keys in the workflow output map and manifest object.
+The ClawSweeper commit finding is already fixed on current main. openclaw/openclaw@994f4f99fe25fd7258dbcd2ba81f69f9687fafe6 no longer contains the reported run_checks_node_extensions duplicate output or the extension shard manifest overwrite, so no implementation PR should be opened.
 
 ## Impact
 
@@ -54,7 +54,7 @@ Found one concrete CI regression. The commit adds duplicate `run_checks_node_ext
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| execute_fix | skipped |  |  | worker marked the fix path as non-executable; closure actions may still apply |
 
 ## Apply Actions
 
@@ -66,7 +66,7 @@ Found one concrete CI regression. The commit adds duplicate `run_checks_node_ext
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| cluster:clawsweeper-commit-openclaw-openclaw-a887a512ef8e | build_fix_artifact | planned |  | ClawSweeper found an actionable commit-level bug/regression candidate. |
+| cluster:clawsweeper-commit-openclaw-openclaw-a887a512ef8e | build_fix_artifact | planned |  | The reported duplicate workflow output and manifest key from commit a887a512ef8eded87891832611806f47a97331c7 are not present on current main, so this is an audited no-PR outcome. |
 
 ## Needs Human
 
