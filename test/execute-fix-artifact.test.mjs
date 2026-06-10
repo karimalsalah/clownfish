@@ -49,6 +49,17 @@ test("execute-fix-artifact preserves recoverable replacement branch when review 
 
   assert.equal(child.status, 0, child.stderr || child.stdout);
 
+  const stdoutSummary = JSON.parse(child.stdout);
+  assert.deepEqual(stdoutSummary, {
+    repo: "openclaw/openclaw",
+    cluster_id: "deadline-cluster",
+    status: "blocked",
+    dry_run: false,
+    report_file: "fix-execution-report.json",
+    action_count: 1,
+  });
+  assert.doesNotMatch(child.stdout, /fix execution deadline exceeded/);
+
   const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
   assert.equal(report.status, "blocked");
   assert.equal(report.actions.length, 1);

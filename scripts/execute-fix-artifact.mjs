@@ -2532,7 +2532,18 @@ function writeReport(report, resultPath) {
     report.debug_artifacts = path.relative(repoRoot(), debugDir);
   }
   fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
-  console.log(JSON.stringify(report, null, 2));
+  console.log(JSON.stringify(stdoutReportSummary(report, reportPath), null, 2));
+}
+
+function stdoutReportSummary(report, reportPath) {
+  return {
+    repo: report.repo,
+    cluster_id: report.cluster_id,
+    status: report.status ?? "unknown",
+    dry_run: Boolean(report.dry_run),
+    report_file: path.basename(reportPath),
+    action_count: Array.isArray(report.actions) ? report.actions.length : 0,
+  };
 }
 
 function appendAutomergeRepairOutcomeComment(report, resultPath) {
