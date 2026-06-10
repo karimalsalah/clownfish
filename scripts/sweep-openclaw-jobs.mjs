@@ -533,18 +533,7 @@ function runRecordTimestamp(record) {
 
 function readOpenClownfishPrClusters() {
   const repo = process.env.CLOWNFISH_TARGET_REPO ?? "openclaw/openclaw";
-  const pulls = ghJson([
-    "pr",
-    "list",
-    "--repo",
-    repo,
-    "--state",
-    "open",
-    "--limit",
-    "1000",
-    "--json",
-    "number,title,headRefName,url,updatedAt",
-  ]);
+  const pulls = readOpenPullRequests(repo);
   const byCluster = new Map();
   for (const pull of pulls ?? []) {
     const head = String(pull.headRefName ?? "");
@@ -561,6 +550,22 @@ function readOpenClownfishPrClusters() {
     byCluster.set(clusterId, rows);
   }
   return byCluster;
+}
+
+function readOpenPullRequests(repo) {
+  return ghJsonStream([
+    "api",
+    "--paginate",
+    `repos/${repo}/pulls?state=open&per_page=100`,
+    "--jq",
+    ".[] | {number,title,headRefName:.head.ref,url:.html_url,updatedAt:.updated_at}",
+  ]);
+}
+
+function githubEnv() {
+  const env = { ...process.env, NO_COLOR: "1", CLICOLOR: "0", GH_FORCE_TTY: "never", TERM: "dumb" };
+  delete env.FORCE_COLOR;
+  return env;
 }
 
 function readActiveClusterRuns() {
@@ -636,8 +641,7 @@ function readJson(filePath) {
 }
 
 function ghJson(ghArgs, options = {}) {
-  const env = { ...process.env, NO_COLOR: "1", CLICOLOR: "0" };
-  delete env.FORCE_COLOR;
+  const env = githubEnv();
   let text;
   try {
     text = execFileSync(githubCli(), ghArgs, {
@@ -652,6 +656,55 @@ function ghJson(ghArgs, options = {}) {
     text = error.stdout;
   }
   return JSON.parse(stripAnsi(text) || "null");
+}
+
+function ghJsonStream(ghArgs) {
+  const text = execFileSync(githubCli(), ghArgs, {
+    cwd: repoRoot(),
+    encoding: "utf8",
+    env: githubEnv(),
+    stdio: ["ignore", "pipe", "pipe"],
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  return parseJsonStream(stripAnsi(text));
+}
+
+function parseJsonStream(text) {
+  const values = [];
+  let buffer = "";
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (const char of text) {
+    if (depth === 0) {
+      if (/\s/.test(char)) continue;
+      buffer = "";
+    }
+    buffer += char;
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+      } else if (char === "\\") {
+        escaped = true;
+      } else if (char === '"') {
+        inString = false;
+      }
+      continue;
+    }
+    if (char === '"') {
+      inString = true;
+    } else if (char === "{" || char === "[") {
+      depth += 1;
+    } else if (char === "}" || char === "]") {
+      depth -= 1;
+      if (depth === 0) {
+        values.push(JSON.parse(buffer));
+        buffer = "";
+      }
+    }
+  }
+  if (buffer.trim()) throw new Error("failed to parse complete JSON stream from gh output");
+  return values;
 }
 
 function githubCli() {
