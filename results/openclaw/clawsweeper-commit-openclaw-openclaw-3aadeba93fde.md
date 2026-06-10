@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "clawsweeper-commit-openclaw-openclaw-3aadeba93fde"
 mode: "autonomous"
-run_id: "25091270836"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25091270836"
-head_sha: "6e58f8a7f51bb1d576b2ba2211e2d66dbab85fba"
-workflow_conclusion: "skipped"
+run_id: "27254284431"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27254284431"
+head_sha: "30fe524e0242df8f63b0c7c77e9b878f295439cd"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-29T04:41:25.875Z"
+published_at: "2026-06-10T05:05:10.014Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -25,9 +25,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25091270836](https://github.com/openclaw/clownfish/actions/runs/25091270836)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27254284431](https://github.com/openclaw/clownfish/actions/runs/27254284431)
 
-Workflow conclusion: skipped
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Found one regression: the changed doctor config-write path fails core typecheck, and the same call can dereference an undefined env object at runtime when doctor needs to write config.
+The ClawSweeper commit finding is already fixed on current openclaw/openclaw main. The reported doctor config-write guard now passes ctx.env ?? process.env into shouldSkipLegacyUpdateDoctorConfigWrite, so no executable fix PR is planned.
 
 ## Impact
 
@@ -66,7 +66,7 @@ Found one regression: the changed doctor config-write path fails core typecheck,
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| cluster:clawsweeper-commit-openclaw-openclaw-3aadeba93fde | build_fix_artifact | planned |  | ClawSweeper found an actionable commit-level bug/regression candidate. |
+| cluster:clawsweeper-commit-openclaw-openclaw-3aadeba93fde | build_fix_artifact | skipped |  | Latest main already contains the narrow fallback fix from the ClawSweeper report; opening a new implementation PR would be redundant. |
 
 ## Needs Human
 
