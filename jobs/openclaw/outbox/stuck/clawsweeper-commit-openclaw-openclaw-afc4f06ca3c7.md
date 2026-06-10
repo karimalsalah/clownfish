@@ -52,6 +52,12 @@ this lane.
 - Report: https://github.com/openclaw/clawsweeper/blob/main/records/openclaw-openclaw/commits/afc4f06ca3c7ffcf19db61e17601bd317b7e428f.md
 - Latest main at intake: 1dd500c4951ce78747e260a9022325b8db61a54b
 
+## Manual Status
+
+- 2026-06-10: PR https://github.com/openclaw/openclaw/pull/91884 landed the watcher-root finding as https://github.com/openclaw/openclaw/commit/dbcae5b78d9fcbae7479d0fddd1a7bb0a034e923.
+- The interval-only QMD startup finding was not landed. The original generated branch tried to keep broader QMD manager ownership during Gateway startup, but ClawSweeper rejected that direction because startup is intentionally one-shot.
+- Keep this broad two-finding job out of the active inbox. Any remaining work should be split into a narrower follow-up for interval/embed startup arming semantics.
+
 ## ClawSweeper Report
 
 ```md

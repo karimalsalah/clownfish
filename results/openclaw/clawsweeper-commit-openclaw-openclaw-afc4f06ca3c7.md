@@ -37,6 +37,8 @@ Canonical: unknown
 
 Verified the ClawSweeper commit finding against openclaw/openclaw main at a3d5e5bc7247427db222d57051f5cb28813d2f29. Both QMD freshness regressions are still present, no security-sensitive signal was found, and a narrow new fix PR is appropriate.
 
+Manual follow-up, 2026-06-10: PR https://github.com/openclaw/openclaw/pull/91884 landed the watcher-root finding as https://github.com/openclaw/openclaw/commit/dbcae5b78d9fcbae7479d0fddd1a7bb0a034e923. The interval-only QMD startup finding remains unresolved and should be handled as a narrower follow-up instead of rerunning this broad two-finding job.
+
 ## Impact
 
 | Metric | Count |
