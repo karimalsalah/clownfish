@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "clawsweeper-commit-openclaw-openclaw-8b71d2347f2b"
 mode: "autonomous"
-run_id: "25095678847"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25095678847"
-head_sha: "3bc4a894bb8f2baaa5ed2b1f2df90879901d3cf6"
-workflow_conclusion: "skipped"
+run_id: "27259602835"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27259602835"
+head_sha: "b53cc678ce321243d48f88a3a8db54bd66e34c10"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-29T07:10:28.597Z"
-canonical: null
+published_at: "2026-06-10T07:13:40.566Z"
+canonical: "https://github.com/openclaw/openclaw/tree/a3d5e5bc7247427db222d57051f5cb28813d2f29"
 canonical_issue: null
 canonical_pr: null
 actions_total: 1
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25095678847](https://github.com/openclaw/clownfish/actions/runs/25095678847)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27259602835](https://github.com/openclaw/clownfish/actions/runs/27259602835)
 
-Workflow conclusion: skipped
+Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/tree/a3d5e5bc7247427db222d57051f5cb28813d2f29
 
 ## Summary
 
-Found one concrete low-severity regression: the runtime `diffs` config schema changed, but the static plugin manifest was not kept in sync.
+Current main already contains the static diffs plugin manifest descriptions for the five deprecated alias fields, matching the runtime schema described by the ClawSweeper finding. No code changes or PR are needed for this cluster.
 
 ## Impact
 
@@ -66,7 +66,7 @@ Found one concrete low-severity regression: the runtime `diffs` config schema ch
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| cluster:clawsweeper-commit-openclaw-openclaw-8b71d2347f2b | build_fix_artifact | planned |  | ClawSweeper found an actionable commit-level bug/regression candidate. |
+| cluster:clawsweeper-commit-openclaw-openclaw-8b71d2347f2b | build_fix_artifact | skipped |  | The ClawSweeper finding is already fixed on current main: the static manifest now carries the alias descriptions that previously only existed in the runtime schema. |
 
 ## Needs Human
 
