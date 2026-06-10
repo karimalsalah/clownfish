@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "clawsweeper-commit-openclaw-openclaw-7c7561f5a33e"
 mode: "autonomous"
-run_id: "25092386657"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25092386657"
-head_sha: "5ec1b6ddf67cfb1cb204a794de95372bb78e5373"
-workflow_conclusion: "skipped"
+run_id: "27256003863"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27256003863"
+head_sha: "becc580db27cb0c6c6147a3499ca4d331a6d921d"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-29T05:24:14.201Z"
-canonical: null
+published_at: "2026-06-10T05:48:29.112Z"
+canonical: "https://github.com/openclaw/openclaw/tree/92418fc9da1a5837c9770a2a7366e83d87de2fd3"
 canonical_issue: null
 canonical_pr: null
 actions_total: 1
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25092386657](https://github.com/openclaw/clownfish/actions/runs/25092386657)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27256003863](https://github.com/openclaw/clownfish/actions/runs/27256003863)
 
-Workflow conclusion: skipped
+Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/tree/92418fc9da1a5837c9770a2a7366e83d87de2fd3
 
 ## Summary
 
-Found one regression in the new scoped fallback load: configured workspace/external capability plugins are excluded because the scope is derived only from bundled manifest owners.
+Verified the ClawSweeper commit finding against current openclaw/openclaw main at 92418fc9da1a5837c9770a2a7366e83d87de2fd3. The reported scoped fallback regression is already fixed on main, so no implementation PR is needed.
 
 ## Impact
 
@@ -66,7 +66,7 @@ Found one regression in the new scoped fallback load: configured workspace/exter
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| cluster:clawsweeper-commit-openclaw-openclaw-7c7561f5a33e | build_fix_artifact | planned |  | ClawSweeper found an actionable commit-level bug/regression candidate. |
+| cluster:clawsweeper-commit-openclaw-openclaw-7c7561f5a33e | build_fix_artifact | skipped |  | The exact reported failure mode is already covered by current main: configured external capability plugins with manifest contracts are included in runtimePluginIds and used for the fallback load scope. |
 
 ## Needs Human
 
