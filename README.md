@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 10, 2026, 05:33 UTC
+Last dashboard update: Jun 10, 2026, 05:41 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -55,9 +55,9 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | Clean completed clusters | 189 | 52.5% |
 | Needs-human clusters | 49 | 13.6% |
 | Latest successful clusters | 344 | 95.6% |
-| Latest failed clusters | 3 | 0.8% |
+| Latest failed clusters | 4 | 1.1% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 641 | audit |
+| Run attempts archived | 642 | audit |
 | Fix action attempts | 179 | audit |
 | Fix actions executed | 1 | 0.6% |
 | Fix actions failed | 35 | 19.6% |
@@ -79,6 +79,7 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [clawsweeper-commit-openclaw-openclaw-4932e91517ad](results/openclaw/clawsweeper-commit-openclaw-openclaw-4932e91517ad.md) | workflow failure | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-4932e91517ad.md | No fix PR is planned. The ClawSweeper finding is already fixed on current openclaw/openclaw main at 92418fc9da1a5837c9770a2a7366e83d87de2... | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-4932e91517ad.md) | [27255672367](https://github.com/openclaw/clownfish/actions/runs/27255672367) |
 | [clawsweeper-commit-openclaw-openclaw-450607847b7b](results/openclaw/clawsweeper-commit-openclaw-openclaw-450607847b7b.md) | fix blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-450607847b7b.md | Codex /review failed: structured output was not written to replacement-codex-review-2.json; stdout={"type":"thread.started","thread_id":"... | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-450607847b7b.md) | [27255091380](https://github.com/openclaw/clownfish/actions/runs/27255091380) |
 | [clawsweeper-commit-openclaw-openclaw-548c280eff60](results/openclaw/clawsweeper-commit-openclaw-openclaw-548c280eff60.md) | apply blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-548c280eff60.md | job does not allow merge | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-548c280eff60.md) | [27254287010](https://github.com/openclaw/clownfish/actions/runs/27254287010) |
 | [clawsweeper-commit-openclaw-openclaw-1d0e9a907e6d](results/openclaw/clawsweeper-commit-openclaw-openclaw-1d0e9a907e6d.md) | apply blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-1d0e9a907e6d.md | job does not allow merge | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-1d0e9a907e6d.md) | [27242663897](https://github.com/openclaw/clownfish/actions/runs/27242663897) |
@@ -103,7 +104,6 @@ Scope: 360 active latest cluster reports. 1 policy-archived cluster(s) are exclu
 | [gitcrawl-1972-dedupe-only-20260429-remote](results/openclaw/gitcrawl-1972-dedupe-only-20260429-remote.md) | needs human | jobs/openclaw/inbox/gitcrawl-1972-dedupe-only-20260429-remote.md | #43443: maintainer decision needed on launchd EIO retry plus SIGKILL/PID identity semantics before any automated replacement or rebase. | [report](results/openclaw/gitcrawl-1972-dedupe-only-20260429-remote.md) | [25131315944](https://github.com/openclaw/clownfish/actions/runs/25131315944) |
 | [gitcrawl-1998-dedupe-only-20260429-remote](results/openclaw/gitcrawl-1998-dedupe-only-20260429-remote.md) | needs human | jobs/openclaw/inbox/gitcrawl-1998-dedupe-only-20260429-remote.md | #64731 requires maintainer product-direction choice: Telegram-specific fallback notices outside verbose mode versus the broader unhydrate... | [report](results/openclaw/gitcrawl-1998-dedupe-only-20260429-remote.md) | [25131329587](https://github.com/openclaw/clownfish/actions/runs/25131329587) |
 | [gitcrawl-1957-dedupe-only-20260429-remote](results/openclaw/gitcrawl-1957-dedupe-only-20260429-remote.md) | needs human | jobs/openclaw/inbox/gitcrawl-1957-dedupe-only-20260429-remote.md | #49408 requires maintainer policy judgment on whether root-escaping symlinked managed skills should be supported or explicitly documented... | [report](results/openclaw/gitcrawl-1957-dedupe-only-20260429-remote.md) | [25131311478](https://github.com/openclaw/clownfish/actions/runs/25131311478) |
-| [gitcrawl-1953-dedupe-only-20260429-remote](results/openclaw/gitcrawl-1953-dedupe-only-20260429-remote.md) | needs human | jobs/openclaw/inbox/gitcrawl-1953-dedupe-only-20260429-remote.md | No single open canonical issue or PR clearly replaces closed representative #43551. The open candidates should be split by maintainers in... | [report](results/openclaw/gitcrawl-1953-dedupe-only-20260429-remote.md) | [25131307011](https://github.com/openclaw/clownfish/actions/runs/25131307011) |
 
 ### Fix Failure Queue
 

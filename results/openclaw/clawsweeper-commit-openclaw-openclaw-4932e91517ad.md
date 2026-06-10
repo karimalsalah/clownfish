@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "clawsweeper-commit-openclaw-openclaw-4932e91517ad"
 mode: "autonomous"
-run_id: "25092853636"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25092853636"
-head_sha: "04f2d9884f44a89853e07f95648252358623f350"
-workflow_conclusion: "skipped"
+run_id: "27255672367"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27255672367"
+head_sha: "4d68a57d74f80f0760501e93bcef4aa07dc72150"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-04-29T05:41:16.184Z"
-canonical: null
+published_at: "2026-06-10T05:40:20.767Z"
+canonical: "https://github.com/openclaw/openclaw/tree/main"
 canonical_issue: null
 canonical_pr: null
 actions_total: 1
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25092853636](https://github.com/openclaw/clownfish/actions/runs/25092853636)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27255672367](https://github.com/openclaw/clownfish/actions/runs/27255672367)
 
-Workflow conclusion: skipped
+Workflow conclusion: failure
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/tree/main
 
 ## Summary
 
-Found one low-severity reliability issue in the Windows smoke recovery change: the new retry/recovery loop still aborts on the first failed probe under `set -e`, so the added deadline and `gateway start` recovery path do not run for the unavailable-gateway case it is meant to handle.
+No fix PR is planned. The ClawSweeper finding is already fixed on current openclaw/openclaw main at 92418fc9da1a5837c9770a2a7366e83d87de2fd3: the Windows smoke path now runs through the TypeScript implementation, captures failed gateway probes with check:false, and keeps the retry/start recovery loop alive.
 
 ## Impact
 
@@ -66,7 +66,7 @@ Found one low-severity reliability issue in the Windows smoke recovery change: t
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| cluster:clawsweeper-commit-openclaw-openclaw-4932e91517ad | build_fix_artifact | planned |  | ClawSweeper found an actionable commit-level bug/regression candidate. |
+| cluster:clawsweeper-commit-openclaw-openclaw-4932e91517ad | keep_related | skipped | related | No fix artifact is needed because latest main already contains the narrow non-throwing probe/retry/recovery behavior requested by the ClawSweeper finding. |
 
 ## Needs Human
 
