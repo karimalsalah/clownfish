@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-199237-agentic-merge"
 mode: "autonomous"
-run_id: "27346401171"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27346401171"
-head_sha: "23bc96a8490b39e055eb96e3753083354a2c7764"
+run_id: "27346967226"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27346967226"
+head_sha: "72b3ff268085310b472b8822d0eef09eebe7823d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-11T12:27:56.888Z"
-canonical: "https://github.com/openclaw/openclaw/tree/9a6c71a47d9526c677a325531dfc44adc054d9bb"
+published_at: "2026-06-11T12:38:52.337Z"
+canonical: "https://github.com/openclaw/openclaw/tree/68ec783e74b59b672dbe14585e892d887adb2bfb"
 canonical_issue: null
 canonical_pr: null
 actions_total: 7
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27346401171](https://github.com/openclaw/clownfish/actions/runs/27346401171)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27346967226](https://github.com/openclaw/clownfish/actions/runs/27346967226)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/tree/9a6c71a47d9526c677a325531dfc44adc054d9bb
+Canonical: https://github.com/openclaw/openclaw/tree/68ec783e74b59b672dbe14585e892d887adb2bfb
 
 ## Summary
 
-Current main 9a6c71a47d9526c677a325531dfc44adc054d9bb already contains the narrow gateway stream merge/replace behavior and focused regression coverage. Plan: close #60063 as fixed by current main, keep #74498 as a related UI follow-up, route only #47399 to security triage, and leave closed context refs skipped.
+Current main 68ec783e74b59b672dbe14585e892d887adb2bfb already contains the gateway streaming merge/replace behavior and focused regression coverage for the only open hydrated job candidate, #60063. Plan one high-confidence close_fixed_by_candidate for #60063 against current main, keep the related UI follow-up #74498 open, keep closed context refs historical, and route only security-marked #47399 to central security handling.
 
 ## Impact
 
@@ -60,19 +60,19 @@ Current main 9a6c71a47d9526c677a325531dfc44adc054d9bb already contains the narro
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60063 | close_fixed_by_candidate | blocked | fixed_by_candidate | close requires Clownfish fix PR opened/pushed, merged candidate fix, or merge executed first |
+| #60063 | close_fixed_by_candidate | blocked | fixed_by_candidate | target changed since worker review |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #47377 | keep_closed | skipped | superseded | Already closed context ref; no close/comment/merge mutation is valid. |
-| #47399 | route_security | planned | security_sensitive | Scoped quarantine to central OpenClaw security handling; no mutation is planned for this item. |
-| #54374 | keep_closed | skipped | superseded | Already closed context ref; no close/comment/merge mutation is valid. |
-| #60063 | close_fixed_by_candidate | planned | fixed_by_candidate | fixed-by-current-main: #60063 is already covered by current main, while its branch remains dirty and lacks passing real behavior proof. |
-| #63994 | keep_closed | skipped | fixed_by_candidate | Already closed context ref covered by hydrated merged replacement #72400; no mutation is valid. |
-| #65457 | keep_closed | skipped | fixed_by_candidate | Already closed context ref covered by hydrated merged replacement #72400; no mutation is valid. |
-| #74498 | keep_related | planned | related | Related but distinct UI follow-up; keep open and do not close or merge in this cluster. |
+| #60063 | close_fixed_by_candidate | planned | fixed_by_candidate | Current main already fixes and tests the #60063 gateway streaming behavior. Because the job allows unmerged fix closeout when current main coverage is freshly verified, close_fixed_by_candidate is planned without a replacement PR; the PR's failing proof check blocks merge, not current-main closeout. |
+| #74498 | keep_related | planned | related | Related but not a true duplicate close target for this cluster; keep open for separate UI stream reconciliation validation. |
+| #47399 | route_security | planned | security_sensitive | Security-sensitive hydrated ref is outside ProjectClownfish mutation scope and should be routed to central OpenClaw security handling only. |
+| #47377 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
+| #54374 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
+| #63994 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
+| #65457 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
 
 ## Needs Human
 

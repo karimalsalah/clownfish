@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 11, 2026, 12:28 UTC
+Last dashboard update: Jun 11, 2026, 12:39 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -57,15 +57,15 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | Latest successful clusters | 349 | 97.8% |
 | Latest failed clusters | 3 | 0.8% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 663 | audit |
+| Run attempts archived | 664 | audit |
 | Fix action attempts | 188 | audit |
 | Fix actions executed | 1 | 0.5% |
 | Fix actions failed | 36 | 19.1% |
 | Fix actions blocked | 59 | 31.4% |
 | Latest clusters with fix failures | 48 | 13.4% |
 | Distinct PRs touched | 1099 | 100% |
-| Open PRs tracked | 114 | 10.4% |
-| Closed unmerged PRs tracked | 830 | 75.5% |
+| Open PRs tracked | 113 | 10.3% |
+| Closed unmerged PRs tracked | 831 | 75.6% |
 | Completed close actions | 30 | 10.0% |
 | Completed merge actions | 23 | 7.6% |
 | Duplicate closes | 22 | 73.3% |
@@ -79,7 +79,7 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
-| [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-199237-agentic-merge.md | close requires Clownfish fix PR opened/pushed, merged candidate fix, or merge executed first | [report](results/openclaw/ghcrawl-199237-agentic-merge.md) | [27346401171](https://github.com/openclaw/clownfish/actions/runs/27346401171) |
+| [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-199237-agentic-merge.md | target changed since worker review | [report](results/openclaw/ghcrawl-199237-agentic-merge.md) | [27346967226](https://github.com/openclaw/clownfish/actions/runs/27346967226) |
 | [ghcrawl-166003-agentic-merge](results/openclaw/ghcrawl-166003-agentic-merge.md) | fix blocked | jobs/openclaw/inbox/ghcrawl-166003-agentic-merge.md | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [report](results/openclaw/ghcrawl-166003-agentic-merge.md) | [27345047272](https://github.com/openclaw/clownfish/actions/runs/27345047272) |
 | [ghcrawl-207037-agentic-merge](results/openclaw/ghcrawl-207037-agentic-merge.md) | fix failed | jobs/openclaw/inbox/ghcrawl-207037-agentic-merge.md | source PR #54646 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-207037-agentic-merge.md) | [27341769444](https://github.com/openclaw/clownfish/actions/runs/27341769444) |
 | [ghcrawl-165996-agentic-merge](results/openclaw/ghcrawl-165996-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-165996-agentic-merge.md | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | [report](results/openclaw/ghcrawl-165996-agentic-merge.md) | [27337707885](https://github.com/openclaw/clownfish/actions/runs/27337707885) |
@@ -139,7 +139,7 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | Reason | Latest count | Example cluster |
 | --- | ---: | --- |
-| target changed since worker review | 16 | [gitcrawl-2880-dedupe-only-20260429-remote](results/openclaw/gitcrawl-2880-dedupe-only-20260429-remote.md) |
+| target changed since worker review | 17 | [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) |
 | job does not allow merge | 12 | [clawsweeper-commit-openclaw-openclaw-806a0119f3cd](results/openclaw/clawsweeper-commit-openclaw-openclaw-806a0119f3cd.md) |
 | blocked: Close is blocked on the canonical fix path or fix PR. | 11 | [ghcrawl-191463-agentic-merge](results/openclaw/ghcrawl-191463-agentic-merge.md) |
 | close requires ProjectClownfish fix PR opened/pushed or merge executed first | 11 | [ghcrawl-156593-autonomous-smoke](results/openclaw/ghcrawl-156593-autonomous-smoke.md) |
