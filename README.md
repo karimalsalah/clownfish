@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 11, 2026, 11:26 UTC
+Last dashboard update: Jun 11, 2026, 12:05 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -53,19 +53,19 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | Latest clusters reviewed | 357 | 100% |
 | Policy-archived clusters | 4 | audit |
 | Clean completed clusters | 197 | 55.2% |
-| Needs-human clusters | 48 | 13.4% |
+| Needs-human clusters | 47 | 13.2% |
 | Latest successful clusters | 349 | 97.8% |
 | Latest failed clusters | 3 | 0.8% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 660 | audit |
-| Fix action attempts | 187 | audit |
+| Run attempts archived | 661 | audit |
+| Fix action attempts | 188 | audit |
 | Fix actions executed | 1 | 0.5% |
-| Fix actions failed | 36 | 19.3% |
-| Fix actions blocked | 58 | 31.0% |
-| Latest clusters with fix failures | 47 | 13.2% |
+| Fix actions failed | 36 | 19.1% |
+| Fix actions blocked | 59 | 31.4% |
+| Latest clusters with fix failures | 48 | 13.4% |
 | Distinct PRs touched | 1098 | 100% |
-| Open PRs tracked | 115 | 10.5% |
-| Closed unmerged PRs tracked | 829 | 75.5% |
+| Open PRs tracked | 113 | 10.3% |
+| Closed unmerged PRs tracked | 830 | 75.6% |
 | Completed close actions | 30 | 10.0% |
 | Completed merge actions | 23 | 7.7% |
 | Duplicate closes | 22 | 73.3% |
@@ -79,6 +79,7 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [ghcrawl-166003-agentic-merge](results/openclaw/ghcrawl-166003-agentic-merge.md) | fix blocked | jobs/openclaw/inbox/ghcrawl-166003-agentic-merge.md | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [report](results/openclaw/ghcrawl-166003-agentic-merge.md) | [27345047272](https://github.com/openclaw/clownfish/actions/runs/27345047272) |
 | [ghcrawl-207037-agentic-merge](results/openclaw/ghcrawl-207037-agentic-merge.md) | fix failed | jobs/openclaw/inbox/ghcrawl-207037-agentic-merge.md | source PR #54646 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-207037-agentic-merge.md) | [27341769444](https://github.com/openclaw/clownfish/actions/runs/27341769444) |
 | [ghcrawl-165996-agentic-merge](results/openclaw/ghcrawl-165996-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-165996-agentic-merge.md | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | [report](results/openclaw/ghcrawl-165996-agentic-merge.md) | [27337707885](https://github.com/openclaw/clownfish/actions/runs/27337707885) |
 | [clawsweeper-commit-openclaw-openclaw-806a0119f3cd](results/openclaw/clawsweeper-commit-openclaw-openclaw-806a0119f3cd.md) | apply blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-806a0119f3cd.md | job does not allow merge | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-806a0119f3cd.md) | [27259600929](https://github.com/openclaw/clownfish/actions/runs/27259600929) |
@@ -103,12 +104,12 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [gitcrawl-2880-dedupe-only-20260429-remote](results/openclaw/gitcrawl-2880-dedupe-only-20260429-remote.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-2880-dedupe-only-20260429-remote.md | target changed since worker review | [report](results/openclaw/gitcrawl-2880-dedupe-only-20260429-remote.md) | [25134553126](https://github.com/openclaw/clownfish/actions/runs/25134553126) |
 | [gitcrawl-2733-dedupe-only-20260429-remote](results/openclaw/gitcrawl-2733-dedupe-only-20260429-remote.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-2733-dedupe-only-20260429-remote.md | target changed since worker review | [report](results/openclaw/gitcrawl-2733-dedupe-only-20260429-remote.md) | [25134075609](https://github.com/openclaw/clownfish/actions/runs/25134075609) |
 | [gitcrawl-2477-dedupe-only-20260429-remote](results/openclaw/gitcrawl-2477-dedupe-only-20260429-remote.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-2477-dedupe-only-20260429-remote.md | candidate fix is not listed in job refs | [report](results/openclaw/gitcrawl-2477-dedupe-only-20260429-remote.md) | [25133514336](https://github.com/openclaw/clownfish/actions/runs/25133514336) |
-| [gitcrawl-2282-dedupe-only-20260429-remote](results/openclaw/gitcrawl-2282-dedupe-only-20260429-remote.md) | apply blocked | jobs/openclaw/inbox/gitcrawl-2282-dedupe-only-20260429-remote.md | candidate fix is not listed in job refs | [report](results/openclaw/gitcrawl-2282-dedupe-only-20260429-remote.md) | [25132458580](https://github.com/openclaw/clownfish/actions/runs/25132458580) |
 
 ### Fix Failure Queue
 
 | Cluster | Status | Target | Branch/PR | Reason | Run |
 | --- | --- | --- | --- | --- | --- |
+| [ghcrawl-166003-agentic-merge](results/openclaw/ghcrawl-166003-agentic-merge.md) | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [27345047272](https://github.com/openclaw/clownfish/actions/runs/27345047272) |
 | [ghcrawl-207037-agentic-merge](results/openclaw/ghcrawl-207037-agentic-merge.md) | failed |  |  | source PR #54646 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [27341769444](https://github.com/openclaw/clownfish/actions/runs/27341769444) |
 | [clawsweeper-commit-openclaw-openclaw-7662a17b08bb](results/openclaw/clawsweeper-commit-openclaw-openclaw-7662a17b08bb.md) | blocked |  | clownfish/clawsweeper-commit-openclaw-openclaw-7662a17b08bb | Codex /review failed: structured output was not written to replacement-codex-review-1.json; stdout={"type":"thread.started","thread_id":"... | [27256001364](https://github.com/openclaw/clownfish/actions/runs/27256001364) |
 | [clawsweeper-commit-openclaw-openclaw-450607847b7b](results/openclaw/clawsweeper-commit-openclaw-openclaw-450607847b7b.md) | blocked |  | clownfish/clawsweeper-commit-openclaw-openclaw-450607847b7b | Codex /review failed: structured output was not written to replacement-codex-review-2.json; stdout={"type":"thread.started","thread_id":"... | [27255091380](https://github.com/openclaw/clownfish/actions/runs/27255091380) |
@@ -133,7 +134,6 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [ghcrawl-156832-autonomous-smoke](results/openclaw/ghcrawl-156832-autonomous-smoke.md) | blocked |  |  | Codex /review did not pass after 2 attempt(s): Blocked: the branch is narrow and `pnpm check:changed` plus `git diff --check` pass, but t... | [25039623993](https://github.com/openclaw/clownfish/actions/runs/25039623993) |
 | [ghcrawl-156946-autonomous-smoke](results/openclaw/ghcrawl-156946-autonomous-smoke.md) | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [25040211577](https://github.com/openclaw/clownfish/actions/runs/25040211577) |
 | [ghcrawl-156879-autonomous-smoke](results/openclaw/ghcrawl-156879-autonomous-smoke.md) | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [25039930706](https://github.com/openclaw/clownfish/actions/runs/25039930706) |
-| [ghcrawl-156868-autonomous-smoke](results/openclaw/ghcrawl-156868-autonomous-smoke.md) | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [25039867359](https://github.com/openclaw/clownfish/actions/runs/25039867359) |
 
 ### Top Blocked Reasons
 
@@ -159,7 +159,7 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | PR | Title | Cluster | Branch | Blockers | Next action |
 | --- | --- | --- | --- | --- | --- |
-| [#92158](https://github.com/openclaw/openclaw/pull/92158) | fix(cli): validate gateway RPC timeout inputs | ghcrawl-207037-agentic-merge | clownfish/ghcrawl-207037-agentic-merge | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED, nee... | repair failing checks or document unrelated main flake with touched-surface proof |
+| _None_ |  |  |  |  |  |
 
 ### Latest ProjectClownfish Closures
 
