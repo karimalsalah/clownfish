@@ -190,6 +190,7 @@ function applyCloseAction({
   if (closePolicyBlock) return { ...base, status: "blocked", reason: closePolicyBlock };
   const fixFirstBlock = validateFixFirstClose({ job, result, actionName, classification, candidateFix });
   if (fixFirstBlock) return { ...base, status: "blocked", reason: fixFirstBlock };
+  const allowCurrentMainFixedClose = allowsCurrentMainFixedClose({ job, actionName, classification, candidateFix });
   if (!CLOSE_CLASSIFICATIONS.has(classification)) {
     return {
       ...base,
@@ -220,7 +221,7 @@ function applyCloseAction({
   if (canonical && !allowedRefs.has(canonical) && !isPostMergeFixedClose) {
     return { ...base, status: "blocked", reason: "canonical is not listed in job refs" };
   }
-  if (classification === "fixed_by_candidate" && !candidateFix) {
+  if (classification === "fixed_by_candidate" && !candidateFix && !allowCurrentMainFixedClose) {
     return { ...base, status: "blocked", reason: "closure requires candidate_fix" };
   }
   if (candidateFix && !allowedRefs.has(candidateFix) && !isPostMergeFixedClose) {
@@ -230,7 +231,7 @@ function applyCloseAction({
     const candidateBlock = validateMergedCandidateFix(result.repo, candidateFix);
     if (candidateBlock) return { ...base, status: "blocked", reason: candidateBlock };
   }
-  if (canonical === target || candidateFix === target) {
+  if ((canonical === target && !allowCurrentMainFixedClose) || candidateFix === target) {
     return { ...base, status: "blocked", reason: "target cannot close against itself" };
   }
   const replacementCloseoutBlock = validateReplacementCloseout({ result, actionName, target });
@@ -470,8 +471,11 @@ function validateFixFirstClose({ job, result, actionName, classification, candid
     return "";
   }
 
-  if (classification === "fixed_by_candidate" && job.frontmatter.allow_unmerged_fix_close !== true) {
-    return "fixed_by_candidate close requires a merged fix PR unless allow_unmerged_fix_close: true";
+  if (classification === "fixed_by_candidate") {
+    if (job.frontmatter.allow_unmerged_fix_close !== true) {
+      return "fixed_by_candidate close requires a merged fix PR unless allow_unmerged_fix_close: true";
+    }
+    return "";
   }
 
   const fixReport = readFixExecutionReport(result);
@@ -482,6 +486,15 @@ function validateFixFirstClose({ job, result, actionName, classification, candid
   if (fixLanded) return "";
 
   return "close requires Clownfish fix PR opened/pushed, merged candidate fix, or merge executed first";
+}
+
+function allowsCurrentMainFixedClose({ job, actionName, classification, candidateFix }) {
+  return (
+    actionName === "close_fixed_by_candidate" &&
+    classification === "fixed_by_candidate" &&
+    job.frontmatter.allow_unmerged_fix_close === true &&
+    !candidateFix
+  );
 }
 
 function isMergedCandidateFix(repo, candidateFix) {
