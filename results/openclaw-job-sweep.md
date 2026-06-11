@@ -1,12 +1,12 @@
 # OpenClaw Job Sweep
 
-Mode: applied
+Mode: dry_run
 
 | Metric | Count |
 | --- | ---: |
-| Jobs | 36 |
+| Jobs | 35 |
 | Delete test jobs | 0 |
-| Move to outbox | 1 |
+| Move to outbox | 0 |
 | Move to stuck queue | 0 |
 | Requeue candidates | 0 |
 | Active | 0 |
@@ -23,7 +23,7 @@ Mode: applied
 
 | Job | Cluster | Reason |
 | --- | --- | --- |
-| jobs/openclaw/inbox/ghcrawl-191457-agentic-merge.md | ghcrawl-191457-agentic-merge | all target issue/PR refs are closed in live GitHub state |
+| _None_ |  |  |
 
 ## Move To Stuck Queue
 

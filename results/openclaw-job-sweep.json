@@ -1,6 +1,6 @@
 {
-  "status": "applied",
-  "generated_at": "2026-06-11T00:33:55.652Z",
+  "status": "dry_run",
+  "generated_at": "2026-06-11T00:47:39.363Z",
   "live": true,
   "verify_target_refs_live": true,
   "jobs_dir": "jobs/openclaw/inbox",
@@ -8,102 +8,12 @@
   "stuck_dir": "jobs/openclaw/outbox/stuck",
   "active_cluster_runs": [],
   "totals": {
-    "jobs": 36,
+    "jobs": 35,
     "keep": 34,
-    "security_hold": 1,
-    "move_to_outbox": 1
+    "security_hold": 1
   },
   "delete_test_jobs": [],
-  "outbox_jobs": [
-    {
-      "job": "jobs/openclaw/inbox/ghcrawl-191457-agentic-merge.md",
-      "cluster_id": "ghcrawl-191457-agentic-merge",
-      "status": "move_to_outbox",
-      "reason": "all target issue/PR refs are closed in live GitHub state",
-      "mode": "autonomous",
-      "latest_run_id": "24967648150",
-      "latest_workflow_conclusion": "success",
-      "latest_result_status": "planned",
-      "open_prs": [],
-      "live_target_refs_total": 10,
-      "live_target_refs_found": 10,
-      "live_target_refs_missing": 0,
-      "live_target_refs_open": 0,
-      "live_target_refs_closed": 10,
-      "live_target_closed_refs_sample": [
-        {
-          "ref": "#38650",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix: allow symlinks in workspace files",
-          "url": "https://github.com/openclaw/openclaw/pull/38650"
-        },
-        {
-          "ref": "#38981",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "feat(agents): add workspaceConfig.allowedExternalPaths for trusted symlinked workspace files",
-          "url": "https://github.com/openclaw/openclaw/pull/38981"
-        },
-        {
-          "ref": "#40230",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix(agents): follow symlinks when loading workspace bootstrap files",
-          "url": "https://github.com/openclaw/openclaw/pull/40230"
-        },
-        {
-          "ref": "#51277",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix: allow symlinks to openclaw root sibling dirs",
-          "url": "https://github.com/openclaw/openclaw/pull/51277"
-        },
-        {
-          "ref": "#52522",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix: widen symlink boundary for multi-agent workspace bootstrap files",
-          "url": "https://github.com/openclaw/openclaw/pull/52522"
-        },
-        {
-          "ref": "#62938",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix(exec-approvals): respect OPENCLAW_STATE_DIR for store paths",
-          "url": "https://github.com/openclaw/openclaw/pull/62938"
-        },
-        {
-          "ref": "#64473",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix: allow symlinks within ~/.openclaw directory in boundary path checks",
-          "url": "https://github.com/openclaw/openclaw/pull/64473"
-        },
-        {
-          "ref": "#64663",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix: allow symlinked OPENCLAW_HOME in exec approvals path check",
-          "url": "https://github.com/openclaw/openclaw/pull/64663"
-        },
-        {
-          "ref": "#65736",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix(exec): respect OPENCLAW_STATE_DIR for exec approvals",
-          "url": "https://github.com/openclaw/openclaw/pull/65736"
-        },
-        {
-          "ref": "#68417",
-          "kind": "pull_request",
-          "state": "closed",
-          "title": "fix(exec-approvals): allow ~/.openclaw symlink when OPENCLAW_STATE_DIR is set",
-          "url": "https://github.com/openclaw/openclaw/pull/68417"
-        }
-      ]
-    }
-  ],
+  "outbox_jobs": [],
   "stuck_jobs": [],
   "requeue_candidates": [],
   "active_jobs": [],
