@@ -19,7 +19,7 @@ require_human_for:
   - unclear_canonical
   - broad_code_delta
 canonical:
-  - "#54374"
+  - "#60063"
 candidates:
   - "#46985"
   - "#47377"
@@ -43,8 +43,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "ghcrawl representative #54374 is open; worker must verify it is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 199237 on 2026-04-26."
+canonical_hint: "Live refresh on 2026-06-11 found #60063 as the only open hydrated candidate; worker must still verify current GitHub state before action."
+notes: "Generated from ghcrawl run cluster 199237 on 2026-04-26; live refreshed on 2026-06-11."
 ---
 
 # GHCrawl Cluster 199237
@@ -68,18 +68,23 @@ Cluster shape from ghcrawl:
 
 Run one live autonomous classification pass. Classify open candidates only, verify live GitHub state, choose the current canonical issue or PR if the representative is obsolete, and emit only high-confidence planned close/comment/label actions. Closed context refs are evidence only and must not receive close actions.
 
+## Live Operator Notes
+
+Live refresh on 2026-06-11 found #60063 open; #46985 is missing/not hydratable; #47377, #47399, #54374, #63994, and #65457 are closed context only.
+
+If #60063 is repaired or replaced, do not carry its `CHANGELOG.md` edit forward. OpenClaw changelog updates are release-owned and should be omitted from ProjectClownfish replacement branches.
+
 ## Member Inventory
 
 Closed context refs:
 
-- none
-
-Open candidates:
-
-- #46985 fix(ui): dedupe cumulative streaming text around tool interruptions
+- #46985 fix(ui): dedupe cumulative streaming text around tool interruptions (missing/not hydratable)
 - #47377 fix(ui): deduplicate cumulative streaming text in webchat segments
 - #47399 fix(ui): deduplicate streaming chat segments to prevent growing duplicate bubbles
 - #54374 fix(gateway): avoid duplicate pre-tool text in streaming chat deltas
-- #60063 fix(streaming): resolve overlapping chunk duplication in chat stream assembler
 - #63994 fix(gateway): avoid collapsing repeated chars when merging assistant chat deltas
 - #65457 fix(gateway): stop dropping repeated markdown tokens in chat stream merge
+
+Open candidates:
+
+- #60063 fix(streaming): resolve overlapping chunk duplication in chat stream assembler
