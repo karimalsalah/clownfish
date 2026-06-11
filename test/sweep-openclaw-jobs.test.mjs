@@ -21,6 +21,14 @@ test("sweep-openclaw-jobs finalizes jobs whose target refs are all closed", () =
     candidates: ["#3", "#4"],
     clusterRefs: ["#3", "#4"],
   });
+  writeRunRecord(fixture, "100", {
+    cluster_id: "mixed-cluster",
+    run_id: "100",
+    workflow_conclusion: "success",
+    result_status: "needs_human",
+    fix_actions: [],
+    apply_actions: [],
+  });
   const liveRefReport = path.join(fixture.root, "live-refs.json");
   fs.writeFileSync(
     liveRefReport,
@@ -87,6 +95,35 @@ test("sweep-openclaw-jobs uses newest run id when published_at is absent", () =>
   assert.equal(dryReport.totals.requeue_candidate, 1);
   assert.equal(dryReport.requeue_candidates[0].latest_run_id, "200");
   assert.equal(dryReport.requeue_candidates[0].reason, "latest result has blocked or failed fix actions");
+});
+
+test("sweep-openclaw-jobs preserves requeue candidates with open target refs", () => {
+  const fixture = makeFixture();
+  writeJob(path.join(fixture.inbox, "blocked-open.md"), {
+    clusterId: "blocked-open-cluster",
+    canonical: ["#123"],
+    candidates: ["#123"],
+    clusterRefs: ["#123"],
+  });
+  writeRunRecord(fixture, "300", {
+    cluster_id: "blocked-open-cluster",
+    run_id: "300",
+    workflow_conclusion: "success",
+    result_status: "planned",
+    fix_actions: [],
+    apply_actions: [{ action: "close_superseded", status: "blocked" }],
+  });
+
+  const liveRefReport = path.join(fixture.root, "live-refs.json");
+  fs.writeFileSync(liveRefReport, `${JSON.stringify({ refs: [liveRef(123, "OPEN")] }, null, 2)}\n`);
+
+  const dryRun = sweep(fixture, liveRefReport);
+  assert.equal(dryRun.status, 0, dryRun.stderr || dryRun.stdout);
+  const dryReport = JSON.parse(fs.readFileSync(fixture.report, "utf8"));
+  assert.equal(dryReport.totals.requeue_candidate, 1);
+  assert.equal(dryReport.requeue_candidates[0].latest_run_id, "300");
+  assert.equal(dryReport.requeue_candidates[0].live_target_refs_open, 1);
+  assert.equal(dryReport.requeue_candidates[0].reason, "latest result has blocked apply actions");
 });
 
 function makeFixture() {

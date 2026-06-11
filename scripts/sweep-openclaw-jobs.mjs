@@ -111,11 +111,6 @@ function classifyJob(jobPath) {
     if (row.live_target_refs_open === 0) {
       return { ...row, status: "move_to_outbox", reason: "all target issue/PR refs are closed in live GitHub state" };
     }
-    return {
-      ...row,
-      status: "keep",
-      reason: `${row.live_target_refs_open} live target issue/PR refs remain open`,
-    };
   }
   if (isTestJob(job) && latest) {
     return { ...row, status: "delete_test_job", reason: "old smoke/test job has a published result and no open clownfish PR" };
