@@ -19,7 +19,7 @@ require_human_for:
   - unclear_canonical
   - broad_code_delta
 canonical:
-  - "#58004"
+  - "#19929"
 candidates:
   - "#14850"
   - "#19929"
@@ -55,8 +55,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "ghcrawl representative #58004 is open; worker must verify it is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 165986 on 2026-04-26."
+canonical_hint: "Live refresh on 2026-06-11 found #19929 and #51805 open; #19929 is the likely current canonical, but worker must verify current GitHub state before action."
+notes: "Generated from ghcrawl run cluster 165986 on 2026-04-26; live refreshed on 2026-06-11."
 ---
 
 # GHCrawl Cluster 165986
@@ -80,20 +80,18 @@ Cluster shape from ghcrawl:
 
 Run one live autonomous classification pass. Classify open candidates only, verify live GitHub state, choose the current canonical issue or PR if the representative is obsolete, and emit only high-confidence planned close/comment/label actions. Closed context refs are evidence only and must not receive close actions.
 
+## Live Operator Notes
+
+Live refresh on 2026-06-11 found #19929 and #51805 open. The original ghcrawl representative #58004 and the remaining hydrated refs are closed context only.
+
 ## Member Inventory
 
 Closed context refs:
 
-- none
-
-Open candidates:
-
 - #14850 [Feature]: Session key override on bindings (cross-channel session unification)
-- #19929 [Feature]:  Shared sessions across multiple group/channel/thread chats
 - #40986 [Feature] Share memory between different sessions of the same agent
 - #46514 Cross-agent channel history: agents on separate bot accounts can't see each other's session history
 - #51691 Feature: Real-time session sync across surfaces (Telegram <-> TUI)
-- #51805 Feature Request: Shared session context between group chats and DMs
 - #52504 [Feature]: Cross-Platform Session Continuity (Context Sync Across Channels)
 - #57977 [Feature]: Continuous sessions across interfaces.
 - #58004 Feature: Cross-channel session binding (unified session across TUI + Telegram/Discord)
@@ -101,3 +99,8 @@ Open candidates:
 - #59585 [Feature Request] Agent loses identity context when switching between messaging channels
 - #60255 [Feature Request] Session merging or reuse across channels
 - #68628 [Feature Request] Cross-channel session continuity for named agents
+
+Open candidates:
+
+- #19929 [Feature]:  Shared sessions across multiple group/channel/thread chats
+- #51805 Feature Request: Shared session context between group chats and DMs
