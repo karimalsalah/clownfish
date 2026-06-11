@@ -2,47 +2,59 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-166005-agentic-merge"
 mode: "autonomous"
-run_id: "24947180910"
-run_url: "https://github.com/openclaw/projectclownfish/actions/runs/24947180910"
-head_sha: "cc7e2b9deb213893d18c0bcca95afccd476be4c1"
+run_id: "27347582477"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27347582477"
+head_sha: "cd96117eeffd4922d01235e484f00b01bb5fb666"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-04-26T03:33:55.727Z"
+result_status: "planned"
+published_at: "2026-06-11T12:50:40.437Z"
 canonical: "https://github.com/openclaw/openclaw/issues/37634"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/37634"
 canonical_pr: null
-actions_total: 10
+actions_total: 26
+fix_executed: 0
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # ghcrawl-166005-agentic-merge
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/projectclownfish/actions/runs/24947180910](https://github.com/openclaw/projectclownfish/actions/runs/24947180910)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27347582477](https://github.com/openclaw/clownfish/actions/runs/27347582477)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: https://github.com/openclaw/openclaw/issues/37634
 
 ## Summary
 
-Representative #37634 remains the best live canonical for the `workspaceAccess: "none"` read-only sandbox-workspace bug, while #31331 remains a separate live canonical for the Docker bind-source remap family. #46026 is a high-confidence duplicate of #37634, but this run should not schedule close or fix actions because linked PR #31457 is flagged security-sensitive and must route to central OpenClaw security handling.
+The live open canonical family is security-sensitive: #37634 remains the likely workspaceAccess:none canonical and #31331 is an open alternate canonical for the Docker/DOOD bind-mount shape. Both are routed to central security. No close, merge, or fix PR is planned for the quarantined family; #73385 is kept related because it is an adjacent non-security sandbox write-tool gating PR, not a hydrated canonical replacement for #37634.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 10 |
+| Worker actions | 26 |
+| Fix executed | 0 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
+
+## Fix Execution Actions
+
+| Action | Status | Target | Branch | Reason |
+| --- | --- | --- | --- | --- |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -54,17 +66,33 @@ Representative #37634 remains the best live canonical for the `workspaceAccess: 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #37634 | keep_canonical | planned | canonical | Best live canonical for the `workspaceAccess: "none"` writable-workspace regression. |
-| #31331 | keep_canonical | planned | canonical | Separate live canonical subfamily: Docker bind-source remapping is related to this cluster but not a duplicate of #37634. |
-| #36525 | keep_related | planned | related | Related design-level follow-up, not a duplicate closeout target. |
-| #44077 | keep_related | planned | related | Related sandbox file-permission regression with a different root cause. |
-| #46026 | keep_related | planned | duplicate | High-confidence duplicate of #37634, but kept non-mutating because the job requires a concrete fix path before duplicate closeout and this cluster includes security-routed PR #31457. |
-| #59613 | keep_related | planned | related | Related Docker sandbox write-failure report; not safe to collapse automatically into one canonical thread. |
-| #65316 | keep_related | planned | related | Related higher-level tool-exposure bug, not a pure duplicate of one existing issue. |
-| #57230 | keep_closed | skipped | related | Already closed in live state; historical evidence only. |
-| #59063 | keep_closed | skipped | related | Already closed in live state; historical evidence only. |
-| #31457 | needs_human | planned | needs_human | Security boundary: this linked PR is out of scope for ProjectClownfish and blocks automatic mutation recommendations for the affected subfamily. |
+| #16790 | keep_closed | skipped | related | Already closed sandbox path-handling context; no mutation is valid. |
+| #20979 | keep_closed | skipped | related | Already closed related sandbox permissions context; no mutation is valid. |
+| #31331 | route_security | planned | security_sensitive | Open issue carries security-sensitive signals and must route to central OpenClaw security handling. |
+| #32227 | keep_closed | skipped | related | Already merged historical sandbox mount PR; no action is valid in this cluster pass. |
+| #36525 | keep_closed | skipped | duplicate | Already closed duplicate context; no close action is valid. |
+| #37276 | keep_closed | skipped | superseded | Closed superseded contributor PR; no mutation is valid. |
+| #37634 | route_security | planned | security_sensitive | Open representative issue has security-sensitive signals and is out of ProjectClownfish mutation scope. |
+| #38154 | keep_closed | skipped | superseded | Closed superseded contributor PR; no mutation is valid. |
+| #44077 | keep_closed | skipped | related | Already closed related sandbox permission issue; no mutation is valid. |
+| #44114 | keep_closed | skipped | superseded | Already closed broad superseded PR; no mutation is valid. |
+| #44260 | keep_closed | skipped | security_sensitive | Closed security-sensitive context ref; no ProjectClownfish mutation is valid. |
+| #46026 | keep_closed | skipped | duplicate | Already closed duplicate context; no close action is valid. |
+| #46065 | keep_closed | skipped | superseded | Already closed superseded contributor PR; no mutation is valid. |
+| #46300 | keep_closed | skipped | security_sensitive | Closed security-sensitive context ref; no ProjectClownfish mutation is valid. |
+| #47237 | keep_closed | skipped | security_sensitive | Closed security-sensitive dirty-branch context ref; no ProjectClownfish mutation is valid. |
+| #47784 | keep_closed | skipped | superseded | Already closed superseded contributor PR; no mutation is valid. |
+| #47806 | keep_closed | skipped | superseded | Already closed duplicate/superseded PR; no mutation is valid. |
+| #48011 | keep_closed | skipped | related | Already closed related issue; no mutation is valid. |
+| #48034 | keep_closed | skipped | security_sensitive | Closed security-sensitive context ref; no ProjectClownfish mutation is valid. |
+| #57230 | keep_closed | skipped | related | Already closed related sandbox path issue; no mutation is valid. |
+| #59063 | keep_closed | skipped | related | Already closed related sandbox path issue; no mutation is valid. |
+| #59613 | keep_closed | skipped | related | Already closed related sandbox permission issue; no mutation is valid. |
+| #59718 | route_security | planned | security_sensitive | Open linked security-sensitive issue must route to central OpenClaw security handling. |
+| #65316 | keep_closed | skipped | related | Already closed related sandbox write-tool issue; no mutation is valid. |
+| #73385 | keep_related | planned | related | Related sandbox write-access work, but not a high-confidence canonical replacement for the quarantined workspaceAccess:none issues. |
+| cluster:ghcrawl-166005-agentic-merge | fix_needed | blocked |  | An executable fix PR for the workspaceAccess:none family is blocked by the security quarantine. |
 
 ## Needs Human
 
-- Linked PR #31457 is marked `security_sensitive: true` and requested `secops`; ProjectClownfish must route that Docker bind-remap subfamily to central OpenClaw security handling and avoid automatic close, fix, or merge actions that depend on it.
+- none
