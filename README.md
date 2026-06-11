@@ -41,7 +41,7 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 11, 2026, 12:22 UTC
+Last dashboard update: Jun 11, 2026, 12:28 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
@@ -57,7 +57,7 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | Latest successful clusters | 349 | 97.8% |
 | Latest failed clusters | 3 | 0.8% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 662 | audit |
+| Run attempts archived | 663 | audit |
 | Fix action attempts | 188 | audit |
 | Fix actions executed | 1 | 0.5% |
 | Fix actions failed | 36 | 19.1% |
@@ -79,7 +79,7 @@ Scope: 357 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
-| [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-199237-agentic-merge.md | fixed_by_candidate close requires a merged fix PR unless allow_unmerged_fix_close: true | [report](results/openclaw/ghcrawl-199237-agentic-merge.md) | [27345868950](https://github.com/openclaw/clownfish/actions/runs/27345868950) |
+| [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-199237-agentic-merge.md | close requires Clownfish fix PR opened/pushed, merged candidate fix, or merge executed first | [report](results/openclaw/ghcrawl-199237-agentic-merge.md) | [27346401171](https://github.com/openclaw/clownfish/actions/runs/27346401171) |
 | [ghcrawl-166003-agentic-merge](results/openclaw/ghcrawl-166003-agentic-merge.md) | fix blocked | jobs/openclaw/inbox/ghcrawl-166003-agentic-merge.md | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [report](results/openclaw/ghcrawl-166003-agentic-merge.md) | [27345047272](https://github.com/openclaw/clownfish/actions/runs/27345047272) |
 | [ghcrawl-207037-agentic-merge](results/openclaw/ghcrawl-207037-agentic-merge.md) | fix failed | jobs/openclaw/inbox/ghcrawl-207037-agentic-merge.md | source PR #54646 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-207037-agentic-merge.md) | [27341769444](https://github.com/openclaw/clownfish/actions/runs/27341769444) |
 | [ghcrawl-165996-agentic-merge](results/openclaw/ghcrawl-165996-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-165996-agentic-merge.md | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | [report](results/openclaw/ghcrawl-165996-agentic-merge.md) | [27337707885](https://github.com/openclaw/clownfish/actions/runs/27337707885) |
