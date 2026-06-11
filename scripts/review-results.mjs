@@ -81,6 +81,7 @@ function reviewResult(resultPath) {
   const runDir = path.dirname(resultPath);
   const result = JSON.parse(fs.readFileSync(resultPath, "utf8"));
   const plan = readSiblingJson(runDir, "cluster-plan.json");
+  const sourceJob = readSourceJob(plan);
   const failures = [];
   const warnings = [];
   const itemByRef = buildItemMap(plan, result.repo);
@@ -219,6 +220,7 @@ function reviewResult(resultPath) {
   }
 
   if (fixActions.length > 0) {
+    validateFixActionPermissions(sourceJob, fixActions, failures);
     validateFixArtifact(result.fix_artifact, failures);
   }
   const plannedMergeActions = mergeActions.filter((action) => action.status === "planned");
@@ -226,7 +228,7 @@ function reviewResult(resultPath) {
     validateMergePreflight(result.merge_preflight, plannedMergeActions, failures);
   }
   validateCalibratedPrFinalization({
-    job: readSourceJob(plan),
+    job: sourceJob,
     result,
     itemByRef,
     fixActions,
@@ -330,6 +332,29 @@ function allowsSelfCanonicalCurrentMainCloseout(action) {
   if (candidateRef) return false;
   const text = [action.reason, action.comment, action.idempotency_key, ...(action.evidence ?? [])].join("\n");
   return /\b(current main|already fixed|already covered|fixed-by-current-main|main already)\b/i.test(text);
+}
+
+function validateFixActionPermissions(job, fixActions, failures) {
+  if (fixActions.length === 0) return;
+  if (!job) {
+    failures.push("fix actions require source job permissions");
+    return;
+  }
+
+  const allowedActions = new Set(job.frontmatter.allowed_actions ?? []);
+  const blockedActions = new Set(job.frontmatter.blocked_actions ?? []);
+  const blockers = [];
+  if (!allowedActions.has("fix")) blockers.push("allowed_actions lacks fix");
+  if (!allowedActions.has("raise_pr")) blockers.push("allowed_actions lacks raise_pr");
+  if (blockedActions.has("fix")) blockers.push("blocked_actions includes fix");
+  if (blockedActions.has("raise_pr")) blockers.push("blocked_actions includes raise_pr");
+  if (job.frontmatter.allow_fix_pr !== true) blockers.push("allow_fix_pr is not true");
+  if (blockers.length === 0) return;
+
+  const actionList = fixActions
+    .map((action) => `${action.action ?? "unknown"}:${action.target ?? "unknown"}`)
+    .join(", ");
+  failures.push(`fix actions are not permitted by job frontmatter (${blockers.join("; ")}): ${actionList}`);
 }
 
 function validateMergePreflight(mergePreflight, mergeActions, failures) {

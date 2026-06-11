@@ -47,7 +47,44 @@ test("review-results allows actionless blocked maintainer decisions", () => {
   assert.match(result.stdout, /"status": "passed"/);
 });
 
-function makeResultDir(overrides) {
+test("review-results rejects fix artifacts when source job disallows fix PRs", () => {
+  const dir = makeResultDir(
+    {
+      mode: "autonomous",
+      actions: [
+        {
+          target: "cluster:cluster-test",
+          action: "build_fix_artifact",
+          status: "planned",
+          idempotency_key: "projectclownfish:cluster-test:build-fix-artifact:v1",
+          evidence: ["closed-source PR is useful, but this job is close-only"],
+        },
+      ],
+      fix_artifact: {
+        summary: "build a narrow credited fix",
+        affected_surfaces: ["control ui"],
+        likely_files: ["ui/src/ui/chat/build-chat-items.ts"],
+        linked_refs: ["#1"],
+        validation_commands: ["pnpm check:changed"],
+        changelog_required: false,
+        credit_notes: ["credit source PR"],
+        pr_title: "fix: narrow issue",
+        pr_body: "## Summary\n- fix the issue",
+        repair_strategy: "new_fix_pr",
+      },
+    },
+    { job: closeOnlyJob() },
+  );
+
+  const result = review(dir);
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stdout, /fix actions are not permitted by job frontmatter/);
+  assert.match(result.stdout, /allowed_actions lacks fix/);
+  assert.match(result.stdout, /allow_fix_pr is not true/);
+});
+
+function makeResultDir(overrides, options = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-review-"));
   const result = {
     status: "planned",
@@ -60,6 +97,24 @@ function makeResultDir(overrides) {
     ...overrides,
   };
   fs.writeFileSync(path.join(dir, "result.json"), `${JSON.stringify(result, null, 2)}\n`);
+  if (options.job) {
+    const jobPath = path.join(dir, "job.md");
+    fs.writeFileSync(jobPath, options.job);
+    fs.writeFileSync(
+      path.join(dir, "cluster-plan.json"),
+      `${JSON.stringify(
+        {
+          source_job: path.relative(repoRoot, jobPath),
+          repo: result.repo,
+          cluster_id: result.cluster_id,
+          mode: result.mode,
+          items: [],
+        },
+        null,
+        2,
+      )}\n`,
+    );
+  }
   return dir;
 }
 
@@ -68,4 +123,25 @@ function review(dir) {
     cwd: repoRoot,
     encoding: "utf8",
   });
+}
+
+function closeOnlyJob() {
+  return `---
+repo: openclaw/openclaw
+cluster_id: cluster-test
+mode: autonomous
+allowed_actions:
+  - comment
+  - label
+  - close
+blocked_actions:
+  - fix
+  - raise_pr
+candidates:
+  - "#1"
+allow_fix_pr: false
+---
+
+# Close-only job
+`;
 }
