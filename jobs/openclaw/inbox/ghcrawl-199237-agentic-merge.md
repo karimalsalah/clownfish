@@ -43,6 +43,7 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
+allow_unmerged_fix_close: true
 canonical_hint: "Live refresh on 2026-06-11 found #60063 as the only open hydrated candidate; worker must still verify current GitHub state before action."
 notes: "Generated from ghcrawl run cluster 199237 on 2026-04-26; live refreshed on 2026-06-11."
 ---
@@ -73,6 +74,8 @@ Run one live autonomous classification pass. Classify open candidates only, veri
 Live refresh on 2026-06-11 found #60063 open; #46985 is missing/not hydratable; #47377, #47399, #54374, #63994, and #65457 are closed context only.
 
 If #60063 is repaired or replaced, do not carry its `CHANGELOG.md` edit forward. OpenClaw changelog updates are release-owned and should be omitted from ProjectClownfish replacement branches.
+
+Maintainer explicitly allows `close_fixed_by_candidate` without a merged Clownfish fix PR only if fresh worker evidence again verifies #60063 is already covered by current `main`. Prior run 27345868950 found current main `9a6c71a47d9526c677a325531dfc44adc054d9bb` already contains the narrow gateway streaming merge/replace support and focused regression coverage.
 
 ## Member Inventory
 
