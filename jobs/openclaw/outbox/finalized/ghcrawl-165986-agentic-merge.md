@@ -56,7 +56,7 @@ allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
 canonical_hint: "Live refresh on 2026-06-11 found #19929 and #51805 open; #19929 is the likely current canonical, but worker must verify current GitHub state before action."
-notes: "Generated from ghcrawl run cluster 165986 on 2026-04-26; live refreshed on 2026-06-11."
+notes: "Generated from ghcrawl run cluster 165986 on 2026-04-26; live refreshed on 2026-06-11. Finalized after run 27348198052 routed the live open shared-session family to central security handling."
 ---
 
 # GHCrawl Cluster 165986
@@ -104,3 +104,9 @@ Open candidates:
 
 - #19929 [Feature]:  Shared sessions across multiple group/channel/thread chats
 - #51805 Feature Request: Shared session context between group chats and DMs
+
+## Finalization
+
+Run `27348198052` completed successfully on 2026-06-11. Artifact review passed with 22 planned actions: 16 `keep_closed`, 5 `route_security`, and 1 `keep_related`.
+
+Live verification after the run found #19929 and #51805 still open with no-new-fix-pr style handling already present. The worker routed the surviving shared-session family, plus linked security-sensitive context refs, to central OpenClaw security handling and intentionally planned no close, merge, or fix PR. #73402 remains an open related TUI transcript-sync PR, but is separate work outside this cluster.
