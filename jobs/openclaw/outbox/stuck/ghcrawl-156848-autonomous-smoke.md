@@ -32,7 +32,7 @@ allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
 canonical_hint: "Live refresh on 2026-06-14 found #61151 open and mergeable; original representative #50802 and #58166 are closed context only."
-notes: "Generated from ghcrawl run cluster 156848 on 2026-04-26; live refreshed and promoted on 2026-06-14."
+notes: "Generated from ghcrawl run cluster 156848 on 2026-04-26; live refreshed and promoted on 2026-06-14. Parked after run 27485434872: #61151 repair artifact blocked during validation on pnpm check:changed."
 ---
 
 # GHCrawl Cluster 156848

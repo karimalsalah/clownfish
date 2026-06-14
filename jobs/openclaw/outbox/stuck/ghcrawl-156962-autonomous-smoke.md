@@ -1,6 +1,6 @@
 ---
 repo: openclaw/openclaw
-cluster_id: ghcrawl-156754-autonomous-smoke
+cluster_id: ghcrawl-156962-autonomous-smoke
 mode: autonomous
 allowed_actions:
   - comment
@@ -19,11 +19,11 @@ require_human_for:
   - unclear_canonical
   - broad_code_delta
 canonical:
-  - "#9912"
+  - "#36630"
 candidates:
-  - "#9912"
+  - "#36630"
 cluster_refs:
-  - "#9912"
+  - "#36630"
 security_policy: central_security_only
 security_sensitive: false
 allow_instant_close: true
@@ -31,27 +31,27 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "Live refresh on 2026-06-14 found #9912 open; #46140 and #47175 are closed context only. Worker must verify #9912 is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 156754 on 2026-04-26; live refreshed and promoted on 2026-06-14."
+canonical_hint: "Live refresh on 2026-06-14 found #36630 open and mergeable; #56791 is closed context only. Worker must verify #36630 is still the best live canonical."
+notes: "Generated from ghcrawl run cluster 156962 on 2026-04-26; live refreshed and promoted on 2026-06-14. Parked after run 27485436247: #36630 repair blocked because rebase conflict repair failed after 4 attempts."
 ---
 
-# GHCrawl Cluster 156754
+# GHCrawl Cluster 156962
 
-Generated from local ghcrawl run cluster 156754 for `openclaw/openclaw`.
+Generated from local ghcrawl run cluster 156962 for `openclaw/openclaw`.
 
 Display title:
 
-> Feature: Add maxTurns/maxToolCalls config option to limit agent iterations
+> fix(signal): complete bidirectional quote-reply support
 
 Cluster shape from ghcrawl:
 
-- total members: 3
-- issues: 3
-- pull requests: 0
-- open candidates in local store: 3
+- total members: 2
+- issues: 0
+- pull requests: 2
+- open candidates in local store: 2
 - open candidates after live refresh: 1
-- representative: #9912, currently open after live refresh
-- latest member update: 2026-04-26T00:46:52.053Z
+- representative: #36630, currently open after live refresh
+- latest member update: 2026-04-24T18:56:19.672Z
 
 ## Goal
 
@@ -61,9 +61,8 @@ Run one live autonomous classification pass. Classify open candidates only, veri
 
 Closed context refs:
 
-- #46140 Feature request: per-agent maxToolCalls limit
-- #47175 [Feature]: Add maxToolCallsPerTurn config to limit rapid-fire tool call bursts
+- #56791 fix(signal): forward quote metadata to agent context
 
 Open candidates:
 
-- #9912 Feature: Add maxTurns/maxToolCalls config option to limit agent iterations
+- #36630 fix(signal): complete bidirectional quote-reply support

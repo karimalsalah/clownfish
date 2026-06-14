@@ -34,7 +34,7 @@ allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
 canonical_hint: "Live refresh on 2026-06-14 found #56613 and #66252 open; original representative #11483 is closed context only. Prefer #66252 as live canonical and treat #56613 as related unless refreshed evidence supports closure."
-notes: "Generated from ghcrawl run cluster 156589 on 2026-04-26; live refreshed on 2026-06-14."
+notes: "Generated from ghcrawl run cluster 156589 on 2026-04-26; live refreshed on 2026-06-14. Finalized after run 27485432055: #66252 remains canonical and #56613 related; no safe close, merge, or fix action."
 ---
 
 # GHCrawl Cluster 156589

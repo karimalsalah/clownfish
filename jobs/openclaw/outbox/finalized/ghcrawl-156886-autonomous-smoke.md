@@ -32,7 +32,7 @@ allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
 canonical_hint: "Live refresh on 2026-06-14 found #64734 open and mergeable; #58383/#59531 are closed context only. Worker must verify #64734 is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 156886 on 2026-04-26; live refreshed and promoted on 2026-06-14."
+notes: "Generated from ghcrawl run cluster 156886 on 2026-04-26; live refreshed and promoted on 2026-06-14. Finalized after run 27485435509: replacement PR #92836 merged as f58f8c86b9582f30a93bd0b04d2d3c0d3dd0b418 and source #64734 was closed."
 ---
 
 # GHCrawl Cluster 156886
