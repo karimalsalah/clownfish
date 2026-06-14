@@ -41,44 +41,45 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 14, 2026, 04:06 UTC
+Last dashboard update: Jun 14, 2026, 04:07 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
 
-Scope: 381 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
+Scope: 382 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
 
 | Metric | Count | Rate |
 | --- | ---: | ---: |
-| Latest clusters reviewed | 381 | 100% |
+| Latest clusters reviewed | 382 | 100% |
 | Policy-archived clusters | 4 | audit |
-| Clean completed clusters | 201 | 52.8% |
+| Clean completed clusters | 201 | 52.6% |
 | Needs-human clusters | 45 | 11.8% |
-| Latest successful clusters | 373 | 97.9% |
+| Latest successful clusters | 374 | 97.9% |
 | Latest failed clusters | 3 | 0.8% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 697 | audit |
-| Fix action attempts | 228 | audit |
+| Run attempts archived | 698 | audit |
+| Fix action attempts | 229 | audit |
 | Fix actions executed | 1 | 0.4% |
-| Fix actions failed | 52 | 22.8% |
-| Fix actions blocked | 72 | 31.6% |
-| Latest clusters with fix failures | 67 | 17.6% |
-| Distinct PRs touched | 1160 | 100% |
-| Open PRs tracked | 108 | 9.3% |
+| Fix actions failed | 52 | 22.7% |
+| Fix actions blocked | 72 | 31.4% |
+| Latest clusters with fix failures | 67 | 17.5% |
+| Distinct PRs touched | 1161 | 100% |
+| Open PRs tracked | 109 | 9.4% |
 | Closed unmerged PRs tracked | 881 | 75.9% |
-| Completed close actions | 30 | 9.5% |
-| Completed merge actions | 23 | 7.3% |
+| Completed close actions | 30 | 9.4% |
+| Completed merge actions | 23 | 7.2% |
 | Duplicate closes | 22 | 73.3% |
 | Superseded closes | 0 | 0.0% |
 | Fixed-by-candidate closes | 0 | 0.0% |
 | Low-signal PR closes | 0 | 0.0% |
-| Blocked mutation attempts | 144 | 45.4% |
-| Skipped mutation attempts | 120 | 37.9% |
+| Blocked mutation attempts | 145 | 45.5% |
+| Skipped mutation attempts | 121 | 37.9% |
 
 ### Clusters Needing Inspection
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [ghcrawl-157004-typing-target-retry](results/openclaw/ghcrawl-157004-typing-target-retry.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-157004-typing-target-retry.md | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | [report](results/openclaw/ghcrawl-157004-typing-target-retry.md) | [27487489636](https://github.com/openclaw/clownfish/actions/runs/27487489636) |
 | [ghcrawl-156928-autonomous-smoke](results/openclaw/ghcrawl-156928-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-156928-autonomous-smoke.md | source PR #68106 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-156928-autonomous-smoke.md) | [27487490239](https://github.com/openclaw/clownfish/actions/runs/27487490239) |
 | [ghcrawl-157004-autonomous-smoke](results/openclaw/ghcrawl-157004-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-157004-autonomous-smoke.md | source PR #67783 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-157004-autonomous-smoke.md) | [27487023623](https://github.com/openclaw/clownfish/actions/runs/27487023623) |
 | [ghcrawl-156855-autonomous-smoke](results/openclaw/ghcrawl-156855-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-156855-autonomous-smoke.md | source PR #69975 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-156855-autonomous-smoke.md) | [27486518083](https://github.com/openclaw/clownfish/actions/runs/27486518083) |
@@ -103,7 +104,6 @@ Scope: 381 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [ghcrawl-157053-autonomous-smoke](results/openclaw/ghcrawl-157053-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-157053-autonomous-smoke.md | source PR #42908 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-157053-autonomous-smoke.md) | [27482850946](https://github.com/openclaw/clownfish/actions/runs/27482850946) |
 | [ghcrawl-156773-autonomous-smoke](results/openclaw/ghcrawl-156773-autonomous-smoke.md) | fix blocked | jobs/openclaw/inbox/ghcrawl-156773-autonomous-smoke.md | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [report](results/openclaw/ghcrawl-156773-autonomous-smoke.md) | [27482850475](https://github.com/openclaw/clownfish/actions/runs/27482850475) |
 | [ghcrawl-143801-autonomous-smoke](results/openclaw/ghcrawl-143801-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-143801-autonomous-smoke.md | source PR #67398 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-143801-autonomous-smoke.md) | [27482131963](https://github.com/openclaw/clownfish/actions/runs/27482131963) |
-| [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) | apply blocked | jobs/openclaw/inbox/ghcrawl-199237-agentic-merge.md | target changed since worker review | [report](results/openclaw/ghcrawl-199237-agentic-merge.md) | [27346967226](https://github.com/openclaw/clownfish/actions/runs/27346967226) |
 
 ### Fix Failure Queue
 
@@ -140,7 +140,7 @@ Scope: 381 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | Reason | Latest count | Example cluster |
 | --- | ---: | --- |
 | target changed since worker review | 17 | [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) |
-| merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | 14 | [ghcrawl-156928-autonomous-smoke](results/openclaw/ghcrawl-156928-autonomous-smoke.md) |
+| merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | 15 | [ghcrawl-157004-typing-target-retry](results/openclaw/ghcrawl-157004-typing-target-retry.md) |
 | job does not allow merge | 12 | [clawsweeper-commit-openclaw-openclaw-806a0119f3cd](results/openclaw/clawsweeper-commit-openclaw-openclaw-806a0119f3cd.md) |
 | blocked: Close is blocked on the canonical fix path or fix PR. | 11 | [ghcrawl-191463-agentic-merge](results/openclaw/ghcrawl-191463-agentic-merge.md) |
 | close requires ProjectClownfish fix PR opened/pushed or merge executed first | 11 | [ghcrawl-156593-autonomous-smoke](results/openclaw/ghcrawl-156593-autonomous-smoke.md) |
@@ -159,8 +159,8 @@ Scope: 381 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | PR | Title | Cluster | Branch | Blockers | Next action |
 | --- | --- | --- | --- | --- | --- |
-| [#92862](https://github.com/openclaw/openclaw/pull/92862) | fix(feishu): target typing reaction on inbound message | ghcrawl-157004-typing-target-retry | clownfish/ghcrawl-157004-typing-target-retry | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; OpenGrep — PR Diff / Scan changed ... | repair failing checks or document unrelated main flake with touched-surface proof |
-| [#92861](https://github.com/openclaw/openclaw/pull/92861) | fix(lobster): surface workflow path errors | ghcrawl-156928-autonomous-smoke | clownfish/ghcrawl-156928-autonomous-smoke | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; CI / build-artifacts:IN_PROGRESS, ... | repair failing checks or document unrelated main flake with touched-surface proof |
+| [#92862](https://github.com/openclaw/openclaw/pull/92862) | fix(feishu): target typing reaction on inbound message | ghcrawl-157004-typing-target-retry | clownfish/ghcrawl-157004-typing-target-retry | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; CI / checks-fast-contracts-channel... | repair failing checks or document unrelated main flake with touched-surface proof |
+| [#92861](https://github.com/openclaw/openclaw/pull/92861) | fix(lobster): surface workflow path errors | ghcrawl-156928-autonomous-smoke | clownfish/ghcrawl-156928-autonomous-smoke | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; CI / checks-node-core-fast:IN_PROG... | repair failing checks or document unrelated main flake with touched-surface proof |
 | [#73958](https://github.com/openclaw/openclaw/pull/73958) | fix(feishu): preserve root_id thread routing without thread_id forcing | ghcrawl-157004-autonomous-smoke | clownfish/ghcrawl-157004-autonomous-smoke | needs_checks:Real behavior proof:CANCELLED, needs_merge_preflight | repair failing checks or document unrelated main flake with touched-surface proof |
 
 ### Latest ProjectClownfish Closures
