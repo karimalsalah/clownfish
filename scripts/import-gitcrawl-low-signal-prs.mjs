@@ -18,6 +18,7 @@ const sort = String(args.sort ?? "stale");
 const skipExisting = args["skip-existing"] !== "false";
 const dryRun = Boolean(args["dry-run"]);
 const jsonOutput = Boolean(args.json);
+const changedFilesSourceSql = changedFilesSource();
 
 if (!["plan", "execute", "autonomous"].includes(mode)) {
   console.error("mode must be plan, execute, or autonomous");
@@ -64,9 +65,7 @@ function selectCandidates() {
       group_concat(distinct f.path) as files
     from threads t
     join repositories r on r.id = t.repo_id
-    left join thread_revisions tr on tr.thread_id = t.id
-    left join thread_code_snapshots s on s.thread_revision_id = tr.id
-    left join thread_changed_files f on f.snapshot_id = s.id
+    left join (${changedFilesSourceSql}) f on f.thread_id = t.id
     where r.owner = ${sqlString(repo.split("/")[0])}
       and r.name = ${sqlString(repo.split("/")[1])}
       and t.kind = 'pull_request'
@@ -302,6 +301,38 @@ function sqliteJson(sql) {
     maxBuffer: 64 * 1024 * 1024,
   }).trim();
   return JSON.parse(output || "[]");
+}
+
+function sqliteScalar(sql) {
+  const output = execFileSync("sqlite3", [dbPath, sql], {
+    cwd: repoRoot(),
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024,
+  }).trim();
+  return output;
+}
+
+function changedFilesSource() {
+  const sources = [];
+  if (tableExists("thread_revisions") && tableExists("thread_code_snapshots") && tableExists("thread_changed_files")) {
+    sources.push(`
+      select tr.thread_id, f.path
+      from thread_revisions tr
+      join thread_code_snapshots s on s.thread_revision_id = tr.id
+      join thread_changed_files f on f.snapshot_id = s.id
+    `);
+  }
+  if (tableExists("pull_request_files")) {
+    sources.push(`
+      select thread_id, path
+      from pull_request_files
+    `);
+  }
+  return sources.length > 0 ? sources.join("\nunion\n") : "select null as thread_id, null as path where 0";
+}
+
+function tableExists(table) {
+  return Number(sqliteScalar(`select count(*) from sqlite_master where type = 'table' and name = ${sqlString(table)};`)) > 0;
 }
 
 function numberArg(name, fallback) {

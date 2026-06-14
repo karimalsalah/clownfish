@@ -27,6 +27,7 @@ const minOpenMembers = numberArg("min-open-members", 1);
 let clusterIds = args._.map((value) => Number(value)).filter(Boolean);
 const selectingFromGitcrawl = clusterIds.length === 0 && fromGitcrawl;
 const clusterSource = detectClusterSource();
+const threadBodyColumn = tableHasColumn("threads", "body_excerpt") ? "body_excerpt" : "body";
 
 if (selectingFromGitcrawl) {
   clusterIds = selectClusterIds();
@@ -257,7 +258,7 @@ function memberSqlForClusterIds(clusterIds) {
         t.kind,
         t.state,
         t.title,
-        t.body_excerpt as body,
+        t.${threadBodyColumn} as body,
         t.labels_json,
         t.updated_at
       from cluster_groups cg
@@ -337,6 +338,12 @@ function detectClusterSource() {
   return "legacy";
 }
 
+function tableHasColumn(table, column) {
+  const tableName = sqlString(table);
+  const columnName = sqlString(column);
+  return Number(sqliteScalar(`select count(*) from pragma_table_info(${tableName}) where name = ${columnName};`)) > 0;
+}
+
 function numberArg(name, fallback) {
   const value = Number(args[name] ?? fallback);
   if (!Number.isInteger(value) || value < 1) throw new Error(`--${name} must be a positive integer`);
@@ -409,6 +416,10 @@ function yamlField(name, values) {
 
 function quoteYaml(value) {
   return JSON.stringify(String(value));
+}
+
+function sqlString(value) {
+  return `'${String(value).replaceAll("'", "''")}'`;
 }
 
 function canonicalHint(representative) {
