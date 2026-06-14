@@ -19,25 +19,13 @@ require_human_for:
   - unclear_canonical
   - broad_code_delta
 canonical:
-  - "#61130"
+  - "#61080"
 candidates:
-  - "#52776"
-  - "#61073"
   - "#61080"
-  - "#61092"
-  - "#61104"
   - "#61112"
-  - "#61119"
-  - "#61130"
 cluster_refs:
-  - "#52776"
-  - "#61073"
   - "#61080"
-  - "#61092"
-  - "#61104"
   - "#61112"
-  - "#61119"
-  - "#61130"
 security_policy: central_security_only
 security_sensitive: false
 allow_instant_close: true
@@ -45,8 +33,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "ghcrawl representative #61130 is open; worker must verify it is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 156615 on 2026-04-26."
+canonical_hint: "Live refresh on 2026-06-14 found #61080 and #61112 open; original representative #61130 and sibling PRs are closed context only. Repair or partition the live PRs; do not assume they are duplicates."
+notes: "Generated from ghcrawl run cluster 156615 on 2026-04-26; live refreshed on 2026-06-14."
 ---
 
 # GHCrawl Cluster 156615
@@ -63,7 +51,7 @@ Cluster shape from ghcrawl:
 - issues: 0
 - pull requests: 8
 - open candidates in local store: 8
-- representative: #61130, currently open in local store
+- representative: #61130, currently closed after live refresh
 - latest member update: 2026-04-24T18:56:27.683Z
 
 ## Goal
@@ -74,15 +62,14 @@ Run one live autonomous classification pass. Classify open candidates only, veri
 
 Closed context refs:
 
-- none
+- #52776 UI: localize Control UI shell labels
+- #61073 UI: localize instances hardcoded labels
+- #61092 UI: localize skills hardcoded labels
+- #61104 UI: localize agent tools and skills labels
+- #61119 UI: localize connect command labels
+- #61130 UI: localize command palette labels
 
 Open candidates:
 
-- #52776 UI: localize Control UI shell labels
-- #61073 UI: localize instances hardcoded labels
 - #61080 UI: localize logs hardcoded labels
-- #61092 UI: localize skills hardcoded labels
-- #61104 UI: localize agent tools and skills labels
 - #61112 UI: localize markdown sidebar labels
-- #61119 UI: localize connect command labels
-- #61130 UI: localize command palette labels

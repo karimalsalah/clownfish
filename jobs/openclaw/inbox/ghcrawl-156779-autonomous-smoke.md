@@ -19,15 +19,13 @@ require_human_for:
   - unclear_canonical
   - broad_code_delta
 canonical:
-  - "#42410"
+  - "#40768"
 candidates:
   - "#40768"
   - "#40782"
-  - "#42410"
 cluster_refs:
   - "#40768"
   - "#40782"
-  - "#42410"
 security_policy: central_security_only
 security_sensitive: false
 allow_instant_close: true
@@ -35,8 +33,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "ghcrawl representative #42410 is open; worker must verify it is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 156779 on 2026-04-26."
+canonical_hint: "Live refresh on 2026-06-14 found #40768 and #40782 open; original representative #42410 is closed context only."
+notes: "Generated from ghcrawl run cluster 156779 on 2026-04-26; live refreshed on 2026-06-14."
 ---
 
 # GHCrawl Cluster 156779
@@ -53,7 +51,7 @@ Cluster shape from ghcrawl:
 - issues: 2
 - pull requests: 1
 - open candidates in local store: 3
-- representative: #42410, currently open in local store
+- representative: #42410, currently closed after live refresh
 - latest member update: 2026-04-25T07:30:09.952Z
 
 ## Goal
@@ -64,10 +62,9 @@ Run one live autonomous classification pass. Classify open candidates only, veri
 
 Closed context refs:
 
-- none
+- #42410 [Feature]: Feishu: multi-bot @mention matching fails due to app-scoped open_id — need fallback identity resolution
 
 Open candidates:
 
 - #40768 Feishu: @mention not recognized in group when multiple bots share the same group (open_id app-scoped mismatch)
 - #40782 fix(feishu): use union_id as fallback for @mention detection in multi-bot groups
-- #42410 [Feature]: Feishu: multi-bot @mention matching fails due to app-scoped open_id — need fallback identity resolution
