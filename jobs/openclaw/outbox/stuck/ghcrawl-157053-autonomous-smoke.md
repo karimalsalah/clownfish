@@ -33,8 +33,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "ghcrawl representative #42754 is open; worker must verify it is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 157053 on 2026-04-26."
+canonical_hint: "Parked on 2026-06-14 after run 27482850946: recoverable branch clownfish/ghcrawl-157053-autonomous-smoke reached 98d4aeb, but validation failed; requeue alone after narrowing/repairing the Feishu card-action patch."
+notes: "Generated from ghcrawl run cluster 157053 on 2026-04-26; parked on 2026-06-14 after failed replacement-branch validation."
 ---
 
 # GHCrawl Cluster 157053
@@ -57,6 +57,10 @@ Cluster shape from ghcrawl:
 ## Goal
 
 Run one live autonomous classification pass. Classify open candidates only, verify live GitHub state, choose the current canonical issue or PR if the representative is obsolete, and emit only high-confidence planned close/comment/label actions. Closed context refs are evidence only and must not receive close actions.
+
+## Live Operator Notes
+
+Parked on 2026-06-14 after run 27482850946. Requeue this one by itself if resumed: a recoverable branch exists, but the previous replacement branch failed `pnpm check:changed` and should not ride with a broader wave.
 
 ## Member Inventory
 

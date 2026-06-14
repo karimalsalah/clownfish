@@ -22,8 +22,8 @@ candidates:
   - "#46899"
 cluster_refs:
   - "#46899"
-canonical_hint: "Live refresh on 2026-06-14 found #46899 as the only open hydrated candidate; worker must still verify current GitHub state before action."
-notes: "Generated from ghcrawl run cluster 143800 on 2026-04-25; live refreshed on 2026-06-14."
+canonical_hint: "Finalized on 2026-06-14: run 27481569095 confirmed #46899 is the only live hydrated candidate and no mutation/fix is planned."
+notes: "Generated from ghcrawl run cluster 143800 on 2026-04-25; live refreshed and finalized on 2026-06-14."
 ---
 
 # GHCrawl Cluster 143800
@@ -51,6 +51,8 @@ Classify the open candidate issues and PRs in read-only plan mode. Do not close 
 ## Live Operator Notes
 
 Live refresh on 2026-06-14 found #46899 open. The original ghcrawl representative #41129 and all other hydrated refs are closed context only.
+
+Finalized on 2026-06-14 after run 27481569095: plan-only classification kept #46899 open with no close, merge, or fix action.
 
 ## Member Inventory
 

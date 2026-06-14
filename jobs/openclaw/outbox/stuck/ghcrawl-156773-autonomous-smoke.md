@@ -33,8 +33,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "Live refresh on 2026-06-14 found #39923 and #40392 open; original representative #39982 is closed context only."
-notes: "Generated from ghcrawl run cluster 156773 on 2026-04-26; live refreshed on 2026-06-14."
+canonical_hint: "Parked on 2026-06-14 after run 27482850475: #39923/#40392 remain useful, but #40392 repair was blocked as too broad and needs a narrower split before retry."
+notes: "Generated from ghcrawl run cluster 156773 on 2026-04-26; live refreshed and parked on 2026-06-14."
 ---
 
 # GHCrawl Cluster 156773
@@ -57,6 +57,10 @@ Cluster shape from ghcrawl:
 ## Goal
 
 Run one live autonomous classification pass. Classify open candidates only, verify live GitHub state, choose the current canonical issue or PR if the representative is obsolete, and emit only high-confidence planned close/comment/label actions. Closed context refs are evidence only and must not receive close actions.
+
+## Live Operator Notes
+
+Parked on 2026-06-14 after run 27482850475. Split before retry: keep the narrow #40392 repair around config backup rotation and do not bundle the broader related work.
 
 ## Member Inventory
 
