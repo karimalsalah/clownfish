@@ -3,17 +3,17 @@
   "clownfish_repo": "openclaw/clownfish",
   "head_prefix": "clownfish/",
   "label": "clownfish",
-  "generated_at": "2026-06-14T04:06:51.540Z",
-  "count": 3,
+  "generated_at": "2026-06-14T04:23:57.420Z",
+  "count": 1,
   "summary": {
-    "open_prs": 3,
+    "open_prs": 1,
     "ready_candidates": 0,
     "security_hold": 0,
-    "needs_rebase": 0,
+    "needs_rebase": 1,
     "mergeability_unknown": 0,
-    "needs_checks": 3,
+    "needs_checks": 1,
     "needs_review": 0,
-    "needs_merge_preflight": 3,
+    "needs_merge_preflight": 1,
     "needs_result_backfill": 0
   },
   "dispatch": {
@@ -28,191 +28,16 @@
   },
   "prs": [
     {
-      "number": 92862,
-      "title": "fix(feishu): target typing reaction on inbound message",
-      "url": "https://github.com/openclaw/openclaw/pull/92862",
-      "branch": "clownfish/ghcrawl-157004-typing-target-retry",
-      "head_sha": "340ce0e8f97486e44a8966df3e8f16eb7a0c14b2",
-      "cluster_id": "ghcrawl-157004-typing-target-retry",
-      "job_path": "jobs/openclaw/inbox/ghcrawl-157004-typing-target-retry.md",
-      "updated_at": "2026-06-14T04:06:26Z",
-      "mergeable": "MERGEABLE",
-      "merge_state_status": "UNSTABLE",
-      "review_decision": "",
-      "security_hold": false,
-      "checks": {
-        "total": 179,
-        "counts": {
-          "CANCELLED": 5,
-          "SKIPPED": 47,
-          "SUCCESS": 99,
-          "IN_PROGRESS": 28
-        },
-        "blockers": [
-          "Real behavior proof:CANCELLED",
-          "Real behavior proof:CANCELLED",
-          "CI / checks-fast-contracts-channels-a:IN_PROGRESS",
-          "CodeQL Critical Quality / Critical Quality (channel-runtime-boundary):IN_PROGRESS",
-          "CI / checks-node-core-fast:IN_PROGRESS",
-          "CI / checks-node-core-src-security:IN_PROGRESS",
-          "CI / checks-node-core-tooling:IN_PROGRESS",
-          "CI / checks-node-core-runtime-infra-storage-state:IN_PROGRESS",
-          "CI / checks-node-core-runtime-infra-system-runtime:IN_PROGRESS",
-          "CI / checks-node-core-runtime-media-ui:IN_PROGRESS",
-          "CI / checks-node-core-runtime-cron-isolated-agent:IN_PROGRESS",
-          "CI / checks-node-core-runtime-cron-service:IN_PROGRESS",
-          "CI / checks-node-agentic-control-plane-http-plugin-ws:IN_PROGRESS",
-          "CI / checks-node-agentic-control-plane-runtime-config:IN_PROGRESS",
-          "CI / checks-node-agentic-control-plane-runtime-server:IN_PROGRESS",
-          "CI / checks-node-agentic-cli:IN_PROGRESS",
-          "CI / checks-node-agentic-commands-agent-channel:IN_PROGRESS",
-          "CI / checks-node-agentic-commands-doctor-config-state:IN_PROGRESS",
-          "CI / checks-node-agentic-agents-core-runtime:IN_PROGRESS",
-          "CI / checks-node-agentic-agents-embedded:IN_PROGRESS",
-          "CI / checks-node-agentic-agents-support:IN_PROGRESS",
-          "CI / checks-node-agentic-agents-tools:IN_PROGRESS",
-          "CI / checks-node-agentic-plugin-sdk:IN_PROGRESS",
-          "CI / checks-node-auto-reply-core-top-level:IN_PROGRESS",
-          "CI / checks-node-auto-reply-reply-agent-runner:IN_PROGRESS",
-          "CI / check-shrinkwrap:IN_PROGRESS",
-          "CI / check-lint:IN_PROGRESS",
-          "CI / check-additional-boundaries-a:IN_PROGRESS",
-          "CI / check-additional-extension-bundled:IN_PROGRESS",
-          "CI / check-additional-extension-package-boundary:IN_PROGRESS"
-        ]
-      },
-      "review_threads": {
-        "status": "clean",
-        "reason": null,
-        "unresolved_count": 0,
-        "examples": []
-      },
-      "review_bots": {
-        "count": 0,
-        "latest": []
-      },
-      "latest_record": {
-        "run_id": "27487489636",
-        "run_url": "https://github.com/openclaw/clownfish/actions/runs/27487489636",
-        "cluster_id": "ghcrawl-157004-typing-target-retry",
-        "published_at": "2026-06-14T04:06:16.145Z",
-        "workflow_conclusion": "success",
-        "apply_action": {
-          "target": "#92862",
-          "action": "merge_canonical",
-          "status": "blocked",
-          "classification": "fix_pr",
-          "canonical": null,
-          "candidate_fix": null,
-          "title": "fix(feishu): target typing reaction on inbound message",
-          "idempotency_key": null,
-          "source_status": null,
-          "source_reason": null,
-          "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
-          "merged_at": null,
-          "merge_commit_sha": null,
-          "live_state": null,
-          "live_updated_at": null
-        }
-      },
-      "blockers": [
-        "needs_merge_state:UNSTABLE",
-        "needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; CI / checks-fast-contracts-channels-a:IN_PROGRESS",
-        "needs_merge_preflight"
-      ],
-      "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
-    },
-    {
-      "number": 92861,
-      "title": "fix(lobster): surface workflow path errors",
-      "url": "https://github.com/openclaw/openclaw/pull/92861",
-      "branch": "clownfish/ghcrawl-156928-autonomous-smoke",
-      "head_sha": "7e1d9e78e73fc8076ba31d0d5da38b4d01c0d69d",
-      "cluster_id": "ghcrawl-156928-autonomous-smoke",
-      "job_path": "jobs/openclaw/inbox/ghcrawl-156928-autonomous-smoke.md",
-      "updated_at": "2026-06-14T04:06:28Z",
-      "mergeable": "MERGEABLE",
-      "merge_state_status": "UNSTABLE",
-      "review_decision": "",
-      "security_hold": false,
-      "checks": {
-        "total": 178,
-        "counts": {
-          "CANCELLED": 4,
-          "SKIPPED": 48,
-          "SUCCESS": 113,
-          "IN_PROGRESS": 13
-        },
-        "blockers": [
-          "Real behavior proof:CANCELLED",
-          "Real behavior proof:CANCELLED",
-          "CI / checks-node-core-fast:IN_PROGRESS",
-          "CI / checks-node-core-tooling:IN_PROGRESS",
-          "CI / checks-node-core-runtime-infra-storage-state:IN_PROGRESS",
-          "CI / checks-node-core-runtime-media-ui:IN_PROGRESS",
-          "CI / checks-node-agentic-control-plane-startup-core:IN_PROGRESS",
-          "CI / checks-node-agentic-cli:IN_PROGRESS",
-          "CI / checks-node-agentic-commands-doctor-config-state:IN_PROGRESS",
-          "CI / checks-node-agentic-agents-core-runner:IN_PROGRESS",
-          "CI / checks-node-agentic-agents-embedded:IN_PROGRESS",
-          "CI / check-shrinkwrap:IN_PROGRESS",
-          "CI / check-additional-boundaries-a:IN_PROGRESS",
-          "CI / check-additional-extension-channels:IN_PROGRESS",
-          "CI / check-additional-extension-bundled:IN_PROGRESS"
-        ]
-      },
-      "review_threads": {
-        "status": "clean",
-        "reason": null,
-        "unresolved_count": 0,
-        "examples": []
-      },
-      "review_bots": {
-        "count": 0,
-        "latest": []
-      },
-      "latest_record": {
-        "run_id": "27487490239",
-        "run_url": "https://github.com/openclaw/clownfish/actions/runs/27487490239",
-        "cluster_id": "ghcrawl-156928-autonomous-smoke",
-        "published_at": "2026-06-14T04:04:50.924Z",
-        "workflow_conclusion": "success",
-        "apply_action": {
-          "target": "#92861",
-          "action": "merge_canonical",
-          "status": "blocked",
-          "classification": "fix_pr",
-          "canonical": null,
-          "candidate_fix": null,
-          "title": "fix(lobster): surface workflow path errors",
-          "idempotency_key": null,
-          "source_status": null,
-          "source_reason": null,
-          "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
-          "merged_at": null,
-          "merge_commit_sha": null,
-          "live_state": null,
-          "live_updated_at": null
-        }
-      },
-      "blockers": [
-        "needs_merge_state:UNSTABLE",
-        "needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; CI / checks-node-core-fast:IN_PROGRESS",
-        "needs_merge_preflight"
-      ],
-      "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
-    },
-    {
       "number": 73958,
       "title": "fix(feishu): preserve root_id thread routing without thread_id forcing",
       "url": "https://github.com/openclaw/openclaw/pull/73958",
       "branch": "clownfish/ghcrawl-157004-autonomous-smoke",
       "head_sha": "8d9bcbd10e06aa451dacadd37a3f6069e26e94da",
       "cluster_id": "ghcrawl-157004-autonomous-smoke",
-      "job_path": "jobs/openclaw/inbox/ghcrawl-157004-autonomous-smoke.md",
+      "job_path": "jobs/openclaw/outbox/finalized/ghcrawl-157004-autonomous-smoke.md",
       "updated_at": "2026-06-14T03:54:21Z",
-      "mergeable": "MERGEABLE",
-      "merge_state_status": "CLEAN",
+      "mergeable": "CONFLICTING",
+      "merge_state_status": "DIRTY",
       "review_decision": "",
       "security_hold": false,
       "checks": {
@@ -273,10 +98,12 @@
         }
       },
       "blockers": [
+        "needs_rebase:CONFLICTING",
+        "needs_merge_state:DIRTY",
         "needs_checks:Real behavior proof:CANCELLED",
         "needs_merge_preflight"
       ],
-      "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
+      "recommended_next_action": "resume branch, rebase onto current main, repair conflicts, run changed checks, rerun review"
     }
   ]
 }
