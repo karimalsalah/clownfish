@@ -33,8 +33,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "Live refresh on 2026-06-14 found #61080 and #61112 open; original representative #61130 and sibling PRs are closed context only. Repair or partition the live PRs; do not assume they are duplicates."
-notes: "Generated from ghcrawl run cluster 156615 on 2026-04-26; live refreshed on 2026-06-14."
+canonical_hint: "Finalized on 2026-06-14: replacement PR #92820 landed at 971542b7f6dc50ceb231fc3fdd7dc8dcfede5f47; source PR #61080 was closed as superseded. #61112 remains independent follow-up scope."
+notes: "Generated from ghcrawl run cluster 156615 on 2026-04-26; live refreshed and finalized on 2026-06-14."
 ---
 
 # GHCrawl Cluster 156615

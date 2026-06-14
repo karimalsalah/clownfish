@@ -19,17 +19,11 @@ require_human_for:
   - unclear_canonical
   - broad_code_delta
 canonical:
-  - "#57298"
+  - "#54962"
 candidates:
-  - "#50102"
   - "#54962"
-  - "#57298"
-  - "#66912"
 cluster_refs:
-  - "#50102"
   - "#54962"
-  - "#57298"
-  - "#66912"
 security_policy: central_security_only
 security_sensitive: false
 allow_instant_close: true
@@ -37,8 +31,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "ghcrawl representative #57298 is open; worker must verify it is still the best live canonical."
-notes: "Generated from ghcrawl run cluster 156727 on 2026-04-26."
+canonical_hint: "Live refresh on 2026-06-14 found only #54962 open; #50102, #57298, and #66912 are closed context only."
+notes: "Generated from ghcrawl run cluster 156727 on 2026-04-26; live refreshed on 2026-06-14."
 ---
 
 # GHCrawl Cluster 156727
@@ -55,7 +49,7 @@ Cluster shape from ghcrawl:
 - issues: 0
 - pull requests: 4
 - open candidates in local store: 4
-- representative: #57298, currently open in local store
+- representative: #57298, currently closed after live refresh
 - latest member update: 2026-04-24T18:56:29.095Z
 
 ## Goal
@@ -66,11 +60,10 @@ Run one live autonomous classification pass. Classify open candidates only, veri
 
 Closed context refs:
 
-- none
+- #50102 fix: prevent ghost media attachments from debounce buffer flatMap
+- #57298 fix(telegram): skip bot-authored media in reply resolution
+- #66912 fix(telegram): restore self-authored reply-media guard
 
 Open candidates:
 
-- #50102 fix: prevent ghost media attachments from debounce buffer flatMap
 - #54962 fix(telegram): add 'callback_data:' prefix to inline button callbacks
-- #57298 fix(telegram): skip bot-authored media in reply resolution
-- #66912 fix(telegram): restore self-authored reply-media guard

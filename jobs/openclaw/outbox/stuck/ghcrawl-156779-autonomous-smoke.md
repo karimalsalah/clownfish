@@ -33,8 +33,8 @@ allow_fix_pr: true
 allow_merge: true
 allow_post_merge_close: true
 require_fix_before_close: true
-canonical_hint: "Live refresh on 2026-06-14 found #40768 and #40782 open; original representative #42410 is closed context only."
-notes: "Generated from ghcrawl run cluster 156779 on 2026-04-26; live refreshed on 2026-06-14."
+canonical_hint: "Parked on 2026-06-14: autonomous executor blocked the combined fix artifact as too broad. Split into identity-source, mention-matcher, and debounce-mention follow-up jobs before retrying."
+notes: "Generated from ghcrawl run cluster 156779 on 2026-04-26; live refreshed on 2026-06-14; parked after broad-fix guard."
 ---
 
 # GHCrawl Cluster 156779
