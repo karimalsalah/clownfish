@@ -7022,5 +7022,27 @@
     "merge_commit_sha": null,
     "live_state": null,
     "live_updated_at": null
+  },
+  {
+    "repo": "openclaw/openclaw",
+    "run_id": "27488930957",
+    "run_url": "https://github.com/openclaw/clownfish/actions/runs/27488930957",
+    "cluster_id": "gitcrawl-5644-autonomous-smoke",
+    "published_at": "2026-06-14T05:38:17.901Z",
+    "target": "#92881",
+    "action": "merge_canonical",
+    "status": "blocked",
+    "classification": "fix_pr",
+    "canonical": null,
+    "candidate_fix": null,
+    "title": "fix(memory): preserve reindex rollback recovery",
+    "idempotency_key": null,
+    "source_status": null,
+    "source_reason": null,
+    "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
+    "merged_at": null,
+    "merge_commit_sha": null,
+    "live_state": null,
+    "live_updated_at": null
   }
 ]
