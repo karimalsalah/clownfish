@@ -6670,5 +6670,27 @@
     "merge_commit_sha": null,
     "live_state": null,
     "live_updated_at": null
+  },
+  {
+    "repo": "openclaw/openclaw",
+    "run_id": "27485435509",
+    "run_url": "https://github.com/openclaw/clownfish/actions/runs/27485435509",
+    "cluster_id": "ghcrawl-156886-autonomous-smoke",
+    "published_at": "2026-06-14T02:17:30.668Z",
+    "target": "#92836",
+    "action": "merge_canonical",
+    "status": "blocked",
+    "classification": "fix_pr",
+    "canonical": null,
+    "candidate_fix": null,
+    "title": "fix(discord): raise thread title timeout and tokens to fit reasoning models",
+    "idempotency_key": null,
+    "source_status": null,
+    "source_reason": null,
+    "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
+    "merged_at": null,
+    "merge_commit_sha": null,
+    "live_state": null,
+    "live_updated_at": null
   }
 ]
