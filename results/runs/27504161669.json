@@ -11,7 +11,7 @@
   "workflow_updated_at": null,
   "result_status": "planned",
   "source_job": "jobs/openclaw/outbox/stuck/ghcrawl-156876-autonomous-smoke.md",
-  "published_at": "2026-06-14T16:20:24.928Z",
+  "published_at": "2026-06-14T17:13:57.602Z",
   "canonical": "https://github.com/openclaw/openclaw/issues/56096",
   "canonical_issue": "https://github.com/openclaw/openclaw/issues/56096",
   "canonical_pr": null,
@@ -96,8 +96,7 @@
     "opened": 1
   },
   "apply_counts": {
-    "skipped": 1,
-    "blocked": 1
+    "executed": 2
   },
   "needs_human": [],
   "fix_actions": [
@@ -126,24 +125,24 @@
     {
       "target": "#55886",
       "action": "close_superseded",
-      "status": "skipped",
-      "classification": "superseded",
+      "status": "executed",
+      "classification": "post_merge_closeout",
       "canonical": "#56096",
-      "candidate_fix": null,
+      "candidate_fix": "#93020",
       "title": null,
-      "idempotency_key": "ghcrawl-156876-autonomous-smoke:#55886:close_superseded:blocked:2026-06-14T10-25-21Z",
-      "source_status": "blocked",
-      "source_reason": "Useful contributor PR is superseded by a planned replacement path, but closeout must wait for the replacement PR.",
-      "reason": "action status is blocked",
+      "idempotency_key": null,
+      "source_status": null,
+      "source_reason": null,
+      "reason": "closed after canonical fix merged",
       "merged_at": null,
-      "merge_commit_sha": null,
-      "live_state": null,
+      "merge_commit_sha": "6134c00657a247d6f7accc9182d0b901c4f26b48",
+      "live_state": "closed",
       "live_updated_at": null
     },
     {
       "target": "#93020",
       "action": "merge_canonical",
-      "status": "blocked",
+      "status": "executed",
       "classification": "fix_pr",
       "canonical": null,
       "candidate_fix": null,
@@ -151,10 +150,10 @@
       "idempotency_key": null,
       "source_status": null,
       "source_reason": null,
-      "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
-      "merged_at": null,
-      "merge_commit_sha": null,
-      "live_state": null,
+      "reason": "already merged",
+      "merged_at": "2026-06-14T17:07:11Z",
+      "merge_commit_sha": "6134c00657a247d6f7accc9182d0b901c4f26b48",
+      "live_state": "merged",
       "live_updated_at": null
     }
   ]

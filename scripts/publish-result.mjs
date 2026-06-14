@@ -17,6 +17,7 @@ const CLOSE_APPLICATOR_ACTIONS = new Set([
 const MERGE_APPLICATOR_ACTIONS = new Set(["merge_candidate", "merge_canonical"]);
 const APPLICATOR_ACTIONS = new Set([...CLOSE_APPLICATOR_ACTIONS, ...MERGE_APPLICATOR_ACTIONS]);
 const POST_FLIGHT_APPLY_ACTIONS = new Set(["finalize_fix_pr", "post_merge_closeout"]);
+const PROBLEM_ACTION_STATUSES = new Set(["blocked", "failed"]);
 const PR_INFO_CACHE = new Map();
 const ISSUE_INFO_CACHE = new Map();
 const archivedClusters = readArchivedClusters();
@@ -267,7 +268,9 @@ function updateDashboard() {
   const skippedRows = applyRows.filter((row) => row.action.status === "skipped");
   const latestBlockedRows = latestApplyRows.filter((row) => row.action.status === "blocked");
   const latestSkippedRows = latestApplyRows.filter((row) => row.action.status === "skipped");
-  const latestFailedFixRows = latestFixRows.filter((row) => ["blocked", "failed"].includes(String(row.action.status ?? "")));
+  const latestFailedFixRows = latestFixRows.filter(
+    (row) => PROBLEM_ACTION_STATUSES.has(String(row.action.status ?? "")) && !recordHasExecutedFixMerge(row.record),
+  );
   const needsHumanRows = latestByCluster.filter((record) => (record.needs_human ?? []).length > 0);
   const inspectionRows = buildInspectionRows({
     latestByCluster,
@@ -280,8 +283,9 @@ function updateDashboard() {
     (record) =>
       record.workflow_conclusion === "success" &&
       (record.needs_human ?? []).length === 0 &&
-      (record.fix_actions ?? []).every((action) => !["blocked", "failed"].includes(action.status)) &&
-      (record.apply_actions ?? []).every((action) => !["blocked", "failed"].includes(action.status)),
+      (recordHasExecutedFixMerge(record) ||
+        (record.fix_actions ?? []).every((action) => !PROBLEM_ACTION_STATUSES.has(String(action.status ?? "")))) &&
+      (record.apply_actions ?? []).every((action) => !PROBLEM_ACTION_STATUSES.has(String(action.status ?? ""))),
   );
   const workflowState =
     latestByCluster.some((record) => record.workflow_conclusion === "failure")
@@ -647,6 +651,15 @@ function sortNewestRecordFirst(left, right) {
 
 function countRows(rows, predicate) {
   return rows.filter(predicate).length;
+}
+
+function recordHasExecutedFixMerge(record) {
+  return (record?.apply_actions ?? []).some(
+    (action) =>
+      action.status === "executed" &&
+      action.classification === "fix_pr" &&
+      MERGE_APPLICATOR_ACTIONS.has(String(action.action ?? "")),
+  );
 }
 
 function renderRecentClosureRows(rows) {

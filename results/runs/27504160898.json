@@ -11,7 +11,7 @@
   "workflow_updated_at": null,
   "result_status": "planned",
   "source_job": "jobs/openclaw/outbox/stuck/ghcrawl-157040-autonomous-smoke.md",
-  "published_at": "2026-06-14T16:22:23.730Z",
+  "published_at": "2026-06-14T17:14:37.916Z",
   "canonical": "https://github.com/openclaw/openclaw/pull/70205",
   "canonical_issue": null,
   "canonical_pr": "https://github.com/openclaw/openclaw/pull/70205",
@@ -78,7 +78,7 @@
     "opened": 1
   },
   "apply_counts": {
-    "blocked": 1
+    "executed": 2
   },
   "needs_human": [],
   "fix_actions": [
@@ -123,7 +123,7 @@
     {
       "target": "#93022",
       "action": "merge_canonical",
-      "status": "blocked",
+      "status": "executed",
       "classification": "fix_pr",
       "canonical": null,
       "candidate_fix": null,
@@ -131,10 +131,27 @@
       "idempotency_key": null,
       "source_status": null,
       "source_reason": null,
-      "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
+      "reason": "already merged",
+      "merged_at": "2026-06-14T17:06:37Z",
+      "merge_commit_sha": "4c2fef4a3bafa66d64d8c6077305c0b6a15ede2a",
+      "live_state": "merged",
+      "live_updated_at": null
+    },
+    {
+      "target": "#70205",
+      "action": "close_superseded",
+      "status": "executed",
+      "classification": "post_merge_closeout",
+      "canonical": "#93022",
+      "candidate_fix": "#93022",
+      "title": null,
+      "idempotency_key": null,
+      "source_status": null,
+      "source_reason": null,
+      "reason": "closed after canonical fix merged",
       "merged_at": null,
-      "merge_commit_sha": null,
-      "live_state": null,
+      "merge_commit_sha": "4c2fef4a3bafa66d64d8c6077305c0b6a15ede2a",
+      "live_state": "closed",
       "live_updated_at": null
     }
   ]

@@ -7,7 +7,7 @@ run_url: "https://github.com/openclaw/clownfish/actions/runs/27504160898"
 head_sha: "dd5c2005f23223b62d521e611dde7c5cf4c69342"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-14T16:22:23.730Z"
+published_at: "2026-06-14T17:14:37.916Z"
 canonical: "https://github.com/openclaw/openclaw/pull/70205"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/70205"
@@ -15,8 +15,8 @@ actions_total: 5
 fix_executed: 0
 fix_failed: 1
 fix_blocked: 0
-apply_executed: 0
-apply_blocked: 1
+apply_executed: 2
+apply_blocked: 0
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -45,8 +45,8 @@ Canonical: https://github.com/openclaw/openclaw/pull/70205
 | Fix executed | 0 |
 | Fix failed | 1 |
 | Fix blocked | 0 |
-| Applied executions | 0 |
-| Apply blocked | 1 |
+| Applied executions | 2 |
+| Apply blocked | 0 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -61,7 +61,8 @@ Canonical: https://github.com/openclaw/openclaw/pull/70205
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93022 | merge_canonical | blocked | fix_pr | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish |
+| #93022 | merge_canonical | executed | fix_pr | already merged |
+| #70205 | close_superseded | executed | post_merge_closeout | closed after canonical fix merged |
 
 ## Worker Action Matrix
 
