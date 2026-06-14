@@ -7226,7 +7226,7 @@
     "run_id": "27506374186",
     "run_url": "https://github.com/openclaw/clownfish/actions/runs/27506374186",
     "cluster_id": "ghcrawl-156982-autonomous-smoke",
-    "published_at": "2026-06-14T17:27:32.101Z",
+    "published_at": "2026-06-14T17:40:52.568Z",
     "target": "#39245",
     "action": "close_superseded",
     "status": "skipped",

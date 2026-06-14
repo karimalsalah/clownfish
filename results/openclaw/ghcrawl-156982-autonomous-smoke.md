@@ -7,7 +7,7 @@ run_url: "https://github.com/openclaw/clownfish/actions/runs/27506374186"
 head_sha: "772609939e8df97f161412c135242d1e0fca23c1"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-14T17:27:32.101Z"
+published_at: "2026-06-14T17:40:52.568Z"
 canonical: "cluster:ghcrawl-156982-autonomous-smoke"
 canonical_issue: null
 canonical_pr: null
