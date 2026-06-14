@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-156966-autonomous-smoke"
 mode: "autonomous"
-run_id: "27494815044"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27494815044"
-head_sha: "2fe1e514dd96b4c06f82a4dcf98f42c8cd4f4700"
+run_id: "27507069908"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27507069908"
+head_sha: "452d849c3084d2b5ee13cd4f89ce39b32c364f59"
 workflow_conclusion: "success"
 result_status: "blocked"
-published_at: "2026-06-14T09:40:49.270Z"
+published_at: "2026-06-14T17:52:10.372Z"
 canonical: "https://github.com/openclaw/openclaw/issues/38091"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/38091"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27494815044](https://github.com/openclaw/clownfish/actions/runs/27494815044)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27507069908](https://github.com/openclaw/clownfish/actions/runs/27507069908)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/38091
 
 ## Summary
 
-#38091 is the current open canonical issue; #38090 is already closed as its duplicate and receives no closure action. Current main still has the reported reconnect failure path, but executable fix work is blocked because #38091's hydrated ClawSweeper review says an existing recovery PR is open/conflicting and the preflight artifact did not hydrate that PR, so Clownfish should not queue a competing fix PR until that PR is hydrated and repaired or explicitly superseded.
+#38091 is the current open canonical issue. #38090 is already closed as its duplicate and receives no closure action. Current main still contains the reported reconnect failure path, but executable fix work is blocked because #38091's hydrated ClawSweeper review says an existing recovery PR is open/conflicting and the preflight artifact did not hydrate that PR, so Clownfish should not queue a competing fix PR until that PR is hydrated and repaired or explicitly superseded.
 
 ## Impact
 
