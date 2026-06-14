@@ -41,23 +41,23 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 14, 2026, 01:52 UTC
+Last dashboard update: Jun 14, 2026, 01:54 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
 
-Scope: 365 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
+Scope: 366 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
 
 | Metric | Count | Rate |
 | --- | ---: | ---: |
-| Latest clusters reviewed | 365 | 100% |
+| Latest clusters reviewed | 366 | 100% |
 | Policy-archived clusters | 4 | audit |
-| Clean completed clusters | 200 | 54.8% |
-| Needs-human clusters | 43 | 11.8% |
-| Latest successful clusters | 357 | 97.8% |
+| Clean completed clusters | 200 | 54.6% |
+| Needs-human clusters | 44 | 12.0% |
+| Latest successful clusters | 358 | 97.8% |
 | Latest failed clusters | 3 | 0.8% |
 | Latest cancelled clusters | 0 | 0.0% |
-| Run attempts archived | 678 | audit |
+| Run attempts archived | 679 | audit |
 | Fix action attempts | 203 | audit |
 | Fix actions executed | 1 | 0.5% |
 | Fix actions failed | 41 | 20.2% |
@@ -79,6 +79,7 @@ Scope: 365 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [ghcrawl-156779-identity-source-proof](results/openclaw/ghcrawl-156779-identity-source-proof.md) | needs human | jobs/openclaw/inbox/ghcrawl-156779-identity-source-proof.md | Confirm the safe Feishu bot identity source for matching WebSocket @mention IDs in multi-bot groups. Current main only probes and stores ... | [report](results/openclaw/ghcrawl-156779-identity-source-proof.md) | [27485128688](https://github.com/openclaw/clownfish/actions/runs/27485128688) |
 | [ghcrawl-156841-autonomous-smoke](results/openclaw/ghcrawl-156841-autonomous-smoke.md) | needs human | jobs/openclaw/inbox/ghcrawl-156841-autonomous-smoke.md | #67782: decide whether to accept the skip-delete behavior as-is, require a stale-menu-on-set-failure fallback, or pause until real behavi... | [report](results/openclaw/ghcrawl-156841-autonomous-smoke.md) | [27485129133](https://github.com/openclaw/clownfish/actions/runs/27485129133) |
 | [ghcrawl-156727-autonomous-smoke](results/openclaw/ghcrawl-156727-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-156727-autonomous-smoke.md | source PR #54962 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-156727-autonomous-smoke.md) | [27484664789](https://github.com/openclaw/clownfish/actions/runs/27484664789) |
 | [ghcrawl-156753-autonomous-smoke](results/openclaw/ghcrawl-156753-autonomous-smoke.md) | fix blocked | jobs/openclaw/inbox/ghcrawl-156753-autonomous-smoke.md | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 | [report](results/openclaw/ghcrawl-156753-autonomous-smoke.md) | [27484665882](https://github.com/openclaw/clownfish/actions/runs/27484665882) |
@@ -103,7 +104,6 @@ Scope: 365 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [clawsweeper-commit-openclaw-openclaw-07104c80b3bc](results/openclaw/clawsweeper-commit-openclaw-openclaw-07104c80b3bc.md) | fix blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-07104c80b3bc.md | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests, extensions, exten... | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-07104c80b3bc.md) | [27198879017](https://github.com/openclaw/clownfish/actions/runs/27198879017) |
 | [clawsweeper-commit-openclaw-openclaw-6a4c866b6a8b](results/openclaw/clawsweeper-commit-openclaw-openclaw-6a4c866b6a8b.md) | apply blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-6a4c866b6a8b.md | job does not allow merge | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-6a4c866b6a8b.md) | [27193815000](https://github.com/openclaw/clownfish/actions/runs/27193815000) |
 | [clawsweeper-commit-openclaw-openclaw-4eba70b532f8](results/openclaw/clawsweeper-commit-openclaw-openclaw-4eba70b532f8.md) | apply blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-4eba70b532f8.md | job does not allow merge | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-4eba70b532f8.md) | [27191846979](https://github.com/openclaw/clownfish/actions/runs/27191846979) |
-| [clawsweeper-commit-openclaw-openclaw-4cf228466770](results/openclaw/clawsweeper-commit-openclaw-openclaw-4cf228466770.md) | apply blocked | jobs/openclaw/inbox/clawsweeper-commit-openclaw-openclaw-4cf228466770.md | job does not allow merge | [report](results/openclaw/clawsweeper-commit-openclaw-openclaw-4cf228466770.md) | [27188796046](https://github.com/openclaw/clownfish/actions/runs/27188796046) |
 
 ### Fix Failure Queue
 
