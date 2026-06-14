@@ -41,44 +41,45 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 14, 2026, 16:21 UTC
+Last dashboard update: Jun 14, 2026, 16:23 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
 
-Scope: 403 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
+Scope: 404 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
 
 | Metric | Count | Rate |
 | --- | ---: | ---: |
-| Latest clusters reviewed | 403 | 100% |
+| Latest clusters reviewed | 404 | 100% |
 | Policy-archived clusters | 4 | audit |
-| Clean completed clusters | 207 | 51.4% |
-| Needs-human clusters | 49 | 12.2% |
-| Latest successful clusters | 394 | 97.8% |
+| Clean completed clusters | 207 | 51.2% |
+| Needs-human clusters | 49 | 12.1% |
+| Latest successful clusters | 395 | 97.8% |
 | Latest failed clusters | 3 | 0.7% |
 | Latest cancelled clusters | 1 | 0.2% |
-| Run attempts archived | 723 | audit |
-| Fix action attempts | 249 | audit |
+| Run attempts archived | 724 | audit |
+| Fix action attempts | 251 | audit |
 | Fix actions executed | 1 | 0.4% |
-| Fix actions failed | 60 | 24.1% |
-| Fix actions blocked | 78 | 31.3% |
-| Latest clusters with fix failures | 75 | 18.6% |
-| Distinct PRs touched | 1224 | 100% |
-| Open PRs tracked | 91 | 7.4% |
-| Closed unmerged PRs tracked | 945 | 77.2% |
+| Fix actions failed | 61 | 24.3% |
+| Fix actions blocked | 78 | 31.1% |
+| Latest clusters with fix failures | 76 | 18.8% |
+| Distinct PRs touched | 1227 | 100% |
+| Open PRs tracked | 93 | 7.6% |
+| Closed unmerged PRs tracked | 946 | 77.1% |
 | Completed close actions | 30 | 9.1% |
 | Completed merge actions | 23 | 7.0% |
 | Duplicate closes | 22 | 73.3% |
 | Superseded closes | 0 | 0.0% |
 | Fixed-by-candidate closes | 0 | 0.0% |
 | Low-signal PR closes | 0 | 0.0% |
-| Blocked mutation attempts | 151 | 46.0% |
-| Skipped mutation attempts | 124 | 37.8% |
+| Blocked mutation attempts | 152 | 46.2% |
+| Skipped mutation attempts | 124 | 37.7% |
 
 ### Clusters Needing Inspection
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [ghcrawl-157040-autonomous-smoke](results/openclaw/ghcrawl-157040-autonomous-smoke.md) | fix failed | jobs/openclaw/outbox/stuck/ghcrawl-157040-autonomous-smoke.md | source PR #70205 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-157040-autonomous-smoke.md) | [27504160898](https://github.com/openclaw/clownfish/actions/runs/27504160898) |
 | [ghcrawl-156876-autonomous-smoke](results/openclaw/ghcrawl-156876-autonomous-smoke.md) | apply blocked | jobs/openclaw/outbox/stuck/ghcrawl-156876-autonomous-smoke.md | merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | [report](results/openclaw/ghcrawl-156876-autonomous-smoke.md) | [27504161669](https://github.com/openclaw/clownfish/actions/runs/27504161669) |
 | [ghcrawl-156962-autonomous-smoke](results/openclaw/ghcrawl-156962-autonomous-smoke.md) | fix blocked | jobs/openclaw/outbox/stuck/ghcrawl-156962-autonomous-smoke.md | Codex fix worker timed out after 1800000ms | [report](results/openclaw/ghcrawl-156962-autonomous-smoke.md) | [27502019109](https://github.com/openclaw/clownfish/actions/runs/27502019109) |
 | [ghcrawl-156678-autonomous-smoke](results/openclaw/ghcrawl-156678-autonomous-smoke.md) | fix failed | jobs/openclaw/outbox/stuck/ghcrawl-156678-autonomous-smoke.md | branch projectclownfish/repair-ghcrawl-156678-autonomous-smoke-69270 could not rebase onto origin/main: Codex could not repair rebase con... | [report](results/openclaw/ghcrawl-156678-autonomous-smoke.md) | [27502017098](https://github.com/openclaw/clownfish/actions/runs/27502017098) |
@@ -103,12 +104,12 @@ Scope: 403 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [ghcrawl-156909-autonomous-smoke](results/openclaw/ghcrawl-156909-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-156909-autonomous-smoke.md | source PR #63644 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-156909-autonomous-smoke.md) | [27486519036](https://github.com/openclaw/clownfish/actions/runs/27486519036) |
 | [ghcrawl-157062-autonomous-smoke](results/openclaw/ghcrawl-157062-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-157062-autonomous-smoke.md | source PR #64181 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-157062-autonomous-smoke.md) | [27486517646](https://github.com/openclaw/clownfish/actions/runs/27486517646) |
 | [ghcrawl-156837-autonomous-smoke](results/openclaw/ghcrawl-156837-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-156837-autonomous-smoke.md | source PR #56176 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-156837-autonomous-smoke.md) | [27486518620](https://github.com/openclaw/clownfish/actions/runs/27486518620) |
-| [ghcrawl-156822-autonomous-smoke](results/openclaw/ghcrawl-156822-autonomous-smoke.md) | fix failed | jobs/openclaw/inbox/ghcrawl-156822-autonomous-smoke.md | source PR #63321 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [report](results/openclaw/ghcrawl-156822-autonomous-smoke.md) | [27486525526](https://github.com/openclaw/clownfish/actions/runs/27486525526) |
 
 ### Fix Failure Queue
 
 | Cluster | Status | Target | Branch/PR | Reason | Run |
 | --- | --- | --- | --- | --- | --- |
+| [ghcrawl-157040-autonomous-smoke](results/openclaw/ghcrawl-157040-autonomous-smoke.md) | failed |  |  | source PR #70205 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [27504160898](https://github.com/openclaw/clownfish/actions/runs/27504160898) |
 | [ghcrawl-156962-autonomous-smoke](results/openclaw/ghcrawl-156962-autonomous-smoke.md) | blocked |  |  | Codex fix worker timed out after 1800000ms | [27502019109](https://github.com/openclaw/clownfish/actions/runs/27502019109) |
 | [ghcrawl-156678-autonomous-smoke](results/openclaw/ghcrawl-156678-autonomous-smoke.md) | failed |  |  | branch projectclownfish/repair-ghcrawl-156678-autonomous-smoke-69270 could not rebase onto origin/main: Codex could not repair rebase con... | [27502017098](https://github.com/openclaw/clownfish/actions/runs/27502017098) |
 | [ghcrawl-156678-autonomous-smoke](results/openclaw/ghcrawl-156678-autonomous-smoke.md) | blocked |  |  | branch projectclownfish/repair-ghcrawl-156678-autonomous-smoke-69270 could not rebase onto origin/main: Codex could not repair rebase con... | [27502017098](https://github.com/openclaw/clownfish/actions/runs/27502017098) |
@@ -133,13 +134,12 @@ Scope: 403 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [ghcrawl-156822-autonomous-smoke](results/openclaw/ghcrawl-156822-autonomous-smoke.md) | failed |  |  | source PR #63321 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [27486525526](https://github.com/openclaw/clownfish/actions/runs/27486525526) |
 | [ghcrawl-156788-autonomous-smoke](results/openclaw/ghcrawl-156788-autonomous-smoke.md) | failed |  |  | source PR #48588 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [27485433477](https://github.com/openclaw/clownfish/actions/runs/27485433477) |
 | [ghcrawl-156886-autonomous-smoke](results/openclaw/ghcrawl-156886-autonomous-smoke.md) | failed |  |  | source PR #64734 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [27485435509](https://github.com/openclaw/clownfish/actions/runs/27485435509) |
-| [ghcrawl-156727-autonomous-smoke](results/openclaw/ghcrawl-156727-autonomous-smoke.md) | failed |  |  | source PR #54962 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected... | [27484664789](https://github.com/openclaw/clownfish/actions/runs/27484664789) |
 
 ### Top Blocked Reasons
 
 | Reason | Latest count | Example cluster |
 | --- | ---: | --- |
-| merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | 21 | [ghcrawl-156876-autonomous-smoke](results/openclaw/ghcrawl-156876-autonomous-smoke.md) |
+| merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish | 22 | [ghcrawl-157040-autonomous-smoke](results/openclaw/ghcrawl-157040-autonomous-smoke.md) |
 | target changed since worker review | 17 | [ghcrawl-199237-agentic-merge](results/openclaw/ghcrawl-199237-agentic-merge.md) |
 | job does not allow merge | 12 | [clawsweeper-commit-openclaw-openclaw-806a0119f3cd](results/openclaw/clawsweeper-commit-openclaw-openclaw-806a0119f3cd.md) |
 | blocked: Close is blocked on the canonical fix path or fix PR. | 11 | [ghcrawl-191463-agentic-merge](results/openclaw/ghcrawl-191463-agentic-merge.md) |
@@ -159,6 +159,7 @@ Scope: 403 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | PR | Title | Cluster | Branch | Blockers | Next action |
 | --- | --- | --- | --- | --- | --- |
+| [#93022](https://github.com/openclaw/openclaw/pull/93022) | fix(gateway): repair usage cost aggregation across agents | ghcrawl-157040-autonomous-smoke | clownfish/ghcrawl-157040-autonomous-smoke | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED, nee... | repair failing checks or document unrelated main flake with touched-surface proof |
 | [#93020](https://github.com/openclaw/openclaw/pull/93020) | fix(telegram): cool down transient sendChatAction failures | ghcrawl-156876-autonomous-smoke | clownfish/ghcrawl-156876-autonomous-smoke | needs_merge_state:UNSTABLE, needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED, nee... | repair failing checks or document unrelated main flake with touched-surface proof |
 | [#92910](https://github.com/openclaw/openclaw/pull/92910) | fix(memory-core): safely refresh qmd index during collection repair | ghcrawl-156633-autonomous-smoke | clownfish/ghcrawl-156633-autonomous-smoke | needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED, needs_merge_preflight | repair failing checks or document unrelated main flake with touched-surface proof |
 

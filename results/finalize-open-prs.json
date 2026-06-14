@@ -3,17 +3,17 @@
   "clownfish_repo": "openclaw/clownfish",
   "head_prefix": "clownfish/",
   "label": "clownfish",
-  "generated_at": "2026-06-14T16:21:07.530Z",
-  "count": 2,
+  "generated_at": "2026-06-14T16:23:01.385Z",
+  "count": 3,
   "summary": {
-    "open_prs": 2,
+    "open_prs": 3,
     "ready_candidates": 0,
     "security_hold": 0,
     "needs_rebase": 0,
     "mergeability_unknown": 0,
-    "needs_checks": 2,
+    "needs_checks": 3,
     "needs_review": 0,
-    "needs_merge_preflight": 2,
+    "needs_merge_preflight": 3,
     "needs_result_backfill": 0
   },
   "dispatch": {
@@ -28,38 +28,45 @@
   },
   "prs": [
     {
-      "number": 93020,
-      "title": "fix(telegram): cool down transient sendChatAction failures",
-      "url": "https://github.com/openclaw/openclaw/pull/93020",
-      "branch": "clownfish/ghcrawl-156876-autonomous-smoke",
-      "head_sha": "5b4b09fc788623fef7c82e812475b348b4ce61dd",
-      "cluster_id": "ghcrawl-156876-autonomous-smoke",
-      "job_path": "jobs/openclaw/outbox/stuck/ghcrawl-156876-autonomous-smoke.md",
-      "updated_at": "2026-06-14T16:20:07Z",
+      "number": 93022,
+      "title": "fix(gateway): repair usage cost aggregation across agents",
+      "url": "https://github.com/openclaw/openclaw/pull/93022",
+      "branch": "clownfish/ghcrawl-157040-autonomous-smoke",
+      "head_sha": "9cdf77461ddc1fee270c6479d5226d50a08609ee",
+      "cluster_id": "ghcrawl-157040-autonomous-smoke",
+      "job_path": "jobs/openclaw/outbox/stuck/ghcrawl-157040-autonomous-smoke.md",
+      "updated_at": "2026-06-14T16:22:03Z",
       "mergeable": "MERGEABLE",
       "merge_state_status": "UNSTABLE",
       "review_decision": "",
       "security_hold": false,
       "checks": {
-        "total": 180,
+        "total": 194,
         "counts": {
-          "CANCELLED": 6,
-          "SKIPPED": 46,
+          "CANCELLED": 5,
+          "IN_PROGRESS": 121,
+          "SKIPPED": 54,
           "SUCCESS": 13,
-          "IN_PROGRESS": 115
+          "NEUTRAL": 1
         },
         "blockers": [
           "Real behavior proof:CANCELLED",
           "Real behavior proof:CANCELLED",
           "Real behavior proof:CANCELLED",
+          "CodeQL / Security High (core-auth-secrets):IN_PROGRESS",
+          "CodeQL / Security High (channel-runtime-boundary):IN_PROGRESS",
+          "CodeQL / Security High (network-ssrf-boundary):IN_PROGRESS",
+          "CodeQL / Security High (mcp-process-tool-boundary):IN_PROGRESS",
+          "CodeQL / Security High (plugin-trust-boundary):IN_PROGRESS",
+          "CodeQL / Security High (actions):IN_PROGRESS",
           "CI / pnpm-store-warmup:IN_PROGRESS",
           "CI / build-artifacts:IN_PROGRESS",
           "CI / checks-fast-bundled-protocol:IN_PROGRESS",
           "CI / checks-fast-bun-launcher:IN_PROGRESS",
           "CI / checks-fast-contracts-plugins-a:IN_PROGRESS",
+          "CodeQL Critical Quality / Critical Quality (gateway-runtime-boundary):IN_PROGRESS",
           "CI / checks-fast-contracts-plugins-b:IN_PROGRESS",
           "CI / checks-fast-contracts-channels-a:IN_PROGRESS",
-          "CodeQL Critical Quality / Critical Quality (channel-runtime-boundary):IN_PROGRESS",
           "CI / checks-fast-contracts-channels-b:IN_PROGRESS",
           "CI / checks-node-core-fast:IN_PROGRESS",
           "CI / checks-node-core-src-security:IN_PROGRESS",
@@ -167,6 +174,80 @@
           "CI / check-additional-extension-bundled:IN_PROGRESS",
           "CI / check-additional-extension-package-boundary:IN_PROGRESS",
           "CI / check-additional-runtime-topology-architecture:IN_PROGRESS"
+        ]
+      },
+      "review_threads": {
+        "status": "clean",
+        "reason": null,
+        "unresolved_count": 0,
+        "examples": []
+      },
+      "review_bots": {
+        "count": 0,
+        "latest": []
+      },
+      "latest_record": {
+        "run_id": "27504160898",
+        "run_url": "https://github.com/openclaw/clownfish/actions/runs/27504160898",
+        "cluster_id": "ghcrawl-157040-autonomous-smoke",
+        "published_at": "2026-06-14T16:22:23.730Z",
+        "workflow_conclusion": "success",
+        "apply_action": {
+          "target": "#93022",
+          "action": "merge_canonical",
+          "status": "blocked",
+          "classification": "fix_pr",
+          "canonical": null,
+          "candidate_fix": null,
+          "title": "fix(gateway): repair usage cost aggregation across agents",
+          "idempotency_key": null,
+          "source_status": null,
+          "source_reason": null,
+          "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
+          "merged_at": null,
+          "merge_commit_sha": null,
+          "live_state": null,
+          "live_updated_at": null
+        }
+      },
+      "blockers": [
+        "needs_merge_state:UNSTABLE",
+        "needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED",
+        "needs_merge_preflight"
+      ],
+      "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
+    },
+    {
+      "number": 93020,
+      "title": "fix(telegram): cool down transient sendChatAction failures",
+      "url": "https://github.com/openclaw/openclaw/pull/93020",
+      "branch": "clownfish/ghcrawl-156876-autonomous-smoke",
+      "head_sha": "5b4b09fc788623fef7c82e812475b348b4ce61dd",
+      "cluster_id": "ghcrawl-156876-autonomous-smoke",
+      "job_path": "jobs/openclaw/outbox/stuck/ghcrawl-156876-autonomous-smoke.md",
+      "updated_at": "2026-06-14T16:20:07Z",
+      "mergeable": "MERGEABLE",
+      "merge_state_status": "UNSTABLE",
+      "review_decision": "",
+      "security_hold": false,
+      "checks": {
+        "total": 181,
+        "counts": {
+          "CANCELLED": 6,
+          "SKIPPED": 46,
+          "SUCCESS": 123,
+          "IN_PROGRESS": 5,
+          "NEUTRAL": 1
+        },
+        "blockers": [
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
+          "CI / checks-node-core-tooling:IN_PROGRESS",
+          "CI / checks-node-auto-reply-reply-agent-runner:IN_PROGRESS",
+          "CI / checks-node-auto-reply-reply-dispatch:IN_PROGRESS",
+          "CI / check-additional-boundaries-a:IN_PROGRESS",
+          "CI / check-additional-extension-bundled:IN_PROGRESS"
         ]
       },
       "review_threads": {
