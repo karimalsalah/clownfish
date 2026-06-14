@@ -3,17 +3,17 @@
   "clownfish_repo": "openclaw/clownfish",
   "head_prefix": "clownfish/",
   "label": "clownfish",
-  "generated_at": "2026-06-14T03:14:51.532Z",
-  "count": 1,
+  "generated_at": "2026-06-14T03:21:22.238Z",
+  "count": 2,
   "summary": {
-    "open_prs": 1,
+    "open_prs": 2,
     "ready_candidates": 0,
     "security_hold": 0,
     "needs_rebase": 0,
     "mergeability_unknown": 0,
-    "needs_checks": 1,
+    "needs_checks": 2,
     "needs_review": 0,
-    "needs_merge_preflight": 1,
+    "needs_merge_preflight": 2,
     "needs_result_backfill": 0
   },
   "dispatch": {
@@ -28,34 +28,36 @@
   },
   "prs": [
     {
-      "number": 92849,
-      "title": "fix(tailscale): preserve parse errors for malformed JSON",
-      "url": "https://github.com/openclaw/openclaw/pull/92849",
-      "branch": "clownfish/ghcrawl-156822-autonomous-smoke",
-      "head_sha": "70e334bb36614734e982f363e5e4245e95b9a088",
-      "cluster_id": "ghcrawl-156822-autonomous-smoke",
-      "job_path": "jobs/openclaw/inbox/ghcrawl-156822-autonomous-smoke.md",
-      "updated_at": "2026-06-14T03:14:05Z",
+      "number": 92853,
+      "title": "fix(acp): accept MCP date protocolVersion in ACP server",
+      "url": "https://github.com/openclaw/openclaw/pull/92853",
+      "branch": "clownfish/ghcrawl-156837-autonomous-smoke",
+      "head_sha": "7a94030aa14ea14bd3ac952a02c3c63f08d7f160",
+      "cluster_id": "ghcrawl-156837-autonomous-smoke",
+      "job_path": "jobs/openclaw/inbox/ghcrawl-156837-autonomous-smoke.md",
+      "updated_at": "2026-06-14T03:20:29Z",
       "mergeable": "MERGEABLE",
       "merge_state_status": "UNSTABLE",
       "review_decision": "",
       "security_hold": false,
       "checks": {
-        "total": 176,
+        "total": 177,
         "counts": {
-          "CANCELLED": 2,
+          "CANCELLED": 4,
           "IN_PROGRESS": 119,
-          "SKIPPED": 41,
+          "SKIPPED": 40,
           "SUCCESS": 13,
           "NEUTRAL": 1
         },
         "blockers": [
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
           "CodeQL / Security High (core-auth-secrets):IN_PROGRESS",
-          "Real behavior proof:IN_PROGRESS",
           "CodeQL / Security High (channel-runtime-boundary):IN_PROGRESS",
           "CodeQL / Security High (network-ssrf-boundary):IN_PROGRESS",
           "CodeQL / Security High (mcp-process-tool-boundary):IN_PROGRESS",
           "CodeQL / Security High (plugin-trust-boundary):IN_PROGRESS",
+          "CodeQL / Security High (actions):IN_PROGRESS",
           "CI / pnpm-store-warmup:IN_PROGRESS",
           "CI / build-artifacts:IN_PROGRESS",
           "CI / checks-fast-bundled-protocol:IN_PROGRESS",
@@ -182,6 +184,83 @@
         "latest": []
       },
       "latest_record": {
+        "run_id": "27486518620",
+        "run_url": "https://github.com/openclaw/clownfish/actions/runs/27486518620",
+        "cluster_id": "ghcrawl-156837-autonomous-smoke",
+        "published_at": "2026-06-14T03:20:48.800Z",
+        "workflow_conclusion": "success",
+        "apply_action": {
+          "target": "#92853",
+          "action": "merge_canonical",
+          "status": "blocked",
+          "classification": "fix_pr",
+          "canonical": null,
+          "candidate_fix": null,
+          "title": "fix(acp): accept MCP date protocolVersion in ACP server",
+          "idempotency_key": null,
+          "source_status": null,
+          "source_reason": null,
+          "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
+          "merged_at": null,
+          "merge_commit_sha": null,
+          "live_state": null,
+          "live_updated_at": null
+        }
+      },
+      "blockers": [
+        "needs_merge_state:UNSTABLE",
+        "needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; CodeQL / Security High (core-auth-secrets):IN_PROGRESS",
+        "needs_merge_preflight"
+      ],
+      "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
+    },
+    {
+      "number": 92849,
+      "title": "fix(tailscale): preserve parse errors for malformed JSON",
+      "url": "https://github.com/openclaw/openclaw/pull/92849",
+      "branch": "clownfish/ghcrawl-156822-autonomous-smoke",
+      "head_sha": "70e334bb36614734e982f363e5e4245e95b9a088",
+      "cluster_id": "ghcrawl-156822-autonomous-smoke",
+      "job_path": "jobs/openclaw/inbox/ghcrawl-156822-autonomous-smoke.md",
+      "updated_at": "2026-06-14T03:20:14Z",
+      "mergeable": "MERGEABLE",
+      "merge_state_status": "CLEAN",
+      "review_decision": "",
+      "security_hold": false,
+      "checks": {
+        "total": 222,
+        "counts": {
+          "CANCELLED": 10,
+          "SKIPPED": 76,
+          "SUCCESS": 135,
+          "NEUTRAL": 1
+        },
+        "blockers": [
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED",
+          "Real behavior proof:CANCELLED"
+        ]
+      },
+      "review_threads": {
+        "status": "clean",
+        "reason": null,
+        "unresolved_count": 0,
+        "examples": []
+      },
+      "review_bots": {
+        "count": 1,
+        "latest": [
+          {
+            "source": "comment",
+            "author": "clawsweeper",
+            "url": "https://github.com/openclaw/openclaw/pull/92849#issuecomment-4700552288",
+            "submitted_at": "2026-06-14T03:15:18Z"
+          }
+        ]
+      },
+      "latest_record": {
         "run_id": "27486525526",
         "run_url": "https://github.com/openclaw/clownfish/actions/runs/27486525526",
         "cluster_id": "ghcrawl-156822-autonomous-smoke",
@@ -206,8 +285,7 @@
         }
       },
       "blockers": [
-        "needs_merge_state:UNSTABLE",
-        "needs_checks:CodeQL / Security High (core-auth-secrets):IN_PROGRESS; Real behavior proof:IN_PROGRESS; CodeQL / Security High (channel-runtime-boundary):IN_PROGRESS",
+        "needs_checks:Real behavior proof:CANCELLED; Real behavior proof:CANCELLED; Real behavior proof:CANCELLED",
         "needs_merge_preflight"
       ],
       "recommended_next_action": "repair failing checks or document unrelated main flake with touched-surface proof"
