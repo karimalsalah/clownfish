@@ -37,7 +37,11 @@ for (const report of failedReports) {
 
 const rows = readJson(runsJsonPath);
 if (!Array.isArray(rows)) throw new Error(`runs json must be an array: ${runsJsonPath}`);
-const filteredRows = rows.filter((row) => !failedRunIds.has(String(row.run_id ?? row.databaseId ?? row.id ?? "")));
+const remainingRunIds = remainingResultRunIds(artifactDir);
+const filteredRows = rows.filter((row) => {
+  const runId = String(row.run_id ?? row.databaseId ?? row.id ?? "");
+  return !failedRunIds.has(runId) || remainingRunIds.has(runId);
+});
 fs.writeFileSync(runsJsonPath, `${JSON.stringify(filteredRows, null, 2)}\n`, "utf8");
 fs.writeFileSync(
   quarantinePath,
@@ -83,6 +87,18 @@ function resolveReportPath(value) {
 function inferRunId(filePath) {
   const match = String(filePath).match(/projectclownfish(?:-worker)?-(\d+)-\d+/);
   return match?.[1] ?? null;
+}
+
+function remainingResultRunIds(root) {
+  const ids = new Set();
+  if (!fs.existsSync(root)) return ids;
+  for (const entry of fs.readdirSync(root, { recursive: true })) {
+    const filePath = path.join(root, String(entry));
+    if (path.basename(filePath) !== "result.json" || !fs.statSync(filePath).isFile()) continue;
+    const runId = inferRunId(filePath);
+    if (runId) ids.add(runId);
+  }
+  return ids;
 }
 
 function readJson(filePath) {

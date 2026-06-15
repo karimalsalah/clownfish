@@ -41,7 +41,7 @@ test("PR inventory import supports limit all and emits jq-safe JSON", { skip: ha
   assert.equal(payload.generated.length, 2);
   assert.equal(payload.candidates[0].author_association, "\uFFFD");
   assert.equal(payload.candidates[0].assignees[0], "reviewer\uFFFD");
-  assert.match(payload.candidates[0].body_excerpt, /\/Users\/<user>/);
+  assert.match(payload.candidates[0].body_excerpt, /\/home\/<user>/);
   assert.match(payload.candidates[0].body_excerpt, /token=<redacted>/);
   assert.match(payload.candidates[0].body_excerpt, /password: <redacted>/);
   assert.doesNotMatch(payload.candidates[0].body_excerpt, /vincentkoc|hunter2|abc123/);
@@ -51,6 +51,38 @@ test("PR inventory import defaults existing refs to the active out dir", { skip:
   const fixture = makeFixture();
   seedGitcrawlDb(fixture.db);
   writeExistingJob(path.join(fixture.out, "existing.md"), "#101");
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/import-gitcrawl-pr-inventory.mjs",
+      "--db",
+      fixture.db,
+      "--out",
+      fixture.out,
+      "--dry-run",
+      "--json",
+      "--limit",
+      "all",
+      "--batch-size",
+      "1",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+  assert.equal(payload.totals.existing_refs, 1);
+  assert.deepEqual(
+    payload.candidates.map((candidate) => candidate.ref),
+    ["#102"],
+  );
+});
+
+test("PR inventory existing refs ignore incidental markdown mentions", { skip: hasSqlite ? false : "sqlite3 missing" }, () => {
+  const fixture = makeFixture();
+  seedGitcrawlDb(fixture.db);
+  writeExistingJob(path.join(fixture.out, "existing.md"), "#101", "mentions #102 in notes");
 
   const result = spawnSync(
     process.execPath,
@@ -89,7 +121,7 @@ function makeFixture() {
   return { root, db, out, existing };
 }
 
-function writeExistingJob(filePath, ref) {
+function writeExistingJob(filePath, ref, extraText = "") {
   fs.writeFileSync(
     filePath,
     `---
@@ -111,6 +143,8 @@ security_sensitive: false
 ---
 
 # Existing
+
+${extraText}
 `,
   );
 }
@@ -147,7 +181,7 @@ insert into threads values (
   1,
   101,
   'bad surrogate title',
-  'local /Users/vincentkoc/tmp token=abc123 password: hunter2',
+  'local /home/example/tmp token=abc123 password: example',
   'author',
   'User',
   '[{"name":"needs proof"}]',

@@ -50,7 +50,12 @@ for (const run of candidates) {
   if (dryRun) continue;
   const downloaded = downloadRunArtifacts(run);
   if (downloaded.ok) {
-    manifest.downloaded.push({ ...summarizeRun(run), artifact_dir: downloaded.dir, artifact_name: downloaded.artifact_name });
+    manifest.downloaded.push({
+      ...summarizeRun(run),
+      artifact_dir: downloaded.dir,
+      artifact_name: downloaded.artifact_name,
+      artifact_count: downloaded.artifact_count ?? null,
+    });
   } else {
     manifest.failed.push({ ...summarizeRun(run), reason: downloaded.reason });
   }
@@ -160,8 +165,33 @@ function downloadRunArtifacts(run) {
   fs.rmSync(destination, { recursive: true, force: true });
   fs.mkdirSync(destination, { recursive: true });
 
-  const specific = spawnGh(["run", "download", runId, "--repo", repo, "--name", artifactName, "--dir", destination]);
-  if (specific.status === 0) return { ok: true, dir: destination, artifact_name: artifactName };
+  const artifactNames = listRunArtifactNames(runId);
+  if (artifactNames.includes(artifactName)) {
+    const specific = spawnGh(["run", "download", runId, "--repo", repo, "--name", artifactName, "--dir", destination]);
+    if (specific.status === 0) return { ok: true, dir: destination, artifact_name: artifactName };
+  }
+
+  const matrixNames = artifactNames.filter((name) => name.startsWith(`${artifactName}-`));
+  if (matrixNames.length > 0) {
+    const matrix = spawnGh([
+      "run",
+      "download",
+      runId,
+      "--repo",
+      repo,
+      "--dir",
+      destination,
+      ...matrixNames.flatMap((name) => ["--name", name]),
+    ]);
+    if (matrix.status === 0) {
+      return { ok: true, dir: destination, artifact_name: `${artifactName}-*`, artifact_count: matrixNames.length };
+    }
+    fs.rmSync(destination, { recursive: true, force: true });
+    return {
+      ok: false,
+      reason: stripAnsi(matrix.stderr || matrix.stdout || "matrix artifact download failed").trim(),
+    };
+  }
 
   const fallback = spawnGh(["run", "download", runId, "--repo", repo, "--dir", destination]);
   if (fallback.status !== 0) {
@@ -174,6 +204,24 @@ function downloadRunArtifacts(run) {
 
   removeWorkerArtifacts(destination);
   return { ok: true, dir: destination, artifact_name: null };
+}
+
+function listRunArtifactNames(runId) {
+  const pages = ghJson([
+    "api",
+    `repos/${repo}/actions/runs/${runId}/artifacts?per_page=100`,
+    "--paginate",
+    "--slurp",
+  ]);
+  return [
+    ...new Set(
+      (Array.isArray(pages) ? pages : [])
+        .flatMap((page) => (Array.isArray(page?.artifacts) ? page.artifacts : []))
+        .filter((artifact) => artifact && !artifact.expired)
+        .map((artifact) => String(artifact.name ?? ""))
+        .filter(Boolean),
+    ),
+  ];
 }
 
 function removeWorkerArtifacts(directory) {

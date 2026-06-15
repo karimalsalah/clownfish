@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
-import { parseArgs, repoRoot } from "./lib.mjs";
+import { parseArgs, parseJob, repoRoot } from "./lib.mjs";
 
 const args = parseArgs(process.argv.slice(2));
 const repo = String(args.repo ?? "openclaw/openclaw");
@@ -218,10 +218,19 @@ function existingJobRefs(root) {
   for (const entry of fs.readdirSync(root, { recursive: true })) {
     const file = path.join(root, String(entry));
     if (!file.endsWith(".md") || !fs.statSync(file).isFile()) continue;
-    const text = fs.readFileSync(file, "utf8");
-    for (const match of text.matchAll(/#(\d+)\b/g)) refs.add(`#${match[1]}`);
+    const job = parseJob(file);
+    for (const ref of [...normalizeRefs(job.frontmatter.candidates), ...normalizeRefs(job.frontmatter.cluster_refs)]) {
+      refs.add(ref);
+    }
   }
   return refs;
+}
+
+function normalizeRefs(values) {
+  if (!Array.isArray(values)) return [];
+  return values
+    .map((value) => String(value ?? "").trim())
+    .filter((value) => /^#\d+$/.test(value));
 }
 
 function compareCandidates(left, right) {
