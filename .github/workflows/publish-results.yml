@@ -98,7 +98,7 @@ jobs:
             exit 0
           fi
           set +e
-          npm run review-results -- artifacts > artifacts/review-results.json
+          node scripts/review-results.mjs artifacts > artifacts/review-results.json
           review_status=$?
           set -e
           if [ "$review_status" -ne 0 ]; then
@@ -106,7 +106,7 @@ jobs:
               --review-report artifacts/review-results.json \
               --runs-json artifacts/runs.json
             set +e
-            npm run review-results -- artifacts > artifacts/review-results.filtered.json
+            node scripts/review-results.mjs artifacts > artifacts/review-results.filtered.json
             review_status=$?
             set -e
             if [ "$review_status" -ne 0 ]; then
