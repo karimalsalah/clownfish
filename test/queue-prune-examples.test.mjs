@@ -93,6 +93,53 @@ test("queue-status can select a plan wave by ref budget", () => {
   );
 });
 
+test("queue-status counts published markdown reports as results", () => {
+  const fixture = makeFixture();
+  writeJob(path.join(fixture.inbox, "a-plan.md"), {
+    clusterId: "a-plan",
+    mode: "plan",
+    refs: ["#1", "#2"],
+  });
+  writeJob(path.join(fixture.inbox, "b-plan.md"), {
+    clusterId: "b-plan",
+    mode: "plan",
+    refs: ["#3", "#4"],
+  });
+  writeResultReport(path.join(fixture.resultReports, "a-plan.md"), {
+    clusterId: "a-plan",
+    runId: "12345",
+    actionsTotal: 2,
+  });
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/queue-status.mjs",
+      "--inbox",
+      fixture.inbox,
+      "--runs-dir",
+      fixture.runs,
+      "--result-reports-dir",
+      fixture.resultReports,
+      "--dispatch-ledger",
+      fixture.ledger,
+      "--skip-secret-check",
+      "--json",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+  assert.equal(payload.totals.with_results, 1);
+  assert.equal(payload.totals.missing_plan, 1);
+  assert.deepEqual(
+    payload.rows.filter((row) => row.has_result).map((row) => row.cluster_id),
+    ["a-plan"],
+  );
+  assert.equal(payload.rows.find((row) => row.cluster_id === "a-plan").latest_result.source, "result_markdown");
+});
+
 test("prune-inbox preserves example jobs even when writing", () => {
   const fixture = makeFixture();
   const examplePath = path.join(fixture.inbox, "autonomous-example.md");
@@ -121,11 +168,13 @@ function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-examples-"));
   const inbox = path.join(root, "inbox");
   const runs = path.join(root, "runs");
+  const resultReports = path.join(root, "results");
   const ledger = path.join(root, "dispatch-ledger.json");
   fs.mkdirSync(inbox, { recursive: true });
   fs.mkdirSync(runs, { recursive: true });
+  fs.mkdirSync(resultReports, { recursive: true });
   fs.writeFileSync(ledger, `${JSON.stringify({ attempts: [] })}\n`);
-  return { root, inbox, runs, ledger };
+  return { root, inbox, runs, resultReports, ledger };
 }
 
 function writeJob(filePath, { clusterId, mode, refs }) {
@@ -153,6 +202,37 @@ security_sensitive: false
 ---
 
 # Test Job
+`,
+  );
+}
+
+function writeResultReport(filePath, { clusterId, runId, actionsTotal }) {
+  fs.writeFileSync(
+    filePath,
+    `---
+repo: "openclaw/openclaw"
+cluster_id: "${clusterId}"
+mode: "plan"
+run_id: "${runId}"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/${runId}"
+head_sha: "abc123"
+workflow_conclusion: "success"
+result_status: "planned"
+published_at: "2026-06-15T16:28:29.523Z"
+canonical: null
+canonical_issue: null
+canonical_pr: null
+actions_total: ${actionsTotal}
+fix_executed: 0
+fix_failed: 0
+fix_blocked: 0
+apply_executed: 0
+apply_blocked: 0
+apply_skipped: 0
+needs_human_count: 0
+---
+
+# ${clusterId}
 `,
   );
 }

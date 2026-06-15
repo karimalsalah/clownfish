@@ -2,11 +2,21 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
-import { currentProjectRepo, parseArgs, parseJob, repoRoot } from "./lib.mjs";
+import { currentProjectRepo, parseArgs, parseJob, parseSimpleYaml, repoRoot } from "./lib.mjs";
 
 const args = parseArgs(process.argv.slice(2));
 const inboxDir = path.resolve(repoRoot(), String(args.inbox ?? "jobs/openclaw/inbox"));
 const runsDir = path.resolve(repoRoot(), String(args["runs-dir"] ?? args.runs_dir ?? "results/runs"));
+const resultReportsDir = path.resolve(
+  repoRoot(),
+  String(
+    args["result-reports-dir"] ??
+      args.result_reports_dir ??
+      args["results-dir"] ??
+      args.results_dir ??
+      path.join("results", path.basename(path.dirname(inboxDir))),
+  ),
+);
 const dispatchLedgerPath = path.resolve(
   repoRoot(),
   String(args["dispatch-ledger"] ?? args.dispatch_ledger ?? path.join(".projectclownfish", "dispatch-ledger.json")),
@@ -71,6 +81,7 @@ const payload = {
   generated_at: new Date().toISOString(),
   inbox: path.relative(repoRoot(), inboxDir),
   runs_dir: path.relative(repoRoot(), runsDir),
+  result_reports_dir: path.relative(repoRoot(), resultReportsDir),
   dispatch_ledger: path.relative(repoRoot(), dispatchLedgerPath),
   dispatch_repo: dispatchRepo,
   attempt_filter: attemptFilter,
@@ -160,27 +171,77 @@ function readInboxJobs() {
 
 function readRunResults() {
   const out = new Map();
-  if (!fs.existsSync(runsDir)) return out;
+  readRunResultJson(out);
+  readPublishedResultReports(out);
+  return out;
+}
+
+function readRunResultJson(out) {
+  if (!fs.existsSync(runsDir)) return;
   for (const name of fs.readdirSync(runsDir).filter((entry) => entry.endsWith(".json"))) {
     const filePath = path.join(runsDir, name);
     try {
       const result = JSON.parse(fs.readFileSync(filePath, "utf8"));
       const clusterId = String(result.cluster_id ?? result.clusterId ?? "");
       if (!clusterId) continue;
-      const existing = out.get(clusterId);
-      if (!existing || Number(name.replace(/\.json$/, "")) > Number(existing.run_id)) {
-        out.set(clusterId, {
-          run_id: name.replace(/\.json$/, ""),
-          path: path.relative(repoRoot(), filePath),
-          status: result.status ?? null,
-          actions_total: Array.isArray(result.actions) ? result.actions.length : 0,
-        });
-      }
+      upsertResult(out, clusterId, {
+        run_id: name.replace(/\.json$/, ""),
+        path: path.relative(repoRoot(), filePath),
+        status: result.status ?? null,
+        actions_total: Array.isArray(result.actions) ? result.actions.length : 0,
+        source: "run_json",
+      });
     } catch {
       continue;
     }
   }
-  return out;
+}
+
+function readPublishedResultReports(out) {
+  if (!fs.existsSync(resultReportsDir)) return;
+  for (const name of fs.readdirSync(resultReportsDir).filter((entry) => entry.endsWith(".md"))) {
+    const filePath = path.join(resultReportsDir, name);
+    try {
+      const raw = fs.readFileSync(filePath, "utf8");
+      const match = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+      if (!match) continue;
+      const fm = parseSimpleYaml(match[1]);
+      const clusterId = String(fm.cluster_id ?? fm.clusterId ?? "");
+      if (!clusterId) continue;
+      upsertResult(out, clusterId, {
+        run_id: String(fm.run_id ?? ""),
+        path: path.relative(repoRoot(), filePath),
+        status: fm.result_status ?? fm.workflow_conclusion ?? null,
+        workflow_conclusion: fm.workflow_conclusion ?? null,
+        published_at: fm.published_at ?? null,
+        actions_total: Number(fm.actions_total ?? 0),
+        source: "result_markdown",
+      });
+    } catch {
+      continue;
+    }
+  }
+}
+
+function upsertResult(out, clusterId, record) {
+  const existing = out.get(clusterId);
+  if (!existing || compareResultRecords(record, existing) > 0) out.set(clusterId, record);
+}
+
+function compareResultRecords(left, right) {
+  const leftRun = Number(left.run_id);
+  const rightRun = Number(right.run_id);
+  if (Number.isFinite(leftRun) && Number.isFinite(rightRun) && leftRun !== rightRun) return leftRun - rightRun;
+
+  const leftPublished = Date.parse(left.published_at ?? "");
+  const rightPublished = Date.parse(right.published_at ?? "");
+  if (Number.isFinite(leftPublished) && Number.isFinite(rightPublished) && leftPublished !== rightPublished) {
+    return leftPublished - rightPublished;
+  }
+  if (Number.isFinite(leftPublished) !== Number.isFinite(rightPublished)) return Number.isFinite(leftPublished) ? 1 : -1;
+
+  const sourceRank = { run_json: 0, result_markdown: 1 };
+  return (sourceRank[left.source] ?? 0) - (sourceRank[right.source] ?? 0);
 }
 
 function classifyJob(job) {
