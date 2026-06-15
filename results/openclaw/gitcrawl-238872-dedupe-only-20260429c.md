@@ -2,14 +2,14 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238872-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102970282"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102970282"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104044937"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104044937"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "needs_human"
-published_at: "2026-06-15T03:45:26.135Z"
-canonical: null
-canonical_issue: null
+published_at: "2026-06-15T03:54:22.401Z"
+canonical: "https://github.com/openclaw/openclaw/issues/73186"
+canonical_issue: "https://github.com/openclaw/openclaw/issues/73186"
 canonical_pr: null
 actions_total: 3
 fix_executed: 0
@@ -18,24 +18,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 3
+needs_human_count: 1
 ---
 
 # gitcrawl-238872-dedupe-only-20260429c
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102970282](https://github.com/openclaw/clownfish/actions/runs/25102970282)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104044937](https://github.com/openclaw/clownfish/actions/runs/25104044937)
 
 Workflow conclusion: success
 
 Worker result: needs_human
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/issues/73186
 
 ## Summary
 
-No GitHub mutations are planned. The hydrated artifact shows no security-sensitive refs, but the cluster has two useful open contributor PRs for the same cron announce reasoning leak. #40534 is the representative PR, while #73363 is newer, directly linked to #73186, and has recent Feishu picker coverage. ClawSweeper explicitly asks maintainer review to reconcile #73363 with the broader #40534 scope and the reasoning-only fallback policy, so canonical selection is not high-confidence.
+Open issue #73186 is the clearest live canonical report for the current Matrix/Feishu cron announce reasoning leak. Two useful overlapping contributor PRs, #40534 and #73363, remain open and require maintainer selection/reconciliation before any close or merge path is safe. No GitHub mutations are planned.
 
 ## Impact
 
@@ -48,7 +48,7 @@ No GitHub mutations are planned. The hydrated artifact shows no security-sensiti
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 3 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -66,12 +66,10 @@ No GitHub mutations are planned. The hydrated artifact shows no security-sensiti
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #40534 | needs_human | blocked | needs_human | Representative PR is useful but not safely canonical without maintainer choice against the newer overlapping #73363 path. |
-| #73186 | keep_related | planned | related | Keep the issue open as related evidence for the active PR selection; closeout is blocked until a canonical fix path is chosen and validated. |
-| #73363 | needs_human | blocked | needs_human | Useful overlapping PR, but canonical selection and reasoning-only fallback policy require maintainer judgment; failing checks also block any fixed-by-candidate closeout. |
+| #73186 | keep_canonical | planned | canonical | Keep the live bug report open as the canonical thread while maintainers choose between the overlapping PR implementations. |
+| #40534 | needs_human | blocked | needs_human | Maintainer needs to decide whether #40534 remains the preferred implementation, should be adapted, or is superseded by #73363. Do not close this useful contributor PR in this dedupe-only run. |
+| #73363 | needs_human | blocked | needs_human | Maintainer needs to choose whether #73363 is the canonical implementation and confirm the reasoning-only fallback policy versus #40534 before any supersede or merge path. |
 
 ## Needs Human
 
-- Choose the canonical implementation path between #40534 and #73363. #40534 is the representative and broader strict path, while #73363 is newer, linked to #73186, and includes recent Feishu picker coverage.
-- Decide the cron announce policy for reasoning-only payloads: never deliver reasoning payload text, or allow a conservative fallback when no non-reasoning content exists.
-- Resolve or explicitly waive the failing checks on the chosen PR before any merge or fixed-by-candidate closeout in a future job.
+- Choose/reconcile the canonical implementation between #40534 and #73363. Both are useful open contributor PRs for the same cron announce reasoning-leak root cause, #73363 is unstable with failing checks, and ClawSweeper asked maintainers to reconcile its behavior with the stricter #40534 path before merge or supersede closeout.

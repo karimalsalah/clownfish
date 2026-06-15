@@ -2,14 +2,14 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238866-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102956867"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102956867"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104033239"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104033239"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
-result_status: "blocked"
-published_at: "2026-06-15T03:45:26.133Z"
+result_status: "planned"
+published_at: "2026-06-15T03:54:22.399Z"
 canonical: "https://github.com/openclaw/openclaw/pull/60677"
-canonical_issue: null
+canonical_issue: "https://github.com/openclaw/openclaw/issues/60274"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/60677"
 actions_total: 6
 fix_executed: 0
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102956867](https://github.com/openclaw/clownfish/actions/runs/25102956867)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104033239](https://github.com/openclaw/clownfish/actions/runs/25104033239)
 
 Workflow conclusion: success
 
-Worker result: blocked
+Worker result: planned
 
 Canonical: https://github.com/openclaw/openclaw/pull/60677
 
 ## Summary
 
-Canonical path is open PR #60677 for the imsg RPC tapback filtering bug. #60274 is covered by that PR, but fixed-by-candidate closeout is blocked because the hydrated canonical fix path still has failing checks and unknown mergeability. #39322 and #39031 remain related tapback-forwarding feature work; closed linked refs are historical evidence only.
+Canonical path is open PR #60677 for the imsg RPC tapback filtering bug. #60274 is covered by that candidate but should not be closed in this pass because #60677 is still open and has failing checks in the hydrated artifact. #39322 and #39031 are related tapback-forwarding feature work, not duplicates of the filtering fix. No security-sensitive refs were detected.
 
 ## Impact
 
@@ -60,18 +60,18 @@ Canonical path is open PR #60677 for the imsg RPC tapback filtering bug. #60274 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60274 | close_fixed_by_candidate | skipped | fixed_by_candidate | Fixed-by-candidate closeout is blocked by the canonical fix path #60677 not being clean yet: hydrated checks include failures and mergeability is unknown. |
+| #60274 | close_fixed_by_candidate | skipped | fixed_by_candidate | Covered by #60677, but closeout is blocked until the canonical fix path is clean or landed. |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60677 | keep_canonical | planned | canonical | #60677 is the best live canonical implementation path for the filtering bug, but this worker must not merge and the PR still has check/merge-state blockers. |
-| #60274 | close_fixed_by_candidate | blocked | fixed_by_candidate | Fixed-by-candidate closeout is blocked by the canonical fix path #60677 not being clean yet: hydrated checks include failures and mergeability is unknown. |
-| #39322 | keep_related | planned | related | Keep open as related feature-forwarding work under #39031; it is not a duplicate of the narrow filtering fix in #60677. |
-| #39031 | keep_related | planned | related | Keep open as the related feature canonical; the current cluster should not close or merge this broader tapback-forwarding request. |
-| #60446 | keep_closed | skipped | duplicate | Already closed as part of the related feature-forwarding family; no mutation is valid. |
-| #26924 | keep_closed | skipped | related | Already closed historical context; no mutation is valid. |
+| #26924 | keep_closed | skipped | related | Closed linked context is evidence only and must not receive a close action. |
+| #39031 | keep_related | planned | related | Keep the forwarding feature issue open as the related feature canonical. |
+| #39322 | keep_related | planned | related | Related feature implementation with useful code and distinct scope; not a duplicate of the filtering fix. |
+| #60274 | close_fixed_by_candidate | blocked | fixed_by_candidate | Covered by #60677, but closeout is blocked until the canonical fix path is clean or landed. |
+| #60446 | keep_closed | skipped | duplicate | Already-closed linked context remains historical evidence only. |
+| #60677 | keep_canonical | planned | canonical | Best canonical fix path for the filtering bug, but this pass should only keep it canonical and leave landing/repair to the appropriate guarded workflow. |
 
 ## Needs Human
 

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238827-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102899214"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102899214"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103977005"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103977005"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.123Z"
+published_at: "2026-06-15T03:54:22.387Z"
 canonical: "https://github.com/openclaw/openclaw/issues/65584"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/65584"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102899214](https://github.com/openclaw/clownfish/actions/runs/25102899214)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103977005](https://github.com/openclaw/clownfish/actions/runs/25103977005)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/65584
 
 ## Summary
 
-Hydrated preflight shows all five job candidates are already closed. #65584 remains the canonical issue for the cron CLI/Gateway teardown hang family, but it is closed as implemented on current main e1fd27fb24ae81e27cf4ac1297410491009a70c0. No close, comment, label, merge, or fix actions are planned.
+Hydrated live state shows all five job refs are already closed. #65584 remains the historical canonical issue for the cron CLI/Gateway teardown hang family, current main is 6cea2769760fe330b9bbb3b7854257041052773f, and no close/comment/label/fix/merge action is planned.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Hydrated preflight shows all five job candidates are already closed. #65584 rema
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #61015 | keep_closed | skipped | duplicate | Already closed in live preflight state; closure policy forbids close actions for closed targets. |
-| #61171 | keep_closed | skipped | duplicate | Already closed in live preflight state; no mutation is valid. |
-| #65584 | keep_closed | skipped | canonical | Canonical issue is already closed as implemented on current main; keep as historical canonical evidence only. |
-| #66227 | keep_closed | skipped | duplicate | Already closed and covered by the same canonical CLI teardown family; no close action is valid. |
-| #67439 | keep_closed | skipped | duplicate | Already closed as implemented; keep as closed duplicate evidence only. |
+| #61015 | keep_closed | skipped | duplicate | Already closed in hydrated live state; closure actions are invalid for this target. |
+| #61171 | keep_closed | skipped | duplicate | Already closed in hydrated live state; closure actions are invalid for this target. |
+| #65584 | keep_closed | skipped | canonical | Representative issue is already closed; it remains the historical canonical issue for the cluster, but no mutation is valid. |
+| #66227 | keep_closed | skipped | fixed_by_candidate | Already closed in hydrated live state; closure actions are invalid for this target. |
+| #67439 | keep_closed | skipped | fixed_by_candidate | Already closed in hydrated live state; closure actions are invalid for this target. |
 
 ## Needs Human
 

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238868-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102959289"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102959289"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104035800"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104035800"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.133Z"
+published_at: "2026-06-15T03:54:22.399Z"
 canonical: "https://github.com/openclaw/openclaw/pull/73976"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/73976"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102959289](https://github.com/openclaw/clownfish/actions/runs/25102959289)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104035800](https://github.com/openclaw/clownfish/actions/runs/25104035800)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/73976
 
 ## Summary
 
-Canonical drift is resolved: #39555 is already closed and the hydrated replacement path is open #73976. #48112 is related memory hybrid-search work with distinct fallback-scoring scope and should remain open; no close, merge, or fix action is safe for it in this dedupe-only job.
+Hydrated state changes the canonical path from closed #39555 to open replacement PR #73976. #48112 is related memory hybrid fallback work with distinct scope and unresolved review/check gates, so no open ref is safe to close in this dedupe-only run.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Canonical drift is resolved: #39555 is already closed and the hydrated replaceme
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #39555 | keep_closed | skipped | superseded | Already closed and superseded by hydrated replacement #73976; no mutation planned. |
-| #73976 | keep_canonical | planned | canonical | Best current canonical path, but not merge-ready and merge is blocked by this job. |
-| #48112 | keep_related | planned | related | Related memory hybrid-search work with distinct scope and unresolved review/product semantics; keep open rather than close as duplicate or superseded. |
+| #39555 | keep_closed | skipped | superseded | Already closed in live state; closed refs must not receive close/comment mutations. |
+| #48112 | keep_related | planned | related | Same memory hybrid area, but materially different root cause and remaining work; not a true duplicate or safe superseded close. |
+| #73976 | keep_canonical | planned | canonical | Best current canonical path, but this dedupe-only job cannot merge or repair it and should keep it open for maintainer review. |
 
 ## Needs Human
 

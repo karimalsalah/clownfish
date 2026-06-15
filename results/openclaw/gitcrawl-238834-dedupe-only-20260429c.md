@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238834-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102907928"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102907928"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103983201"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103983201"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.124Z"
+published_at: "2026-06-15T03:54:22.390Z"
 canonical: "https://github.com/openclaw/openclaw/pull/39489"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/39489"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102907928](https://github.com/openclaw/clownfish/actions/runs/25102907928)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103983201](https://github.com/openclaw/clownfish/actions/runs/25103983201)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/39489
 
 ## Summary
 
-Canonical path is the still-open repaired PR #39489. Already-closed overlapping PRs #39487 and #41940 stay closed as superseded context. No close is planned for #53533 or #43765 because both retain related but distinct or broad candidate work, and #39489 is not merged or merge-ready in this dedupe-only job.
+Hydrated state shows no security-sensitive items. The original representative #41940 and overlapping #39487 are already closed as superseded by #39489, and #39489 is now the open canonical maintainer-repaired Feishu health-status branch. No merge, fix, or post-merge close is permitted by the job; #53533 and #43765 remain open as related useful but non-canonical work rather than cleanup-closeable duplicates.
 
 ## Impact
 
@@ -66,15 +66,15 @@ Canonical path is the still-open repaired PR #39489. Already-closed overlapping 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #39489 | keep_canonical | planned | canonical | Best current canonical branch, but this dedupe-only autonomous job cannot merge or repair it. |
-| #39487 | keep_closed | skipped | superseded | Already closed; historical superseded context only. |
-| #41940 | keep_closed | skipped | superseded | Already closed; superseded by the open repaired canonical path #39489. |
-| #53533 | keep_related | planned | related | Related useful contributor work; not safe to close while canonical #39489 is still open and unmerged. |
-| #43765 | keep_related | planned | related | Related broad candidate work; leave open for split or maintainer follow-up. |
-| #35532 | keep_closed | skipped | related | Closed related context only. |
-| #39486 | keep_closed | skipped | related | Closed related context only. |
-| #39488 | keep_closed | skipped | related | Closed related context only. |
-| #72411 | keep_closed | skipped | related | Merged adjacent context only; not a replacement for #39489. |
+| #35532 | keep_closed | skipped | related | Already closed; no mutation is valid. |
+| #39486 | keep_closed | skipped | related | Already closed; no mutation is valid. |
+| #39487 | keep_closed | skipped | superseded | Already closed as superseded by the hydrated canonical PR #39489; do not emit another close action. |
+| #39488 | keep_closed | skipped | related | Already closed; no mutation is valid. |
+| #39489 | keep_canonical | planned | canonical | Best live canonical path, but this dedupe-only job cannot repair or merge it. |
+| #41940 | keep_closed | skipped | superseded | Already closed as superseded by hydrated canonical PR #39489; do not emit another close action. |
+| #43765 | keep_related | planned | related | Related but not a true duplicate or safe superseded close target for this dedupe-only cluster. |
+| #53533 | keep_related | planned | related | Related useful contributor work; not high-confidence duplicate/superseded closure while canonical #39489 is still open. |
+| #72411 | keep_closed | skipped | related | Already merged/closed related context; no mutation is valid. |
 
 ## Needs Human
 

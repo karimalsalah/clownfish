@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "low-signal-pr-sweep-20260427T0530-02"
 mode: "autonomous"
-run_id: "24978252339"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978252339"
-head_sha: "ef3a582bffe2ffa57be653d2945931140635f43a"
-workflow_conclusion: "failure"
+run_id: "25104127999"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104127999"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-27T05:33:37.318Z"
+published_at: "2026-06-15T03:54:22.423Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -25,9 +25,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978252339](https://github.com/openclaw/clownfish/actions/runs/24978252339)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104127999](https://github.com/openclaw/clownfish/actions/runs/25104127999)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Used the provided hydrated preflight artifact for the low-signal PR sweep. All non-security candidate PRs are already closed, so no close_low_signal mutation is valid. The security-sensitive candidate is routed to central security handling as a non-mutating quarantine action.
+All five sweep targets are already closed in the hydrated preflight state, so no close_low_signal/comment mutation is valid. No canonical is needed for this low-signal sweep; the result records skipped keep_closed actions only.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Used the provided hydrated preflight artifact for the low-signal PR sweep. All n
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #58005 | keep_closed | skipped | low_signal | Already closed in live preflight state; closed refs must not receive close_low_signal actions. |
-| #58386 | keep_closed | skipped | low_signal | Already closed in live preflight state; closed refs must not receive close_low_signal actions. |
-| #58291 | keep_closed | skipped | low_signal | Already closed in live preflight state; closed refs must not receive close_low_signal actions. |
-| #58500 | keep_closed | skipped | low_signal | Already closed in live preflight state; closed refs must not receive close_low_signal actions. |
-| #59082 | route_security | planned | security_sensitive | Security-sensitive item is outside ProjectClownfish low-signal cleanup scope; route only this exact ref to central security handling. |
+| #58005 | keep_closed | skipped | low_signal | Already closed; no mutation should be planned. |
+| #58386 | keep_closed | skipped | superseded | Already closed; no mutation should be planned. |
+| #58291 | keep_closed | skipped | superseded | Already closed; no mutation should be planned. |
+| #58500 | keep_closed | skipped | low_signal | Already closed; no mutation should be planned. |
+| #59082 | keep_closed | skipped | low_signal | Already closed; no mutation should be planned. |
 
 ## Needs Human
 

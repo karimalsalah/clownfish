@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "low-signal-pr-sweep-20260425T2355-04"
 mode: "autonomous"
-run_id: "24978529987"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978529987"
-head_sha: "52d57e1e9e9b1fa39aeddf60fb448e4f0e3aa8da"
+run_id: "25104123502"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104123502"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-04-27T05:43:30.806Z"
+result_status: "needs_human"
+published_at: "2026-06-15T03:54:22.422Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -25,17 +25,17 @@ needs_human_count: 3
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978529987](https://github.com/openclaw/clownfish/actions/runs/24978529987)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104123502](https://github.com/openclaw/clownfish/actions/runs/25104123502)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Low-signal sweep reviewed five hydrated PR refs. Two refs are already closed and must not receive closure actions. None of the three still-open PRs meet the boringly-clear low-signal close bar: #55713 is a focused docs fix with green docs checks, #55085 is a product/API-surface proposal requiring maintainer direction and technical review, and #57468 contains focused model/context bug fixes plus unresolved review findings. No GitHub mutations are emitted directly.
+Hydrated low-signal sweep found no security-sensitive refs. No close_low_signal action is safe from the artifact: #50793 and #53580 are already closed, while #55085, #55713, and #57468 each hit low-signal policy exceptions requiring maintainer review rather than automated closure.
 
 ## Impact
 
@@ -66,14 +66,14 @@ Low-signal sweep reviewed five hydrated PR refs. Two refs are already closed and
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #50793 | keep_closed | skipped | superseded | Closed historical ref; retained as evidence only. |
-| #53580 | keep_closed | skipped | low_signal | Already closed under the external-plugin/ClawHub rationale; no further action. |
-| #55713 | needs_human | blocked | needs_human | Requires maintainer judgment because the PR is a focused docs fix with green docs validation, not a boringly-clear low-signal PR. |
-| #55085 | needs_human | blocked | needs_human | Blocked on maintainer product/API direction and technical correctness review; not boringly clear low-signal cleanup. |
-| #57468 | needs_human | blocked | needs_human | Requires maintainer technical judgment because the PR includes plausible focused bug fixes and unresolved review findings; low-signal close would be unsafe. |
+| #50793 | keep_closed | skipped | superseded | Already closed before this run; no mutation planned. |
+| #53580 | keep_closed | skipped | low_signal | Already closed before this run; no mutation planned. |
+| #55085 | needs_human | blocked | needs_human | Not boringly closeable under low-signal policy. Deciding whether a stable external setup-surface export belongs in core is a maintainer/product API decision, and technical correctness remains unresolved. |
+| #55713 | needs_human | blocked | needs_human | Low-signal policy says not to close green, focused fixes with concrete user-facing value. This needs normal maintainer review, not automated low-signal closure. |
+| #57468 | needs_human | blocked | needs_human | Not boringly closeable as refactor-only churn because the artifact shows plausible real model/context bug fixes. Closing or salvaging it requires technical correctness and maintainer judgment. |
 
 ## Needs Human
 
-- #55713: focused docs fix with green docs validation; low-signal policy requires human review rather than closure.
-- #55085: new setup-surface/product API proposal with red checks and unresolved review findings; requires maintainer product and technical judgment.
-- #57468: broad model metadata refactor containing real bug fixes and unresolved P1/P2 review findings; requires maintainer technical judgment.
+- #55085: decide whether the external setup-surface export belongs in core or should be closed/reworked through a maintainer-approved design.
+- #55713: review the focused green docs fix and decide whether to request the bot-suggested docs corrections instead of closing as low-signal.
+- #57468: decide whether to preserve/rework the real model/context fixes despite the broad refactor, failing checks, and unresolved bot findings.

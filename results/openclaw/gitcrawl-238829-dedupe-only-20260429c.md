@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238829-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102902108"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102902108"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103978937"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103978937"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.123Z"
-canonical: "#66324"
+published_at: "2026-06-15T03:54:22.388Z"
+canonical: "https://github.com/openclaw/openclaw/issues/66324"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/66324"
 canonical_pr: null
 actions_total: 5
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102902108](https://github.com/openclaw/clownfish/actions/runs/25102902108)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103978937](https://github.com/openclaw/clownfish/actions/runs/25103978937)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #66324
+Canonical: https://github.com/openclaw/openclaw/issues/66324
 
 ## Summary
 
-No GitHub mutations are planned. The hydrated preflight shows all five cluster refs are already closed, including the hinted representative #66324, and no security-sensitive signal was detected. The closed issues all contain repeated third-party referral/promotional setup text with no actionable OpenClaw bug or feature request, and prior close comments are already present.
+All five hydrated issue refs are already closed in the preflight artifact, including the hinted canonical #66324. No open candidate remains, no security-sensitive signal is present, and no GitHub mutation is planned.
 
 ## Impact
 
@@ -66,11 +66,11 @@ No GitHub mutations are planned. The hydrated preflight shows all five cluster r
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #66317 | keep_closed | skipped | duplicate | Already closed before this run; do not emit a close action for a closed issue. |
-| #66319 | keep_closed | skipped | duplicate | Already closed before this run; do not emit a close action for a closed issue. |
-| #66323 | keep_closed | skipped | duplicate | Already closed before this run; do not emit a close action for a closed issue. |
-| #66324 | keep_closed | skipped | canonical | The hinted representative is already closed, so it is historical canonical evidence only and receives no mutation. |
-| #66325 | keep_closed | skipped | duplicate | Already closed before this run; do not emit a close action for a closed issue. |
+| #66317 | keep_closed | skipped | duplicate | Already closed; no open target remains for this worker. |
+| #66319 | keep_closed | skipped | duplicate | Already closed; no open target remains for this worker. |
+| #66323 | keep_closed | skipped | duplicate | Already closed; no open target remains for this worker. |
+| #66324 | keep_closed | skipped | canonical | Hinted canonical is already closed; no open canonical remains to act on. |
+| #66325 | keep_closed | skipped | duplicate | Already closed; no open target remains for this worker. |
 
 ## Needs Human
 

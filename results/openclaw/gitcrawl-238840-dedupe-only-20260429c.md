@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238840-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102922870"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102922870"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103997625"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103997625"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.128Z"
+published_at: "2026-06-15T03:54:22.393Z"
 canonical: "https://github.com/openclaw/openclaw/pull/72328"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/72328"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102922870](https://github.com/openclaw/clownfish/actions/runs/25102922870)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103997625](https://github.com/openclaw/clownfish/actions/runs/25103997625)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/72328
 
 ## Summary
 
-Canonical switch-state fix is the already-merged #72328 on current main e1fd27fb24ae81e27cf4ac1297410491009a70c0. No new close actions are safe: #43013 and #54724 are related model-selector subfamilies with unique remaining scope or unresolved review/check blockers, while #46275 and #72328 are already closed.
+Hydrated state shows #72328 is the merged canonical fix for the narrow agent-switch stale model selector bug. #43013 and #54724 are related but not safe closeouts because they carry distinct default-selector and broader catalog-hydration scope, while #46275 is already closed.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Canonical switch-state fix is the already-merged #72328 on current main e1fd27fb
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #43013 | keep_related | planned | related | Related page-load/default-selector subfamily with useful but not merge-ready contributor work; not a high-confidence duplicate or fixed-by-candidate close. |
-| #46275 | keep_closed | skipped | superseded | Already closed historical PR; retain as superseded evidence only. |
-| #54724 | keep_related | planned | related | Related broader follow-up, not fully superseded by the narrow merged switch fix. |
-| #72328 | keep_closed | skipped | canonical | Canonical fix path for the switch-state portion is already merged; no post-merge or close action is allowed by this job. |
+| #43013 | keep_related | planned | related | Keep open as related follow-up work; it is not a duplicate of the merged switch-remount fix. |
+| #46275 | keep_closed | skipped | superseded | Historical closed candidate only; no mutation planned. |
+| #54724 | keep_related | planned | related | Keep open as related broader follow-up; not a high-confidence duplicate or fixed-by-candidate closeout. |
+| #72328 | keep_closed | skipped | canonical | Merged canonical fix path; already closed, so no mutation planned. |
 
 ## Needs Human
 

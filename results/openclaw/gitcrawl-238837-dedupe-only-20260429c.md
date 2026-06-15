@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238837-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102915375"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102915375"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103990299"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103990299"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.126Z"
+published_at: "2026-06-15T03:54:22.392Z"
 canonical: "https://github.com/openclaw/openclaw/issues/41764"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/41764"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102915375](https://github.com/openclaw/clownfish/actions/runs/25102915375)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103990299](https://github.com/openclaw/clownfish/actions/runs/25103990299)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/41764
 
 ## Summary
 
-Hydrated preflight shows all four job candidates are already closed. No GitHub mutations are planned; #41764 remains the historical canonical issue for this cron false-error family, with current-main fix evidence from the hydrated closeouts.
+Hydrated preflight shows all four job candidates are already closed. #41764 remains the canonical cron false-error family representative, and the later reports are already closed as fixed on current main, so no close/comment/label mutation is planned.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Hydrated preflight shows all four job candidates are already closed. No GitHub m
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41764 | keep_closed | skipped | canonical | Representative canonical is already closed in hydrated live state; keep it only as historical canonical evidence and plan no comment or close action. |
-| #50170 | keep_closed | skipped | duplicate | Already closed as fixed on main and duplicate of the #41764 cron false-error family; no mutation is valid for a closed target. |
-| #65464 | keep_closed | skipped | duplicate | Already closed as implemented by the same current-main cron payload-classifier fix family; no mutation is valid for a closed target. |
-| #73556 | keep_closed | skipped | duplicate | Already closed by a prior Clownfish fixed-on-main closeout; no additional comment or close action is valid. |
+| #41764 | keep_closed | skipped | canonical | Already closed canonical issue; keep as historical canonical evidence only. |
+| #50170 | keep_closed | skipped | fixed_by_candidate | Already closed as fixed on main; no mutation remains for this worker. |
+| #65464 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented on main; keep as fixed historical context. |
+| #73556 | keep_closed | skipped | fixed_by_candidate | Already closed as fixed by the canonical current-main fix path; no further action is valid. |
 
 ## Needs Human
 

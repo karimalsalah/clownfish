@@ -2,15 +2,15 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238855-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102943097"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102943097"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104019916"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104019916"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.131Z"
+published_at: "2026-06-15T03:54:22.397Z"
 canonical: "https://github.com/openclaw/openclaw/commit/73ba282b54cd8bfe2986f953b1fa7992f8a591e4"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/65480"
-canonical_pr: "https://github.com/openclaw/openclaw/pull/65481"
+canonical_issue: null
+canonical_pr: null
 actions_total: 4
 fix_executed: 0
 fix_failed: 0
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102943097](https://github.com/openclaw/clownfish/actions/runs/25102943097)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104019916](https://github.com/openclaw/clownfish/actions/runs/25104019916)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/commit/73ba282b54cd8bfe2986f953b
 
 ## Summary
 
-Hydrated state shows the representative #65481 and overlapping #66259 are already closed as superseded by current main, #63678 is an already-closed related QMD vector-status parser fix, and #68590 remains open as a related follow-up with unresolved review-bot findings. No close, merge, or fix actions are planned.
+Live preflight shows the mask-first QMD collection-pattern work is already closed and carried on current main. The only open cluster member, #68590, is related memory-core/QMD repair work with a different root cause and unresolved Greptile/Codex review blockers, so no close/comment/label mutation is planned.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Hydrated state shows the representative #65481 and overlapping #66259 are alread
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #63678 | keep_closed | skipped | related | Already closed and related to the same memory-core/QMD area, but not the same root cause as the mask-first collection-pattern cluster. |
-| #65481 | keep_closed | skipped | canonical | Canonical path is already landed on current main; the representative PR is closed and should not receive further mutation. |
-| #66259 | keep_closed | skipped | superseded | Already closed as superseded by the current-main implementation of the mask-first QMD compatibility fix. |
-| #68590 | keep_related | planned | related | Keep open as a related follow-up PR; it is not a duplicate of the mask-first canonical path and has unresolved review-bot blockers. |
+| #63678 | keep_closed | skipped | related | Already closed and only related to this QMD memory-core cluster by area, not by the mask-first collection-pattern root cause. |
+| #65481 | keep_closed | skipped | superseded | Representative is obsolete as an open canonical PR; it was already closed as superseded by current main. |
+| #66259 | keep_closed | skipped | superseded | Already closed as superseded by the same current-main mask-first QMD collection-pattern path. |
+| #68590 | keep_related | planned | related | Keep #68590 open as related follow-up work; it is not a duplicate or superseded by the mask-first current-main fix. |
 
 ## Needs Human
 

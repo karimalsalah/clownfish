@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238812-dedupe-only-20260429b"
 mode: "autonomous"
-run_id: "25102864554"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102864554"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103908788"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103908788"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.115Z"
+published_at: "2026-06-15T03:54:22.377Z"
 canonical: "https://github.com/openclaw/openclaw/issues/52618"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/52618"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/73739"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102864554](https://github.com/openclaw/clownfish/actions/runs/25102864554)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103908788](https://github.com/openclaw/clownfish/actions/runs/25103908788)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/52618
 
 ## Summary
 
-Classified the live Feishu WebSocket recovery cluster with #52618 as the open canonical issue and #73739 as the current implementation candidate. Planned one high-confidence duplicate close for #72828; kept #42354 and #55532 open as related but not duplicate; skipped already-closed #68766.
+Canonical remains the open issue #52618, with #73739 as the current open implementation candidate. #72828 is a high-confidence duplicate planned for close; #42354 and #55532 remain related but not duplicate-clean; #68766 is already closed and is kept as historical fixed-by-#72411 evidence.
 
 ## Impact
 
@@ -66,12 +66,12 @@ Classified the live Feishu WebSocket recovery cluster with #52618 as the open ca
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #52618 | keep_canonical | planned | canonical | Best surviving canonical issue for the post-start Feishu WebSocket retry-exhaustion recovery root cause. |
-| #73739 | keep_canonical | planned | canonical | Current canonical implementation candidate, but merge/fix are out of scope and the hydrated review-bot concern still requires the normal PR review path. |
-| #42354 | keep_related | planned | related | Related Feishu WebSocket symptom family, but the initial connection/domain-routing details are unique enough that duplicate closure would be unsafe. |
-| #55532 | keep_related | planned | related | Related Feishu reconnect/backoff work, but the token-cache and backoff-specific scope leaves unique remaining work outside a clean duplicate of #52618. |
-| #72828 | close_duplicate | planned | duplicate | Same root cause and user-visible failure as #52618, with no unique remaining scope beyond the canonical issue and implementation candidate. |
-| #68766 | keep_closed | skipped | fixed_by_candidate | Already closed before this run; no mutation should be planned. |
+| #52618 | keep_canonical | planned | canonical | Best live canonical issue for the Feishu WebSocket retry-exhaustion recovery report. |
+| #73739 | keep_canonical | planned | canonical | Current canonical implementation candidate should stay open for maintainer review; merge is out of scope and review-bot P2 proof remains before any future merge gate. |
+| #42354 | keep_related | planned | related | Related Feishu WebSocket transport family, but it has unique initial-connection/domain/readiness details and is not a high-confidence duplicate of #52618. |
+| #55532 | keep_related | planned | related | Related Feishu reconnect/backoff family, but unique token-cache poisoning and an unhydrated replacement path make duplicate closure unsafe. |
+| #68766 | keep_closed | skipped | fixed_by_candidate | Already closed in live state; included only as historical fixed-by-#72411 evidence. |
+| #72828 | close_duplicate | planned | duplicate | High-confidence duplicate of the open canonical issue #52618; closure is allowed because require_fix_before_close is false and the canonical thread remains open. |
 
 ## Needs Human
 

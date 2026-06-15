@@ -2,53 +2,53 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238880-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102990870"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102990870"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104062030"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104062030"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T03:45:26.139Z"
+result_status: "planned"
+published_at: "2026-06-15T03:54:22.405Z"
 canonical: "https://github.com/openclaw/openclaw/pull/44023"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/44023"
-actions_total: 6
+actions_total: 5
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-238880-dedupe-only-20260429c
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102990870](https://github.com/openclaw/clownfish/actions/runs/25102990870)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104062030](https://github.com/openclaw/clownfish/actions/runs/25104062030)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: https://github.com/openclaw/openclaw/pull/44023
 
 ## Summary
 
-Hydrated state shows the ping-pong cap request is real and not implemented on current main. #44023 remains the best canonical tracking PR for the original #43972 path, but #45871 and #52400 are useful overlapping contributor PRs with distinct implementation/test/doc context, so no closeout is safe in this dedupe-only job.
+Classified the cluster without planning mutations. #44023 remains the best canonical implementation path, but the overlapping open PRs and linked issue carry useful unique context or review blockers, so they should stay open rather than be closed by dedupe automation.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 6 |
+| Worker actions | 5 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,13 +66,12 @@ Hydrated state shows the ping-pong cap request is real and not implemented on cu
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #43972 | keep_closed | skipped | superseded | Already closed; no mutation planned. |
-| #44023 | keep_canonical | planned | canonical | #44023 remains the canonical tracking PR for the original cap-increase request, but it is not merge-ready. |
-| #45871 | keep_related | planned | related | Related overlapping implementation; keep open for maintainer selection or combination rather than close as superseded. |
-| #52382 | keep_related | planned | related | Same problem family but unique reproduction and product-scope detail; keep open. |
-| #52400 | keep_related | planned | related | Useful overlapping implementation with unresolved review/check blockers; keep open rather than close. |
-| cluster:gitcrawl-238880-dedupe-only-20260429c | needs_human | planned | needs_human | Maintainer should choose whether to repair #44023, switch canonical to #45871 or #52400, or combine useful pieces before any contributor PR is closed. |
+| #44023 | keep_canonical | planned | canonical | Best surviving canonical path for this dedupe-only cluster, but not merge-ready and merge/fix actions are blocked by the job. |
+| #45871 | keep_related | planned | related | Overlaps the canonical fix family but has useful implementation and discussion details; keep open for maintainer comparison or later repair. |
+| #52400 | keep_related | planned | related | Related implementation candidate with useful tests but unresolved bot findings, broader churn, and a failing check; keep open rather than close as a duplicate. |
+| #52382 | keep_related | planned | related | Same family as the canonical cap increase, but it has unique incident and product-scope details, so it should remain open. |
+| #43972 | keep_closed | skipped | superseded | Already closed; included only to record that no further action is planned. |
 
 ## Needs Human
 
-- Choose the final implementation path among useful overlapping PRs #44023, #45871, and #52400 before closing any contributor work.
+- none

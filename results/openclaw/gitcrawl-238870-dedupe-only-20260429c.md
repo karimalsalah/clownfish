@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238870-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102965402"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102965402"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104040334"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104040334"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "needs_human"
-published_at: "2026-06-15T03:45:26.134Z"
+published_at: "2026-06-15T03:54:22.400Z"
 canonical: "https://github.com/openclaw/openclaw/issues/39923"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/39923"
 canonical_pr: null
-actions_total: 7
+actions_total: 4
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,7 +25,7 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102965402](https://github.com/openclaw/clownfish/actions/runs/25102965402)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104040334](https://github.com/openclaw/clownfish/actions/runs/25104040334)
 
 Workflow conclusion: success
 
@@ -35,13 +35,13 @@ Canonical: https://github.com/openclaw/openclaw/issues/39923
 
 ## Summary
 
-Kept #39923 as the canonical live issue for the datetime config-backup suffix request. #39982 and #40392 are useful competing open PRs, but the artifact shows unresolved review-bot/design blockers, so no close, merge, or fix action is safe in this dedupe-only job. #20460 remains a related broader directory-plus-datetime request.
+No GitHub mutation is safe for this cluster. #39923 remains the canonical issue for the datetime config-backup suffix request, while #39982 and #40392 are parallel useful implementation PRs with unresolved review/design blockers. #20460 is related but broader because it also asks for a dedicated backup directory.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 7 |
+| Worker actions | 4 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,14 +66,11 @@ Kept #39923 as the canonical live issue for the datetime config-backup suffix re
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #1083 | keep_closed | skipped | related | Already closed; no action. |
-| #20460 | keep_related | planned | related | Related but not a duplicate; it has broader directory-placement scope. |
-| #31718 | keep_closed | skipped | related | Already closed; no action. |
-| #39923 | keep_canonical | planned | canonical | Best live canonical path is the open issue, pending maintainer choice of implementation. |
-| #39982 | needs_human | blocked | needs_human | Maintainer must choose whether #39982 is the canonical implementation or should be consolidated with/replaced by #40392. |
-| #40392 | needs_human | blocked | needs_human | Competing useful PR remains unresolved; closing or superseding it would discard contributor work before maintainers choose the canonical implementation. |
-| #46353 | keep_closed | skipped | related | Already closed; no action. |
+| #39923 | keep_canonical | planned | canonical | Canonical issue stays open until maintainers choose and land one implementation or decide to retain numeric rotation. |
+| #39982 | needs_human | blocked | needs_human | Canonical implementation choice is unclear because #40392 is a parallel open implementation and #39982 still has failing checks/review-bot blockers. |
+| #40392 | needs_human | blocked | needs_human | This PR is useful but cannot be closed or selected automatically while #39982 remains a competing implementation and legacy-backup migration policy is unresolved. |
+| #20460 | keep_related | planned | related | Related follow-up scope, not a duplicate of the narrower #39923 datetime-suffix request. |
 
 ## Needs Human
 
-- Maintainer decision needed: choose the canonical implementation for #39923 between #39982 and #40392, or request a consolidated branch. Both are useful focused PRs with contributor credit to preserve, and both still have unresolved review/design concerns.
+- Maintainer must choose the canonical implementation path for #39923 between #39982 and #40392, including timestamp precision, collision handling, and legacy `.bak.N` migration/retention policy.

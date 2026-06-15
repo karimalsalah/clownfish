@@ -2,19 +2,19 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-166003-agentic-merge"
 mode: "autonomous"
-run_id: "27345047272"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27345047272"
-head_sha: "85ec5fcf80092911f8cc0ecd03274ba7e57179fd"
+run_id: "25103710328"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103710328"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-11T12:04:46.009Z"
-canonical: "https://github.com/openclaw/openclaw/pull/66720"
+published_at: "2026-06-15T03:54:22.340Z"
+canonical: "https://github.com/openclaw/openclaw/pull/72614"
 canonical_issue: null
-canonical_pr: "https://github.com/openclaw/openclaw/pull/66720"
-actions_total: 12
+canonical_pr: "https://github.com/openclaw/openclaw/pull/72614"
+actions_total: 10
 fix_executed: 0
 fix_failed: 0
-fix_blocked: 1
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
@@ -25,26 +25,26 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27345047272](https://github.com/openclaw/clownfish/actions/runs/27345047272)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103710328](https://github.com/openclaw/clownfish/actions/runs/25103710328)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/66720
+Canonical: https://github.com/openclaw/openclaw/pull/72614
 
 ## Summary
 
-Current main 99d0bdc23ab33a43be08be6583a99fb08206a054 already contains the merged #72614 runtime fix for sessions_spawn ACP-only fields. The representative #56342 and the other original overlap PRs are closed, while #66720 is the only live job candidate and is a related provider-schema compatibility change that needs contributor-branch repair before any merge.
+Hydrated state shows the original representative #56342 is already closed. The canonical path is the merged replacement PR #72614 on current main a1197b907524ff892341c5a5682b1e559850f2f6. Eight seed PRs are already closed and should remain untouched. The two open seed PRs are related follow-ups, not high-confidence duplicates: #59251 includes unique sessions_send argument-normalization work, and #66720 is a provider/gateway schema-filtering follow-up with unresolved review-bot activation/scope findings.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 12 |
+| Worker actions | 10 |
 | Fix executed | 0 |
 | Fix failed | 0 |
-| Fix blocked | 1 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
@@ -54,7 +54,7 @@ Current main 99d0bdc23ab33a43be08be6583a99fb08206a054 already contains the merge
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| execute_fix | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -66,18 +66,16 @@ Current main 99d0bdc23ab33a43be08be6583a99fb08206a054 already contains the merge
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #40102 | keep_closed | skipped | superseded | Closed historical overlap PR; no GitHub mutation planned. |
-| #56342 | keep_closed | skipped | superseded | Representative is obsolete and already closed; no close or merge action is valid. |
-| #58686 | keep_closed | skipped | superseded | Closed superseded PR; no mutation planned. |
-| #59251 | keep_closed | skipped | related | Closed related PR with additional scope; keep as historical context only. |
-| #63121 | keep_closed | skipped | superseded | Closed documentation/schema-guidance overlap; no action planned. |
-| #64787 | keep_closed | skipped | superseded | Closed superseded PR; no mutation planned. |
-| #65282 | keep_closed | skipped | superseded | Closed superseded contributor PR; no action planned. |
-| #68397 | keep_closed | skipped | superseded | Closed prior canonical candidate; no mutation planned. |
-| #69170 | keep_closed | skipped | superseded | Closed docs overlap; no action planned. |
-| #66720 | fix_needed | planned | canonical | Repair the contributor branch before any merge decision; no close or merge mutation is planned. |
-| cluster:ghcrawl-166003-agentic-merge | build_fix_artifact | planned |  | Fix-enabled autonomous job with a repairable open contributor PR. |
-| #59225 | keep_related | planned | related | Related follow-up scope, not a duplicate and not closable in this cluster. |
+| #40102 | keep_closed | skipped | superseded | Already closed and superseded by the merged canonical fix #72614. |
+| #56342 | keep_closed | skipped | superseded | Representative drifted closed; merged #72614 is the current canonical fix. |
+| #58686 | keep_closed | skipped | superseded | Already closed as superseded by merged #72614. |
+| #59251 | keep_related | planned | related | Not a true duplicate; keep open as a related follow-up for broader sessions argument normalization. |
+| #63121 | keep_closed | skipped | superseded | Already closed as superseded by merged #72614. |
+| #64787 | keep_closed | skipped | superseded | Already closed and covered by the merged canonical sessions_spawn fix. |
+| #65282 | keep_closed | skipped | superseded | Already closed as superseded by the credited replacement #72614. |
+| #66720 | keep_related | planned | related | Related provider-compatibility follow-up with unresolved review-bot findings; not duplicate-closeable and not merge-ready in this cluster. |
+| #68397 | keep_closed | skipped | superseded | Already closed as superseded by the credited replacement #72614. |
+| #69170 | keep_closed | skipped | superseded | Already closed and superseded by the merged canonical fix path. |
 
 ## Needs Human
 

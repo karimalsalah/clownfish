@@ -2,19 +2,22 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-199230-agentic-merge"
 mode: "autonomous"
-run_id: "24968248011"
-run_url: "https://github.com/openclaw/projectclownfish/actions/runs/24968248011"
-head_sha: "7d4cb531a8aefe63df69f7cc78f50c73fe08de4d"
+run_id: "25103735337"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103735337"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-26T22:24:26.995Z"
-canonical: "https://github.com/openclaw/openclaw/pull/59048"
+published_at: "2026-06-15T03:54:22.348Z"
+canonical: "https://github.com/openclaw/openclaw/pull/72391"
 canonical_issue: null
-canonical_pr: "https://github.com/openclaw/openclaw/pull/59048"
-actions_total: 15
+canonical_pr: "https://github.com/openclaw/openclaw/pull/72391"
+actions_total: 16
+fix_executed: 0
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
-apply_blocked: 1
-apply_skipped: 1
+apply_blocked: 0
+apply_skipped: 0
 needs_human_count: 0
 ---
 
@@ -22,54 +25,63 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/projectclownfish/actions/runs/24968248011](https://github.com/openclaw/projectclownfish/actions/runs/24968248011)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103735337](https://github.com/openclaw/clownfish/actions/runs/25103735337)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/59048
+Canonical: https://github.com/openclaw/openclaw/pull/72391
 
 ## Summary
 
-Hydrated state supports #59048 as the canonical open PR for the memory-lancedb float-encoding bug, but it is not merge-ready because mergeability is unknown, one check is failing, and no clean Codex /review merge preflight is present. The cluster also contains distinct memory-lancedb follow-up fixes, two already-closed superseded PRs, and one security-sensitive PR routed out of ProjectClownfish mutation.
+Canonical representative #59048 is obsolete: it is closed and was replaced by merged #72391 on current main 99950c7f1272dff6e2c34c2be45dfc5f89e62a60. The remaining open hydrated refs are related memory or embedding work, not high-confidence duplicates of the float-encoding fix; no merge or close action is safe from this worker result.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 15 |
+| Worker actions | 16 |
+| Fix executed | 0 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 1 |
-| Apply skipped | 1 |
+| Apply blocked | 0 |
+| Apply skipped | 0 |
 | Needs human | 0 |
+
+## Fix Execution Actions
+
+| Action | Status | Target | Branch | Reason |
+| --- | --- | --- | --- | --- |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #45982 | close_fixed_by_candidate | skipped | fixed_by_candidate | action status is blocked |
-| #72391 | merge_canonical | blocked | fix_pr | merge state status is UNSTABLE |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #59048 | keep_canonical | planned | canonical | Best current canonical path is to repair and validate #59048 before merge or closeout. |
-| cluster:ghcrawl-199230-agentic-merge | fix_needed | planned |  | Canonical fix path exists but needs branch repair, refreshed validation, and Codex /review before merge or duplicate closeout. |
-| cluster:ghcrawl-199230-agentic-merge | build_fix_artifact | planned |  | Prepare an auditable repair plan for the canonical contributor branch. |
-| #45982 | close_fixed_by_candidate | blocked | fixed_by_candidate | Closeout is clear but blocked on the canonical fix path landing. |
-| #41670 | keep_related | planned | related | Related embedding compatibility work, but not the same implementation surface as the memory-lancedb canonical fix. |
-| #42531 | keep_related | planned | related | Related provider-compatibility work that should remain open as a separate decision path. |
-| #45986 | keep_closed | skipped | superseded | Historical superseded PR; closed refs are evidence only. |
-| #46069 | keep_closed | skipped | superseded | Historical superseded PR; closed refs are evidence only. |
-| #59130 | keep_independent | planned | independent | Different user-visible failure and root cause from #59048. |
-| #59141 | keep_independent | planned | independent | Independent memory-lancedb behavior change with unresolved bot review findings. |
-| #60177 | keep_closed | skipped | independent | Closed independent context ref. |
-| #63655 | keep_related | planned | related | Related provider compatibility gap; not safe to close as duplicate of #59048. |
-| #65066 | keep_independent | planned | independent | Independent memory-lancedb runtime-registration fix. |
-| #66913 | route_security | planned | security_sensitive | Security-sensitive item must route to central OpenClaw security triage without ProjectClownfish mutation. |
-| #69707 | keep_related | planned | related | Related but distinct provider compatibility PR; leave open for its own validation path. |
+| #32036 | keep_closed | skipped | related | Already closed merged context; no mutation target. |
+| #41670 | keep_related | planned | related | Related embedding compatibility follow-up, not a duplicate of the merged memory-lancedb #72391 fix. |
+| #42531 | keep_closed | skipped | fixed_by_candidate | Already closed context; no mutation target. |
+| #43910 | keep_related | planned | related | Related open follow-up candidate with unresolved review and merge blockers. |
+| #45982 | keep_closed | skipped | fixed_by_candidate | Already closed as fixed by the merged canonical replacement. |
+| #45986 | keep_closed | skipped | superseded | Already closed superseded PR; canonical fix is merged #72391. |
+| #46069 | keep_closed | skipped | superseded | Already closed superseded PR; canonical fix is merged #72391. |
+| #59048 | keep_closed | skipped | superseded | Original canonical hint is obsolete; replacement #72391 is the canonical landed path. |
+| #59130 | keep_related | planned | related | Related memory-lancedb subcluster; keep open. |
+| #59141 | keep_related | planned | related | Related but distinct issue family with unresolved review blockers; no merge or close action. |
+| #60177 | keep_closed | skipped | related | Already closed related context. |
+| #63655 | keep_closed | skipped | fixed_by_candidate | Already closed as fixed on main by a commit, not an open mutation target. |
+| #65066 | keep_related | planned | related | Useful related PR for a different root cause; keep open outside this canonical fix. |
+| #66913 | keep_related | planned | related | Related useful PR with failing checks; keep open. |
+| #69707 | keep_related | planned | related | Related memory-lancedb compatibility PR with repair/review work still required; not a duplicate closeout. |
+| #72391 | keep_closed | skipped | canonical | Canonical fix path is already merged; no worker merge/post-merge action remains. |
 
 ## Needs Human
 

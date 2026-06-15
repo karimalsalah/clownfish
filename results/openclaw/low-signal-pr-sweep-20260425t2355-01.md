@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "low-signal-pr-sweep-20260425T2355-01"
 mode: "autonomous"
-run_id: "24978479402"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978479402"
-head_sha: "3701e4ea719b18e8a66aab3ed90567b37a362212"
+run_id: "25104117189"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104117189"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-04-27T05:42:14.670Z"
+result_status: "needs_human"
+published_at: "2026-06-15T03:54:22.421Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -16,26 +16,26 @@ fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 1
+apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 2
+needs_human_count: 1
 ---
 
 # low-signal-pr-sweep-20260425T2355-01
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978479402](https://github.com/openclaw/clownfish/actions/runs/24978479402)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104117189](https://github.com/openclaw/clownfish/actions/runs/25104117189)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Low-signal PR sweep classification only. No GitHub mutations were performed. The artifact supports one security quarantine, one already-closed skip, two non-closable focused docs PRs, and one low-signal close candidate.
+Low-signal sweep planning only; no GitHub mutations were performed. The hydrated preflight artifact shows #50648 and #49105 are already closed, #49430 and #48608 have useful focused docs signal that is not boringly low-signal, and #48355 needs maintainer judgment rather than low-signal closure.
 
 ## Impact
 
@@ -46,9 +46,9 @@ Low-signal PR sweep classification only. No GitHub mutations were performed. The
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 1 |
+| Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 2 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -60,19 +60,18 @@ Low-signal PR sweep classification only. No GitHub mutations were performed. The
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #50648 | close_low_signal | blocked | low_signal | maintainer issue comment blocks low-signal auto-close |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #50648 | close_low_signal | planned | low_signal | Boringly clear low-signal docs-only PR under the explicit low_signal_prs policy; no maintainer signal and unresolved bot feedback remain. |
-| #49430 | needs_human | planned | needs_human | Not a low-signal cleanup candidate because it is a focused docs fix for an open issue with active author follow-up and unresolved technical documentation judgment. |
-| #49105 | keep_closed | skipped | superseded | Already closed in hydrated live state; no action needed. |
-| #48608 | needs_human | planned | needs_human | Not boringly clear low-signal because it is tied to a closed tracker as the canonical PR, has green checks, and requires technical docs correctness judgment. |
-| #48355 | route_security | planned | security_sensitive | Security-sensitive PR must be routed to central OpenClaw security handling, not low-signal cleanup. |
+| #50648 | keep_closed | skipped | low_signal | Already closed in live preflight state. |
+| #49105 | keep_closed | skipped | low_signal | Already closed in live preflight state. |
+| #49430 | keep_related | planned | related | This is not boringly low-signal; it is a focused docs fix tied to an open issue and needs normal technical/docs review. |
+| #48608 | keep_related | planned | related | Keep open for maintainer docs review; not a clear low-signal close candidate. |
+| #48355 | needs_human | planned | needs_human | Maintainer product and trust-boundary judgment is required; do not close under low-signal policy. |
 
 ## Needs Human
 
-- #49430: maintainer judgment required because it is a focused docs fix for open issue #47558 with active contributor follow-up and unresolved technical documentation review comments.
-- #48608: maintainer judgment required because the PR has green checks, is named as the canonical open PR for closed issue #43034, and has unresolved technical docs correctness comments.
+- #48355: decide whether the public channel-plugin agent event API should remain open for design/trust-boundary review, be redirected to a narrower proposal, or be closed outside low-signal cleanup. The artifact contains unresolved bot findings on cross-session event exposure and plugin registration lifecycle.

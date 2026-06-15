@@ -2,22 +2,22 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-207042-agentic-merge"
 mode: "autonomous"
-run_id: "24978961186"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978961186"
-head_sha: "29400ea714d617de4455a11f0aa59ca745bf6cda"
+run_id: "25103769258"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103769258"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-27T06:12:28.502Z"
-canonical: "https://github.com/openclaw/openclaw/pull/59344"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/59319"
-canonical_pr: "https://github.com/openclaw/openclaw/pull/59344"
-actions_total: 7
+published_at: "2026-06-15T03:54:22.353Z"
+canonical: "https://github.com/openclaw/openclaw/pull/72406"
+canonical_issue: null
+canonical_pr: "https://github.com/openclaw/openclaw/pull/72406"
+actions_total: 12
 fix_executed: 0
-fix_failed: 1
-fix_blocked: 1
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
-apply_skipped: 1
+apply_skipped: 0
 needs_human_count: 0
 ---
 
@@ -25,55 +25,59 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978961186](https://github.com/openclaw/clownfish/actions/runs/24978961186)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103769258](https://github.com/openclaw/clownfish/actions/runs/25103769258)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/59344
+Canonical: https://github.com/openclaw/openclaw/pull/72406
 
 ## Summary
 
-Classified the hydrated cluster without GitHub mutations. The original representative #57587 is closed and obsolete. The live non-security canonical path for the duplicate bootstrap-context injection family is #59344, but it is not merge-ready until the Codex review finding about workspace-relative path resolution is repaired and revalidated. The cache-refresh replacement #72406 is security-sensitive and must be routed to central security handling only.
+Hydrated live state makes the original representative #57587 obsolete: it is closed and unmerged. The current canonical path is merged replacement PR #72406, which covers the useful bootstrap cache refresh and bootstrap-file path dedupe work carried forward from the contributor PRs. All job and linked refs in the artifact are already closed, so no close/comment/label/merge/fix mutation is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 7 |
+| Worker actions | 12 |
 | Fix executed | 0 |
-| Fix failed | 1 |
-| Fix blocked | 1 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
-| Apply skipped | 1 |
+| Apply skipped | 0 |
 | Needs human | 0 |
 
 ## Fix Execution Actions
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | validation command failed (pnpm check:changed): undefined ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL Command "check:changed" not found Did you mean "pnpm test:changed"? |
-| execute_fix | blocked |  |  | Codex /review did not pass after 2 attempt(s): Not merge-ready. The local changed-surface gate is green, and the #59344 Greptile/Codex path-normalization comments are addressed, but the current branch is also the open #72406 head and includes the cache-refresh/security-sensitive diff that the artifact explicitly says must not be routed through this fix. Aisle security findings on that current PR remain unresolved. |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #59319 | close_fixed_by_candidate | skipped | fixed_by_candidate | action status is blocked |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #43901 | keep_closed | skipped | superseded | Already closed; historical evidence only. |
-| #57587 | keep_closed | skipped | superseded | Representative is obsolete because it is closed and its dedupe site was rejected as not matching live behavior. |
-| #59344 | keep_canonical | planned | canonical | Canonical non-security path, but requires branch repair and a fresh clean review before merge. |
-| #64871 | keep_closed | skipped | superseded | Already closed and superseded by a separate replacement path; historical evidence only. |
-| #59319 | close_fixed_by_candidate | blocked | fixed_by_candidate | Blocked on canonical fix path #59344 landing or an equivalent fixed PR. |
-| #72406 | route_security | planned | security_sensitive | Security-sensitive PR routed to central OpenClaw security handling; unrelated non-security classifications continue. |
-| cluster:ghcrawl-207042-agentic-merge | build_fix_artifact | planned |  | Canonical PR needs branch repair before merge consideration. |
+| #24170 | keep_closed | skipped | independent | Already closed and independent of the bootstrap cache/path-dedupe cluster. |
+| #26497 | keep_closed | skipped | fixed_by_candidate | Already closed; the substantive bug family is covered by merged #72406. |
+| #28594 | keep_closed | skipped | fixed_by_candidate | Already closed; covered by merged #72406. |
+| #30896 | keep_closed | skipped | fixed_by_candidate | Already closed; the live canonical fix path has landed in #72406. |
+| #43901 | keep_closed | skipped | superseded | Already closed; superseded by merged #72406 with credit preserved. |
+| #56721 | keep_closed | skipped | superseded | Already closed; superseded by the later canonical fix path. |
+| #56725 | keep_closed | skipped | superseded | Already closed; superseded by the landed replacement path. |
+| #57587 | keep_closed | skipped | related | Closed obsolete representative; related to the same code area but not the canonical landed fix. |
+| #59319 | keep_closed | skipped | fixed_by_candidate | Already closed as fixed on current main by the landed path-dedupe work. |
+| #59344 | keep_closed | skipped | superseded | Already closed; superseded by merged replacement #72406 with credit preserved. |
+| #64871 | keep_closed | skipped | superseded | Already closed; superseded by merged replacement #72406 with attribution preserved. |
+| #72406 | keep_closed | skipped | canonical | Canonical fix already merged; no further mutation is required. |
 
 ## Needs Human
 

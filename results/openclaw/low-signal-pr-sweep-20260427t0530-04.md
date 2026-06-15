@@ -2,53 +2,53 @@
 repo: "openclaw/openclaw"
 cluster_id: "low-signal-pr-sweep-20260427T0530-04"
 mode: "autonomous"
-run_id: "24978436502"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978436502"
-head_sha: "dc0849b4d1289248c930aee5bbc6c1b559bdacb7"
+run_id: "25104132702"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104132702"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-04-27T05:40:24.501Z"
+result_status: "needs_human"
+published_at: "2026-06-15T03:54:22.426Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 8
+actions_total: 5
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 2
+needs_human_count: 3
 ---
 
 # low-signal-pr-sweep-20260427T0530-04
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978436502](https://github.com/openclaw/clownfish/actions/runs/24978436502)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104132702](https://github.com/openclaw/clownfish/actions/runs/25104132702)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Low-signal sweep classified the five listed open PRs using the hydrated preflight artifact. No PR satisfies the boringly-clear low-signal close bar: several have green checks, active or recent author/bot keep-open signal, focused implementation value, or require technical/maintainer judgment. Security-sensitive #63330 is quarantined only.
+Reviewed the five listed open PRs for low-signal cleanup. No close_low_signal action is planned. #62542 and #64179 are clear keep-open implementation candidates; #61203, #63330, and #65692 need maintainer review or scope decisions before any cleanup closure.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 8 |
+| Worker actions | 5 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 2 |
+| Needs human | 3 |
 
 ## Fix Execution Actions
 
@@ -66,16 +66,14 @@ Low-signal sweep classified the five listed open PRs using the hydrated prefligh
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #62542 | needs_human | planned | needs_human | Not boringly clear low-signal; needs maintainer/product judgment on whether this provider retry config belongs in core and whether bot findings are resolved. |
-| #64179 | keep_related | planned | related | Recent keep-open automation and green checks block low-signal close; keep open as related implementation work. |
-| #63330 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish low-signal cleanup and must route to central OpenClaw security handling. |
-| #61203 | needs_human | planned | needs_human | Risky infra plus green validation and author follow-up is not a boringly-clear low-signal close; maintainer direction is required. |
-| #65692 | keep_related | planned | related | Green checks plus explicit keep-open bot signal and focused implementation value block low-signal closure. |
-| #60951 | keep_closed | skipped | superseded | Already closed context ref. |
-| #63995 | keep_closed | skipped | superseded | Already closed context ref. |
-| #65250 | keep_closed | skipped | related | Already closed context ref. |
+| #62542 | keep_independent | planned | independent | Not boringly low-signal; leave open for normal technical review. |
+| #64179 | keep_independent | planned | independent | Green, concrete implementation candidate; not eligible for low-signal cleanup closure. |
+| #63330 | needs_human | blocked | needs_human | Automated low-signal closure is blocked by green validation and explicit maintainer design/security review needs. |
+| #61203 | needs_human | blocked | needs_human | Automated low-signal closure is blocked by green validation and maintainer Docker/runtime review needs. |
+| #65692 | needs_human | blocked | needs_human | Automated low-signal closure is blocked by green validation and unresolved maintainer scope review. |
 
 ## Needs Human
 
-- #62542: decide whether per-provider retryOnStatus/retry config belongs in OpenClaw core and whether the review-bot findings are sufficiently resolved despite failing checks.
-- #61203: decide whether the broad Docker/macOS runtime infrastructure direction should proceed despite being a risky infra change; green checks and author follow-up block low-signal closure.
+- #63330 requires maintainer design/security review for the followup plugin API and gateway-restart restart/shell-command path before any cleanup closure.
+- #61203 requires maintainer Docker/runtime review because it changes Docker build/runtime, privilege/bootstrap, downloaded tooling, and setup behavior with green validation.
+- #65692 requires maintainer scope judgment because linked #65250 was closed as ClawHub scope while this open PR is a concrete core context-pruning implementation candidate.

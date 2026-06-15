@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238886-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25103006702"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25103006702"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104075994"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104075994"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-29T10:12:34.960Z"
+published_at: "2026-06-15T03:54:22.412Z"
 canonical: "https://github.com/openclaw/openclaw/pull/45421"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/45421"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25103006702](https://github.com/openclaw/clownfish/actions/runs/25103006702)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104075994](https://github.com/openclaw/clownfish/actions/runs/25104075994)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/45421
 
 ## Summary
 
-Classified the hydrated open PRs without planning any GitHub mutations. #45421 remains the canonical Slack representative for this related channel-feature family. #45449 and #46258 are related sibling PRs for distinct Discord and Telegram implementations, not duplicates or superseded work. No close, merge, or fix PR action is safe or allowed for this dedupe-only job.
+Classified #45421 as the live canonical representative for this cluster and kept #45449 and #46258 open as related sibling channel implementations. No close, label, merge, or fix actions are planned because the Discord and Telegram PRs contain distinct useful channel work, and all three PRs need maintainer review or repair before any landing path.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Classified the hydrated open PRs without planning any GitHub mutations. #45421 r
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #45421 | keep_canonical | planned | canonical | Keep open as the canonical Slack implementation candidate; this is useful contributor work and not cleanup closure. |
-| #45449 | keep_related | planned | related | Keep open as a related Discord sibling implementation; it has unique channel scope and is not a duplicate of the Slack PR. |
-| #46258 | keep_related | planned | related | Keep open as a related Telegram sibling implementation; it has unique channel scope and is not a duplicate or superseded by the Slack PR. |
+| #45421 | keep_canonical | planned | canonical | #45421 remains the live canonical representative for the cluster, but it is not merge-ready and the job blocks merge and fix actions. |
+| #45449 | keep_related | planned | related | #45449 is related sibling work for Discord ack reaction timing, not a true duplicate or superseded PR. |
+| #46258 | keep_related | planned | related | #46258 is related sibling work for Telegram ack reaction timing, not a true duplicate or superseded PR. |
 
 ## Needs Human
 

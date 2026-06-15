@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238885-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25103004224"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25103004224"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104073775"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104073775"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.141Z"
+published_at: "2026-06-15T03:54:22.411Z"
 canonical: "https://github.com/openclaw/openclaw/issues/49311"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/49311"
 canonical_pr: null
-actions_total: 11
+actions_total: 3
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25103004224](https://github.com/openclaw/clownfish/actions/runs/25103004224)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104073775](https://github.com/openclaw/clownfish/actions/runs/25104073775)
 
 Workflow conclusion: success
 
@@ -35,13 +35,13 @@ Canonical: https://github.com/openclaw/openclaw/issues/49311
 
 ## Summary
 
-Hydrated preflight shows all job candidates are already closed. #49311 remains the canonical historical issue for the custom LaunchAgent EnvironmentVariables wipe; #45163 is a duplicate, and #53387 is a related service-env snapshot bug. No close, comment, label, merge, or fix actions are planned.
+All three job candidate issues are already closed in the hydrated live state, so no GitHub mutation is planned. #49311 remains the representative closed canonical issue for the LaunchAgent custom EnvironmentVariables wipe; #45163 is the same root-cause duplicate; #53387 is a related LaunchAgent service-env source-of-truth issue fixed by the same current-main path but not a duplicate of the custom-env wipe report.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 11 |
+| Worker actions | 3 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,17 +66,9 @@ Hydrated preflight shows all job candidates are already closed. #49311 remains t
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #45163 | keep_closed | skipped | duplicate | Already closed before this run; no mutation needed. |
-| #48096 | keep_closed | skipped | independent | Closed linked context only; outside this cluster's closeout scope. |
-| #49236 | keep_closed | skipped | independent | Closed linked context only; outside this cluster's closeout scope. |
-| #49293 | keep_closed | skipped | independent | Closed linked context only; outside this cluster's closeout scope. |
-| #49297 | keep_closed | skipped | related | Closed related context only; no mutation needed. |
-| #49305 | keep_closed | skipped | independent | Closed linked context only; outside this cluster's closeout scope. |
-| #49309 | keep_closed | skipped | independent | Closed linked context only; outside this cluster's closeout scope. |
-| #49311 | keep_closed | skipped | canonical | Canonical issue is already closed as fixed on main; no mutation is valid. |
-| #53387 | keep_closed | skipped | related | Already closed as a related fixed issue; no mutation needed. |
-| #53452 | keep_closed | skipped | superseded | Closed unmerged contributor PR is superseded by the later main fix; no mutation is valid. |
-| #53462 | keep_closed | skipped | superseded | Closed unmerged contributor PR is superseded by the later main fix; no mutation is valid. |
+| #49311 | keep_closed | skipped | canonical | Representative canonical issue is already closed by the current main fix; no mutation allowed or needed. |
+| #45163 | keep_closed | skipped | duplicate | Already-closed duplicate of #49311; no close action may be emitted. |
+| #53387 | keep_closed | skipped | related | Related closed issue fixed by the same current-main commit, not a duplicate closeout target. |
 
 ## Needs Human
 

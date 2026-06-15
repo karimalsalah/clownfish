@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238878-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102985552"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102985552"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104057544"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104057544"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.138Z"
+published_at: "2026-06-15T03:54:22.404Z"
 canonical: "https://github.com/openclaw/openclaw/pull/42904"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/42904"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102985552](https://github.com/openclaw/clownfish/actions/runs/25102985552)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104057544](https://github.com/openclaw/clownfish/actions/runs/25104057544)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/42904
 
 ## Summary
 
-Hydrated preflight state shows the local-store inventory is obsolete: all three candidate PRs are already closed, and #42904 is merged as the canonical path. No close, comment, label, merge, or fix action is planned.
+No GitHub mutations are needed. The hydrated preflight artifact shows all cluster PRs are already closed, with #42904 merged as the canonical fix path and the other candidate PRs already closed as historical context.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Hydrated preflight state shows the local-store inventory is obsolete: all three 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #42904 | keep_closed | skipped | canonical | Already merged canonical PR; workers must not mutate already-closed refs. |
-| #43043 | keep_closed | skipped | superseded | Already closed unmerged PR superseded by merged canonical #42904; no closure action is valid. |
-| #43093 | keep_closed | skipped | related | Already closed related PR; no mutation is planned. |
+| #42904 | keep_closed | skipped | canonical | Canonical PR is already merged and closed; already-closed refs must not receive close/comment/label mutations. |
+| #43043 | keep_closed | skipped | superseded | Superseded candidate is already closed; keep as historical evidence only. |
+| #43093 | keep_closed | skipped | fixed_by_candidate | The reported logs --follow path was already implemented on main, and the remaining channel-log parity work landed through #42904; target is already closed. |
 
 ## Needs Human
 

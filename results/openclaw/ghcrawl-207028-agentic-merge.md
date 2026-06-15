@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-207028-agentic-merge"
 mode: "autonomous"
-run_id: "24978123126"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978123126"
-head_sha: "e8d437d9978c397d8d3fb39c23597d4e5c1d98bf"
+run_id: "25103751967"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103751967"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-27T05:28:22.585Z"
-canonical: "https://github.com/openclaw/openclaw/issues/66324"
+published_at: "2026-06-15T03:54:22.351Z"
+canonical: null
 canonical_issue: "https://github.com/openclaw/openclaw/issues/66324"
 canonical_pr: null
 actions_total: 5
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978123126](https://github.com/openclaw/clownfish/actions/runs/24978123126)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103751967](https://github.com/openclaw/clownfish/actions/runs/25103751967)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/66324
 
 ## Summary
 
-Hydrated preflight shows the representative #66324 and every candidate in the cluster are already closed. Maintainer comments closed each as not actionable promotional/referral content, with no OpenClaw bug, feature request, reproduction, or core/docs change to track. No GitHub mutations, fix PR, merge, or post-merge closeout are valid for this run.
+Hydrated preflight shows every cluster item is already closed. No GitHub mutation, fix PR, or merge is planned; #66324 is retained only as the historical representative for this promotional/referral issue cluster.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Hydrated preflight shows the representative #66324 and every candidate in the cl
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #66317 | keep_closed | skipped | duplicate | Already closed by maintainer as not actionable promotional/referral content; no further mutation is permitted or needed. |
-| #66319 | keep_closed | skipped | duplicate | Already closed by maintainer as not actionable promotional/referral content; no further mutation is permitted or needed. |
-| #66323 | keep_closed | skipped | duplicate | Already closed by maintainer as not actionable promotional/referral content; no further mutation is permitted or needed. |
-| #66324 | keep_closed | skipped | canonical | The canonical hint is obsolete because #66324 is already closed; keep it as the historical representative only. |
-| #66325 | keep_closed | skipped | duplicate | Already closed by maintainer as not actionable promotional/referral content; no further mutation is permitted or needed. |
+| #66317 | keep_closed | skipped | duplicate | Already closed; same non-actionable promotional/referral pattern as historical representative #66324. |
+| #66319 | keep_closed | skipped | duplicate | Already closed; same non-actionable promotional/referral pattern as historical representative #66324. |
+| #66323 | keep_closed | skipped | duplicate | Already closed; same non-actionable promotional/referral pattern as historical representative #66324. |
+| #66324 | keep_closed | skipped | canonical | Already closed before this worker pass; kept only as the historical cluster representative. |
+| #66325 | keep_closed | skipped | duplicate | Already closed; same non-actionable promotional/referral pattern as historical representative #66324. |
 
 ## Needs Human
 

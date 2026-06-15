@@ -2,53 +2,53 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-199237-agentic-merge"
 mode: "autonomous"
-run_id: "27346967226"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27346967226"
-head_sha: "72b3ff268085310b472b8822d0eef09eebe7823d"
+run_id: "25103737745"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103737745"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-11T12:38:52.337Z"
-canonical: "https://github.com/openclaw/openclaw/tree/68ec783e74b59b672dbe14585e892d887adb2bfb"
+result_status: "needs_human"
+published_at: "2026-06-15T03:54:22.349Z"
+canonical: "#54374"
 canonical_issue: null
-canonical_pr: null
-actions_total: 7
+canonical_pr: "https://github.com/openclaw/openclaw/pull/54374"
+actions_total: 8
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 1
+apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 1
 ---
 
 # ghcrawl-199237-agentic-merge
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27346967226](https://github.com/openclaw/clownfish/actions/runs/27346967226)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103737745](https://github.com/openclaw/clownfish/actions/runs/25103737745)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
-Canonical: https://github.com/openclaw/openclaw/tree/68ec783e74b59b672dbe14585e892d887adb2bfb
+Canonical: #54374
 
 ## Summary
 
-Current main 68ec783e74b59b672dbe14585e892d887adb2bfb already contains the gateway streaming merge/replace behavior and focused regression coverage for the only open hydrated job candidate, #60063. Plan one high-confidence close_fixed_by_candidate for #60063 against current main, keep the related UI follow-up #74498 open, keep closed context refs historical, and route only security-marked #47399 to central security handling.
+Hydrated state shows no security-sensitive items. #54374 remains the best open coordination/canonical PR for the WebChat pre-tool cumulative-stream duplication family, but it is not merge-ready: ClawSweeper asks for maintainer review, the implementation path is still a design choice between gateway segment-boundary state and Control UI suffix/offset handling, no clean current /review preflight is present, and relevant checks are not clean. No close, merge, label, or fix-PR action is safe to plan in this pass.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 7 |
+| Worker actions | 8 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 1 |
+| Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -60,20 +60,21 @@ Current main 68ec783e74b59b672dbe14585e892d887adb2bfb already contains the gatew
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60063 | close_fixed_by_candidate | blocked | fixed_by_candidate | target changed since worker review |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60063 | close_fixed_by_candidate | planned | fixed_by_candidate | Current main already fixes and tests the #60063 gateway streaming behavior. Because the job allows unmerged fix closeout when current main coverage is freshly verified, close_fixed_by_candidate is planned without a replacement PR; the PR's failing proof check blocks merge, not current-main closeout. |
-| #74498 | keep_related | planned | related | Related but not a true duplicate close target for this cluster; keep open for separate UI stream reconciliation validation. |
-| #47399 | route_security | planned | security_sensitive | Security-sensitive hydrated ref is outside ProjectClownfish mutation scope and should be routed to central OpenClaw security handling only. |
-| #47377 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
-| #54374 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
-| #63994 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
-| #65457 | keep_closed | skipped | superseded | Already closed context PR; no action required. |
+| #54374 | keep_canonical | planned | canonical | Keep #54374 open as canonical coordination; merge is blocked on maintainer design review, clean current /review, and validation. |
+| #46985 | keep_related | planned | related | Useful overlapping UI implementation candidate; do not close before a canonical fix lands or maintainers choose a superseding path. |
+| #47377 | keep_related | planned | related | Useful narrow implementation candidate, but not merge-ready and not safe to close while no canonical fix has landed. |
+| #47399 | keep_related | planned | related | Related implementation candidate with unique evidence and review blockers; keep open pending canonical path selection. |
+| #60063 | keep_related | planned | related | Same streaming/gateway symptom family but materially different root cause and scope; keep it open outside this canonical closeout. |
+| #63994 | keep_closed | skipped | fixed_by_candidate | Historical repeated-character subfamily is already closed and covered by merged #72400. |
+| #65457 | keep_closed | skipped | fixed_by_candidate | Historical repeated-markdown-token subfamily is already closed and covered by merged #72400. |
+| cluster:ghcrawl-199237-agentic-merge | needs_human | planned | needs_human | Maintainer decision needed: choose whether Clownfish should repair #54374, repair one UI-side PR such as #47377/#46985, or open a narrow credited replacement that combines the chosen approach. |
 
 ## Needs Human
 
-- none
+- Choose the canonical implementation path for the WebChat pre-tool cumulative-stream duplication family: repair #54374's gateway/segment-boundary approach, repair a Control UI suffix/offset implementation from #46985/#47377/#47399, or authorize a narrow credited replacement PR combining the selected pieces.

@@ -2,22 +2,22 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-199239-agentic-merge"
 mode: "autonomous"
-run_id: "25035231796"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25035231796"
-head_sha: "11314bb0977e829eeb62cc0be17e0c531c9fe13a"
+run_id: "25103740083"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103740083"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-28T05:23:59.860Z"
+published_at: "2026-06-15T03:54:22.350Z"
 canonical: "https://github.com/openclaw/openclaw/pull/72388"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/48388"
+canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/72388"
-actions_total: 14
+actions_total: 10
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
-apply_executed: 5
+apply_executed: 0
 apply_blocked: 0
-apply_skipped: 0
+apply_skipped: 2
 needs_human_count: 0
 ---
 
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25035231796](https://github.com/openclaw/clownfish/actions/runs/25035231796)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103740083](https://github.com/openclaw/clownfish/actions/runs/25103740083)
 
 Workflow conclusion: success
 
@@ -35,55 +35,48 @@ Canonical: https://github.com/openclaw/openclaw/pull/72388
 
 ## Summary
 
-Representative #48578 is obsolete and already closed after ProjectClownfish opened replacement PR #72388. #72388 is the current canonical path for the Feishu Content-Disposition filename mojibake family, but merge is blocked by failing checks and an unresolved Greptile review nit, so the result plans repair work and blocks duplicate/superseded closeout until that canonical fix lands. The video-download, stream-leak, and video-thumbnail PRs are related or independent follow-up subclusters, not duplicates of the filename mojibake fix.
+Hydrated state shows the original filename-mojibake representative #48578 is no longer live; the filename family was replaced and landed through #72388. The remaining open refs split into separate Feishu subfamilies: #73937 is the current open canonical for the file-typed video 502 fallback, #51196 is an independent upload stream cleanup PR, and #61807 is a related video-thumbnail PR. No merge is recommended because the open candidates lack complete merge preflight and some have failing checks or unresolved bot review comments.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 14 |
+| Worker actions | 10 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
-| Applied executions | 5 |
+| Applied executions | 0 |
 | Apply blocked | 0 |
-| Apply skipped | 0 |
+| Apply skipped | 2 |
 | Needs human | 0 |
 
 ## Fix Execution Actions
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| open_fix_pr | opened | https://github.com/openclaw/openclaw/pull/72388 | clownfish/ghcrawl-199239-agentic-merge |  |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #48388 | close_fixed_by_candidate | executed | post_merge_closeout | closed after canonical fix merged |
-| #50435 | close_superseded | executed | post_merge_closeout | closed after canonical fix merged |
-| #59409 | close_fixed_by_candidate | executed | post_merge_closeout | closed after canonical fix merged |
-| #59431 | close_superseded | executed | post_merge_closeout | closed after canonical fix merged |
-| #72388 | merge_canonical | executed | fix_pr | merged by ProjectClownfish post-flight |
+| #49855 | close_fixed_by_candidate | skipped | fixed_by_candidate | Blocked on canonical fix path #73937 landing; not safe to close the open issue yet. |
+| #49967 | close_superseded | skipped | superseded | Otherwise likely superseded by #73937, but closure is blocked by require_fix_before_close and contributor-credit preservation until the canonical fix lands. |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #38554 | keep_closed | skipped | related | Already closed; no mutation allowed. |
-| #38559 | keep_closed | skipped | related | Already closed and not the canonical filename fix. |
-| #48388 | close_fixed_by_candidate | blocked | fixed_by_candidate | Clear fixed-by-candidate relationship, but closeout is blocked on #72388 merging. |
-| #48578 | keep_closed | skipped | superseded | Already closed after replacement PR #72388 was opened. |
-| #49855 | keep_related | planned | related | Related Feishu channel work, but a different root cause and user-visible failure from filename mojibake. |
-| #49967 | keep_related | planned | related | Separate related subcluster; not merge-ready and not a duplicate of #72388. |
-| #50164 | keep_related | planned | related | Separate video-download follow-up subcluster; not the canonical filename mojibake path. |
-| #50435 | close_superseded | blocked | superseded | Superseded by #72388, but closeout must wait for the canonical fix to land. |
-| #51196 | keep_independent | planned | independent | Independent Feishu media resource-management bug; should be handled in a separate job. |
-| #59409 | close_fixed_by_candidate | blocked | fixed_by_candidate | Clear fixed-by-candidate relationship, but closeout is blocked on #72388 merging. |
-| #59431 | close_superseded | blocked | superseded | Superseded by the narrower #72388 canonical path, but closure is blocked until #72388 lands. |
-| #61807 | keep_related | planned | related | Related Feishu media work, but a different root cause and not merge-ready. |
-| #72388 | fix_needed | planned | canonical | Canonical PR is repairable but not merge-ready; executor should repair/revalidate before any merge or closeout. |
-| cluster:ghcrawl-199239-agentic-merge | build_fix_artifact | planned |  | Canonical repair work is required before merge/pre-merge closeout. |
+| #72388 | keep_closed | skipped | canonical | Canonical filename fix already landed; closed merged PR receives no mutation. |
+| #48578 | keep_closed | skipped | superseded | Already closed as superseded by the landed replacement; no close action is valid. |
+| #50435 | keep_closed | skipped | superseded | Already closed after the canonical replacement landed; no mutation needed. |
+| #59431 | keep_closed | skipped | superseded | Already closed after the canonical replacement landed; no mutation needed. |
+| #50164 | keep_closed | skipped | superseded | Already closed as superseded by hydrated replacement #73937; no close action is valid. |
+| #73937 | keep_canonical | planned | canonical | Current canonical for the Feishu file-typed video 502 fallback subfamily; keep open until merge preflight is complete. |
+| #49855 | close_fixed_by_candidate | blocked | fixed_by_candidate | Blocked on canonical fix path #73937 landing; not safe to close the open issue yet. |
+| #49967 | close_superseded | blocked | superseded | Otherwise likely superseded by #73937, but closure is blocked by require_fix_before_close and contributor-credit preservation until the canonical fix lands. |
+| #51196 | keep_independent | planned | independent | Separate useful PR; keep open and do not close or merge as part of this cluster. |
+| #61807 | keep_related | planned | related | Related Feishu media work with unresolved review/check blockers; keep open outside the filename closeout path. |
 
 ## Needs Human
 

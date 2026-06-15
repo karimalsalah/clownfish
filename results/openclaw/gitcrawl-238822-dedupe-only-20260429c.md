@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238822-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102888177"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102888177"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103968202"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103968202"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.121Z"
+published_at: "2026-06-15T03:54:22.384Z"
 canonical: "https://github.com/openclaw/openclaw/pull/63577"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/63577"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102888177](https://github.com/openclaw/clownfish/actions/runs/25102888177)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103968202](https://github.com/openclaw/clownfish/actions/runs/25103968202)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/63577
 
 ## Summary
 
-Hydrated state shows all five job candidates are already closed, so no close/comment/label mutations are valid. The WhatsApp creds persistence family is covered by current main and merged PR #63577; linked context refs remain closed, with #65427 routed separately because its hydrated bot review contains security-shaped findings.
+All job seed refs are already closed in the hydrated preflight state. No GitHub mutations are planned. The root WhatsApp creds corruption/false-restore family is best treated as already implemented on current main by the hydrated merged PR #63577, with #65427 and related closed issues as supporting context for the reconnect/runtime side of #65290.
 
 ## Impact
 
@@ -66,16 +66,16 @@ Hydrated state shows all five job candidates are already closed, so no close/com
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #57718 | keep_closed | skipped | fixed_by_candidate | Already closed in live state; closure actions are invalid. |
-| #58480 | keep_closed | skipped | fixed_by_candidate | Already closed in live state; no mutation planned. |
-| #60136 | keep_closed | skipped | fixed_by_candidate | Already closed in live state; no mutation planned. |
-| #60625 | keep_closed | skipped | fixed_by_candidate | Already closed in live state; no mutation planned. |
-| #65290 | keep_closed | skipped | fixed_by_candidate | Already closed in live state; no mutation planned. |
-| #60650 | keep_closed | skipped | superseded | Historical linked PR only; already closed and superseded by the merged canonical fix path. |
-| #63496 | keep_closed | skipped | fixed_by_candidate | Historical linked issue only; already closed. |
-| #63577 | keep_closed | skipped | canonical | Merged historical canonical fix; no merge or close mutation is available or needed. |
-| #65215 | keep_closed | skipped | related | Related closed context ref; not a mutation target for this dedupe-only cluster. |
-| #65427 | route_security | planned | security_sensitive | Security-shaped linked-ref evidence should be routed to central OpenClaw security handling without dedupe mutation. |
+| #57718 | keep_closed | skipped | fixed_by_candidate | Already closed; no action needed. |
+| #58480 | keep_closed | skipped | fixed_by_candidate | Already closed; no action needed. |
+| #60136 | keep_closed | skipped | fixed_by_candidate | Already closed; no action needed. |
+| #60625 | keep_closed | skipped | fixed_by_candidate | Already closed; no action needed. |
+| #65290 | keep_closed | skipped | fixed_by_candidate | Already closed; no action needed. |
+| #60650 | keep_closed | skipped | superseded | Historical linked PR is closed and superseded by the landed atomic creds persistence fix. |
+| #63496 | keep_closed | skipped | fixed_by_candidate | Closed linked context item; no action needed. |
+| #63577 | keep_closed | skipped | canonical | Best hydrated landed canonical fix for the creds.json corruption/false-restore family. |
+| #65215 | keep_closed | skipped | related | Closed related context; no action needed. |
+| #65427 | keep_closed | skipped | related | Closed related merged context for the reconnect/lifecycle side of the umbrella report. |
 
 ## Needs Human
 

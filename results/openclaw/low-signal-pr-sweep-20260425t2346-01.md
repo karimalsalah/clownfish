@@ -2,30 +2,30 @@
 repo: "openclaw/openclaw"
 cluster_id: "low-signal-pr-sweep-20260425T2346-01"
 mode: "autonomous"
-run_id: "24978477944"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978477944"
-head_sha: "3701e4ea719b18e8a66aab3ed90567b37a362212"
+run_id: "25104114341"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104114341"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-27T05:43:00.193Z"
+published_at: "2026-06-15T03:54:22.420Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 8
+actions_total: 16
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 1
+apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 2
+needs_human_count: 0
 ---
 
 # low-signal-pr-sweep-20260425T2346-01
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978477944](https://github.com/openclaw/clownfish/actions/runs/24978477944)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104114341](https://github.com/openclaw/clownfish/actions/runs/25104114341)
 
 Workflow conclusion: success
 
@@ -35,20 +35,20 @@ Canonical: unknown
 
 ## Summary
 
-Low-signal sweep classified only the listed PRs plus exact hydrated security-sensitive linked refs. No GitHub mutations were performed. The only open PR that is boringly clear under the low-signal policy is #51697; #51513 and #51672 need human review because the artifact shows active author/green-check or technical-correctness signals that the policy explicitly excludes from automated low-signal closure. Already-closed candidate PRs are kept closed.
+Reviewed the low-signal PR sweep against the hydrated preflight artifact. No close_low_signal actions are planned: three seed PRs are already closed, while the two open PRs (#51513 and #51672) are focused, useful, and have green or keep-open review context. Security-sensitive linked PR #51504 is quarantined with route_security only.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 8 |
+| Worker actions | 16 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 1 |
+| Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 2 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -60,22 +60,29 @@ Low-signal sweep classified only the listed PRs plus exact hydrated security-sen
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #51697 | close_low_signal | blocked | low_signal | maintainer issue comment blocks low-signal auto-close |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #53336 | keep_closed | skipped | low_signal | Already closed in hydrated preflight state. |
-| #52216 | keep_closed | skipped | fixed_by_candidate | Already closed in hydrated preflight state. |
-| #51697 | close_low_signal | planned | low_signal | Boringly clear low-signal docs-only PR with unresolved setup/documentation correctness findings and no maintainer or active author signal. |
-| #51672 | needs_human | blocked | needs_human | Blocked by green checks and technical-correctness judgment required by the low-signal policy. |
-| #51513 | needs_human | blocked | needs_human | Blocked by active author follow-up, green checks, and technical correctness judgment required by the low-signal policy. |
-| #51504 | route_security | planned | security_sensitive | Security-sensitive hydrated linked ref; quarantine exact item only. |
-| #28788 | route_security | planned | security_sensitive | Security-sensitive hydrated linked ref; quarantine exact item only. |
-| #28796 | route_security | planned | security_sensitive | Security-sensitive hydrated linked ref; quarantine exact item only. |
+| #22575 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #28788 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #28796 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #28837 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #41837 | keep_independent | planned | independent | Open linked issue is outside this PR sweep and has its own maintainer-follow-up path. |
+| #45721 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #47831 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #49210 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #50174 | keep_closed | skipped | related | Closed linked context; not a low-signal PR target. |
+| #51501 | keep_closed | skipped | superseded | Closed historical PR; no mutation allowed. |
+| #51504 | route_security | planned | security_sensitive | Security-sensitive linked PR is out of scope for Clownfish mutation. |
+| #51513 | keep_related | planned | related | Not boringly low-signal; keep open for docs-maintainer or contributor refresh. |
+| #51672 | keep_related | planned | related | Not boringly low-signal; keep open for refresh instead of closing. |
+| #51697 | keep_closed | skipped | low_signal | Already closed; no additional low-signal close action is valid. |
+| #52216 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented on current main; no low-signal close action is valid. |
+| #53336 | keep_closed | skipped | low_signal | Already closed; no additional low-signal close action is valid. |
 
 ## Needs Human
 
-- #51672: human decision required because the PR is green, focused on labeler behavior, and has a narrow unresolved review finding rather than a boring low-signal close category.
-- #51513: human decision required because the PR has active author follow-up, green docs checks, and transport-doc technical correctness questions.
+- none

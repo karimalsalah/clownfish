@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238871-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102967805"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102967805"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104042690"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104042690"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "needs_human"
-published_at: "2026-06-15T03:45:26.135Z"
+published_at: "2026-06-15T03:54:22.401Z"
 canonical: "https://github.com/openclaw/openclaw/pull/48945"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/48945"
@@ -25,7 +25,7 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102967805](https://github.com/openclaw/clownfish/actions/runs/25102967805)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104042690](https://github.com/openclaw/clownfish/actions/runs/25104042690)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/48945
 
 ## Summary
 
-Hydrated preflight shows no security-sensitive refs. #48945 remains the best current canonical tracker for Feishu group/topic thread follow-up mention behavior, but no close action is safe: #40530 is a useful overlapping alternative pending maintainer policy choice, and #63148 is related but covers distinct DM topic session isolation work.
+Hydrated state supports keeping #48945 as the current best representative for the Feishu group thread-follow-up mention policy, but no close or merge action is safe. #40530 is an overlapping useful implementation with a different API, and #63148 is a related but distinct DM topic-session isolation PR. Maintainer judgment is needed before superseding either group-thread implementation.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Hydrated preflight shows no security-sensitive refs. #48945 remains the best cur
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #48945 | keep_canonical | planned | canonical | Keep #48945 as the canonical tracker, but do not merge or close around it until the unresolved review finding and failing relevant checks are addressed. |
-| #40530 | keep_related | planned | related | Keep open as an overlapping alternative until maintainers choose the Feishu mention-policy API or a canonical implementation lands. |
-| #63148 | keep_related | planned | related | Keep open as a related but distinct Feishu DM topic-session subcluster; it should not be closed as a duplicate of the group thread-follow-up mention policy work. |
+| #48945 | keep_canonical | planned | canonical | #48945 is the best current representative for the group-thread mention policy, but it is not merge-ready and cannot be used to close overlapping contributor work. |
+| #40530 | keep_related | planned | related | #40530 is a useful overlapping contributor implementation, not a high-confidence duplicate or superseded PR. Keep it open pending maintainer selection of the Feishu thread mention API. |
+| #63148 | keep_related | planned | related | #63148 belongs to the same Feishu topic/thread family but is a separate DM-session isolation subproblem, so it should remain open as related work rather than be closed under #48945. |
 
 ## Needs Human
 
-- Maintainer decision still needed before closing or landing either #40530 or #48945: choose between #48945's active-topic threadFollowUp policy and #40530's simpler requireMentionInThread policy, then address #48945's unresolved Codex P1 broadcast-scope finding if that path remains canonical.
+- Maintainer decision needed before any closeout in the group-thread mention subcluster: choose #48945's threadFollowUp active-topic model or #40530's requireMentionInThread boolean API, then repair/validate the chosen PR before superseding the other.

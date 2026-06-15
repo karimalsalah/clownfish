@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238821-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102885187"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102885187"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103966097"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103966097"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.121Z"
+published_at: "2026-06-15T03:54:22.383Z"
 canonical: "https://github.com/openclaw/openclaw/issues/57306"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/57306"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102885187](https://github.com/openclaw/clownfish/actions/runs/25102885187)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103966097](https://github.com/openclaw/clownfish/actions/runs/25103966097)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/57306
 
 ## Summary
 
-Preflight shows every primary cluster ref is already closed. No close/comment/label action is valid. #57306 remains the canonical family representative for the sessions_spawn initial-model LiveSessionModelSwitchError reports, and the hydrated comments show the affected reports were already closed as implemented on current main.
+The live preflight artifact shows every job candidate is already closed. No GitHub mutation is safe or needed in this run; the canonical issue #57306 was already closed as implemented on current main, and the remaining cluster candidates were also already closed as implemented.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Preflight shows every primary cluster ref is already closed. No close/comment/la
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #57306 | keep_closed | skipped | canonical | Already closed in live preflight state; closure policy forbids a close action against a closed issue. |
-| #57900 | keep_closed | skipped | related | Already closed in live preflight state; no mutation is valid. |
-| #58305 | keep_closed | skipped | duplicate | Already closed in live preflight state; no duplicate closeout can be planned. |
-| #58539 | keep_closed | skipped | duplicate | Already closed in live preflight state; no mutation is valid. |
-| #65519 | keep_closed | skipped | duplicate | Already closed in live preflight state; no close/comment/label action is valid. |
+| #57306 | keep_closed | skipped | canonical | Representative canonical is no longer open; keep as historical canonical context only. |
+| #57900 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented; no further action in this dedupe-only run. |
+| #58305 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented; no further action in this dedupe-only run. |
+| #58539 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented; no further action in this dedupe-only run. |
+| #65519 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented; no further action in this dedupe-only run. |
 
 ## Needs Human
 

@@ -2,40 +2,40 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-207048-agentic-merge"
 mode: "autonomous"
-run_id: "24978957258"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978957258"
-head_sha: "29400ea714d617de4455a11f0aa59ca745bf6cda"
+run_id: "25103775172"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103775172"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-04-27T06:05:15.242Z"
-canonical: "https://github.com/openclaw/openclaw/pull/68865"
-canonical_issue: null
-canonical_pr: "https://github.com/openclaw/openclaw/pull/68865"
+result_status: "needs_human"
+published_at: "2026-06-15T03:54:22.355Z"
+canonical: "https://github.com/openclaw/openclaw/issues/55532"
+canonical_issue: "https://github.com/openclaw/openclaw/issues/55532"
+canonical_pr: null
 actions_total: 9
 fix_executed: 0
-fix_failed: 1
-fix_blocked: 1
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
-apply_skipped: 3
-needs_human_count: 0
+apply_skipped: 0
+needs_human_count: 1
 ---
 
 # ghcrawl-207048-agentic-merge
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978957258](https://github.com/openclaw/clownfish/actions/runs/24978957258)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103775172](https://github.com/openclaw/clownfish/actions/runs/25103775172)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
-Canonical: https://github.com/openclaw/openclaw/pull/68865
+Canonical: https://github.com/openclaw/openclaw/issues/55532
 
 ## Summary
 
-Hydrated state shows the representative #55619 is not merge-ready and is no longer the best path. #68865 is the best repairable non-security contributor PR for the Feishu WebSocket app-layer reconnect path, but it still has unresolved P1 bot findings. The already-open replacement #72411 is security-sensitive because Aisle reported potential sensitive log exposure, so it is quarantined only and not used as the canonical fix. Planned result: keep #68865 as canonical repair path, build a repair artifact, block superseded/fixed-by closeout until the fix is clean, and route #72411 to central security handling.
+Hydrated state shows the original PR candidates are already closed. The surviving canonical issue for the backoff/PingInterval family is #55532, but the current implementation path is not merge-ready: #73945 is open with failing checks and unresolved review-bot findings, and its ClawSweeper review reports overlap with unhydrated #73998. No close, merge, or fix PR action is safe from this cluster until that implementation canonical is chosen.
 
 ## Impact
 
@@ -43,42 +43,39 @@ Hydrated state shows the representative #55619 is not merge-ready and is no long
 | --- | ---: |
 | Worker actions | 9 |
 | Fix executed | 0 |
-| Fix failed | 1 |
-| Fix blocked | 1 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
-| Apply skipped | 3 |
-| Needs human | 0 |
+| Apply skipped | 0 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | source PR #45674 is closed |
-| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): [check:changed] lanes=extensions, extensionTests, docs [check:changed] extensions/feishu/src/client.test.ts: extension test [check:changed] extensions/feishu/src/client.ts: extension production [check:changed] extensions/feishu/src/monitor.cleanup.test.ts: extension test [check:changed] extensions/feishu/src/monitor.transport.ts: extension production [check:changed] conflict markers [check:changed] typecheck extensions [check:changed] typecheck extension tests [check:changed] lint extensions [check:changed] summary 434ms ok conflict markers 1.71s ok typecheck extensions 1.87s ok typecheck extension tests 16.21s failed:1 lint extensions |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #46472 | close_superseded | skipped | superseded | action status is blocked |
-| #55619 | close_superseded | skipped | superseded | action status is blocked |
-| #68766 | close_fixed_by_candidate | skipped | fixed_by_candidate | action status is blocked |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #42354 | keep_related | planned | related | Related issue remains open because it has concrete reproduction details and possible domain-scope nuance; closeout is premature until the canonical repaired fix lands. |
-| #45674 | keep_closed | skipped | superseded | Closed historical PR; retain as credited source evidence only. |
-| #46472 | close_superseded | blocked | superseded | Closure is blocked by require_fix_before_close until #68865 or an equivalent repaired fix lands. |
-| #55532 | keep_related | planned | related | Related but not a clean duplicate because it includes an additional token-cache failure mode. |
-| #55619 | close_superseded | blocked | superseded | Closure is blocked by require_fix_before_close until #68865 or an equivalent repaired fix lands; #55619 itself is not merge-ready. |
-| #68766 | close_fixed_by_candidate | blocked | fixed_by_candidate | Issue is likely covered by #68865 after repair, but require_fix_before_close blocks closeout until the fix lands. |
-| #68865 | keep_canonical | planned | canonical | Best non-security canonical repair path, but merge is blocked until review-bot P1 findings are addressed and focused validation passes. |
-| #72411 | route_security | planned | security_sensitive | Route only this PR to central security handling; continue non-security classification for unrelated refs. |
-| cluster:ghcrawl-207048-agentic-merge | build_fix_artifact | planned |  | A narrow repair artifact is needed before any merge or closeout action can proceed. |
+| #42354 | keep_related | planned | related | Related Feishu WebSocket failure, but it has unique Lark/domain/readiness scope and should remain open outside this closeout. |
+| #45674 | keep_closed | skipped | superseded | Already closed and superseded by merged replacement #72411 with credit preserved. |
+| #46472 | keep_closed | skipped | superseded | Already closed and superseded by merged replacement #72411. |
+| #55532 | keep_canonical | planned | canonical | Best surviving canonical issue for this family; keep open while the implementation canonical is unresolved. |
+| #55619 | keep_closed | skipped | superseded | Already closed as superseded by replacement PR #73945; #73945 is not merge-ready yet. |
+| #68766 | keep_closed | skipped | fixed_by_candidate | Already closed after merged candidate #72411. |
+| #68865 | keep_closed | skipped | superseded | Already closed as superseded by merged replacement #72411. |
+| #72411 | keep_closed | skipped | canonical | Merged historical canonical for the heartbeat/app-layer reconnect subset; no worker mutation is valid for this closed PR. |
+| #73945 | needs_human | blocked | needs_human | Implementation canonical is unclear because #73945 is not merge-ready and overlaps an unhydrated competing PR #73998; maintainer routing is required before merge, closeout, or another fix PR. |
 
 ## Needs Human
 
-- none
+- Choose the implementation canonical for #55532/#55619: hydrated #73945 is open with failing checks and unresolved review-bot findings, and the hydrated ClawSweeper comment reports overlap with unhydrated #73998.

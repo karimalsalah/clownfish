@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238852-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102936352"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102936352"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104012896"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104012896"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.129Z"
+published_at: "2026-06-15T03:54:22.396Z"
 canonical: "https://github.com/openclaw/openclaw/issues/71783"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/71783"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/72297"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102936352](https://github.com/openclaw/clownfish/actions/runs/25102936352)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104012896](https://github.com/openclaw/clownfish/actions/runs/25104012896)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/71783
 
 ## Summary
 
-Hydrated live state makes the gitcrawl representative #59967 obsolete because it is already closed as implemented. The remaining open live canonical is #71783, with #72297 as a focused related PR candidate for the manual-repair warning path. No close, merge, label, fix, or PR-opening actions are safe or necessary in this dedupe-only run.
+Hydrated state shows the original representative #59967 and older cluster members #59073/#65908 are already closed as implemented. The remaining live scope is #71783, with #72297 as an open focused implementation candidate; both should stay open because current main still lacks the metadata-free different-name QMD conflict warning/manual-repair UX, and this dedupe-only job cannot merge, fix, or raise a PR.
 
 ## Impact
 
@@ -66,12 +66,12 @@ Hydrated live state makes the gitcrawl representative #59967 obsolete because it
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #59073 | keep_closed | skipped | fixed_by_candidate | Closed historical memory-alt/default QMD collection report; keep as evidence only. |
-| #59967 | keep_closed | skipped | fixed_by_candidate | Historical representative is obsolete; closed refs remain evidence only. |
-| #65908 | keep_closed | skipped | fixed_by_candidate | Closed historical stale-collection report; keep as evidence only. |
-| #66141 | keep_closed | skipped | related | Merged historical fix remains relevant evidence but is not an open target. |
-| #71783 | keep_canonical | planned | canonical | Current live canonical issue for the unresolved metadata-free different-name QMD conflict. |
-| #72297 | keep_related | planned | related | Keep open as the active focused PR candidate for #71783; merge and repair are out of scope for this dedupe-only job. |
+| #59073 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented; keep as historical fixed evidence only. |
+| #59967 | keep_closed | skipped | fixed_by_candidate | Historical representative is already closed as implemented; #71783 is the current live canonical issue for the remaining name-only conflict scope. |
+| #65908 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented; no dedupe or close mutation is available. |
+| #66141 | keep_closed | skipped | fixed_by_candidate | Merged historical fix evidence; no merge recommendation or mutation applies. |
+| #71783 | keep_canonical | planned | canonical | Current live canonical issue for the remaining scope; not a duplicate of the closed #59967 family because this report tracks metadata-free different-name conflict handling still left open. |
+| #72297 | keep_related | planned | related | Active focused PR for canonical #71783, but not merge-ready in this dedupe-only job; keep it open rather than closing or treating #71783 as fixed. |
 
 ## Needs Human
 

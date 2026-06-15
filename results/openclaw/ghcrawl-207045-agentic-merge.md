@@ -2,19 +2,19 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-207045-agentic-merge"
 mode: "autonomous"
-run_id: "24969058051"
-run_url: "https://github.com/openclaw/projectclownfish/actions/runs/24969058051"
-head_sha: "0e4564f671623de117a9abb4813b36a385aecd45"
+run_id: "25103771352"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103771352"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-26T23:37:39.891Z"
-canonical: "https://github.com/openclaw/openclaw/pull/44319"
+published_at: "2026-06-15T03:54:22.354Z"
+canonical: "https://github.com/openclaw/openclaw/pull/74007"
 canonical_issue: null
-canonical_pr: "https://github.com/openclaw/openclaw/pull/44319"
+canonical_pr: "https://github.com/openclaw/openclaw/pull/74007"
 actions_total: 7
 fix_executed: 0
-fix_failed: 1
-fix_blocked: 1
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/projectclownfish/actions/runs/24969058051](https://github.com/openclaw/projectclownfish/actions/runs/24969058051)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103771352](https://github.com/openclaw/clownfish/actions/runs/25103771352)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/44319
+Canonical: https://github.com/openclaw/openclaw/pull/74007
 
 ## Summary
 
-Hydrated state shows this ghcrawl cluster is over-broad: #44319 is the canonical repairable PR for provider-prefixed model extra params, while #45395, #46607, #67843, and linked #65909 are separate agent/provider issues. No merge or close is safe in this worker result: #44319 needs branch repair and validation, #46607 must be quarantined for security review based on hydrated review comments, and #67843 has an unresolved P1 Codex bot finding despite passing checks.
+Hydrated state shows the original representative #44319 is already closed and its narrow replacement #74007 has merged, so #74007 is the canonical landed fix for the model-key family. The remaining open refs are not duplicates of that fix: #45395 is a separate draft Grok/xAI strict-field PR, #65909 is a broader Codex native web_search issue, and #46607 is an audio @file implementation PR with a sandbox/path-boundary review finding that should be routed to central security triage. No close, merge, fix PR, or post-merge close action is safe or needed for this cluster pass.
 
 ## Impact
 
@@ -43,8 +43,8 @@ Hydrated state shows this ghcrawl cluster is over-broad: #44319 is the canonical
 | --- | ---: |
 | Worker actions | 7 |
 | Fix executed | 0 |
-| Fix failed | 1 |
-| Fix blocked | 1 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
@@ -54,8 +54,7 @@ Hydrated state shows this ghcrawl cluster is over-broad: #44319 is the canonical
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | validation command failed (pnpm check:changed): undefined ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL Command "check:changed" not found Did you mean "pnpm test:changed"? |
-| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): [check:changed] lanes=core, coreTests, docs [check:changed] src/agents/pi-embedded-runner-extraparams.test.ts: core test [check:changed] src/agents/pi-embedded-runner/extra-params.ts: core production [check:changed] test targets=298 [check:changed] conflict markers [check:changed] typecheck core [check:changed] typecheck core tests [check:changed] lint core [check:changed] runtime import cycles [check:changed] webhook body guard [check:changed] pairing store guard [check:changed] pairing account guard [check:changed] tests changed [test] starting test/vitest/vitest.unit-fast.config.ts [test] starting test/vitest/vitest.unit.config.ts [test] starting test/vitest/vitest.contracts-plugin.config.ts [test] starting test/vitest/vitest.gateway.config.ts [90mstderr[2m | src/gateway/server.roles-allowlist-update.test.ts[2m > [22m[2mgateway node command allowlist[2m > [22m[2mrejects reconnect metadata spoof for paired node devices [22m[39mgateway connect failed: GatewayClientRequestError: device metadata change pending approval (requestId: c76ca5c4-f751-4316-a1e6-e3a4abc9301b) [test] starting test/vitest/vitest.hooks.config.ts [test] starting test/vitest/vitest.infra.config.ts [... |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -67,13 +66,13 @@ Hydrated state shows this ghcrawl cluster is over-broad: #44319 is the canonical
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #44319 | keep_canonical | planned | canonical | Canonical PR is useful and editable, but not merge-ready; repair the contributor branch before any merge or post-merge closeout. |
-| cluster:ghcrawl-207045-agentic-merge | build_fix_artifact | planned |  | Build a repair artifact for the canonical contributor PR; no direct GitHub mutation is performed by the worker. |
-| #45395 | keep_related | planned | related | Separate provider payload bug in the same agents area; keep open for its own review path. |
-| #46601 | keep_closed | skipped | superseded | Already closed before this worker run; no action planned. |
-| #46607 | route_security | planned | security_sensitive | Route only #46607 to central OpenClaw security handling; do not merge, close, comment, or open a fix PR for this item via ProjectClownfish. |
-| #65909 | keep_related | planned | related | Related linked issue with a partial candidate fix, not a duplicate or closeout target. |
-| #67843 | keep_related | planned | related | Separate partial fix with unresolved bot review blocker; keep open for its own review or split path. |
+| #74007 | keep_closed | skipped | canonical | Canonical model-key fix already landed; no merge action is needed. |
+| #44319 | keep_closed | skipped | fixed_by_candidate | Already closed source PR; covered by merged replacement #74007. |
+| #45395 | keep_related | planned | related | Same code area, different provider bug; keep open outside the #74007 model-key canonical path. |
+| #46607 | route_security | planned | security_sensitive | Security-shaped sandbox/path-boundary review finding on this PR; quarantine only #46607 and continue classifying unrelated refs. |
+| #46601 | keep_closed | skipped | superseded | Historical closed audio issue; no mutation against closed refs. |
+| #67843 | keep_closed | skipped | related | Already merged related PR for a separate provider-wrapper context subfamily. |
+| #65909 | keep_related | planned | related | Open broader issue with a partial merged fix; not fully covered by #67843 and unrelated to #74007. |
 
 ## Needs Human
 

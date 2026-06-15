@@ -2,20 +2,20 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-207050-agentic-merge"
 mode: "autonomous"
-run_id: "25035228706"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25035228706"
-head_sha: "11314bb0977e829eeb62cc0be17e0c531c9fe13a"
+run_id: "25103777276"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103777276"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-28T05:25:43.986Z"
+published_at: "2026-06-15T03:54:22.355Z"
 canonical: "https://github.com/openclaw/openclaw/pull/72405"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/72405"
-actions_total: 6
+actions_total: 5
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
-apply_executed: 2
+apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
 needs_human_count: 0
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25035228706](https://github.com/openclaw/clownfish/actions/runs/25035228706)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103777276](https://github.com/openclaw/clownfish/actions/runs/25103777276)
 
 Workflow conclusion: success
 
@@ -35,17 +35,17 @@ Canonical: https://github.com/openclaw/openclaw/pull/72405
 
 ## Summary
 
-Classified the hydrated cluster without mutating GitHub. #72405 is the current canonical ProjectClownfish replacement path, but it is not merge-ready because a Greptile P2 review finding remains unresolved and the latest hydrated check set still includes failing checks. #48472 is quarantined for central security triage. #50662 is related but not a duplicate because it also changes rate-limit fallback rotation. #57374 is already closed as superseded by #72405. #59439 is superseded by the credited replacement path, but closeout is blocked until #72405 is repaired and ready.
+Canonical path has shifted from the closed representative #57374 to the merged replacement PR #72405. The remaining open PRs #48472 and #50662 overlap the restart-health/auth area but are not high-confidence duplicates of #72405 because each contains distinct or broader work and unresolved review/maintainer questions. No close, merge, label, or fix PR action is safe from this cluster pass.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 6 |
+| Worker actions | 5 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
-| Applied executions | 2 |
+| Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
 | Needs human | 0 |
@@ -54,25 +54,23 @@ Classified the hydrated cluster without mutating GitHub. #72405 is the current c
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/72405 |  |  |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #59439 | close_superseded | executed | post_merge_closeout | closed after canonical fix merged |
-| #72405 | merge_canonical | executed | fix_pr | merged by ProjectClownfish post-flight |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #48472 | route_security | planned | security_sensitive | Security-sensitive PR must be quarantined to central OpenClaw security triage; do not process it through backlog cleanup or merge automation. |
-| #50662 | keep_related | planned | related | Related but not a true duplicate or safe superseded closeout; it contains a distinct agents failover fix and unresolved review items outside #72405. |
-| #57374 | keep_closed | skipped | superseded | Already closed; retain as historical superseded source evidence for #72405 and do not emit any close mutation. |
-| #59439 | close_superseded | blocked | superseded | Closeout is high-confidence after #72405 is repaired, but blocked on the canonical fix path #72405 because the replacement PR still has unresolved review/check blockers. |
-| #72405 | fix_needed | planned | canonical | Canonical replacement PR exists but needs a narrow repair pass before merge preflight can be satisfied. |
-| cluster:ghcrawl-207050-agentic-merge | build_fix_artifact | planned |  | Build an executable repair artifact for the canonical replacement PR so the executor can update, validate, review, and only then merge or close superseded PRs. |
+| #72405 | keep_canonical | planned | canonical | Use the already-merged replacement PR as the canonical fix path for the closed representative family. |
+| #57374 | keep_closed | skipped | superseded | Historical source PR already superseded by merged #72405; no mutation should be emitted. |
+| #59439 | keep_closed | skipped | superseded | Already closed as superseded by merged #72405; no additional action needed. |
+| #48472 | keep_related | planned | related | Related follow-up work remains; keep open instead of closing or merging as part of this canonical fix cluster. |
+| #50662 | keep_related | planned | related | Mixed related PR with distinct policy work and unresolved review findings; not a high-confidence duplicate or fixed-by-candidate closeout. |
 
 ## Needs Human
 

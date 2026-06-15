@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238897-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25103033768"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25103033768"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104101248"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104101248"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.143Z"
+published_at: "2026-06-15T03:54:22.417Z"
 canonical: "https://github.com/openclaw/openclaw/issues/63855"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/63855"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25103033768](https://github.com/openclaw/clownfish/actions/runs/25103033768)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104101248](https://github.com/openclaw/clownfish/actions/runs/25104101248)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/63855
 
 ## Summary
 
-Hydrated state supports keeping #63855 as the open canonical issue for stale WhatsApp inbound message loss. No high-confidence close action is available: #66920 is related but has a distinct group-only failure mode, #7433 is broader group/Baileys reliability work, #63939 is related watchdog configuration work with maintainer context and failing checks, and the remaining refs are already closed historical evidence.
+Hydrated state keeps #63855 as the live canonical issue for the stale WhatsApp inbound-loss family. #66920, #7433, and #63939 are related but not safe duplicate/merge targets; #48390, #63410, and #72621 are already closed context. No close, merge, or fix PR action is planned.
 
 ## Impact
 
@@ -66,13 +66,13 @@ Hydrated state supports keeping #63855 as the open canonical issue for stale Wha
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #63855 | keep_canonical | planned | canonical | Open canonical issue remains current and unresolved; no close, merge, or fix action is permitted or needed for pure dedupe routing. |
-| #66920 | keep_related | planned | related | Same WhatsApp reliability family as #63855, but not a true duplicate because it preserves a distinct group-only failure mode and remaining work. |
-| #48390 | keep_closed | skipped | fixed_by_candidate | Already-closed primary ref; closed refs must not receive close actions. |
-| #7433 | keep_related | planned | related | Related WhatsApp group reliability work, but broader than the #63855 stale inbound-loss canonical issue and not a duplicate. |
-| #63939 | keep_related | planned | related | Related watchdog configuration PR with active maintainer context and failing checks; it is not a close or merge candidate in this cluster. |
-| #63410 | keep_closed | skipped | related | Already-closed linked context ref; closed refs are historical evidence only. |
-| #72621 | keep_closed | skipped | related | Merged historical PR is useful evidence but not a target for mutation. |
+| #63855 | keep_canonical | planned | canonical | Best live canonical issue for the remaining stale inbound delivery bug; no close/merge/fix mutation is allowed or justified in this dedupe-only pass. |
+| #66920 | keep_related | planned | related | Related WhatsApp inbound-loss family member, but not a true duplicate of #63855 because it preserves a concrete group-only failure mode and follow-up scope. |
+| #48390 | keep_closed | skipped | fixed_by_candidate | Already closed before this worker pass; keep as historical fixed context only. |
+| #7433 | keep_related | planned | related | Related broader group reliability follow-up, not a duplicate of #63855 and not a close target in this cluster. |
+| #63939 | keep_related | planned | related | Useful related contributor PR remains open; failing checks and maintainer direction block any merge, close, or fixed-by-candidate action. |
+| #63410 | keep_closed | skipped | superseded | Already closed historical context; no mutation planned. |
+| #72621 | keep_closed | skipped | related | Merged related context only; it is not a complete canonical fix for the remaining #63855/#66920 symptoms. |
 
 ## Needs Human
 

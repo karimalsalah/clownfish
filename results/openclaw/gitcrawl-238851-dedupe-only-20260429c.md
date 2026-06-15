@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238851-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102934058"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102934058"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104010583"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104010583"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.129Z"
+published_at: "2026-06-15T03:54:22.396Z"
 canonical: "https://github.com/openclaw/openclaw/issues/59006"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/59006"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102934058](https://github.com/openclaw/clownfish/actions/runs/25102934058)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104010583](https://github.com/openclaw/clownfish/actions/runs/25104010583)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/59006
 
 ## Summary
 
-Hydrated preflight shows all four job candidate issues are already closed, including the hinted canonical #59006. No close/comment/label/merge/fix actions are valid or needed; the cluster is resolved on current main with no security-sensitive items and no human decision required.
+Hydrated live state shows all four job-provided candidate issues are already closed, so no close/comment/label mutation is valid. #59006 remains the historical canonical issue for this cluster, but the active canonical path is already-fixed-on-main evidence from the hydrated artifact, including merged #59112 for the invalid exec approval enum path and merged #58792 for the broader exec approval regression family.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Hydrated preflight shows all four job candidate issues are already closed, inclu
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #58691 | keep_closed | skipped | fixed_by_candidate | Already closed before this run; keep as historical fixed-by-candidate context only. |
-| #58885 | keep_closed | skipped | related | Already closed; related sandbox-host subcase is resolved on current main, with no open target to mutate. |
-| #59006 | keep_closed | skipped | canonical | Canonical issue is already closed as implemented; keep it as the closed canonical record. |
-| #59855 | keep_closed | skipped | related | Already closed; pairing-related subcase is resolved on current main, with no open target to mutate. |
+| #58691 | keep_closed | skipped | fixed_by_candidate | Already closed in live preflight state; preserve historical fixed-by-candidate classification and do not emit any mutation. |
+| #58885 | keep_closed | skipped | fixed_by_candidate | Already closed in live preflight state; current-main evidence covers the sandbox auto-host subcase, and there is no open mutation to plan. |
+| #59006 | keep_closed | skipped | canonical | The canonical issue is already closed with merged/current-main fix evidence; keep it closed and plan no mutation. |
+| #59855 | keep_closed | skipped | fixed_by_candidate | Already closed in live preflight state; keep historical fixed classification and emit no mutation. |
 
 ## Needs Human
 

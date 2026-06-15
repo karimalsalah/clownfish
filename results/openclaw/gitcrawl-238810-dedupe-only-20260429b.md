@@ -2,15 +2,15 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238810-dedupe-only-20260429b"
 mode: "autonomous"
-run_id: "25102859821"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102859821"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103904523"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103904523"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.114Z"
-canonical: "https://github.com/openclaw/openclaw/tree/e1fd27fb24ae81e27cf4ac1297410491009a70c0"
+published_at: "2026-06-15T03:54:22.376Z"
+canonical: "https://github.com/openclaw/openclaw/pull/72391"
 canonical_issue: null
-canonical_pr: null
+canonical_pr: "https://github.com/openclaw/openclaw/pull/72391"
 actions_total: 11
 fix_executed: 0
 fix_failed: 0
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102859821](https://github.com/openclaw/clownfish/actions/runs/25102859821)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103904523](https://github.com/openclaw/clownfish/actions/runs/25103904523)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/tree/e1fd27fb24ae81e27cf4ac1297410491009a70c0
+Canonical: https://github.com/openclaw/openclaw/pull/72391
 
 ## Summary
 
-Hydrated state shows the hinted canonical #46069 is already closed. The original memory-lancedb Ollama/base64 dimension-mismatch path is historical and is covered by current main at e1fd27fb24ae81e27cf4ac1297410491009a70c0; the remaining open items are related follow-up work, not true duplicates safe to close in this cluster.
+Representative #46069 is obsolete in live preflight: it is closed, and the memory-lancedb Ollama/base64 dimension-mismatch path is now carried on main via the replacement fix #72391. No open candidate is a high-confidence duplicate to close: #41670, #43910, and #69707 are related provider-compatibility work with distinct remaining scope, while #59130/#59141 are an independent recency/provenance subcluster. Closed refs remain historical evidence only.
 
 ## Impact
 
@@ -66,17 +66,17 @@ Hydrated state shows the hinted canonical #46069 is already closed. The original
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41670 | keep_related | planned | related | Related provider-encoding compatibility work remains open, but it is not the same closed memory-lancedb root cause and should not be closed as duplicate or superseded here. |
-| #42531 | keep_closed | skipped | fixed_by_candidate | Already closed; no mutation planned. |
-| #43910 | keep_related | planned | related | Related broader feature candidate should stay open for maintainer/product review; it is not a duplicate closeout target for this dedupe-only cluster. |
-| #45982 | keep_closed | skipped | fixed_by_candidate | Already closed; no mutation planned. |
-| #45986 | keep_closed | skipped | superseded | Already closed as superseded by cleaner scoped work; no mutation planned. |
-| #46069 | keep_closed | skipped | superseded | Already closed; keep as historical canonical evidence but do not use it as an open canonical target. |
-| #59048 | keep_closed | skipped | superseded | Already closed after replacement; no mutation planned. |
-| #59130 | keep_related | planned | related | Related memory-lancedb follow-up subcluster; not a duplicate of the closed Ollama/base64 embedding fix. |
-| #59141 | keep_related | planned | related | Useful but separate memory-lancedb recency work; keep open and do not close or merge as part of this encoding/dimension cluster. |
-| #63655 | keep_closed | skipped | fixed_by_candidate | Already closed; no mutation planned. |
-| #69707 | keep_related | planned | related | Related open provider-compatibility PR should stay open for repair; it is not a duplicate closeout target for the Ollama/base64 encoding cluster. |
+| #41670 | keep_related | planned | related | Related encoding_format provider compatibility PR; keep open outside the memory-lancedb landed-fix closeout. |
+| #42531 | keep_closed | skipped | fixed_by_candidate | Already closed; no close/comment mutation is valid for this ref. |
+| #45986 | keep_closed | skipped | superseded | Already closed as superseded by the cleaner scoped PR; no action remains. |
+| #46069 | keep_closed | skipped | superseded | Representative is obsolete and already closed; use current main/#72391 as the canonical path, but do not mutate this closed PR. |
+| #59141 | keep_independent | planned | independent | Different root cause and unresolved review feedback; keep open as an independent recency subcluster. |
+| #43910 | keep_related | planned | related | Related but broader feature/config work; not a high-confidence duplicate close. |
+| #45982 | keep_closed | skipped | fixed_by_candidate | Already closed as fixed on main; no mutation is valid. |
+| #59048 | keep_closed | skipped | superseded | Already closed by replacement path; no action remains. |
+| #59130 | keep_independent | planned | independent | Different product bug; keep open as the issue for the recency subcluster. |
+| #63655 | keep_closed | skipped | fixed_by_candidate | Already fixed and closed; no mutation is valid. |
+| #69707 | keep_related | planned | related | Related dimensions-forwarding follow-up; keep open rather than close or merge. |
 
 ## Needs Human
 

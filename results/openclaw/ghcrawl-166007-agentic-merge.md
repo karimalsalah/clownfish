@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-166007-agentic-merge"
 mode: "autonomous"
-run_id: "24978122093"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/24978122093"
-head_sha: "e8d437d9978c397d8d3fb39c23597d4e5c1d98bf"
+run_id: "25103718774"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103718774"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-27T05:29:39.681Z"
+published_at: "2026-06-15T03:54:22.343Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 9
+actions_total: 17
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/24978122093](https://github.com/openclaw/clownfish/actions/runs/24978122093)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103718774](https://github.com/openclaw/clownfish/actions/runs/25103718774)
 
 Workflow conclusion: success
 
@@ -35,13 +35,13 @@ Canonical: unknown
 
 ## Summary
 
-Hydrated preflight shows the original representative #39463 is closed and security-sensitive, #40850 is also security-sensitive, and the remaining open PRs are distinct install.sh subfamilies rather than one mergeable canonical path. No GitHub mutations are safe from this pass; security refs are routed, closed refs are skipped, and open refs are kept for separate repair/review paths.
+Classified the hydrated installer cluster against preflight main a1197b907524ff892341c5a5682b1e559850f2f6. The representative low-memory PR #39463 is already closed as obsolete after maintainer verification, and the remaining open PRs split into independent installer subfamilies. No GitHub mutation, merge, close, or fix PR is safe from this cluster result because the open refs either need their own repair/review path or belong to an already-running Clownfish replacement path.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 9 |
+| Worker actions | 17 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,15 +66,23 @@ Hydrated preflight shows the original representative #39463 is closed and securi
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #39463 | route_security | planned | security_sensitive | Security-sensitive PR must be quarantined; no close, merge, comment, label, or fix action is planned. |
-| #40850 | route_security | planned | security_sensitive | Security-sensitive PR must be routed to central security handling; it is already closed so no closure action is valid. |
-| #44986 | keep_related | planned | related | Useful but not merge-ready installer optimization; unresolved member review blocks merge/fixed-by-candidate closeout and it is not a duplicate of the obsolete security-sensitive representative. |
-| #49594 | keep_closed | skipped | fixed_by_candidate | Historical closed PR only; no mutation is valid. |
-| #49673 | keep_closed | skipped | fixed_by_candidate | Historical closed PR only; no mutation is valid. |
-| #50479 | keep_related | planned | related | Useful narrow PR in a separate installer warning subfamily, but unresolved review-bot feedback and failing-check evidence block merge or fixed-by-candidate closeout. |
-| #51436 | keep_closed | skipped | fixed_by_candidate | Historical closed PR only; no mutation is valid. |
-| #58340 | keep_independent | planned | independent | Independent feature PR with unresolved bot findings; no close or merge action is safe in this cluster. |
-| #67795 | keep_related | planned | related | Related installer compatibility PR, but failing install-smoke blocks merge and there is no single canonical path for the mixed cluster. |
+| #39447 | keep_closed | skipped | fixed_by_candidate | Historical closed issue only; the low-memory reproduction was verified obsolete by maintainer comments. |
+| #39463 | keep_closed | skipped | superseded | Original canonical hint is obsolete and closed; do not reopen or replace from this broad cluster. |
+| #40839 | keep_closed | skipped | fixed_by_candidate | Closed historical Node-environment issue; no mutation needed. |
+| #40850 | keep_closed | skipped | superseded | Closed as superseded by current main behavior, not a merge candidate. |
+| #44365 | keep_closed | skipped | fixed_by_candidate | Historical closed issue covered by the separate #73890 replacement path. |
+| #44700 | keep_closed | skipped | fixed_by_candidate | Closed linked feature request; current work remains in the separate #44986 PR. |
+| #44986 | keep_related | planned | related | Keep open as a related follow-up; no close or merge action is safe from this over-broad cluster. |
+| #49556 | keep_closed | skipped | fixed_by_candidate | Closed historical nvm installer issue; no mutation needed. |
+| #49594 | keep_closed | skipped | superseded | Closed as superseded by current main nvm installer behavior. |
+| #49673 | keep_closed | skipped | superseded | Closed as superseded by current main nvm installer behavior. |
+| #49806 | keep_closed | skipped | independent | Closed independent context ref; no cluster action. |
+| #50479 | keep_closed | skipped | superseded | Closed as superseded by the credited replacement PR #73890. |
+| #51436 | keep_closed | skipped | superseded | Closed as superseded by direct main commits. |
+| #58340 | keep_independent | planned | independent | Keep open as independent product/copy work; no close, merge, or fix action belongs in this cluster. |
+| #67795 | keep_related | planned | related | Keep open as related installer follow-up; do not merge from this result. |
+| #70411 | keep_closed | skipped | fixed_by_candidate | Closed historical macOS installer issue; no mutation needed. |
+| #73890 | keep_canonical | planned | canonical | Keep #73890 as the canonical path for the prefix-warning subfamily, but do not merge it from this over-broad cluster. |
 
 ## Needs Human
 

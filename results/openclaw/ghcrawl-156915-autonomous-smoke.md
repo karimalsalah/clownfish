@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-156915-autonomous-smoke"
 mode: "autonomous"
-run_id: "25040099944"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25040099944"
-head_sha: "6b7e12844dc688ededad88c8b64d13fabc4b8a1c"
+run_id: "25103693106"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103693106"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-04-28T07:37:08.914Z"
+published_at: "2026-06-15T03:54:22.334Z"
 canonical: "https://github.com/openclaw/openclaw/issues/66856"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/66856"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25040099944](https://github.com/openclaw/clownfish/actions/runs/25040099944)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103693106](https://github.com/openclaw/clownfish/actions/runs/25103693106)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/66856
 
 ## Summary
 
-Hydrated preflight shows the job's canonical issue and both issue candidates are already closed with maintainer comments tying the false plugins.allow warning to fixes already present on current main. No closure, merge, or fix PR action is valid. The only active routing decision is to quarantine hydrated security-sensitive linked PR #63848 without letting it block the closed non-security issue classifications.
+Live preflight shows all job candidates are already closed. #66856 remains the historical canonical issue for the plugins.allow false-warning family, with #64933, #66121, and linked context #62049 already closed against the same current-main fix path; linked PR #63848 is already closed as superseded. No GitHub mutations, fix PRs, or merge actions are planned.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Hydrated preflight shows the job's canonical issue and both issue candidates are
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #62049 | keep_closed | skipped | fixed_by_candidate | Closed historical linked issue retained as evidence only. |
-| #63848 | route_security | planned | security_sensitive | Quarantine the exact security-sensitive linked PR for central OpenClaw security handling. |
-| #64933 | keep_closed | skipped | fixed_by_candidate | Already closed as fixed with canonical issue #66856; keep closed and do not mutate. |
-| #66121 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented/fixed on main; keep closed and do not mutate. |
-| #66856 | keep_closed | skipped | canonical | Canonical issue remains the best historical root-cause thread, but it is already closed as fixed on current main. |
+| #66856 | keep_closed | skipped | canonical | Representative canonical issue is already closed in hydrated live state, so no close/comment/label mutation is valid. |
+| #64933 | keep_closed | skipped | duplicate | Same root cause family as #66856, but the issue is already closed; no closure action may be emitted. |
+| #66121 | keep_closed | skipped | duplicate | Same warning/root-cause family as #66856, but the issue is already closed; no closure action may be emitted. |
+| #62049 | keep_closed | skipped | duplicate | Historical linked issue is already closed and only supports the canonical-family evidence. |
+| #63848 | keep_closed | skipped | superseded | Useful historical PR is already closed as superseded by later current-main changes; no mutation is valid. |
 
 ## Needs Human
 

@@ -2,53 +2,53 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-207039-agentic-merge"
 mode: "autonomous"
-run_id: "25035227082"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25035227082"
-head_sha: "11314bb0977e829eeb62cc0be17e0c531c9fe13a"
+run_id: "25103767116"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103767116"
+head_sha: "98c86abfe56e7ca0578fd667fdea3121315c5b1d"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-04-28T05:16:04.646Z"
-canonical: "https://github.com/openclaw/openclaw/issues/42099"
+result_status: "needs_human"
+published_at: "2026-06-15T03:54:22.353Z"
+canonical: "https://github.com/openclaw/openclaw/pull/72409"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/42099"
-canonical_pr: null
-actions_total: 9
+canonical_pr: "https://github.com/openclaw/openclaw/pull/72409"
+actions_total: 6
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 1
 ---
 
 # ghcrawl-207039-agentic-merge
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25035227082](https://github.com/openclaw/clownfish/actions/runs/25035227082)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103767116](https://github.com/openclaw/clownfish/actions/runs/25103767116)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
-Canonical: https://github.com/openclaw/openclaw/issues/42099
+Canonical: https://github.com/openclaw/openclaw/pull/72409
 
 ## Summary
 
-Classified the hydrated plugin duplicate-warning cluster without direct GitHub mutation. The original representative #42192 is closed and already replaced historically; the live non-security canonical tracker is #42099. Security-sensitive PR #72409 must be quarantined. Open PR #58796 is related but not mergeable or closable in this pass because it is broad and has an unresolved P1 Codex review finding. Closed refs are retained as historical evidence only.
+Hydrated state makes #42099 the canonical issue and #72409 the current canonical PR path after #42192 was closed and replaced. No merge or close action is safe: #72409 has a failing checks-fast-bundled check and an unresolved maintainer policy decision about duplicate-id diagnostics; #58796 is related but broader with unresolved review feedback. Closed seed PRs remain skipped evidence only.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 9 |
+| Worker actions | 6 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -66,16 +66,13 @@ Classified the hydrated plugin duplicate-warning cluster without direct GitHub m
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #42099 | keep_canonical | planned | canonical | Best live non-security canonical path is the open issue tracker; no close or merge action is safe for it. |
-| #42192 | keep_closed | skipped | superseded | Already-closed historical source PR; retained only as evidence and source-credit context. |
-| #45900 | keep_closed | skipped | superseded | Already-closed superseded PR for a different channel-registration theory. |
-| #48673 | keep_closed | skipped | fixed_by_candidate | Already-closed source PR for a related but narrower bug family. |
-| #58796 | keep_related | planned | related | Related open PR, but broad delta and unresolved P1 review block merge or autonomous closeout. |
-| #72409 | route_security | planned | security_sensitive | Security-sensitive hydrated ref; no ProjectClownfish comment, close, merge, or fix action is allowed for this item. |
-| #45805 | keep_closed | skipped | related | Closed context issue for a related but different root-cause theory. |
-| #45951 | keep_closed | skipped | fixed_by_candidate | Closed context issue already handled on main for same-physical-root duplicates. |
-| #48605 | keep_closed | skipped | fixed_by_candidate | Closed context issue for the installed-plugin override/same-physical-root family, not an open close target. |
+| #42099 | keep_canonical | planned | canonical | Keep #42099 as the canonical issue until #72409 or another explicit fix lands and is validated. |
+| #42192 | keep_closed | skipped | superseded | Already-closed source PR; do not emit a close action. |
+| #45900 | keep_closed | skipped | superseded | Already closed and not the canonical cross-origin duplicate-warning fix path. |
+| #48673 | keep_closed | skipped | fixed_by_candidate | Already closed after a maintainer patch on main; no mutation is valid. |
+| #58796 | keep_related | planned | related | Related follow-up work should stay open; it is too broad and review-blocked for this cluster to merge or close. |
+| #72409 | needs_human | blocked | canonical | Maintainer decision is required before autonomous repair or merge: choose the intended duplicate-warning policy and resolve the failing check. |
 
 ## Needs Human
 
-- none
+- #72409 requires maintainer decision before merge or repair: hydrated Clawsweeper review says current main suppresses same-physical-root and explicit installed-global/bundled warnings, while #72409 would add origin-bucket tracking and restore installed-global/bundled warning visibility; checks-fast-bundled is also failing.

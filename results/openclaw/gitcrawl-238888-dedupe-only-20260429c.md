@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238888-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25103012009"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25103012009"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104080524"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104080524"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.142Z"
+published_at: "2026-06-15T03:54:22.413Z"
 canonical: "https://github.com/openclaw/openclaw/pull/73949"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/73949"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25103012009](https://github.com/openclaw/clownfish/actions/runs/25103012009)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104080524](https://github.com/openclaw/clownfish/actions/runs/25104080524)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/73949
 
 ## Summary
 
-The original three PR candidates are now closed. The surviving canonical path for the reconnect-exhausted stale-socket restart crash family is the hydrated open replacement PR #73949. #73989 is a separate related reconnect-grace replacement for #45712 and should stay open for its own workflow. No close, merge, fix, or PR-opening actions are emitted.
+Original cluster candidates #45712, #58216, and #58988 are already closed in the hydrated preflight state. The obsolete representative #58216 has a hydrated open replacement, #73949, which is the canonical path for the reconnect-exhausted stale-socket restart crash. #73989 is related reconnect-grace work for the #45712 subfamily, not a duplicate of #73949. No close, merge, label, or fix-PR mutation is planned.
 
 ## Impact
 
@@ -66,11 +66,11 @@ The original three PR candidates are now closed. The surviving canonical path fo
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #45712 | keep_closed | skipped | superseded | Already closed; historical source/superseded evidence only. |
-| #58216 | keep_closed | skipped | superseded | Original representative is obsolete because it is closed and replaced by #73949. |
-| #58988 | keep_closed | skipped | superseded | Already closed and superseded by the later lifecycle/reconnect-exhausted fix path. |
-| #73949 | keep_canonical | planned | canonical | Canonical open path for the #58216/#58988 reconnect-exhausted shutdown crash subfamily. |
-| #73989 | keep_related | planned | related | Related but separate reconnect-grace implementation candidate; keep open. |
+| #73949 | keep_canonical | planned | canonical | #73949 is the active replacement for the closed representative #58216 and owns the reconnect-exhausted stale-socket restart crash path. |
+| #73989 | keep_related | planned | related | #73989 is related Discord health-monitor work but has a different root cause and should stay on its own canonical path. |
+| #45712 | keep_closed | skipped | superseded | #45712 has already been superseded by hydrated replacement PR #73989. |
+| #58216 | keep_closed | skipped | superseded | The original representative is obsolete because it has already been replaced by hydrated open PR #73949. |
+| #58988 | keep_closed | skipped | fixed_by_candidate | #58988 targeted an older shutdown crash path that was already covered by merged lifecycle/shutdown work, while the remaining active reconnect-exhausted live-handler fix is tracked by #73949. |
 
 ## Needs Human
 

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238876-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102980502"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102980502"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104053176"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104053176"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.136Z"
+published_at: "2026-06-15T03:54:22.403Z"
 canonical: "https://github.com/openclaw/openclaw/pull/41880"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/41860"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/41880"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102980502](https://github.com/openclaw/clownfish/actions/runs/25102980502)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104053176](https://github.com/openclaw/clownfish/actions/runs/25104053176)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/41880
 
 ## Summary
 
-Canonical path remains the open tracking issue #41860 with focused repairable PR #41880 as the canonical fix candidate. #68514 is related broader Feishu URL-boundary work with unresolved Codex review feedback, and #41946 is already closed as superseded. No close, merge, or fix PR action is planned from this dedupe-only run.
+Classified the hydrated Feishu underscore-URL cluster without planning any direct GitHub mutation. #41880 remains the canonical focused PR for the original bare-URL reproduction; #41860 remains the linked tracking issue; #68514 is related broader URL-boundary work with unresolved review feedback; #41946 is already closed and must not receive another close action.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Canonical path remains the open tracking issue #41860 with focused repairable PR
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41860 | keep_canonical | planned | canonical | #41860 is the root tracking issue and should remain open until the chosen Feishu fix lands. |
-| #41880 | keep_canonical | planned | canonical | #41880 remains the best focused canonical PR, but merge and fix work are outside this job and the open review cleanup still needs to be resolved before any merge path. |
-| #68514 | keep_related | planned | related | Keep #68514 open as related broader implementation work; closing it would discard useful contributor work while review feedback remains unresolved. |
-| #41946 | keep_closed | skipped | superseded | Already closed as superseded; retain only as historical evidence. |
+| #41860 | keep_canonical | planned | canonical | Keep the linked tracking issue open; the bug is not fixed on current main and no post-merge closeout is allowed in this job. |
+| #41880 | keep_canonical | planned | canonical | The representative is still the best focused canonical PR, but this dedupe-only job blocks merge and fix work. |
+| #41946 | keep_closed | skipped | superseded | Already closed as superseded; no additional mutation is valid. |
+| #68514 | keep_related | planned | related | Keep open as related broader work; it is not a high-confidence duplicate/superseded close target while useful code and unresolved review feedback remain. |
 
 ## Needs Human
 

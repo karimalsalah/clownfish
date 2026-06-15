@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238844-dedupe-only-20260429c"
 mode: "autonomous"
-run_id: "25102929630"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102929630"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25104005269"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25104005269"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.128Z"
+published_at: "2026-06-15T03:54:22.394Z"
 canonical: "https://github.com/openclaw/openclaw/issues/48238"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/48238"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102929630](https://github.com/openclaw/clownfish/actions/runs/25102929630)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25104005269](https://github.com/openclaw/clownfish/actions/runs/25104005269)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/48238
 
 ## Summary
 
-Hydrated state shows an active stacked implementation series tied to #48238. #48238 is the best canonical tracker; #48312 is the gitcrawl representative/scorer PR, but the PRs are staged, useful, and not duplicates of each other. No close, merge, or fix action is safe or allowed for this dedupe-only job.
+Classified the hydrated cluster as active stacked loop-aware compaction guard work, not a duplicate/closeout set. #48238 is the best canonical tracker; the PRs each carry distinct staged implementation work and should stay open for review or an explicit maintainer consolidation decision. No merge, close, label, or fix artifact is planned.
 
 ## Impact
 
@@ -66,13 +66,13 @@ Hydrated state shows an active stacked implementation series tied to #48238. #48
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #48238 | keep_canonical | planned | canonical | Use the open umbrella issue as the canonical tracker for this stacked PR family; no mutation is needed. |
-| #48278 | keep_related | planned | related | Related prerequisite PR, not a duplicate or superseded item. |
-| #48293 | keep_related | planned | related | Related prerequisite stack PR; keep open for maintainer review or a later dedicated cluster. |
-| #48312 | keep_related | planned | related | Representative PR remains useful, but #48238 is the better canonical tracker for the whole staged guard family. |
-| #48335 | keep_related | planned | related | Related follow-up PR in the same stack; not a duplicate of the scorer PR. |
-| #48350 | keep_related | planned | related | Related validator PR with unique scope; keep open rather than closing as duplicate or superseded. |
-| #48368 | keep_related | planned | related | Related follow-up stack PR; no close or fix action is appropriate for this job. |
+| #48238 | keep_canonical | planned | canonical | Open umbrella issue #48238 covers the complete root cause and staged implementation path better than representative PR #48312, which is only one scorer-layer PR in the stack. |
+| #48278 | keep_related | planned | related | Useful contributor PR with a narrow prerequisite scope should remain open for review/repair rather than be closed or superseded without a concrete replacement. |
+| #48293 | keep_related | planned | related | Distinct detector-layer work in the same implementation family; keep related to #48238 rather than close as duplicate. |
+| #48312 | keep_related | planned | related | The gitcrawl representative is related implementation work but not the best canonical tracker for the whole cluster; keep it open under #48238. |
+| #48335 | keep_related | planned | related | Distinct later-stage runtime hook work; keep related to the canonical #48238 tracker. |
+| #48350 | keep_related | planned | related | Distinct validator-layer work in the same feature stack; keep related to #48238. |
+| #48368 | keep_related | planned | related | Linked later-stage escalation work should stay related to #48238 and should not be swept as duplicate or superseded. |
 
 ## Needs Human
 

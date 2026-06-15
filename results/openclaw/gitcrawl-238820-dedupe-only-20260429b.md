@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-238820-dedupe-only-20260429b"
 mode: "autonomous"
-run_id: "25102882383"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25102882383"
-head_sha: "c3cc5ac35d228f419caa5b1772e20efdca99c0e6"
+run_id: "25103963894"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/25103963894"
+head_sha: "562a0387cfb8012d9de7c90b4ae662dc281c2fff"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T03:45:26.120Z"
+published_at: "2026-06-15T03:54:22.383Z"
 canonical: "https://github.com/openclaw/openclaw/pull/72393"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/72393"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25102882383](https://github.com/openclaw/clownfish/actions/runs/25102882383)
+Run: [https://github.com/openclaw/clownfish/actions/runs/25103963894](https://github.com/openclaw/clownfish/actions/runs/25103963894)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/72393
 
 ## Summary
 
-Autonomous dedupe classification for Windows exec/codepage decoding cluster. The original representative #64661 is now closed, and the hydrated preflight shows #72393 is the merged maintainer canonical fix on main for the core Windows exec CJK mojibake issue. The only still-open member, #73751, is a maintainer follow-up PR for broader streaming/memory-host surfaces, but it has failing checks and an unresolved Greptile P1 review finding, so it should remain open as related work rather than be closed or treated as merge-ready.
+Hydrated state makes the original canonical hint #64661 obsolete because it is already closed. The merged maintainer replacement #72393 is the canonical landed fix for the core Windows exec/process CJK mojibake family. The only open cluster ref, #73751, should stay open as related follow-up work because it is maintainer/member-authored, covers additional TUI/QMD streaming surfaces, has failing checks, and has an unresolved Greptile P1 test finding. No close, label, merge, or fix action is planned.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Autonomous dedupe classification for Windows exec/codepage decoding cluster. The
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #56538 | keep_closed | skipped | fixed_by_candidate | Already closed; no mutation planned. |
-| #64661 | keep_closed | skipped | superseded | Representative is no longer live; canonical path is merged PR #72393. |
-| #64709 | keep_closed | skipped | superseded | Already closed as superseded by the merged canonical path. |
-| #72393 | keep_closed | skipped | canonical | Canonical fix is already merged; no post-merge close action is allowed by the job. |
-| #73751 | keep_related | planned | related | Related maintainer follow-up with failing checks and unresolved bot review; keep open, do not close or merge. |
+| #56538 | keep_closed | skipped | superseded | Already closed; leave historical superseded PR closed. |
+| #64661 | keep_closed | skipped | superseded | Canonical hint is stale; #64661 is a closed superseded contributor PR. |
+| #64709 | keep_closed | skipped | superseded | Already closed; leave historical superseded PR closed. |
+| #72393 | keep_closed | skipped | canonical | Merged canonical fix; no post-merge close action is allowed or needed for this closed PR. |
+| #73751 | keep_related | planned | related | Keep open for maintainer follow-up; it has unique follow-up scope and unresolved validation/review blockers. |
 
 ## Needs Human
 
