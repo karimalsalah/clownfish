@@ -60,6 +60,58 @@ test("import-close-canaries writes merged PR closeouts as candidate_fix guidance
   assert.match(job, /Do not emit `close_superseded` with closed\/merged #74273 in `canonical`/);
 });
 
+test("import-close-canaries writes open canonical duplicate closeouts", () => {
+  const fixture = makeFixture();
+  fs.writeFileSync(
+    path.join(fixture.results, "124.json"),
+    `${JSON.stringify(
+      {
+        cluster_id: "source-cluster-open",
+        actions: [
+          {
+            target: "#91955",
+            action: "close_duplicate",
+            status: "planned",
+            canonical: "#91988",
+            classification: "duplicate",
+            reason: "target is a duplicate of the open canonical issue",
+          },
+        ],
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  writeFakeGhx(fixture.bin);
+
+  const run = spawnSync(
+    process.execPath,
+    [
+      "scripts/import-close-canaries-from-results.mjs",
+      "--results-dir",
+      fixture.results,
+      "--out",
+      fixture.inbox,
+      "--existing-dir",
+      fixture.existing,
+      "--suffix",
+      "test",
+      "--limit",
+      "1",
+    ],
+    {
+      cwd: repoRoot,
+      env: { ...process.env, PATH: `${fixture.bin}${path.delimiter}${process.env.PATH ?? ""}` },
+      encoding: "utf8",
+    },
+  );
+
+  assert.equal(run.status, 0, run.stderr || run.stdout);
+  const job = fs.readFileSync(path.join(fixture.inbox, "pr-close-canary-91955-test.md"), "utf8");
+  assert.match(job, /prefer `close_duplicate` with `canonical: "#91988"`/);
+  assert.match(job, /Do not use `candidate_fix` for open canonical refs/);
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-close-canary-"));
   const results = path.join(root, "results");
@@ -99,6 +151,24 @@ console.log(JSON.stringify({
         updatedAt: "2026-04-29T10:36:18Z",
         mergedAt: "2026-04-29T10:35:03Z",
         isDraft: false,
+        labels: { nodes: [] }
+      },
+      n91955: {
+        __typename: "PullRequest",
+        number: 91955,
+        title: "duplicate hook regression PR",
+        state: "OPEN",
+        updatedAt: "2026-06-15T12:00:00Z",
+        mergedAt: null,
+        isDraft: false,
+        labels: { nodes: [] }
+      },
+      n91988: {
+        __typename: "Issue",
+        number: 91988,
+        title: "canonical hook regression issue",
+        state: "OPEN",
+        updatedAt: "2026-06-15T12:01:00Z",
         labels: { nodes: [] }
       }
     }

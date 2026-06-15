@@ -200,12 +200,27 @@ function dropReasonFor(item, target, canonical) {
   if (!target) return "target not found";
   if (!canonical) return "canonical not found";
   if (target.state !== "OPEN") return `target is ${target.state}`;
-  if (canonical.type !== "pr") return "canonical is not a PR";
-  if (canonical.state !== "MERGED" || !canonical.mergedAt) return `canonical is ${canonical.state}`;
+  if (!canCloseAgainstCanonical(item, canonical)) return canonicalDropReason(item, canonical);
   if (isSecuritySensitive(target) || isSecuritySensitive(canonical) || SECURITY_PATTERN.test(item.reason)) {
     return "security signal";
   }
   return "";
+}
+
+function canCloseAgainstCanonical(item, canonical) {
+  if (item.action === "close_fixed_by_candidate") return canonical.type === "pr" && canonical.state === "MERGED" && Boolean(canonical.mergedAt);
+  if (item.action === "close_duplicate" || item.action === "close_superseded") {
+    return canonical.state === "OPEN" || (canonical.type === "pr" && canonical.state === "MERGED" && Boolean(canonical.mergedAt));
+  }
+  return false;
+}
+
+function canonicalDropReason(item, canonical) {
+  if (item.action === "close_fixed_by_candidate") {
+    if (canonical.type !== "pr") return "canonical is not a PR";
+    return `canonical is ${canonical.state}`;
+  }
+  return `canonical is ${canonical.state}`;
 }
 
 function isSecuritySensitive(item) {
@@ -219,9 +234,13 @@ function writeJob(item) {
   const filePath = path.join(outDir, `${clusterId}.md`);
   const relative = path.relative(repoRoot(), filePath);
   if (fs.existsSync(filePath) && !force) die(`job already exists: ${relative} (use --force to overwrite)`);
-  const verb = item.action === "close_fixed_by_candidate" ? "fixed by" : "covered by";
+  const mergedCandidate = item.canonicalLive.type === "pr" && item.canonicalLive.state === "MERGED" && Boolean(item.canonicalLive.mergedAt);
+  const verb = mergedCandidate ? "fixed by" : "covered by";
   const title = `${kind === "pr" ? "PR" : "Issue"} Close Canary #${number}`;
-  const preferredAction = `\`close_fixed_by_candidate\` with \`candidate_fix: "${item.canonical}"\``;
+  const preferredAction = closeInstruction(item);
+  const canonicalHint = mergedCandidate
+    ? `Close-only canary: ${item.target} was planned as ${verb} merged ${item.canonical} in run ${item.runId}. Re-fetch live state and only close if ${item.target} remains open and ${item.canonical} is still merged. Because ${item.canonical} is already merged/closed, use candidate_fix rather than canonical for the close action.`
+    : `Close-only canary: ${item.target} was planned as ${item.action.replace(/^close_/, "")} of open canonical ${item.canonical} in run ${item.runId}. Re-fetch live state and only close if ${item.target} remains open and ${item.canonical} remains open as the best canonical ref.`;
   const markdown = [
     "---",
     `repo: ${repo}`,
@@ -259,7 +278,7 @@ function writeJob(item) {
     "allow_merge: false",
     "allow_post_merge_close: false",
     "require_fix_before_close: false",
-    `canonical_hint: ${quoteYaml(`Close-only canary: ${item.target} was planned as ${verb} merged ${item.canonical} in run ${item.runId}. Re-fetch live state and only close if ${item.target} remains open and ${item.canonical} is still merged. Because ${item.canonical} is already merged/closed, use candidate_fix rather than canonical for the close action.`)}`,
+    `canonical_hint: ${quoteYaml(canonicalHint)}`,
     `notes: ${quoteYaml(`Generated from ProjectClownfish result ${item.clusterId} after live refetch on ${new Date().toISOString().slice(0, 10)}.`)}`,
     "---",
     "",
@@ -274,14 +293,14 @@ function writeJob(item) {
     `- target: ${item.target} ${item.targetLive.title}`,
     `- target live state at generation: ${item.targetLive.state}`,
     `- target updatedAt at generation: ${item.targetLive.updatedAt ?? "unknown"}`,
-    `- candidate: ${item.canonical} ${item.canonicalLive.title}`,
-    `- candidate live state at generation: ${item.canonicalLive.state}`,
-    `- candidate mergedAt at generation: ${item.canonicalLive.mergedAt ?? "unknown"}`,
+    `- canonical/candidate: ${item.canonical} ${item.canonicalLive.title}`,
+    `- canonical/candidate live state at generation: ${item.canonicalLive.state}`,
+    `- canonical/candidate mergedAt at generation: ${item.canonicalLive.mergedAt ?? "unknown"}`,
     `- source result: ${item.resultFile}`,
     "",
     "## Instructions",
     "",
-    `If ${item.target} is still open and ${item.canonical} is still merged, prefer ${preferredAction} for ${item.target}. Do not emit \`close_superseded\` with closed/merged ${item.canonical} in \`canonical\`; merged PRs are candidate fixes, not surviving open canonicals. Mention both PR/issue URLs in the close comment and preserve contributor/user context. If either live state changed, keep the target open or mark the exact blocker with \`needs_human\`.`,
+    closeCanaryInstruction(item, preferredAction),
     "",
   ].join("\n");
 
@@ -295,6 +314,25 @@ function writeJob(item) {
     }
   }
   return { path: relative, cluster_id: clusterId, target: item.target, canonical: item.canonical };
+}
+
+function closeInstruction(item) {
+  const mergedCandidate = item.canonicalLive.type === "pr" && item.canonicalLive.state === "MERGED" && Boolean(item.canonicalLive.mergedAt);
+  if (mergedCandidate) {
+    return `\`close_fixed_by_candidate\` with \`candidate_fix: "${item.canonical}"\``;
+  }
+  if (item.action === "close_duplicate") {
+    return `\`close_duplicate\` with \`canonical: "${item.canonical}"\``;
+  }
+  return `\`${item.action}\` with \`canonical: "${item.canonical}"\``;
+}
+
+function closeCanaryInstruction(item, preferredAction) {
+  const mergedCandidate = item.canonicalLive.type === "pr" && item.canonicalLive.state === "MERGED" && Boolean(item.canonicalLive.mergedAt);
+  if (mergedCandidate) {
+    return `If ${item.target} is still open and ${item.canonical} is still merged, prefer ${preferredAction} for ${item.target}. Do not emit \`close_superseded\` with closed/merged ${item.canonical} in \`canonical\`; merged PRs are candidate fixes, not surviving open canonicals. Mention both PR/issue URLs in the close comment and preserve contributor/user context. If either live state changed, keep the target open or mark the exact blocker with \`needs_human\`.`;
+  }
+  return `If ${item.target} is still open and ${item.canonical} is still open, prefer ${preferredAction} for ${item.target}. Do not use \`candidate_fix\` for open canonical refs. Mention both PR/issue URLs in the close comment and preserve contributor/user context. If either live state changed, keep the target open or mark the exact blocker with \`needs_human\`.`;
 }
 
 function safeJsonFile(filePath) {
