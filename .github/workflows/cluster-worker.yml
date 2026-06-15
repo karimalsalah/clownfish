@@ -193,7 +193,12 @@ jobs:
           target_repo="$(node --input-type=module -e 'import { parseJob } from "./scripts/lib.mjs"; console.log(parseJob(process.argv[1]).frontmatter.repo);' "${{ inputs.job }}")"
           target_dir=".projectclownfish/target/${target_repo//\//-}"
           rm -rf "$target_dir"
-          gh repo clone "$target_repo" "$target_dir" -- --depth=1
+          repo_url="https://github.com/${target_repo}.git"
+          if [ -n "${GH_TOKEN:-}" ]; then
+            git -c "http.https://github.com/.extraheader=AUTHORIZATION: bearer ${GH_TOKEN}" clone --depth=1 "$repo_url" "$target_dir"
+          else
+            git clone --depth=1 "$repo_url" "$target_dir"
+          fi
           echo "CLOWNFISH_TARGET_CHECKOUT=$target_dir" >> "$GITHUB_ENV"
           echo "prepared target checkout for $target_repo at $target_dir"
 
