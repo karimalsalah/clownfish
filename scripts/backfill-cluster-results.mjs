@@ -14,6 +14,7 @@ const limit = numberArg("limit", 50);
 const lookback = numberArg("lookback", Math.max(limit * 4, 200));
 const since = typeof args.since === "string" ? Date.parse(args.since) : null;
 const conclusion = String(args.conclusion ?? "success");
+const order = String(args.order ?? "newest");
 const requestedRunId = args["run-id"] ? String(args["run-id"]) : "";
 const requestedRunAttempt = args["run-attempt"] ? String(args["run-attempt"]) : "1";
 const dryRun = Boolean(args["dry-run"]);
@@ -22,9 +23,10 @@ if (since !== null && Number.isNaN(since)) throw new Error("--since must be an I
 if (!["success", "failure", "cancelled", "timed_out", "action_required", "neutral", "skipped", "any"].includes(conclusion)) {
   throw new Error("--conclusion must be a GitHub Actions conclusion or any");
 }
+if (!["newest", "oldest"].includes(order)) throw new Error("--order must be newest or oldest");
 
 const publishedRunIds = readPublishedRunIds();
-const listedRuns = listWorkflowRuns();
+const listedRuns = sortRuns(listWorkflowRuns());
 const requestedRun = requestedRunId ? runFromRequestedId(requestedRunId, listedRuns) : null;
 const candidates = selectCandidates(listedRuns, requestedRun);
 const manifest = {
@@ -34,6 +36,7 @@ const manifest = {
   runs_json: runsJson,
   dry_run: dryRun,
   generated_at: new Date().toISOString(),
+  order,
   selected: candidates.map(summarizeRun),
   downloaded: [],
   skipped: [],
@@ -136,6 +139,14 @@ function listWorkflowRuns() {
     "--json",
     "databaseId,status,conclusion,createdAt,updatedAt,headSha,url",
   ]);
+}
+
+function sortRuns(runs) {
+  return [...runs].sort((a, b) => {
+    const left = Date.parse(a.createdAt ?? "") || 0;
+    const right = Date.parse(b.createdAt ?? "") || 0;
+    return order === "oldest" ? left - right : right - left;
+  });
 }
 
 function downloadRunArtifacts(run) {

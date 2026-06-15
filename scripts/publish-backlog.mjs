@@ -1,0 +1,126 @@
+#!/usr/bin/env node
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { currentProjectRepo, parseArgs, repoRoot } from "./lib.mjs";
+
+const args = parseArgs(process.argv.slice(2));
+const repo = String(args.repo ?? currentProjectRepo());
+const workflow = String(args.workflow ?? "cluster-worker.yml");
+const lookback = numberArg("lookback", 500);
+const conclusion = String(args.conclusion ?? "success");
+const threshold = args.threshold === undefined ? null : numberArg("threshold", 0);
+const json = Boolean(args.json);
+const fetch = args.fetch !== false && args.fetch !== "false";
+
+if (!["success", "failure", "cancelled", "timed_out", "action_required", "neutral", "skipped", "any"].includes(conclusion)) {
+  throw new Error("--conclusion must be a GitHub Actions conclusion or any");
+}
+
+if (fetch) {
+  execFileSync("git", ["fetch", "origin", "main", "--quiet"], { cwd: repoRoot(), stdio: "ignore" });
+}
+
+const publishedRunIds = readPublishedRunIds();
+const runs = listWorkflowRuns();
+const completed = runs.filter((run) => run.status === "completed");
+const selected = completed.filter((run) => conclusion === "any" || run.conclusion === conclusion);
+const missing = selected.filter((run) => !publishedRunIds.has(String(run.databaseId)));
+const summary = {
+  repo,
+  workflow,
+  lookback,
+  conclusion,
+  published_count: publishedRunIds.size,
+  completed_count: completed.length,
+  selected_count: selected.length,
+  missing_count: missing.length,
+  missing_run_ids: missing.map((run) => String(run.databaseId)),
+  threshold,
+  ok: threshold === null || missing.length <= threshold,
+};
+
+if (json) {
+  console.log(JSON.stringify(summary, null, 2));
+} else {
+  console.log(
+    [
+      `repo=${repo}`,
+      `workflow=${workflow}`,
+      `lookback=${lookback}`,
+      `conclusion=${conclusion}`,
+      `selected=${summary.selected_count}`,
+      `missing=${summary.missing_count}`,
+      threshold === null ? null : `threshold=${threshold}`,
+    ]
+      .filter(Boolean)
+      .join(" "),
+  );
+  if (missing.length > 0) console.log(`missing_run_ids=${summary.missing_run_ids.join(",")}`);
+}
+
+if (!summary.ok) {
+  console.error(
+    `publish backlog ${summary.missing_count} exceeds threshold ${threshold}; run publish-results workflow_dispatch or npm run backfill-results before dispatching more workers`,
+  );
+  process.exit(1);
+}
+
+function listWorkflowRuns() {
+  return ghJson([
+    "run",
+    "list",
+    "--repo",
+    repo,
+    "--workflow",
+    workflow,
+    "--limit",
+    String(lookback),
+    "--json",
+    "databaseId,status,conclusion,createdAt,updatedAt,headSha,url",
+  ]);
+}
+
+function readPublishedRunIds() {
+  const fromOrigin = execFileSync("git", ["ls-tree", "-r", "--name-only", "origin/main", "results/runs"], {
+    cwd: repoRoot(),
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  })
+    .split("\n")
+    .filter(Boolean)
+    .map((file) => path.basename(file, ".json"));
+  if (fromOrigin.length > 0) return new Set(fromOrigin);
+
+  const dir = path.join(repoRoot(), "results", "runs");
+  if (!fs.existsSync(dir)) return new Set();
+  return new Set(
+    fs
+      .readdirSync(dir)
+      .filter((name) => name.endsWith(".json"))
+      .map((name) => path.basename(name, ".json")),
+  );
+}
+
+function ghJson(ghArgs) {
+  const env = { ...process.env, NO_COLOR: "1", CLICOLOR: "0" };
+  delete env.FORCE_COLOR;
+  const output = execFileSync("gh", ghArgs, {
+    cwd: repoRoot(),
+    env,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+    maxBuffer: 128 * 1024 * 1024,
+  });
+  return JSON.parse(stripAnsi(output) || "null");
+}
+
+function stripAnsi(text) {
+  return String(text ?? "").replace(/\u001b\[[0-?]*[ -/]*[@-~]/g, "");
+}
+
+function numberArg(name, fallback) {
+  const value = Number(args[name] ?? fallback);
+  if (!Number.isInteger(value) || value < 0) throw new Error(`--${name} must be a non-negative integer`);
+  return value;
+}

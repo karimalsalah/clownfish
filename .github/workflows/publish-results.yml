@@ -1,6 +1,32 @@
 name: publish cluster results
 
 on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Optional cluster-worker run id to include first
+        required: false
+        default: ""
+      run_attempt:
+        description: Run attempt for run_id
+        required: false
+        default: "1"
+      limit:
+        description: Maximum missing worker results to backfill
+        required: false
+        default: "200"
+      lookback:
+        description: Number of cluster-worker runs to inspect
+        required: false
+        default: "1200"
+      conclusion:
+        description: GitHub Actions conclusion to include, or any
+        required: false
+        default: "any"
+      order:
+        description: newest or oldest missing runs first
+        required: false
+        default: "newest"
   workflow_run:
     workflows:
       - cluster worker
@@ -22,7 +48,7 @@ concurrency:
 jobs:
   publish:
     runs-on: blacksmith-4vcpu-ubuntu-2404
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v5
         with:
@@ -35,23 +61,31 @@ jobs:
       - name: Download worker artifacts
         env:
           GH_TOKEN: ${{ github.token }}
-          RUN_ID: ${{ github.event.workflow_run.id }}
-          RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+          RUN_ID: ${{ github.event.workflow_run.id || github.event.inputs.run_id }}
+          RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt || github.event.inputs.run_attempt || '1' }}
+          BACKFILL_LIMIT: ${{ github.event.inputs.limit || vars.CLOWNFISH_PUBLISH_BACKFILL_LIMIT || '100' }}
+          BACKFILL_LOOKBACK: ${{ github.event.inputs.lookback || vars.CLOWNFISH_PUBLISH_BACKFILL_LOOKBACK || '1200' }}
+          BACKFILL_CONCLUSION: ${{ github.event.inputs.conclusion || 'any' }}
+          BACKFILL_ORDER: ${{ github.event.inputs.order || 'newest' }}
         run: |
           set -euo pipefail
           git fetch origin main
           git checkout -B main origin/main
           rm -rf artifacts
-          npm run backfill-results -- \
-            --repo "$GITHUB_REPOSITORY" \
-            --workflow cluster-worker.yml \
-            --run-id "$RUN_ID" \
-            --run-attempt "${RUN_ATTEMPT:-1}" \
-            --conclusion any \
-            --limit "${CLOWNFISH_PUBLISH_BACKFILL_LIMIT:-50}" \
-            --lookback "${CLOWNFISH_PUBLISH_BACKFILL_LOOKBACK:-500}" \
-            --out artifacts \
+          args=(
+            --repo "$GITHUB_REPOSITORY"
+            --workflow cluster-worker.yml
+            --conclusion "$BACKFILL_CONCLUSION"
+            --limit "$BACKFILL_LIMIT"
+            --lookback "$BACKFILL_LOOKBACK"
+            --order "$BACKFILL_ORDER"
+            --out artifacts
             --runs-json artifacts/runs.json
+          )
+          if [ -n "${RUN_ID:-}" ]; then
+            args+=(--run-id "$RUN_ID" --run-attempt "${RUN_ATTEMPT:-1}")
+          fi
+          npm run backfill-results -- "${args[@]}"
           npm run review-results -- artifacts
 
       - name: Publish and commit result ledger

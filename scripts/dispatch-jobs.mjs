@@ -25,13 +25,29 @@ const repo = String(args.repo ?? currentProjectRepo());
 const model = String(args.model ?? process.env.CLOWNFISH_MODEL ?? "gpt-5.5");
 const maxLiveWorkers = readMaxLiveWorkers(args);
 const waitForCapacity = Boolean(args["wait-for-capacity"]);
+const publishBacklogThreshold = Number(
+  args["publish-backlog-threshold"] ?? process.env.CLOWNFISH_MAX_PUBLISH_BACKLOG ?? 25,
+);
+const publishBacklogLookback = Number(
+  args["publish-backlog-lookback"] ?? process.env.CLOWNFISH_PUBLISH_BACKLOG_LOOKBACK ?? 500,
+);
+const skipPublishBacklogCheck = Boolean(args["skip-publish-backlog-check"]);
 const ref = args.ref ? String(args.ref) : "";
 const files = args._;
 
 if (files.length === 0) {
   console.error(
-    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--max-live-workers 50] [--wait-for-capacity]",
+    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--max-live-workers 50] [--wait-for-capacity] [--publish-backlog-threshold 25]",
   );
+  process.exit(2);
+}
+
+if (!Number.isInteger(publishBacklogThreshold) || publishBacklogThreshold < 0) {
+  console.error("--publish-backlog-threshold must be a non-negative integer");
+  process.exit(2);
+}
+if (!Number.isInteger(publishBacklogLookback) || publishBacklogLookback < 1) {
+  console.error("--publish-backlog-lookback must be a positive integer");
   process.exit(2);
 }
 
@@ -57,12 +73,42 @@ for (const file of files) {
 }
 
 if (!failed) {
+  if (!skipPublishBacklogCheck) assertPublishBacklog();
+}
+
+if (!failed) {
   const requested = waitForCapacity ? Math.min(jobs.length, 1) : jobs.length;
   const capacityOptions = { repo, workflow, requested, maxLiveWorkers };
   const capacity = waitForCapacity ? waitForLiveWorkerCapacity(capacityOptions) : assertLiveWorkerCapacity(capacityOptions);
   console.log(
     `live worker capacity: ${capacity.active}/${capacity.max_live_workers} active; dispatching ${jobs.length} ${workflow} run(s)`,
   );
+}
+
+function assertPublishBacklog() {
+  const result = spawnSync(
+    process.execPath,
+    [
+      path.join(repoRoot(), "scripts", "publish-backlog.mjs"),
+      "--repo",
+      repo,
+      "--workflow",
+      workflow,
+      "--lookback",
+      String(publishBacklogLookback),
+      "--conclusion",
+      "success",
+      "--threshold",
+      String(publishBacklogThreshold),
+      "--json",
+    ],
+    { cwd: repoRoot(), encoding: "utf8", stdio: "pipe" },
+  );
+  if (result.stdout) process.stdout.write(result.stdout);
+  if (result.stderr) process.stderr.write(result.stderr);
+  if (result.status !== 0) {
+    failed = true;
+  }
 }
 
 let dispatched = 0;
