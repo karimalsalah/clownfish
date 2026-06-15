@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-468-autonomous-issue-wave"
 mode: "autonomous"
-run_id: "27566557863"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27566557863"
-head_sha: "a782f35d928f2ff0b9deeafdd3e83b2863087158"
-workflow_conclusion: "success"
+run_id: "27567911250"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27567911250"
+head_sha: "65aabaf6f24287c47538121fa0ffce37874bdb99"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T18:15:19.906Z"
-canonical: "https://github.com/openclaw/openclaw/pull/86649"
+published_at: "2026-06-15T18:38:54.945Z"
+canonical: "https://github.com/openclaw/openclaw/issues/86050"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/86050"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/86649"
 actions_total: 3
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27566557863](https://github.com/openclaw/clownfish/actions/runs/27566557863)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27567911250](https://github.com/openclaw/clownfish/actions/runs/27567911250)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/86649
+Canonical: https://github.com/openclaw/openclaw/issues/86050
 
 ## Summary
 
-Canonical issue #86050 remains open and valid. Linked PR #86649 is the best canonical fix path, but it is not merge-ready because ClawSweeper's latest hydrated review still says needs changes, mergeability/check state is unknown due API rate limiting, and no clean Codex /review merge preflight is present. Because #86649 is useful, narrow, and maintainer_can_modify=true, plan repair of the contributor branch rather than opening a replacement PR.
+Cluster #86050 remains a valid open canonical issue. Hydrated linked PR #86649 is the clear repairable canonical fix path, but it is not merge-ready because the latest ClawSweeper review still says needs changes and no clean Codex /review preflight is present. Plan repair of the contributor branch rather than close the issue or merge now.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Canonical issue #86050 remains open and valid. Linked PR #86649 is the best cano
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #86050 | keep_canonical | planned | canonical | Keep the source issue open as the canonical tracking thread while the linked repairable PR is made merge-ready. |
-| #86649 | fix_needed | planned | canonical | Repair the contributor branch, address the review blockers, rebase/refresh against main df521a645977706eca16dc1130e7f9c53428ab1e, run review and validation, then merge only if clean. |
-| cluster:gitcrawl-468-autonomous-issue-wave | build_fix_artifact | planned |  | Create an executable branch-repair artifact for #86649 because it is the canonical useful PR but lacks merge-ready proof. |
+| #86050 | keep_canonical | planned | canonical | Canonical issue remains live; closeout is blocked until the canonical fix path lands. |
+| #86649 | fix_needed | planned | canonical | The contributor branch is useful and editable, so the executor should repair/review/validate it before any merge recommendation. |
+| cluster:gitcrawl-468-autonomous-issue-wave | build_fix_artifact | planned |  | Build an executable repair plan for #86649; do not open a replacement PR while the contributor branch is repairable. |
 
 ## Needs Human
 

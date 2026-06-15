@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-987-autonomous-issue-wave"
 mode: "autonomous"
-run_id: "27566937731"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27566937731"
-head_sha: "db546897eee09a83b017a8d4b014f7378dc4989b"
+run_id: "27567895961"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27567895961"
+head_sha: "65aabaf6f24287c47538121fa0ffce37874bdb99"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T18:22:17.706Z"
+published_at: "2026-06-15T18:38:54.943Z"
 canonical: "https://github.com/openclaw/openclaw/issues/82685"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/82685"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/89028"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27566937731](https://github.com/openclaw/clownfish/actions/runs/27566937731)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27567895961](https://github.com/openclaw/clownfish/actions/runs/27567895961)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/82685
 
 ## Summary
 
-Current canonical path is open issue #82685 with linked repairable PR #89028. No close or merge is safe in this pass: #82685 requires fix-before-close, and #89028 lacks merge preflight because mergeability is unknown, checks hydration hit a GitHub rate-limit error, and no clean Codex /review result is available for merge. Plan a narrow repair/validation pass on the contributor branch, preserving credit for @zhangguiping-xydt.
+Canonical issue #82685 remains open and current. Hydrated linked PR #89028 is the active, useful contributor fix path for the same web_fetch body-extraction bug, but it is not merge-ready because mergeability is unknown and merge preflight lacks a clean Codex /review result. Plan repair of the contributor branch rather than opening a competing replacement PR.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Current canonical path is open issue #82685 with linked repairable PR #89028. No
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #82685 | keep_canonical | planned | canonical | Canonical issue remains live; closeout is blocked until the fix path lands. |
-| #89028 | fix_needed | planned | canonical | Repair and validate the existing contributor branch before any merge or post-merge closeout. |
-| cluster:gitcrawl-987-autonomous-issue-wave | build_fix_artifact | planned |  | Executable repair artifact is needed to turn #89028 into a merge-ready canonical PR. |
+| #82685 | keep_canonical | planned | canonical | Keep #82685 open as the canonical tracking issue until the active fix path lands and post-merge closeout can be planned. |
+| #89028 | fix_needed | planned | related | Useful contributor PR should be repaired and finalized on its existing branch before any merge or issue closeout is planned. |
+| cluster:gitcrawl-987-autonomous-issue-wave | build_fix_artifact | planned |  | Build a repair artifact for the active contributor PR because it is useful, scoped, editable, and not yet merge-ready. |
 
 ## Needs Human
 
