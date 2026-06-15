@@ -3,17 +3,17 @@
   "clownfish_repo": "openclaw/clownfish",
   "head_prefix": "clownfish/",
   "label": "clownfish",
-  "generated_at": "2026-06-15T02:57:49.315Z",
-  "count": 1,
+  "generated_at": "2026-06-15T15:34:36.212Z",
+  "count": 0,
   "summary": {
-    "open_prs": 1,
+    "open_prs": 0,
     "ready_candidates": 0,
     "security_hold": 0,
     "needs_rebase": 0,
     "mergeability_unknown": 0,
     "needs_checks": 0,
     "needs_review": 0,
-    "needs_merge_preflight": 1,
+    "needs_merge_preflight": 0,
     "needs_result_backfill": 0
   },
   "dispatch": {
@@ -23,76 +23,8 @@
     "runner": "blacksmith-4vcpu-ubuntu-2404",
     "execution_runner": "blacksmith-16vcpu-ubuntu-2404",
     "model": "gpt-5.5",
-    "max_prs": 5,
+    "max_prs": 50,
     "candidates": []
   },
-  "prs": [
-    {
-      "number": 92910,
-      "title": "fix(memory-core): safely refresh qmd index during collection repair",
-      "url": "https://github.com/openclaw/openclaw/pull/92910",
-      "branch": "clownfish/ghcrawl-156633-autonomous-smoke",
-      "head_sha": "c351637cee97a1922b9e9222bccbeee81a50da1d",
-      "cluster_id": "ghcrawl-156633-autonomous-smoke",
-      "job_path": "jobs/openclaw/outbox/stuck/ghcrawl-156633-autonomous-smoke.md",
-      "updated_at": "2026-06-15T02:06:48Z",
-      "mergeable": "MERGEABLE",
-      "merge_state_status": "CLEAN",
-      "review_decision": "",
-      "security_hold": false,
-      "checks": {
-        "total": 155,
-        "counts": {
-          "SUCCESS": 128,
-          "SKIPPED": 27
-        },
-        "blockers": []
-      },
-      "review_threads": {
-        "status": "clean",
-        "reason": null,
-        "unresolved_count": 0,
-        "examples": []
-      },
-      "review_bots": {
-        "count": 1,
-        "latest": [
-          {
-            "source": "comment",
-            "author": "clawsweeper",
-            "url": "https://github.com/openclaw/openclaw/pull/92910#issuecomment-4701040968",
-            "submitted_at": "2026-06-14T07:25:14Z"
-          }
-        ]
-      },
-      "latest_record": {
-        "run_id": "27491295229",
-        "run_url": "https://github.com/openclaw/clownfish/actions/runs/27491295229",
-        "cluster_id": "ghcrawl-156633-autonomous-smoke",
-        "published_at": "2026-06-14T07:24:14.010Z",
-        "workflow_conclusion": "success",
-        "apply_action": {
-          "target": "#92910",
-          "action": "merge_canonical",
-          "status": "blocked",
-          "classification": "fix_pr",
-          "canonical": null,
-          "candidate_fix": null,
-          "title": "fix(memory-core): safely refresh qmd index during collection repair",
-          "idempotency_key": null,
-          "source_status": null,
-          "source_reason": null,
-          "reason": "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
-          "merged_at": null,
-          "merge_commit_sha": null,
-          "live_state": null,
-          "live_updated_at": null
-        }
-      },
-      "blockers": [
-        "needs_merge_preflight"
-      ],
-      "recommended_next_action": "backfill merge preflight: security cleared, comments resolved, Codex /review passed, validation recorded"
-    }
-  ]
+  "prs": []
 }
