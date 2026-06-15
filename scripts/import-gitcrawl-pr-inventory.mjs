@@ -136,7 +136,7 @@ function chooseBucket({ row, title, body, labels, assignees, authorAssociation }
 
 function writeJob(batch, index) {
   const now = new Date();
-  const stamp = now.toISOString().replace(/[-:]/g, "").slice(0, 16);
+  const stamp = now.toISOString().replace(/[-:.]/g, "").slice(0, 15);
   const bucket = batch.every((item) => item.bucket === batch[0].bucket) ? batch[0].bucket : "mixed";
   const clusterId = `pr-inventory-${bucket}-${stamp}-${String(index).padStart(3, "0")}`;
   const filePath = path.join(outDir, `${clusterId}.md`);
