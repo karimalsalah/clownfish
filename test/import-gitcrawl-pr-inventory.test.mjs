@@ -47,6 +47,38 @@ test("PR inventory import supports limit all and emits jq-safe JSON", { skip: ha
   assert.doesNotMatch(payload.candidates[0].body_excerpt, /vincentkoc|hunter2|abc123/);
 });
 
+test("PR inventory import defaults existing refs to the active out dir", { skip: hasSqlite ? false : "sqlite3 missing" }, () => {
+  const fixture = makeFixture();
+  seedGitcrawlDb(fixture.db);
+  writeExistingJob(path.join(fixture.out, "existing.md"), "#101");
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/import-gitcrawl-pr-inventory.mjs",
+      "--db",
+      fixture.db,
+      "--out",
+      fixture.out,
+      "--dry-run",
+      "--json",
+      "--limit",
+      "all",
+      "--batch-size",
+      "1",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+  assert.equal(payload.totals.existing_refs, 1);
+  assert.deepEqual(
+    payload.candidates.map((candidate) => candidate.ref),
+    ["#102"],
+  );
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-pr-inventory-"));
   const db = path.join(root, "gitcrawl.db");
@@ -55,6 +87,32 @@ function makeFixture() {
   fs.mkdirSync(out, { recursive: true });
   fs.mkdirSync(existing, { recursive: true });
   return { root, db, out, existing };
+}
+
+function writeExistingJob(filePath, ref) {
+  fs.writeFileSync(
+    filePath,
+    `---
+repo: openclaw/openclaw
+cluster_id: existing
+mode: plan
+allowed_actions:
+  - comment
+blocked_actions:
+  - merge
+require_human_for:
+  - merge
+canonical: []
+candidates:
+  - "${ref}"
+cluster_refs:
+  - "${ref}"
+security_sensitive: false
+---
+
+# Existing
+`,
+  );
 }
 
 function seedGitcrawlDb(dbPath) {
