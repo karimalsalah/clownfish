@@ -166,7 +166,7 @@ Codex runs in a read-only sandbox for classification and receives no GitHub toke
 
 Runs for the same job path and mode share a concurrency group. Different cluster jobs can still run in parallel.
 
-Live preflight hydrates job-provided refs by default and records linked refs without expanding them. Set repo variables `CLOWNFISH_MAX_LINKED_REFS` above `0` only for small clusters that need first-hop context and `CLOWNFISH_HYDRATE_COMMENTS=1` when comment bodies are necessary evidence; normal scale runs use issue/PR metadata, body excerpts, PR files, and PR checks.
+Live preflight hydrates job-provided refs by default and records linked refs without expanding them. Set repo variables `CLOWNFISH_MAX_LINKED_REFS` above `0` only for small clusters that need first-hop context and `CLOWNFISH_HYDRATE_COMMENTS=1` when comment bodies are necessary evidence; normal scale runs use issue/PR metadata, body excerpts, PR files, and PR checks. For high-volume inventory waves, prefer per-dispatch overrides such as `--hydrate-comments 0 --max-linked-refs 0` instead of changing the repo defaults.
 
 ## Maintainer Comment Routing
 

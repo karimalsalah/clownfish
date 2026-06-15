@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 
 const SECURITY_SIGNAL_PATTERN =
   /\b(vulnerabilit(?:y|ies)|cve-\d+|ghsa|exploit|ssrf|xss|csrf|rce|(?:sql|command|code|prompt)\s*injection|auth(?:entication)?\s*bypass|privilege\s+escalation|sensitive\s+data|secrets?|security\s+(?:issue|bug|fix|patch|advisory|triage|review|re-evaluation|reclassification|flag|scan|scanner|surface|surfaces)|flagged\s+as\s+suspicious|(?:secretref|secret|credential|api[-_\s]?key|private[-_\s]?key|token).{0,80}(?:leak(?:ed|age)?|expos(?:e|ed|ure)|plaintext|plain[-_\s]?text)|(?:leak(?:ed|age)?|expos(?:e|ed|ure)|plaintext|plain[-_\s]?text).{0,80}(?:secretref|secret|credential|api[-_\s]?key|private[-_\s]?key|token))\b/i;
@@ -44,10 +44,11 @@ export function liveWorkerCapacity({
   workflow = "cluster-worker.yml",
   requested = 1,
   maxLiveWorkers = DEFAULT_MAX_LIVE_WORKERS,
+  ghCommand = defaultGhCommand(),
 } = {}) {
   const requestedCount = readNonNegativeInteger(requested, "requested");
   const max = readPositiveInteger(maxLiveWorkers, "max-live-workers");
-  const activeRuns = listActiveWorkflowRuns({ repo, workflow });
+  const activeRuns = listActiveWorkflowRuns({ repo, workflow, ghCommand });
   return {
     repo,
     workflow,
@@ -106,21 +107,28 @@ export function waitForLiveWorkerCapacity(options = {}) {
   );
 }
 
-export function listActiveWorkflowRuns({ repo = currentProjectRepo(), workflow = "cluster-worker.yml" } = {}) {
+export function listActiveWorkflowRuns({
+  repo = currentProjectRepo(),
+  workflow = "cluster-worker.yml",
+  ghCommand = defaultGhCommand(),
+} = {}) {
   const runs = [];
   for (const status of ACTIVE_WORKFLOW_STATUSES) {
-    const workflowPages = ghJson([
-      "api",
-      "--method",
-      "GET",
-      `repos/${repo}/actions/workflows/${encodeURIComponent(workflow)}/runs`,
-      "-f",
-      `status=${status}`,
-      "-f",
-      "per_page=100",
-      "--paginate",
-      "--slurp",
-    ]);
+    const workflowPages = ghJson(
+      [
+        "api",
+        "--method",
+        "GET",
+        `repos/${repo}/actions/workflows/${encodeURIComponent(workflow)}/runs`,
+        "-f",
+        `status=${status}`,
+        "-f",
+        "per_page=100",
+        "--paginate",
+        "--slurp",
+      ],
+      { ghCommand },
+    );
     const workflowRuns = workflowPages.flatMap((page) => page.workflow_runs ?? []);
     if (Array.isArray(workflowRuns)) runs.push(...workflowRuns.map((run) => normalizeWorkflowRun(run, status)));
   }
@@ -146,21 +154,33 @@ function repoFromOriginRemote() {
   return null;
 }
 
-function ghJson(ghArgs) {
-  const text = ghRaw(ghArgs);
+function ghJson(ghArgs, options = {}) {
+  const text = ghRaw(ghArgs, options);
   return JSON.parse(stripAnsi(text) || "null");
 }
 
-function ghRaw(ghArgs) {
+function ghRaw(ghArgs, { ghCommand = defaultGhCommand() } = {}) {
   const env = { ...process.env, NO_COLOR: "1", CLICOLOR: "0" };
   delete env.FORCE_COLOR;
-  return execFileSync("gh", ghArgs, {
+  return execFileSync(ghCommand, ghArgs, {
     cwd: repoRoot(),
     env,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
     maxBuffer: 64 * 1024 * 1024,
   });
+}
+
+function defaultGhCommand() {
+  return process.env.CLOWNFISH_GH_BIN ?? firstAvailableCommand(["ghx", "gh"]);
+}
+
+function firstAvailableCommand(commands) {
+  for (const command of commands) {
+    const result = spawnSync(command, ["--version"], { cwd: repoRoot(), stdio: "ignore" });
+    if (result.status === 0) return command;
+  }
+  return commands.at(-1);
 }
 
 function stripAnsi(text) {

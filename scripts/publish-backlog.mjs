@@ -12,6 +12,7 @@ const conclusion = String(args.conclusion ?? "success");
 const threshold = args.threshold === undefined ? null : numberArg("threshold", 0);
 const json = Boolean(args.json);
 const fetch = args.fetch !== false && args.fetch !== "false";
+const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_GH_BIN ?? firstAvailableCommand(["ghx", "gh"]));
 
 if (!["success", "failure", "cancelled", "timed_out", "action_required", "neutral", "skipped", "any"].includes(conclusion)) {
   throw new Error("--conclusion must be a GitHub Actions conclusion or any");
@@ -105,7 +106,7 @@ function readPublishedRunIds() {
 function ghJson(ghArgs) {
   const env = { ...process.env, NO_COLOR: "1", CLICOLOR: "0" };
   delete env.FORCE_COLOR;
-  const output = execFileSync("gh", ghArgs, {
+  const output = execFileSync(ghCommand, ghArgs, {
     cwd: repoRoot(),
     env,
     encoding: "utf8",
@@ -123,4 +124,16 @@ function numberArg(name, fallback) {
   const value = Number(args[name] ?? fallback);
   if (!Number.isInteger(value) || value < 0) throw new Error(`--${name} must be a non-negative integer`);
   return value;
+}
+
+function firstAvailableCommand(commands) {
+  for (const command of commands) {
+    try {
+      execFileSync(command, ["--version"], { cwd: repoRoot(), stdio: "ignore" });
+      return command;
+    } catch {
+      continue;
+    }
+  }
+  return commands.at(-1);
 }

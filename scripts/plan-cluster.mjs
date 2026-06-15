@@ -176,7 +176,7 @@ function hydrateItem(repo, number) {
   const reviews = pullRequest
     ? safeGhPaged(`repos/${repo}/pulls/${number}/reviews`, `pull request #${number} reviews`, hydrationErrors)
     : [];
-  const reviewComments = pullRequest
+  const reviewComments = pullRequest && HYDRATE_COMMENTS
     ? safeGhPaged(`repos/${repo}/pulls/${number}/comments`, `pull request #${number} review comments`, hydrationErrors)
     : [];
   const checks = pullRequest ? ghPrChecks(repo, number) : [];

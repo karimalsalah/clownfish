@@ -45,9 +45,13 @@ test("queue-status treats explicit App token auth as plan-ready", () => {
 
 test("dispatch accepts explicit App token auth for plan mode only", () => {
   const fixture = makeFixture();
-  writeFakeGh(fixture.bin, "gh");
+  writeFailingGh(fixture.bin, "gh");
   const fakeGhx = writeFakeGh(fixture.bin, "ghx");
-  const env = { ...process.env, PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}` };
+  const env = {
+    ...process.env,
+    PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
+    EXPECT_HYDRATION_FIELDS: "1",
+  };
 
   const plan = spawnSync(
     process.execPath,
@@ -62,6 +66,14 @@ test("dispatch accepts explicit App token auth for plan mode only", () => {
       "--skip-publish-backlog-check",
       "--max-live-workers",
       "1",
+      "--hydrate-comments",
+      "0",
+      "--max-linked-refs",
+      "0",
+      "--max-comments-per-item",
+      "0",
+      "--max-review-comments-per-pr",
+      "0",
       "--no-dispatch-ledger",
     ],
     { cwd: repoRoot, encoding: "utf8", env },
@@ -119,6 +131,19 @@ if (args[0] === "variable" && args[1] === "list") {
   process.exit(0);
 }
 if (args[0] === "workflow" && args[1] === "run") {
+  if (process.env.EXPECT_HYDRATION_FIELDS === "1") {
+    for (const expected of [
+      "hydrate_comments=0",
+      "max_linked_refs=0",
+      "max_comments_per_item=0",
+      "max_review_comments_per_pr=0",
+    ]) {
+      if (!args.includes(expected)) {
+        console.error("missing expected workflow field", expected, args.join(" "));
+        process.exit(1);
+      }
+    }
+  }
   console.log("accepted");
   process.exit(0);
 }
@@ -131,6 +156,19 @@ if (args.includes("--version")) {
   process.exit(0);
 }
 console.error("unexpected fake gh call", args.join(" "));
+process.exit(1);
+`,
+  );
+  fs.chmodSync(filePath, 0o755);
+  return filePath;
+}
+
+function writeFailingGh(binDir, name) {
+  const filePath = path.join(binDir, name);
+  fs.writeFileSync(
+    filePath,
+    `#!/usr/bin/env node
+console.error("plain gh should not be used by this test");
 process.exit(1);
 `,
   );

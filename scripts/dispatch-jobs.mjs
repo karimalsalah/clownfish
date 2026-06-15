@@ -54,6 +54,18 @@ const skipTokenSecretCheck = Boolean(args["skip-token-secret-check"] ?? args.ski
 const allowAppTokenAuth = Boolean(
   args["allow-app-token-auth"] ?? args.allow_app_token_auth ?? process.env.CLOWNFISH_ALLOW_APP_TOKEN_AUTH === "1",
 );
+const hydrationInputs = optionalDispatchInputs({
+  hydrate_comments: optionalBooleanString(args["hydrate-comments"] ?? args.hydrate_comments, "hydrate-comments"),
+  max_linked_refs: optionalNonNegativeIntegerString(args["max-linked-refs"] ?? args.max_linked_refs, "max-linked-refs"),
+  max_comments_per_item: optionalNonNegativeIntegerString(
+    args["max-comments-per-item"] ?? args.max_comments_per_item,
+    "max-comments-per-item",
+  ),
+  max_review_comments_per_pr: optionalNonNegativeIntegerString(
+    args["max-review-comments-per-pr"] ?? args.max_review_comments_per_pr,
+    "max-review-comments-per-pr",
+  ),
+});
 const writeDispatchLedger = !Boolean(args["no-dispatch-ledger"] ?? args.no_dispatch_ledger);
 const dispatchLedgerPath = path.resolve(
   repoRoot(),
@@ -67,7 +79,7 @@ const headSha = currentHeadSha();
 
 if (files.length === 0) {
   console.error(
-    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--jobs-file path] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--gh-bin ghx] [--max-live-workers 50] [--wait-for-capacity] [--batch-size N] [--batch-delay-ms N] [--dispatch-limit N] [--dispatch-concurrency N] [--publish-backlog-threshold 25] [--allow-app-token-auth] [--skip-token-secret-check]",
+    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--jobs-file path] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--gh-bin ghx] [--max-live-workers 50] [--wait-for-capacity] [--batch-size N] [--batch-delay-ms N] [--dispatch-limit N] [--dispatch-concurrency N] [--publish-backlog-threshold 25] [--hydrate-comments 0|1] [--max-linked-refs N] [--allow-app-token-auth] [--skip-token-secret-check]",
   );
   process.exit(2);
 }
@@ -128,7 +140,7 @@ if (!failed) {
 
 if (!failed) {
   const requested = throttledDispatch ? Math.min(jobsToDispatch.length, 1) : jobsToDispatch.length;
-  const capacityOptions = { repo, workflow, requested, maxLiveWorkers };
+  const capacityOptions = { repo, workflow, requested, maxLiveWorkers, ghCommand };
   const capacity = throttledDispatch ? waitForLiveWorkerCapacity(capacityOptions) : assertLiveWorkerCapacity(capacityOptions);
   console.log(
     `live worker capacity: ${capacity.active}/${capacity.max_live_workers} active; dispatching ${jobsToDispatch.length} ${workflow} run(s)`,
@@ -150,6 +162,8 @@ function assertPublishBacklog() {
       "success",
       "--threshold",
       String(publishBacklogThreshold),
+      "--gh-bin",
+      ghCommand,
       "--json",
     ],
     { cwd: repoRoot(), encoding: "utf8", stdio: "pipe" },
@@ -175,8 +189,9 @@ while (!failed && index < jobsToDispatch.length) {
       workflow,
       requested: 1,
       maxLiveWorkers,
+      ghCommand,
     });
-    const refreshed = liveWorkerCapacity({ repo, workflow, requested: 1, maxLiveWorkers });
+    const refreshed = liveWorkerCapacity({ repo, workflow, requested: 1, maxLiveWorkers, ghCommand });
     batchSize = Math.min(
       batchSize,
       Math.max(1, refreshed.available || capacity.available || 1),
@@ -357,6 +372,7 @@ function dispatchJob(relative, position) {
       `execution_runner=${executionRunner}`,
       "-f",
       `model=${model}`,
+      ...Object.entries(hydrationInputs).flatMap(([name, value]) => ["-f", `${name}=${value}`]),
     ],
     relative,
     position,
@@ -473,4 +489,22 @@ function numberArg(value, name) {
     process.exit(2);
   }
   return number;
+}
+
+function optionalBooleanString(value, name) {
+  if (value === undefined || value === null || value === "") return null;
+  const normalized = String(value).trim().toLowerCase();
+  if (["1", "true", "yes"].includes(normalized)) return "1";
+  if (["0", "false", "no"].includes(normalized)) return "0";
+  console.error(`--${name} must be 0 or 1`);
+  process.exit(2);
+}
+
+function optionalNonNegativeIntegerString(value, name) {
+  if (value === undefined || value === null || value === "") return null;
+  return String(numberArg(value, name));
+}
+
+function optionalDispatchInputs(inputs) {
+  return Object.fromEntries(Object.entries(inputs).filter(([, value]) => value !== null));
 }

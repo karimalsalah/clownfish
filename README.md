@@ -325,6 +325,32 @@ CLOWNFISH_MAX_LIVE_WORKERS=50 npm run dispatch -- jobs/openclaw/inbox/cluster-ex
   --runner blacksmith-4vcpu-ubuntu-2404 \
   --execution-runner blacksmith-16vcpu-ubuntu-2404
 
+# Select a plan-only wave by total referenced issue/PR count without dispatching.
+# This is useful for high-volume inventory shards where job count is less useful
+# than the number of hydrated refs the wave will consume.
+npm run queue-status -- \
+  --attempt-filter unattempted \
+  --plan-ref-limit 2500 \
+  --write-missing-plan /tmp/clownfish-plan-wave.txt \
+  --allow-app-token-auth
+
+# High-volume plan inventory waves should keep hydration lean. This hydrates
+# only the listed PR refs and skips issue/review comments for first-pass
+# classification; follow-up execute/autonomous jobs can rehydrate deeper.
+npm run dispatch -- --jobs-file /tmp/clownfish-plan-wave-all.txt \
+  --mode plan \
+  --allow-app-token-auth \
+  --wait-for-capacity \
+  --max-live-workers 200 \
+  --batch-size 200 \
+  --dispatch-concurrency 20 \
+  --hydrate-comments 0 \
+  --max-linked-refs 0 \
+  --max-comments-per-item 0 \
+  --max-review-comments-per-pr 0 \
+  --runner blacksmith-4vcpu-ubuntu-2404 \
+  --execution-runner blacksmith-16vcpu-ubuntu-2404
+
 # Find failed cluster jobs that have not been superseded by a later success.
 npm run self-heal
 

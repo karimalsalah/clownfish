@@ -44,6 +44,55 @@ test("queue-status ignores inbox example jobs", () => {
   assert.deepEqual(payload.rows.map((row) => path.basename(row.path)), ["real-close.md"]);
 });
 
+test("queue-status can select a plan wave by ref budget", () => {
+  const fixture = makeFixture();
+  const waveFile = path.join(fixture.root, "plan-wave.txt");
+  writeJob(path.join(fixture.inbox, "a-plan.md"), {
+    clusterId: "a-plan",
+    mode: "plan",
+    refs: ["#1", "#2"],
+  });
+  writeJob(path.join(fixture.inbox, "b-plan.md"), {
+    clusterId: "b-plan",
+    mode: "plan",
+    refs: ["#3", "#4", "#5"],
+  });
+  writeJob(path.join(fixture.inbox, "c-plan.md"), {
+    clusterId: "c-plan",
+    mode: "plan",
+    refs: ["#6", "#7", "#8"],
+  });
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/queue-status.mjs",
+      "--inbox",
+      fixture.inbox,
+      "--runs-dir",
+      fixture.runs,
+      "--dispatch-ledger",
+      fixture.ledger,
+      "--skip-secret-check",
+      "--plan-ref-limit",
+      "5",
+      "--write-missing-plan",
+      waveFile,
+      "--json",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+  assert.equal(payload.selected_counts.plan, 2);
+  assert.equal(payload.selected_ref_counts.plan, 5);
+  assert.deepEqual(
+    fs.readFileSync(waveFile, "utf8").trim().split(/\r?\n/).map((item) => path.basename(item)),
+    ["a-plan.md", "b-plan.md"],
+  );
+});
+
 test("prune-inbox preserves example jobs even when writing", () => {
   const fixture = makeFixture();
   const examplePath = path.join(fixture.inbox, "autonomous-example.md");

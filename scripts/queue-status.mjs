@@ -21,6 +21,10 @@ const planLimit = numberArg("plan-limit", 0);
 const executeLimit = numberArg("execute-limit", 0);
 const autonomousLimit = numberArg("autonomous-limit", 0);
 const closeLimit = numberArg("close-limit", 0);
+const planRefLimit = numberArg("plan-ref-limit", 0);
+const executeRefLimit = numberArg("execute-ref-limit", 0);
+const autonomousRefLimit = numberArg("autonomous-ref-limit", 0);
+const closeRefLimit = numberArg("close-ref-limit", 0);
 const attemptFilter = String(args["attempt-filter"] ?? args.attempt_filter ?? "all");
 const validAttemptFilters = new Set(["all", "unattempted", "attempted", "accepted", "failed"]);
 if (!validAttemptFilters.has(attemptFilter)) {
@@ -43,10 +47,13 @@ const variables = skipSecretCheck ? null : readVariableNames(dispatchRepo);
 const auth = summarizeAuth({ secrets, variables, targetRepos: new Set(rows.map((row) => row.repo).filter(Boolean)) });
 
 const selectedRows = {
-  plan: take(filterByAttempt(missingPlan), planLimit),
-  execute: take(filterByAttempt(missingExecute), executeLimit),
-  autonomous: take(filterByAttempt(missingAutonomous), autonomousLimit),
-  close_canaries: take(filterByAttempt(closeCanaries), closeLimit),
+  plan: takeByLimits(filterByAttempt(missingPlan), { itemLimit: planLimit, refLimit: planRefLimit }),
+  execute: takeByLimits(filterByAttempt(missingExecute), { itemLimit: executeLimit, refLimit: executeRefLimit }),
+  autonomous: takeByLimits(filterByAttempt(missingAutonomous), {
+    itemLimit: autonomousLimit,
+    refLimit: autonomousRefLimit,
+  }),
+  close_canaries: takeByLimits(filterByAttempt(closeCanaries), { itemLimit: closeLimit, refLimit: closeRefLimit }),
 };
 const selected = {
   plan: selectedRows.plan.map((row) => row.path),
@@ -293,8 +300,17 @@ function writeJobsFile(filePath, items) {
   fs.writeFileSync(absolute, `${items.join("\n")}${items.length > 0 ? "\n" : ""}`, "utf8");
 }
 
-function take(items, limit) {
-  return limit > 0 ? items.slice(0, limit) : items;
+function takeByLimits(items, { itemLimit = 0, refLimit = 0 } = {}) {
+  const out = [];
+  let refs = 0;
+  for (const item of items) {
+    if (itemLimit > 0 && out.length >= itemLimit) break;
+    if (refLimit > 0 && out.length > 0 && refs + item.ref_count > refLimit) break;
+    out.push(item);
+    refs += item.ref_count;
+    if (refLimit > 0 && refs >= refLimit) break;
+  }
+  return out;
 }
 
 function filterByAttempt(items) {
