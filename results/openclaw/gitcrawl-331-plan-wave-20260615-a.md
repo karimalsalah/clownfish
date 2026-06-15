@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-331-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516751691"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516751691"
-head_sha: "6bb552b68729da7580c0ee53a6e211c17d1b2e3a"
+run_id: "27520923734"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520923734"
+head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.402Z"
+published_at: "2026-06-15T02:56:52.553Z"
 canonical: "#48810"
 canonical_issue: "#48810"
 canonical_pr: "#79635"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516751691](https://github.com/openclaw/clownfish/actions/runs/27516751691)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520923734](https://github.com/openclaw/clownfish/actions/runs/27520923734)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #48810
 
 ## Summary
 
-Read-only plan: keep #48810 as the live canonical issue for the compaction retry parentId fork regression. Keep #79635 open as the active related fix candidate; do not close #48810 or merge #79635 in this job because merge and fix actions are blocked and the PR still needs maintainer review/preflight for session-state repair behavior.
+Plan mode classification only. #48810 remains the canonical open issue for the compaction retry parentId orphan-fork bug. #79635 is the related active implementation path for #48810, but no merge/close/fix action is planned because the job blocks merge/fix/raise_pr and the PR still needs maintainer review for session-state repair behavior.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Read-only plan: keep #48810 as the live canonical issue for the compaction retry
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #48810 | keep_canonical | planned | canonical | #48810 remains the best live canonical issue for the shared root cause and should stay open until the active fix path lands and is validated. |
-| #79635 | keep_related | planned | related | #79635 is the active implementation path for #48810, but it is not a safe merge recommendation in this job because merge is blocked and maintainer review plus merge preflight are still required. |
+| #48810 | keep_canonical | planned | canonical |  |
+| #79635 | keep_related | planned | related | Keep #79635 attached to #48810 as the active implementation path, but do not recommend merge or closeout in this plan-mode job. |
 
 ## Needs Human
 

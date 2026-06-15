@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-341-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516757584"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516757584"
-head_sha: "6bb552b68729da7580c0ee53a6e211c17d1b2e3a"
+run_id: "27520930524"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520930524"
+head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.404Z"
+published_at: "2026-06-15T02:56:52.556Z"
 canonical: "#47070"
 canonical_issue: "#47070"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516757584](https://github.com/openclaw/clownfish/actions/runs/27516757584)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520930524](https://github.com/openclaw/clownfish/actions/runs/27520930524)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #47070
 
 ## Summary
 
-Read-only plan: #47070 remains the canonical open issue for sessions_spawn child task input provenance. #47087 is the linked contributor PR for the same root cause, but it should stay open as related rather than merge/close/fixed-by-candidate because it is draft, mergeability is unknown, and Real behavior proof is failing; fix PR creation and merge are blocked by the job.
+Plan-only classification: keep #47070 as the live canonical issue for the sessions_spawn input provenance gap. Keep #47087 open as the related contributor implementation path, but do not recommend merge or fixed-by-candidate closeout because the PR is draft and its Real behavior proof check is failing.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Read-only plan: #47070 remains the canonical open issue for sessions_spawn child
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #47070 | keep_canonical | planned | canonical | Best surviving canonical issue for the cluster root cause; keep open for validation and follow-up. |
-| #47087 | keep_related | planned | related | This PR is the active related implementation path for the canonical issue, but proof and merge-readiness gates block merge or fixed-by-candidate closeout. |
+| #47070 | keep_canonical | planned | canonical | #47070 is the clearest surviving canonical issue for the root cause and remains open with an active linked PR path. |
+| #47087 | keep_related | planned | related | #47087 belongs to the same root-cause family and should stay open as the active contributor implementation path, but it is not merge-ready and should not trigger fixed-by-candidate closure while draft and failing proof. |
 
 ## Needs Human
 

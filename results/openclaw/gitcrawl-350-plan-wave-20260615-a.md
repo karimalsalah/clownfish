@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-350-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516762173"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516762173"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27520941188"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520941188"
+head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.405Z"
+published_at: "2026-06-15T02:56:52.560Z"
 canonical: "#44291"
 canonical_issue: "#44291"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516762173](https://github.com/openclaw/clownfish/actions/runs/27516762173)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520941188](https://github.com/openclaw/clownfish/actions/runs/27520941188)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #44291
 
 ## Summary
 
-Plan-only classification: keep #44291 as the open canonical issue. Keep #91610 open as the related candidate implementation, but do not merge or close anything because the PR still has a failing Real behavior proof check and unresolved review-bot findings.
+Plan only: keep #44291 as the live canonical issue. Keep #91610 related as the linked implementation PR, but do not recommend merge, fixed-by-candidate closeout, or a replacement fix because merge/fix actions are blocked and the PR still has unresolved proof and review-bot blockers.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Plan-only classification: keep #44291 as the open canonical issue. Keep #91610 o
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #44291 | keep_canonical | planned | canonical | #44291 remains the best live canonical report for the native PowerShell contributor-command CI coverage gap; keep it open until #91610 or another validated fix lands, or maintainers explicitly decide not to add this coverage. |
-| #91610 | keep_related | planned | related | #91610 is directly related to the canonical issue and may be the right implementation path after repair, proof, and review cleanup, but it is not currently merge-ready and should not close #44291 in this plan. |
+| #44291 | keep_canonical | planned | canonical | #44291 remains the best surviving canonical because it is the original open coverage-gap issue and the linked PR has not landed. |
+| #91610 | keep_related | planned | related | #91610 is related and likely owns the implementation path, but it is not currently merge-ready and cannot be used for fixed-by-candidate closure in this plan run. |
 
 ## Needs Human
 

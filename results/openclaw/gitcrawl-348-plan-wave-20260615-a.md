@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-348-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516760854"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516760854"
-head_sha: "6bb552b68729da7580c0ee53a6e211c17d1b2e3a"
+run_id: "27520939212"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520939212"
+head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.405Z"
+published_at: "2026-06-15T02:56:52.557Z"
 canonical: "#44294"
 canonical_issue: "#44294"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516760854](https://github.com/openclaw/clownfish/actions/runs/27516760854)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520939212](https://github.com/openclaw/clownfish/actions/runs/27520939212)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #44294
 
 ## Summary
 
-Plan only: #44294 remains the open canonical issue. #91603 is the linked implementation candidate, but it should stay open as related because proof, check, and review-comment blockers prevent merge or fixed-by-candidate closeout.
+Read-only plan: #44294 remains the live canonical issue. #91603 is the linked implementation PR for the same ACP error-kind behavior, but it is not merge-ready or a fixed-by-candidate closeout path because real behavior proof is failing and review-bot blockers remain unresolved.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan only: #44294 remains the open canonical issue. #91603 is the linked impleme
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #44294 | keep_canonical | planned | canonical | #44294 is the best surviving canonical thread for the ACP structured error-kind behavior. |
-| #91603 | keep_related | planned | related | #91603 is directly related to the canonical issue and may be the implementation path, but failing proof and unresolved review/contract blockers prevent merge or closing #44294 as fixed-by-candidate in this plan. |
+| #44294 | keep_canonical | planned | canonical | #44294 is the best live canonical because it is the open source report with the clearest problem statement, acceptance criteria, and current ClawSweeper review context. |
+| #91603 | keep_related | planned | related | #91603 is a related implementation candidate for #44294, but plan mode and blocked merge/fix actions plus failing proof and unresolved bot findings mean it should be kept open for maintainer review rather than merged, closed, or used to close the issue. |
 
 ## Needs Human
 
-- Maintainer/product decision remains for #44294/#91603: confirm the client-visible ACP error contract for non-refusal backend errors before advancing the PR or closing the issue.
+- #91603 needs maintainer/product review of the client-visible ACP error contract before it can become a merge or fixed-by-candidate closeout path, especially because the PR changes some error paths from resolved stopReason results to RequestError rejections and its Real behavior proof check is failing.

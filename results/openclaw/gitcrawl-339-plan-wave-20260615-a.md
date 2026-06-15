@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-339-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516755128"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516755128"
-head_sha: "6bb552b68729da7580c0ee53a6e211c17d1b2e3a"
+run_id: "27520927551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520927551"
+head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.404Z"
+published_at: "2026-06-15T02:56:52.555Z"
 canonical: "#92816"
 canonical_issue: "#92816"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516755128](https://github.com/openclaw/clownfish/actions/runs/27516755128)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520927551](https://github.com/openclaw/clownfish/actions/runs/27520927551)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #92816
 
 ## Summary
 
-Read-only plan: keep #92816 as the live canonical issue. Keep #92831 related as a plausible contributor fix path for #92816, but do not recommend merge or fixed-by-candidate closeout because the hydrated PR has failing checks and lacks real behavior proof. No security-sensitive refs were detected in the hydrated artifact.
+#92816 remains the live canonical issue for the QQBot cron auto-TTS delivery/accounting bug. #92831 is a related contributor PR that targets #92816, but it should stay open rather than be treated as a merge-ready or fixed-by-candidate path because real behavior proof is missing and checks are failing.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Read-only plan: keep #92816 as the live canonical issue. Keep #92831 related as 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92816 | keep_canonical | planned | canonical | #92816 is open, has the clearest user-visible bug report and source-repro evidence, and should remain the canonical issue until a validated fix lands. |
-| #92831 | keep_related | planned | related | #92831 is a related candidate fix for the canonical bug, but failing proof/type checks and review-bot concerns block merge or fixed-by-candidate closeout in this plan. |
+| #92816 | keep_canonical | planned | canonical | This is the clearest surviving user-visible report and should remain the canonical thread for validation and follow-up. |
+| #92831 | keep_related | planned | related | The PR is related to the canonical issue and may be a candidate fix, but it is not merge-ready and should not be used to close #92816 until proof and failing checks are resolved. |
 
 ## Needs Human
 

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-353-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516763225"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516763225"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27520942169"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520942169"
+head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.406Z"
+published_at: "2026-06-15T02:56:52.561Z"
 canonical: "#44460"
 canonical_issue: "#44460"
 canonical_pr: "#89396"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516763225](https://github.com/openclaw/clownfish/actions/runs/27516763225)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520942169](https://github.com/openclaw/clownfish/actions/runs/27520942169)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #44460
 
 ## Summary
 
-Plan-only classification: keep #44460 as the live canonical issue, keep #89396 open as the narrow linked fix path without merge or closeout, and route the already-closed security-sensitive linked PR #48742 to central security handling only.
+Plan-only classification for cluster gitcrawl-353-plan-wave-20260615-a. #44460 remains the open canonical issue for the cron doctor legacy notify loop. #89396 is the narrow open contributor PR that covers the canonical issue, but merge/fixed-by closeout is not planned because merge is blocked by job frontmatter, maintainer review is still requested, and one check is failing. Security-sensitive linked PR #48742 is quarantined read-only and does not affect the non-security canonical path.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan-only classification: keep #44460 as the live canonical issue, keep #89396 o
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #44460 | keep_canonical | planned | canonical | #44460 remains the clearest live issue for the root cause; keep it open until the linked fix path lands and is validated. |
-| #89396 | keep_related | planned | related | #89396 is the current focused candidate fix for #44460, but merge/fixed-by closeout is not available in this plan job and is blocked by the failing check and missing merge preflight. |
-| #48742 | route_security | planned | security_sensitive | #48742 is already closed and security-sensitive in the hydrated artifact; route only this ref to central OpenClaw security handling without affecting ordinary classification for #44460 and #89396. |
+| #44460 | keep_canonical | planned | canonical | Best surviving issue for the root cause; keep open until a validated fix lands. |
+| #89396 | keep_related | planned | fixed_by_candidate | #89396 is the current non-security implementation path for #44460, but it is not merge-ready under this plan job because merge is blocked and a failing check plus maintainer-review requirement remain. |
+| #48742 | route_security | planned | security_sensitive | Security-sensitive linked PR is quarantined to central OpenClaw security handling without poisoning the ordinary #44460/#89396 cron-doctor path. |
 
 ## Needs Human
 

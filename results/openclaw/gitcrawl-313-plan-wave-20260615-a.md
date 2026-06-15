@@ -2,53 +2,53 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-313-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516741352"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516741352"
-head_sha: "6bb552b68729da7580c0ee53a6e211c17d1b2e3a"
+run_id: "27520910664"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520910664"
+head_sha: "872a0ab6af9f5f189014062d7bd0a2367b003dde"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T02:43:28.396Z"
-canonical: "#84583"
+result_status: "planned"
+published_at: "2026-06-15T02:56:52.544Z"
+canonical: "#84603"
 canonical_issue: "#84583"
-canonical_pr: null
-actions_total: 7
+canonical_pr: "#84603"
+actions_total: 3
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-313-plan-wave-20260615-a
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516741352](https://github.com/openclaw/clownfish/actions/runs/27516741352)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520910664](https://github.com/openclaw/clownfish/actions/runs/27520910664)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
-Canonical: #84583
+Canonical: #84603
 
 ## Summary
 
-Plan-only classification. No security-sensitive hydrated refs were reported. #84583 is the safest live canonical issue for the cron/proactive delivery session-lock race. The open PR path is not clear: #84603 is the original narrow PR for #84583 but is stale with failing checks, while #86491 is newer and broader, superseding #86140 but adding heartbeat/digest mirror semantics and still carrying a review/check blocker. Do not close or merge either PR until a maintainer chooses or reconciles that path.
+Plan-only classification for cluster 313: keep #84603 as the live canonical PR for the narrow #84583 cron routed-peer session race, keep #84583 open as covered by that candidate but not closeable while merge/check gates remain unresolved, and keep #86491 related because it overlaps cron mirror behavior but adds a broader proactive heartbeat/digest transcript-mirror scope.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 7 |
+| Worker actions | 3 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,14 +66,10 @@ Plan-only classification. No security-sensitive hydrated refs were reported. #84
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #84059 | keep_closed | skipped | related | Already closed historical context only; no mutation is valid. |
-| #84071 | keep_closed | skipped | related | Already closed historical context only; no mutation is valid. |
-| #84250 | keep_closed | skipped | related | Already merged historical fix; keep as evidence, not as a closeout target. |
-| #84583 | keep_canonical | planned | canonical | Open source repro remains the best live canonical issue because the candidate PR path is unresolved and the bug has post-#84250 reproduction evidence. |
-| #84603 | needs_human | planned | needs_human | This is the original narrow candidate for #84583, but failing checks and the newer overlapping #86491 make the canonical PR/supersession choice a maintainer decision. |
-| #86140 | keep_closed | skipped | superseded | Already closed and explicitly superseded by hydrated open PR #86491; no mutation is valid. |
-| #86491 | needs_human | planned | needs_human | This may be the better replacement path, but it is broader than #84603 and changes heartbeat/digest delivery semantics; maintainer judgment is needed before marking #84603 superseded or using #86491 as the canonical PR. |
+| #84603 | keep_canonical | planned | canonical | #84603 is the focused open PR for the #84583 routed-peer cron announce race and remains the best canonical path, but plan mode and merge blockers prevent any merge action. |
+| #84583 | keep_related | planned | fixed_by_candidate | The issue is covered by #84603 for the narrow cron routed-peer race, but it should remain open until the canonical PR is landed or maintainers decide the broader reproduction variants are fully covered. |
+| #86491 | keep_related | planned | related | #86491 belongs in the same session/proactive delivery family but has broader heartbeat/digest and mirror semantics, so it should be tracked as related rather than closed or made canonical for the narrow #84583/#84603 path. |
 
 ## Needs Human
 
-- Choose or reconcile the open PR path for #84583: keep/repair the narrow #84603 branch, replace it with the broader #86491 branch, or split the cron routed-peer race and heartbeat/digest transcript-mirror work into separate follow-up clusters.
+- none

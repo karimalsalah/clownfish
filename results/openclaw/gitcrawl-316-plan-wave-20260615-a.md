@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-316-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516742520"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516742520"
-head_sha: "6bb552b68729da7580c0ee53a6e211c17d1b2e3a"
+run_id: "27520912764"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520912764"
+head_sha: "872a0ab6af9f5f189014062d7bd0a2367b003dde"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.397Z"
+published_at: "2026-06-15T02:56:52.545Z"
 canonical: "#83999"
 canonical_issue: "#83999"
 canonical_pr: "#91345"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516742520](https://github.com/openclaw/clownfish/actions/runs/27516742520)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520912764](https://github.com/openclaw/clownfish/actions/runs/27520912764)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #83999
 
 ## Summary
 
-#83999 remains the canonical issue. #91345 is the best current PR path because it covers both CLI unknown-root error paths, but it is not merge-ready due unresolved review scope findings. #84036 overlaps the same issue but is incomplete and stale, so it should stay open as related rather than be closed in this plan.
+Plan-mode classification only. #83999 remains the live canonical issue. #91345 is the stronger current implementation path for the same CLI suggestion feature but is not merge-ready because review identified unrelated agent test churn. #84036 overlaps the same issue but only covers the Commander parse-error path and is superseded by the broader #91345 path.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Canonical: #83999
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #83999 | keep_canonical | planned | canonical | Keep #83999 as the canonical issue while the candidate fix path remains unmerged and under review. |
-| #84036 | keep_related | planned | related | This PR is same-family and partly superseded by #91345, but it should not be closed until the replacement path is repaired or landed with contributor credit preserved. |
-| #91345 | keep_canonical | planned | canonical | Keep #91345 as the canonical PR path, but do not recommend merge: merge is blocked by the job, mergeable_state is unknown, and unresolved ClawSweeper review findings must be addressed first. |
+| #83999 | keep_canonical | planned | canonical | The representative issue is still open, hydrated, non-security-sensitive, and remains the best canonical tracking item. |
+| #84036 | close_superseded | planned | superseded | #84036 is useful contributor work but is narrower than the later hydrated PR path and its own discussion confirms the missing runtime surface. |
+| #91345 | keep_related | planned | related | #91345 is the active implementation candidate for #83999, but it should remain open until the unrelated test churn is removed and review concerns are addressed. |
 
 ## Needs Human
 

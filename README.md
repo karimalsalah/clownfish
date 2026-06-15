@@ -41,31 +41,31 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 15, 2026, 02:49 UTC
+Last dashboard update: Jun 15, 2026, 02:58 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
 
-Scope: 864 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
+Scope: 890 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
 
 | Metric | Count | Rate |
 | --- | ---: | ---: |
-| Latest clusters reviewed | 864 | 100% |
+| Latest clusters reviewed | 890 | 100% |
 | Policy-archived clusters | 4 | audit |
-| Clean completed clusters | 638 | 73.8% |
-| Needs-human clusters | 84 | 9.7% |
-| Latest successful clusters | 855 | 99.0% |
+| Clean completed clusters | 659 | 74.0% |
+| Needs-human clusters | 89 | 10.0% |
+| Latest successful clusters | 881 | 99.0% |
 | Latest failed clusters | 3 | 0.3% |
 | Latest cancelled clusters | 1 | 0.1% |
-| Run attempts archived | 1440 | audit |
+| Run attempts archived | 1484 | audit |
 | Fix action attempts | 254 | audit |
 | Fix actions executed | 1 | 0.4% |
 | Fix actions failed | 61 | 24.0% |
 | Fix actions blocked | 80 | 31.5% |
-| Latest clusters with fix failures | 71 | 8.2% |
-| Distinct PRs touched | 2090 | 100% |
-| Open PRs tracked | 677 | 32.4% |
-| Closed unmerged PRs tracked | 1108 | 53.0% |
+| Latest clusters with fix failures | 71 | 8.0% |
+| Distinct PRs touched | 2388 | 100% |
+| Open PRs tracked | 946 | 39.6% |
+| Closed unmerged PRs tracked | 1128 | 47.2% |
 | Completed close actions | 32 | 9.6% |
 | Completed merge actions | 26 | 7.8% |
 | Duplicate closes | 22 | 68.8% |
@@ -79,6 +79,13 @@ Scope: 864 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [gitcrawl-343-plan-wave-20260615-a](results/openclaw/gitcrawl-343-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-343-plan-wave-20260615-a.md | #75165/#77981 still need maintainer/product decision on whether library-only termination algebra and GSAR groundwork should land without ... | [report](results/openclaw/gitcrawl-343-plan-wave-20260615-a.md) | [27520938268](https://github.com/openclaw/clownfish/actions/runs/27520938268) |
+| [gitcrawl-348-plan-wave-20260615-a](results/openclaw/gitcrawl-348-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-348-plan-wave-20260615-a.md | #91603 needs maintainer/product review of the client-visible ACP error contract before it can become a merge or fixed-by-candidate closeo... | [report](results/openclaw/gitcrawl-348-plan-wave-20260615-a.md) | [27520939212](https://github.com/openclaw/clownfish/actions/runs/27520939212) |
+| [gitcrawl-325-plan-wave-20260615-a](results/openclaw/gitcrawl-325-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-325-plan-wave-20260615-a.md | Central OpenClaw security handling should decide the disposition of #49175 and #80146. | [report](results/openclaw/gitcrawl-325-plan-wave-20260615-a.md) | [27520919540](https://github.com/openclaw/clownfish/actions/runs/27520919540) |
+| [gitcrawl-320-plan-wave-20260615-a](results/openclaw/gitcrawl-320-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-320-plan-wave-20260615-a.md | #83000 is routed to central OpenClaw security handling because the hydrated preflight artifact marks it security-sensitive. | [report](results/openclaw/gitcrawl-320-plan-wave-20260615-a.md) | [27520917450](https://github.com/openclaw/clownfish/actions/runs/27520917450) |
+| [gitcrawl-319-plan-wave-20260615-a](results/openclaw/gitcrawl-319-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-319-plan-wave-20260615-a.md | #83081 requires maintainer merge/replacement decision because it is draft, dirty, broad, compatibility-sensitive, and blocked from merge/... | [report](results/openclaw/gitcrawl-319-plan-wave-20260615-a.md) | [27520916195](https://github.com/openclaw/clownfish/actions/runs/27520916195) |
+| [gitcrawl-24-bulk-plan-20260615-a](results/openclaw/gitcrawl-24-bulk-plan-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-24-bulk-plan-20260615-a.md | #91195 needs maintainer/product decision for stuck-card timeout or fallback behavior after delayed Feishu turns. | [report](results/openclaw/gitcrawl-24-bulk-plan-20260615-a.md) | [27520858469](https://github.com/openclaw/clownfish/actions/runs/27520858469) |
+| [gitcrawl-11-bulk-plan-20260615-a](results/openclaw/gitcrawl-11-bulk-plan-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-11-bulk-plan-20260615-a.md | #88212: maintainer decision on broad localModelLean auto design and unresolved Copilot findings. | [report](results/openclaw/gitcrawl-11-bulk-plan-20260615-a.md) | [27520782570](https://github.com/openclaw/clownfish/actions/runs/27520782570) |
 | [gitcrawl-282-plan-wave-20260615-a](results/openclaw/gitcrawl-282-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-282-plan-wave-20260615-a.md | #88150 needs maintainer/CI follow-up before any merge or fixed-by-candidate closeout because current preflight checks include checks-node... | [report](results/openclaw/gitcrawl-282-plan-wave-20260615-a.md) | [27520883615](https://github.com/openclaw/clownfish/actions/runs/27520883615) |
 | [gitcrawl-255-bulk-plan-20260615-a](results/openclaw/gitcrawl-255-bulk-plan-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-255-bulk-plan-20260615-a.md | #90552 is routed to central OpenClaw security handling because the job explicitly marks it as a security-signal ref. | [report](results/openclaw/gitcrawl-255-bulk-plan-20260615-a.md) | [27520871936](https://github.com/openclaw/clownfish/actions/runs/27520871936) |
 | [gitcrawl-238-bulk-plan-20260615-a](results/openclaw/gitcrawl-238-bulk-plan-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-238-bulk-plan-20260615-a.md | Central OpenClaw security/product review is required for #91283, #91286, and #91288 before any maintainer decision on whether the exec ap... | [report](results/openclaw/gitcrawl-238-bulk-plan-20260615-a.md) | [27520856409](https://github.com/openclaw/clownfish/actions/runs/27520856409) |
@@ -89,8 +96,6 @@ Scope: 864 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [gitcrawl-221-plan-wave-20260615-a](results/openclaw/gitcrawl-221-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-221-plan-wave-20260615-a.md | #92065 has failing required checks (`Real behavior proof`, `check-test-types`, `check-prod-types`) and unknown mergeability; maintainer o... | [report](results/openclaw/gitcrawl-221-plan-wave-20260615-a.md) | [27516707273](https://github.com/openclaw/clownfish/actions/runs/27516707273) |
 | [gitcrawl-210-plan-wave-20260615-a](results/openclaw/gitcrawl-210-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-210-plan-wave-20260615-a.md | Choose the intended Telegram cron announce To validation contract before advancing or closing either PR: #90841 mirrors a broader Telegra... | [report](results/openclaw/gitcrawl-210-plan-wave-20260615-a.md) | [27516699725](https://github.com/openclaw/clownfish/actions/runs/27516699725) |
 | [gitcrawl-435-plan-wave-20260615-a](results/openclaw/gitcrawl-435-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-435-plan-wave-20260615-a.md | Maintainer decision needed: decide whether the Codex-native spawn_agent/runtime-boundary control must be handled inside #92011 or split t... | [report](results/openclaw/gitcrawl-435-plan-wave-20260615-a.md) | [27516803422](https://github.com/openclaw/clownfish/actions/runs/27516803422) |
-| [gitcrawl-348-plan-wave-20260615-a](results/openclaw/gitcrawl-348-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-348-plan-wave-20260615-a.md | Maintainer/product decision remains for #44294/#91603: confirm the client-visible ACP error contract for non-refusal backend errors befor... | [report](results/openclaw/gitcrawl-348-plan-wave-20260615-a.md) | [27516760854](https://github.com/openclaw/clownfish/actions/runs/27516760854) |
-| [gitcrawl-313-plan-wave-20260615-a](results/openclaw/gitcrawl-313-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-313-plan-wave-20260615-a.md | Choose or reconcile the open PR path for #84583: keep/repair the narrow #84603 branch, replace it with the broader #86491 branch, or spli... | [report](results/openclaw/gitcrawl-313-plan-wave-20260615-a.md) | [27516741352](https://github.com/openclaw/clownfish/actions/runs/27516741352) |
 | [gitcrawl-306-plan-wave-20260615-a](results/openclaw/gitcrawl-306-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-306-plan-wave-20260615-a.md | #85422 needs maintainer/product decision: should reasoning-only or empty-visible retry exhaustion advance model.fallbacks on the affected... | [report](results/openclaw/gitcrawl-306-plan-wave-20260615-a.md) | [27516738377](https://github.com/openclaw/clownfish/actions/runs/27516738377) |
 | [gitcrawl-251-plan-wave-20260615-a](results/openclaw/gitcrawl-251-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-251-plan-wave-20260615-a.md | #80199 needs a maintainer decision: supersede it in favor of #75299 plus merged #82765, keep it for unique pieces, or split any remaining... | [report](results/openclaw/gitcrawl-251-plan-wave-20260615-a.md) | [27516716413](https://github.com/openclaw/clownfish/actions/runs/27516716413) |
 | [gitcrawl-152-plan-ramp](results/openclaw/gitcrawl-152-plan-ramp.md) | needs human | jobs/openclaw/inbox/gitcrawl-152-plan-ramp.md | #90711/#90828 require maintainer decision on the macOS launchd stderr logging contract: keep /dev/null suppression with another diagnosti... | [report](results/openclaw/gitcrawl-152-plan-ramp.md) | [27518760361](https://github.com/openclaw/clownfish/actions/runs/27518760361) |
@@ -99,11 +104,6 @@ Scope: 864 active latest cluster reports. 4 policy-archived cluster(s) are exclu
 | [gitcrawl-665-plan-wave-20260615-a](results/openclaw/gitcrawl-665-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-665-plan-wave-20260615-a.md | #73432 requires maintainer product judgment: decide whether an explicit memory.qmd.update.embedInterval should schedule QMD embedding eve... | [report](results/openclaw/gitcrawl-665-plan-wave-20260615-a.md) | [27516907375](https://github.com/openclaw/clownfish/actions/runs/27516907375) |
 | [gitcrawl-630-plan-wave-20260615-a](results/openclaw/gitcrawl-630-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-630-plan-wave-20260615-a.md | Maintainer API/product decision: accept #80928's public PluginCommandResult suppressReply?: boolean contract for Telegram-owned transport... | [report](results/openclaw/gitcrawl-630-plan-wave-20260615-a.md) | [27516890884](https://github.com/openclaw/clownfish/actions/runs/27516890884) |
 | [gitcrawl-589-plan-wave-20260615-a](results/openclaw/gitcrawl-589-plan-wave-20260615-a.md) | needs human | jobs/openclaw/inbox/gitcrawl-589-plan-wave-20260615-a.md | central_security_review:#87733 | [report](results/openclaw/gitcrawl-589-plan-wave-20260615-a.md) | [27516862518](https://github.com/openclaw/clownfish/actions/runs/27516862518) |
-| [gitcrawl-868-plan-wave-20260615-b](results/openclaw/gitcrawl-868-plan-wave-20260615-b.md) | needs human | jobs/openclaw/inbox/gitcrawl-868-plan-wave-20260615-b.md | #87986 has a failing Real behavior proof check and the job requires human handling for failing_checks before any merge/fixed-by-candidate... | [report](results/openclaw/gitcrawl-868-plan-wave-20260615-b.md) | [27519089403](https://github.com/openclaw/clownfish/actions/runs/27519089403) |
-| [gitcrawl-852-plan-wave-20260615-b](results/openclaw/gitcrawl-852-plan-wave-20260615-b.md) | needs human | jobs/openclaw/inbox/gitcrawl-852-plan-wave-20260615-b.md | #87986 has a failing Real behavior proof check; maintainer judgment is required before any merge path outside this plan-only job. | [report](results/openclaw/gitcrawl-852-plan-wave-20260615-b.md) | [27519083043](https://github.com/openclaw/clownfish/actions/runs/27519083043) |
-| [gitcrawl-799-plan-wave-20260615-b](results/openclaw/gitcrawl-799-plan-wave-20260615-b.md) | needs human | jobs/openclaw/inbox/gitcrawl-799-plan-wave-20260615-b.md | #78075 needs maintainer/product validation before any future merge path because the hydrated state shows a failed Real behavior proof che... | [report](results/openclaw/gitcrawl-799-plan-wave-20260615-b.md) | [27519061062](https://github.com/openclaw/clownfish/actions/runs/27519061062) |
-| [gitcrawl-794-plan-wave-20260615-b](results/openclaw/gitcrawl-794-plan-wave-20260615-b.md) | needs human | jobs/openclaw/inbox/gitcrawl-794-plan-wave-20260615-b.md | Before any merge path is chosen, maintainers need to decide how to handle the overlap between #77891 and #78036, especially #77891's expo... | [report](results/openclaw/gitcrawl-794-plan-wave-20260615-b.md) | [27519058558](https://github.com/openclaw/clownfish/actions/runs/27519058558) |
-| [gitcrawl-753-plan-wave-20260615-b](results/openclaw/gitcrawl-753-plan-wave-20260615-b.md) | needs human | jobs/openclaw/inbox/gitcrawl-753-plan-wave-20260615-b.md | #89774: maintainer product/UX decision needed for an explicit operator toggle that reveals subagent/spawnedBy sessions. | [report](results/openclaw/gitcrawl-753-plan-wave-20260615-b.md) | [27519040734](https://github.com/openclaw/clownfish/actions/runs/27519040734) |
 
 ### Fix Failure Queue
 

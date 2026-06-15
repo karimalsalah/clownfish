@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-340-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516756040"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516756040"
-head_sha: "6bb552b68729da7580c0ee53a6e211c17d1b2e3a"
+run_id: "27520929254"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27520929254"
+head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.404Z"
+published_at: "2026-06-15T02:56:52.555Z"
 canonical: "#38327"
 canonical_issue: "#38327"
 canonical_pr: null
-actions_total: 2
+actions_total: 7
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516756040](https://github.com/openclaw/clownfish/actions/runs/27516756040)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27520929254](https://github.com/openclaw/clownfish/actions/runs/27520929254)
 
 Workflow conclusion: success
 
@@ -35,13 +35,13 @@ Canonical: #38327
 
 ## Summary
 
-#38327 remains the live canonical issue for the Google Vertex "Cannot convert undefined or null to object" regression. #83991 is related and useful as the current partial sanitizer fix PR, but it does not cover the separate Vertex ADC/gaxios/native-fetch path and merge/fix actions are blocked in this job.
+Plan-mode classification only. #38327 remains the live canonical Vertex crash tracker. #83991 is a narrow related candidate PR for the Google thinking-payload sanitizer path, but it should not close #38327 because the canonical issue also tracks unresolved Vertex ADC/gaxios/native-fetch auth-stack work. No security-sensitive items were detected in hydrated refs, and no close, merge, or fix action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 2 |
+| Worker actions | 7 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,8 +66,13 @@ Canonical: #38327
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #38327 | keep_canonical | planned | canonical | #38327 is the best live canonical because it is open, has current Vertex crash evidence, and tracks multiple root-cause paths that #83991 does not fully close. |
-| #83991 | keep_related | planned | related | #83991 is a related partial fix candidate for #38327's sanitizer path, but it should remain open rather than close #38327 or be merged by this plan-only job. |
+| #33392 | keep_closed | skipped | related | Closed historical context only; keep as evidence for the canonical Vertex crash family. |
+| #33428 | keep_closed | skipped | superseded | Already closed and superseded as an active sanitizer-path candidate by #83991; no mutation is valid. |
+| #35827 | keep_closed | skipped | related | Closed related symptom-family context, not an open duplicate target for this cluster. |
+| #38327 | keep_canonical | planned | canonical | #38327 is the best live canonical because it is open, hydrated, and covers both sanitizer-path and auth-stack Vertex crash work that should not be collapsed into a PR-only fix path. |
+| #38800 | keep_closed | skipped | related | Closed related Google auth-stack context; not an open duplicate or close target. |
+| #73416 | keep_closed | skipped | superseded | Already closed contributor PR superseded by the active sanitizer-path PR #83991; preserve as credit/evidence only. |
+| #83991 | keep_related | planned | related | Keep as a related open partial fix candidate for the sanitizer path; do not close #38327 as fixed by this PR and do not recommend merge in this plan job because merge is blocked and merge preflight is incomplete. |
 
 ## Needs Human
 
