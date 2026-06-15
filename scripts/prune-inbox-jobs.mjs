@@ -82,6 +82,7 @@ if (json) {
 }
 
 function classify({ fm, exactResultExists, candidates, openCandidates, closedCanonical }) {
+  if (isExampleJobId(fm.cluster_id)) return "example";
   if (exactResultExists) return "already_resulted";
   if (candidates.length > 0 && openCandidates.length === 0) return "all_candidates_closed";
   if (fm.mode === "plan" && openCandidates.length === 1) return "single_open_candidate";
@@ -93,6 +94,10 @@ function destinationFor(job, action) {
   if (action === "already_resulted") return moveDestination(job, "finalized");
   if (action === "all_candidates_closed" || action === "single_open_candidate") return moveDestination(job, "stale");
   return null;
+}
+
+function isExampleJobId(clusterId) {
+  return clusterId === "example-autonomous-cron-timeout" || clusterId === "example-cron-timeout";
 }
 
 function moveDestination(job, bucket) {

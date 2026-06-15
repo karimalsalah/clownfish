@@ -135,6 +135,7 @@ function readInboxJobs() {
   return fs
     .readdirSync(inboxDir)
     .filter((name) => name.endsWith(".md"))
+    .filter((name) => !isExampleJobName(name))
     .sort()
     .map((name) => {
       const job = parseJob(path.join(inboxDir, name));
@@ -187,6 +188,10 @@ function classifyJob(job) {
     latest_result: result,
     latest_dispatch_attempt: latestDispatchAttempt,
   };
+}
+
+function isExampleJobName(name) {
+  return name === "cluster-example.md" || name === "autonomous-example.md";
 }
 
 function readDispatchAttemptsByJob() {
