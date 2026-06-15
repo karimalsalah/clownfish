@@ -504,10 +504,12 @@ function dispatchRepositoryBatch(batch, position) {
       max_parallel: batchMaxParallel,
       ref: ref || "main",
       head_sha: headSha,
-      hydrate_comments: hydrationInputs.hydrate_comments ?? "0",
-      max_linked_refs: hydrationInputs.max_linked_refs ?? "0",
-      max_comments_per_item: hydrationInputs.max_comments_per_item ?? "0",
-      max_review_comments_per_pr: hydrationInputs.max_review_comments_per_pr ?? "0",
+      hydration: {
+        hydrate_comments: hydrationInputs.hydrate_comments ?? "0",
+        max_linked_refs: hydrationInputs.max_linked_refs ?? "0",
+        max_comments_per_item: hydrationInputs.max_comments_per_item ?? "0",
+        max_review_comments_per_pr: hydrationInputs.max_review_comments_per_pr ?? "0",
+      },
     },
   };
   return runCommand(

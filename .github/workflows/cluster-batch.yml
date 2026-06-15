@@ -112,18 +112,21 @@ jobs:
           const runner = String(fromDispatch ? payload.runner ?? "blacksmith-4vcpu-ubuntu-2404" : process.env.INPUT_RUNNER);
           const model = String(fromDispatch ? payload.model ?? "gpt-5.5" : process.env.INPUT_MODEL);
           const maxParallel = Number(fromDispatch ? payload.max_parallel ?? 50 : process.env.INPUT_MAX_PARALLEL);
+          const hydration = payload.hydration ?? {};
           const hydrateComments = String(
-            fromDispatch ? payload.hydrate_comments ?? "0" : process.env.INPUT_HYDRATE_COMMENTS ?? "0",
+            fromDispatch ? hydration.hydrate_comments ?? payload.hydrate_comments ?? "0" : process.env.INPUT_HYDRATE_COMMENTS ?? "0",
           );
           const maxLinkedRefs = String(
-            fromDispatch ? payload.max_linked_refs ?? "0" : process.env.INPUT_MAX_LINKED_REFS ?? "0",
+            fromDispatch ? hydration.max_linked_refs ?? payload.max_linked_refs ?? "0" : process.env.INPUT_MAX_LINKED_REFS ?? "0",
           );
           const maxCommentsPerItem = String(
-            fromDispatch ? payload.max_comments_per_item ?? "0" : process.env.INPUT_MAX_COMMENTS_PER_ITEM ?? "0",
+            fromDispatch
+              ? hydration.max_comments_per_item ?? payload.max_comments_per_item ?? "0"
+              : process.env.INPUT_MAX_COMMENTS_PER_ITEM ?? "0",
           );
           const maxReviewCommentsPerPr = String(
             fromDispatch
-              ? payload.max_review_comments_per_pr ?? "0"
+              ? hydration.max_review_comments_per_pr ?? payload.max_review_comments_per_pr ?? "0"
               : process.env.INPUT_MAX_REVIEW_COMMENTS_PER_PR ?? "0",
           );
 
