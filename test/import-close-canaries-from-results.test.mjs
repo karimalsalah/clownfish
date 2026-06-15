@@ -181,6 +181,63 @@ test("import-close-canaries quarantines security-shaped candidates before genera
   assert.equal(fs.existsSync(path.join(fixture.inbox, "pr-close-canary-92164-test.md")), true);
 });
 
+test("import-close-canaries quarantines security-shaped canonical refs", () => {
+  const fixture = makeFixture();
+  fs.writeFileSync(
+    path.join(fixture.results, "126.json"),
+    `${JSON.stringify(
+      {
+        cluster_id: "source-cluster-security-canonical",
+        actions: [
+          {
+            target: "#92164",
+            action: "close_superseded",
+            status: "planned",
+            canonical: "#91291",
+            classification: "superseded",
+            reason: "Superseded by canonical routing work.",
+          },
+        ],
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  writeFakeGhx(fixture.bin);
+
+  const run = spawnSync(
+    process.execPath,
+    [
+      "scripts/import-close-canaries-from-results.mjs",
+      "--results-dir",
+      fixture.results,
+      "--out",
+      fixture.inbox,
+      "--existing-dir",
+      fixture.existing,
+      "--suffix",
+      "test",
+      "--limit",
+      "1",
+      "--json",
+    ],
+    {
+      cwd: repoRoot,
+      env: { ...process.env, PATH: `${fixture.bin}${path.delimiter}${process.env.PATH ?? ""}` },
+      encoding: "utf8",
+    },
+  );
+
+  assert.equal(run.status, 0, run.stderr || run.stdout);
+  const payload = JSON.parse(run.stdout);
+  assert.deepEqual(payload.candidates, []);
+  assert.deepEqual(
+    payload.dropped.map((candidate) => [candidate.target, candidate.reason]),
+    [["#92164", "security signal in canonical"]],
+  );
+  assert.equal(fs.existsSync(path.join(fixture.inbox, "pr-close-canary-92164-test.md")), false);
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-close-canary-"));
   const results = path.join(root, "results");
@@ -256,6 +313,17 @@ console.log(JSON.stringify({
         __typename: "PullRequest",
         number: 91290,
         title: "fix: harden command routing",
+        body: "",
+        state: "OPEN",
+        updatedAt: "2026-06-15T10:01:00Z",
+        mergedAt: null,
+        isDraft: false,
+        labels: { nodes: [] }
+      },
+      n91291: {
+        __typename: "PullRequest",
+        number: 91291,
+        title: "security(gateway): route hook completion events to target agent session",
         body: "",
         state: "OPEN",
         updatedAt: "2026-06-15T10:01:00Z",
