@@ -4,9 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { parseArgs, parseJob, repoRoot } from "./lib.mjs";
-
-const SECURITY_TEXT_PATTERN =
-  /\b(vulnerabilit(?:y|ies)|cve-\d+|ghsa|exploit|ssrf|xss|csrf|rce|(?:sql|command|code|prompt)\s*injection|auth(?:entication)?\s*bypass|privilege\s+escalation|sensitive\s+data|security[-_\s]?sensitive|security\s+(?:issue|bug|advisory|triage|review|re-evaluation|flag)|flagged\s+as\s+suspicious|(?:secretref|secret|credential|api[-_\s]?key|private[-_\s]?key|token).{0,80}(?:leak(?:ed|age)?|expos(?:e|ed|ure)|plaintext|plain[-_\s]?text|residue)|(?:leak(?:ed|age)?|expos(?:e|ed|ure)|plaintext|plain[-_\s]?text|residue).{0,80}(?:secretref|secret|credential|api[-_\s]?key|private[-_\s]?key|token))\b/i;
+import { hasSecuritySensitiveText } from "./security-sensitive.mjs";
 
 const args = parseArgs(process.argv.slice(2));
 const repo = String(args.repo ?? "openclaw/openclaw");
@@ -316,7 +314,7 @@ function hasExactSecuritySignal({ title, body, labels }) {
   const structuredMarker = /<!--\s*clawsweeper-(?:security|route|verdict)\s*:\s*(?:security|security-sensitive|sensitive|route-security|central-security)\b[^>]*-->/i.test(
     `${title}\n${body}`,
   );
-  return exactSecurityLabel || structuredMarker || SECURITY_TEXT_PATTERN.test(`${title}\n${body}`);
+  return exactSecurityLabel || structuredMarker || hasSecuritySensitiveText(title, body, labels);
 }
 
 function isMaintainerAssociated(value) {

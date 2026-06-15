@@ -190,6 +190,68 @@ test("PR inventory can restrict candidates to a refs file", { skip: hasSqlite ? 
   );
 });
 
+test("PR inventory quarantines security-shaped candidates by default", { skip: hasSqlite ? false : "sqlite3 missing" }, () => {
+  const fixture = makeFixture();
+  seedGitcrawlDb(fixture.db);
+
+  const defaultResult = spawnSync(
+    process.execPath,
+    [
+      "scripts/import-gitcrawl-pr-inventory.mjs",
+      "--db",
+      fixture.db,
+      "--out",
+      fixture.out,
+      "--existing-dir",
+      fixture.existing,
+      "--existing-results-dir",
+      fixture.results,
+      "--dry-run",
+      "--json",
+      "--limit",
+      "all",
+      "--batch-size",
+      "1",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(defaultResult.status, 0, defaultResult.stderr || defaultResult.stdout);
+  assert.deepEqual(
+    JSON.parse(defaultResult.stdout).candidates.map((candidate) => candidate.ref),
+    ["#101", "#102"],
+  );
+
+  const includeResult = spawnSync(
+    process.execPath,
+    [
+      "scripts/import-gitcrawl-pr-inventory.mjs",
+      "--db",
+      fixture.db,
+      "--out",
+      fixture.out,
+      "--existing-dir",
+      fixture.existing,
+      "--existing-results-dir",
+      fixture.results,
+      "--include-security-candidates",
+      "--dry-run",
+      "--json",
+      "--limit",
+      "all",
+      "--batch-size",
+      "1",
+      "--sort",
+      "bucket",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(includeResult.status, 0, includeResult.stderr || includeResult.stdout);
+  const securityCandidate = JSON.parse(includeResult.stdout).candidates.find((candidate) => candidate.ref === "#103");
+  assert.equal(securityCandidate.bucket, "security_route_candidate");
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-pr-inventory-"));
   const db = path.join(root, "gitcrawl.db");
@@ -315,6 +377,24 @@ insert into threads values (
   '2026-01-03T00:00:00Z',
   '2026-01-04T00:00:00Z',
   '2026-01-04T00:00:00Z',
+  'pull_request',
+  'open',
+  null
+);
+insert into threads values (
+  1,
+  103,
+  'fix(security): tighten SecretRef auth boundary',
+  'Prevents workspace context exposure when credentials are redacted.',
+  'author3',
+  'User',
+  '[{"name":"merge-risk: security-boundary"}]',
+  '[]',
+  '{}',
+  0,
+  '2026-01-05T00:00:00Z',
+  '2026-01-06T00:00:00Z',
+  '2026-01-06T00:00:00Z',
   'pull_request',
   'open',
   null

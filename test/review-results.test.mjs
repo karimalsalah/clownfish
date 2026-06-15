@@ -130,6 +130,86 @@ test("review-results allows unavailable non-mutating plan classifications", () =
   assert.match(result.stdout, /target_updated_at ignored because preflight item was unavailable/);
 });
 
+test("review-results rejects non-security routes for security-shaped targets", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#91286",
+          action: "keep_independent",
+          status: "planned",
+          idempotency_key: "cluster-test:keep-independent:91286",
+          classification: "independent",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-15T10:00:00Z",
+          evidence: ["PR title is fix(security): tighten SecretRef auth boundary."],
+          reason: "Classified as independent.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#91286",
+            kind: "pull_request",
+            state: "open",
+            title: "fix(security): tighten SecretRef auth boundary",
+            labels: ["merge-risk: security-boundary"],
+            updated_at: "2026-06-15T10:00:00Z",
+            security_sensitive: false,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stdout, /security-sensitive target must use route_security/);
+});
+
+test("review-results allows route_security for security-shaped targets", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#91286",
+          action: "route_security",
+          status: "planned",
+          idempotency_key: "cluster-test:route-security:91286",
+          classification: "security_sensitive",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-15T10:00:00Z",
+          evidence: ["PR title is fix(security): tighten SecretRef auth boundary."],
+          reason: "Route to central security handling.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#91286",
+            kind: "pull_request",
+            state: "open",
+            title: "fix(security): tighten SecretRef auth boundary",
+            labels: ["merge-risk: security-boundary"],
+            updated_at: "2026-06-15T10:00:00Z",
+            security_sensitive: false,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  assert.match(result.stdout, /"status": "passed"/);
+});
+
 test("review-results rejects unavailable close-style plan actions", () => {
   const dir = makeResultDir(
     {

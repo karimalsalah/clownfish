@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseArgs, parseJob, repoRoot } from "./lib.mjs";
+import { hasSecuritySensitiveText, securityTextFromItem } from "./security-sensitive.mjs";
 
 const CLOSE_ACTIONS = new Set([
   "close",
@@ -158,6 +159,9 @@ function reviewResult(resultPath) {
     }
     if (item?.security_sensitive && MUTATING_ACTIONS.has(name)) {
       failures.push(`${target} mutating action targets security-sensitive item`);
+    }
+    if (isSecuritySensitiveActionContext(action, item) && name !== "route_security") {
+      failures.push(`${target} security-sensitive target must use route_security`);
     }
     if (ROUTE_SECURITY_ACTIONS.has(name)) {
       if (action.classification !== "security_sensitive") {
@@ -329,6 +333,17 @@ function isUnavailableSecurityRouteAction(action, item) {
   if (item?.state !== "unavailable") return false;
   const text = [action.reason, action.comment, ...(action.evidence ?? []), item.hydration_error].join("\n");
   return /\b(rate limit|HTTP 403|unavailable|could not hydrate|missing live|hydration failed)\b/i.test(text);
+}
+
+function isSecuritySensitiveActionContext(action, item) {
+  if (item?.security_sensitive === true) return true;
+  return hasSecuritySensitiveText(
+    securityTextFromItem(item),
+    action.classification,
+    action.reason,
+    action.comment,
+    action.evidence,
+  );
 }
 
 function isUnavailableNonMutatingPlanAction(action, item, result) {
