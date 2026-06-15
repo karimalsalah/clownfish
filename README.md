@@ -41,31 +41,31 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 15, 2026, 09:06 UTC
+Last dashboard update: Jun 15, 2026, 09:20 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
 
-Scope: 2375 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
+Scope: 2387 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
 
 | Metric | Count | Rate |
 | --- | ---: | ---: |
-| Latest clusters reviewed | 2375 | 100% |
+| Latest clusters reviewed | 2387 | 100% |
 | Policy-archived clusters | 4 | audit |
-| Clean completed clusters | 1818 | 76.5% |
-| Needs-human clusters | 386 | 16.3% |
-| Latest successful clusters | 2349 | 98.9% |
+| Clean completed clusters | 1818 | 76.2% |
+| Needs-human clusters | 393 | 16.5% |
+| Latest successful clusters | 2349 | 98.4% |
 | Latest failed clusters | 2 | 0.1% |
 | Latest cancelled clusters | 1 | 0.0% |
-| Run attempts archived | 3285 | audit |
+| Run attempts archived | 3297 | audit |
 | Fix action attempts | 254 | audit |
 | Fix actions executed | 1 | 0.4% |
 | Fix actions failed | 61 | 24.0% |
 | Fix actions blocked | 80 | 31.5% |
 | Latest clusters with fix failures | 64 | 2.7% |
-| Distinct PRs touched | 6240 | 100% |
-| Open PRs tracked | 2941 | 47.1% |
-| Closed unmerged PRs tracked | 2688 | 43.1% |
+| Distinct PRs touched | 6241 | 100% |
+| Open PRs tracked | 2937 | 47.1% |
+| Closed unmerged PRs tracked | 2690 | 43.1% |
 | Completed close actions | 35 | 9.0% |
 | Completed merge actions | 26 | 6.7% |
 | Duplicate closes | 24 | 68.6% |
@@ -79,6 +79,13 @@ Scope: 2375 active latest cluster reports. 4 policy-archived cluster(s) are excl
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [pr-inventory-mixed-20260615T085227-012](results/openclaw/pr-inventory-mixed-20260615t085227-012.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T085227-012.md | #75223 requires maintainer review before any merge-style recommendation because the hydrated ClawSweeper review and labels explicitly mar... | [report](results/openclaw/pr-inventory-mixed-20260615t085227-012.md) | 178151504712 |
+| [pr-inventory-mixed-20260615T085227-011](results/openclaw/pr-inventory-mixed-20260615t085227-011.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T085227-011.md | #85296 needs refreshed hydrated live state before classification. | [report](results/openclaw/pr-inventory-mixed-20260615t085227-011.md) | 178151504711 |
+| [pr-inventory-mixed-20260615T085227-010](results/openclaw/pr-inventory-mixed-20260615t085227-010.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T085227-010.md | #75100 is listed in the job but missing hydrated live state in the provided compacted preflight artifact. | [report](results/openclaw/pr-inventory-mixed-20260615t085227-010.md) | 178151504710 |
+| [pr-inventory-mixed-20260615T085227-009](results/openclaw/pr-inventory-mixed-20260615t085227-009.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T085227-009.md | #74498: missing hydrated live PR state from compacted preflight artifact. | [report](results/openclaw/pr-inventory-mixed-20260615t085227-009.md) | 178151504709 |
+| [pr-inventory-mixed-20260615T085227-008](results/openclaw/pr-inventory-mixed-20260615t085227-008.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T085227-008.md | #73163 requires maintainer review/merge judgment; the worker cannot merge and no closure classification is appropriate. | [report](results/openclaw/pr-inventory-mixed-20260615t085227-008.md) | 178151504708 |
+| [pr-inventory-mixed-20260615T085227-005](results/openclaw/pr-inventory-mixed-20260615t085227-005.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T085227-005.md | #84438: choose the canonical CLI flag-terminator branch among unhydrated duplicate PRs before any merge/closeout. | [report](results/openclaw/pr-inventory-mixed-20260615t085227-005.md) | 178151504705 |
+| [pr-inventory-mixed-20260615T085227-003](results/openclaw/pr-inventory-mixed-20260615t085227-003.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T085227-003.md | #71863 needs maintainer/technical judgment on the Signal daemon shutdown fix before any merge or issue closeout. | [report](results/openclaw/pr-inventory-mixed-20260615t085227-003.md) | 178151504703 |
 | [pr-inventory-mixed-20260615T060018-358](results/openclaw/pr-inventory-mixed-20260615t060018-358.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-358.md | #82540: maintainer must decide whether non-live gateway regression proof is acceptable for WeChat hot-reload account preservation. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-358.md) | 178151418616 |
 | [pr-inventory-mixed-20260615T060018-357](results/openclaw/pr-inventory-mixed-20260615t060018-357.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-357.md | #88382 requires maintainer judgment because it is a maintainer-owned draft PR with ClawSweeper maintainer-review guidance and no merge/fi... | [report](results/openclaw/pr-inventory-mixed-20260615t060018-357.md) | 178151418615 |
 | [pr-inventory-mixed-20260615T060018-354](results/openclaw/pr-inventory-mixed-20260615t060018-354.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-354.md | #51762 requires maintainer technical judgment or a separate repair path for unresolved default-agent review blockers. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-354.md) | 178151418612 |
@@ -97,13 +104,6 @@ Scope: 2375 active latest cluster reports. 4 policy-archived cluster(s) are excl
 | [pr-inventory-mixed-20260615T060018-322](results/openclaw/pr-inventory-mixed-20260615t060018-322.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-322.md | #91289: maintainer review needed for ready Codex dynamic tool schema quarantine PR. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-322.md) | 17815111623504412 |
 | [pr-inventory-mixed-20260615T060018-321](results/openclaw/pr-inventory-mixed-20260615t060018-321.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-321.md | #90990: maintainer decision needed on proof sufficiency or proof waiver for internal model-resolver log-level severity changes. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-321.md) | 17815111613504411 |
 | [pr-inventory-mixed-20260615T060018-320](results/openclaw/pr-inventory-mixed-20260615t060018-320.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-320.md | #88885 needs maintainer technical review before any merge recommendation. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-320.md) | 17815111613504410 |
-| [pr-inventory-mixed-20260615T060018-319](results/openclaw/pr-inventory-mixed-20260615t060018-319.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-319.md | #90799: maintainer acceptance of Claude CLI synthetic-placeholder fallback semantics and proof limitations. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-319.md) | 1781511161350449 |
-| [pr-inventory-mixed-20260615T060018-318](results/openclaw/pr-inventory-mixed-20260615t060018-318.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-318.md | #81260 requires maintainer technical judgment on whether suppressing phase=update tool frames is acceptable or loses useful provider upda... | [report](results/openclaw/pr-inventory-mixed-20260615t060018-318.md) | 1781511161350448 |
-| [pr-inventory-mixed-20260615T060018-314](results/openclaw/pr-inventory-mixed-20260615t060018-314.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-314.md | #65359 requires maintainer review for a proof-supplied config/schema compatibility fix; job blocks merge/fix actions. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-314.md) | 1781511161350445 |
-| [pr-inventory-mixed-20260615T060018-306](results/openclaw/pr-inventory-mixed-20260615t060018-306.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-306.md | #92305: decide whether this is the surviving #91944 cron catch-up fix path after overlapping closed PRs and failed review automation. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-306.md) | 1781511160350443 |
-| [pr-inventory-mixed-20260615T060018-178](results/openclaw/pr-inventory-mixed-20260615t060018-178.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-178.md | #87343: unresolved technical correctness and review-bot findings in a large active PR require maintainer judgment. | [report](results/openclaw/pr-inventory-mixed-20260615t060018-178.md) | 1781511160350441 |
-| [pr-inventory-mixed-20260615T060018-309](results/openclaw/pr-inventory-mixed-20260615t060018-309.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-309.md | #89826 requires maintainer/product judgment because a maintainer-owned PR has active re-review requests and unresolved scope/UI review fi... | [report](results/openclaw/pr-inventory-mixed-20260615t060018-309.md) | [27528589159](https://github.com/openclaw/clownfish/actions/runs/27528589159) |
-| [pr-inventory-mixed-20260615T060018-307](results/openclaw/pr-inventory-mixed-20260615t060018-307.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260615T060018-307.md | #92557 requires maintainer/admin judgment because dependency graph changes are blocked, a check is failing, and the PR is broad maintaine... | [report](results/openclaw/pr-inventory-mixed-20260615t060018-307.md) | [27528586282](https://github.com/openclaw/clownfish/actions/runs/27528586282) |
 
 ### Fix Failure Queue
 
