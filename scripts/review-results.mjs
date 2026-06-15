@@ -119,6 +119,7 @@ function reviewResult(resultPath) {
     const clusterScopedAction = isClusterScopedAction(action, result);
     const unavailableNeedsHuman = isUnavailableNeedsHumanAction(action);
     const unavailableSecurityRoute = isUnavailableSecurityRouteAction(action, item);
+    const unavailableNonMutatingPlanAction = isUnavailableNonMutatingPlanAction(action, item, result);
 
     if (!target) failures.push("action missing target");
     if (target.includes(",")) failures.push(`${target} action target must be a single ref, not a comma-separated list`);
@@ -127,14 +128,30 @@ function reviewResult(resultPath) {
     if (!Array.isArray(action.evidence) || action.evidence.length === 0) {
       failures.push(`${target} missing evidence`);
     }
-    if (!clusterScopedAction && !unavailableNeedsHuman && !unavailableSecurityRoute && !action.target_kind) {
+    if (
+      !clusterScopedAction &&
+      !unavailableNeedsHuman &&
+      !unavailableSecurityRoute &&
+      !unavailableNonMutatingPlanAction &&
+      !action.target_kind
+    ) {
       failures.push(`${target} missing target_kind`);
     }
-    if (!clusterScopedAction && !unavailableNeedsHuman && !unavailableSecurityRoute && !action.target_updated_at) {
+    if (
+      !clusterScopedAction &&
+      !unavailableNeedsHuman &&
+      !unavailableSecurityRoute &&
+      !unavailableNonMutatingPlanAction &&
+      !action.target_updated_at
+    ) {
       failures.push(`${target} missing target_updated_at`);
     }
     if (!clusterScopedAction && item && action.target_updated_at && item.updated_at !== action.target_updated_at) {
-      failures.push(`${target} target_updated_at does not match preflight`);
+      if (unavailableNonMutatingPlanAction && !item.updated_at) {
+        warnings.push(`${target} target_updated_at ignored because preflight item was unavailable`);
+      } else {
+        failures.push(`${target} target_updated_at does not match preflight`);
+      }
     }
     if (evidenceHasExternalUrl(action.evidence ?? [])) {
       failures.push(`${target} evidence contains non-GitHub external URL`);
@@ -312,6 +329,15 @@ function isUnavailableSecurityRouteAction(action, item) {
   if (item?.state !== "unavailable") return false;
   const text = [action.reason, action.comment, ...(action.evidence ?? []), item.hydration_error].join("\n");
   return /\b(rate limit|HTTP 403|unavailable|could not hydrate|missing live|hydration failed)\b/i.test(text);
+}
+
+function isUnavailableNonMutatingPlanAction(action, item, result) {
+  if (result.mode !== "plan") return false;
+  if (item?.state !== "unavailable") return false;
+  if (!["planned", "skipped", "blocked"].includes(String(action.status ?? ""))) return false;
+  const name = String(action.action ?? "");
+  if (MUTATING_ACTIONS.has(name) || CLOSE_ACTIONS.has(name) || MERGE_ACTIONS.has(name)) return false;
+  return true;
 }
 
 function isInfrastructureBlockedResult(result, actions) {

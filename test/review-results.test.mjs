@@ -90,6 +90,86 @@ test("review-results allows unavailable security route when hydration was rate l
   assert.match(result.stdout, /route_security target was not marked security_sensitive in preflight/);
 });
 
+test("review-results allows unavailable non-mutating plan classifications", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#79703",
+          action: "keep_independent",
+          status: "planned",
+          idempotency_key: "cluster-test:keep-independent:79703:unavailable",
+          classification: "independent",
+          target_kind: "unknown",
+          target_updated_at: "2026-06-14T21:11:53Z",
+          evidence: ["Hydration unavailable, so keep the PR independent without mutation."],
+          reason: "No safe live metadata for a mutating recommendation.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#79703",
+            kind: "unknown",
+            state: "unavailable",
+            updated_at: null,
+            security_sensitive: false,
+            hydration_error: "gh: not found",
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  assert.match(result.stdout, /"status": "passed"/);
+  assert.match(result.stdout, /target_updated_at ignored because preflight item was unavailable/);
+});
+
+test("review-results rejects unavailable close-style plan actions", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#79703",
+          action: "close_low_signal",
+          status: "planned",
+          idempotency_key: "cluster-test:close-low-signal:79703:unavailable",
+          classification: "low_signal",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-14T21:11:53Z",
+          evidence: ["Hydration unavailable."],
+          reason: "Cannot prove this PR is live and low-signal.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#79703",
+            kind: "unknown",
+            state: "unavailable",
+            updated_at: null,
+            security_sensitive: false,
+            hydration_error: "gh: not found",
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stdout, /close action targets unavailable item/);
+  assert.match(result.stdout, /target_updated_at does not match preflight/);
+});
+
 test("review-results rejects fix artifacts when source job disallows fix PRs", () => {
   const dir = makeResultDir(
     {
