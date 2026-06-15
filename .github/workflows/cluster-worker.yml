@@ -270,6 +270,7 @@ jobs:
       CLOWNFISH_GIT_USER_EMAIL: ${{ vars.CLOWNFISH_GIT_USER_EMAIL || 'projectclownfish@users.noreply.github.com' }}
       CODEX_CLI_VERSION: ${{ vars.CLOWNFISH_CODEX_CLI_VERSION || '0.125.0' }}
       OPENCLAW_LOCAL_CHECK: "0"
+      CLOWNFISH_READ_GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v5
 
