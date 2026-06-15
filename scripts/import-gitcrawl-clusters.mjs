@@ -18,8 +18,11 @@ const allowMerge = booleanArg("allow-merge", editEnabledByDefault);
 const allowFixPr = booleanArg("allow-fix-pr", editEnabledByDefault);
 const allowPostMergeClose = booleanArg("allow-post-merge-close", allowMerge || allowFixPr);
 const skipExisting = args["skip-existing"] !== "false";
-const skipSecurity = args["include-security"] !== true && args["skip-security"] !== "false";
+const securityPolicy = securityPolicyArg();
+const overlapPolicy = String(args["overlap-policy"] ?? "skip-any");
 const skipFeatureRequests = args["include-feature-requests"] !== true && args["skip-feature-requests"] !== "false";
+const dryRun = Boolean(args["dry-run"]);
+const jsonOutput = Boolean(args.json);
 const fromGitcrawl = Boolean(args["from-gitcrawl"] || args["from-ghcrawl"] || args.all);
 const limit = numberArg("limit", 40);
 const minSize = numberArg("min-size", 2);
@@ -35,7 +38,7 @@ if (selectingFromGitcrawl) {
 
 if (clusterIds.length === 0) {
   console.error(
-    "usage: node scripts/import-gitcrawl-clusters.mjs <cluster-id> [...] [--from-gitcrawl] [--limit N] [--min-size N] [--min-open-members N] [--repo owner/repo] [--db path] [--out dir] [--existing-dir dir] [--mode plan|autonomous] [--suffix name] [--allow-instant-close] [--allow-merge true|false] [--allow-fix-pr true|false] [--allow-post-merge-close true|false]",
+    "usage: node scripts/import-gitcrawl-clusters.mjs <cluster-id> [...] [--from-gitcrawl] [--limit N] [--min-size N] [--min-open-members N] [--repo owner/repo] [--db path] [--out dir] [--existing-dir dir] [--mode plan|autonomous] [--suffix name] [--overlap-policy skip-any|skip-full|exclude-existing] [--security-policy skip-full|skip-any|include] [--dry-run] [--json] [--allow-instant-close] [--allow-merge true|false] [--allow-fix-pr true|false] [--allow-post-merge-close true|false]",
   );
   process.exit(2);
 }
@@ -43,53 +46,94 @@ if (!["plan", "execute", "autonomous"].includes(mode)) {
   console.error("mode must be plan, execute, or autonomous");
   process.exit(2);
 }
+if (!["skip-any", "skip-full", "exclude-existing"].includes(overlapPolicy)) {
+  console.error("overlap-policy must be skip-any, skip-full, or exclude-existing");
+  process.exit(2);
+}
+if (!["skip-full", "skip-any", "include"].includes(securityPolicy)) {
+  console.error("security-policy must be skip-full, skip-any, or include");
+  process.exit(2);
+}
 
-fs.mkdirSync(outDir, { recursive: true });
+if (!dryRun) fs.mkdirSync(outDir, { recursive: true });
 
 const existingClusterIds = skipExisting ? existingGitcrawlClusterIds(existingDir) : new Set();
 const existingMemberRefs = skipExisting ? existingGitcrawlMemberRefs(existingDir, suffix) : new Map();
 const prefetchedMembers = selectingFromGitcrawl ? prefetchMembers(clusterIds) : null;
+const generated = [];
+const skipped = [];
 let createdCount = 0;
 
 for (const clusterId of clusterIds) {
   if (selectingFromGitcrawl && createdCount >= limit) break;
   if (existingClusterIds.has(clusterId)) {
-    console.error(`skip existing cluster: ${clusterId}`);
+    skipCluster(clusterId, "existing_cluster", "skip existing cluster", { title: "" });
     continue;
   }
 
   const members = prefetchedMembers?.get(clusterId) ?? sqliteJson(memberSql(clusterId));
 
   if (members.length === 0) {
-    console.error(`cluster not found: ${clusterId}`);
+    skipCluster(clusterId, "not_found", "cluster not found", { title: "" });
     continue;
   }
+  const representativeTitle = members[0].representative_title ?? "";
   const overlappingRefs = members
     .map((member) => Number(member.number))
     .filter((number) => existingMemberRefs.has(number));
-  if (overlappingRefs.length > 0) {
-    const examples = overlappingRefs
-      .slice(0, 4)
-      .map((number) => `#${number}`)
-      .join(", ");
-    const existingFiles = [...new Set(overlappingRefs.flatMap((number) => existingMemberRefs.get(number) ?? []))];
-    console.error(
-      `skip existing member overlap cluster: ${clusterId} ${members[0].representative_title ?? ""} (${examples}${overlappingRefs.length > 4 ? ", ..." : ""}; ${existingFiles.slice(0, 2).join(", ")})`,
-    );
+  const overlappingRefSet = new Set(overlappingRefs);
+  const existingFiles = [...new Set(overlappingRefs.flatMap((number) => existingMemberRefs.get(number) ?? []))];
+  const allMembersOverlap = overlappingRefs.length > 0 && overlappingRefs.length === members.length;
+  if (overlappingRefs.length > 0 && (overlapPolicy === "skip-any" || (overlapPolicy === "skip-full" && allMembersOverlap))) {
+    skipCluster(clusterId, "existing_member_overlap", "skip existing member overlap cluster", {
+      title: representativeTitle,
+      refs: overlappingRefs,
+      existingFiles,
+      overlap_policy: overlapPolicy,
+    });
     continue;
   }
 
   const securitySensitiveMembers = members.filter((member) =>
     hasSecuritySignalText(member.title, member.body, safeJson(member.labels_json)),
   );
-  const securitySensitive = securitySensitiveMembers.length > 0;
-  if (securitySensitive && skipSecurity) {
-    const refs = securitySensitiveMembers.map((member) => `#${member.number}`).join(", ");
-    console.error(`skip security-sensitive cluster: ${clusterId} ${members[0].representative_title ?? ""} (${refs})`);
+  const targetMembers = overlapPolicy === "exclude-existing"
+    ? members.filter((member) => !overlappingRefSet.has(Number(member.number)))
+    : members;
+  const targetMemberNumbers = new Set(targetMembers.map((member) => Number(member.number)));
+  const targetSecuritySensitiveMembers = securitySensitiveMembers.filter((member) =>
+    targetMemberNumbers.has(Number(member.number)),
+  );
+  const securitySensitive = targetSecuritySensitiveMembers.length > 0;
+  const openTargetMembers = targetMembers.filter((member) => member.state === "open");
+  const targetSecuritySensitiveNumbers = new Set(targetSecuritySensitiveMembers.map((member) => Number(member.number)));
+  const allOpenTargetSecuritySensitive =
+    openTargetMembers.length > 0 &&
+    openTargetMembers.every((member) => targetSecuritySensitiveNumbers.has(Number(member.number)));
+  if (
+    (securityPolicy === "skip-any" && securitySensitive) ||
+    (securityPolicy === "skip-full" && allOpenTargetSecuritySensitive)
+  ) {
+    skipCluster(clusterId, "security_sensitive", "skip security-sensitive cluster", {
+      title: representativeTitle,
+      refs: targetSecuritySensitiveMembers.map((member) => Number(member.number)),
+      security_policy: securityPolicy,
+    });
     continue;
   }
-  if (skipFeatureRequests && isProductFeatureRequest(members[0].representative_title)) {
-    console.error(`skip product feature-request cluster: ${clusterId} ${members[0].representative_title ?? ""}`);
+  if (targetMembers.length === 0) {
+    skipCluster(clusterId, "existing_member_overlap", "skip fully overlapped cluster", {
+      title: representativeTitle,
+      refs: overlappingRefs,
+      existingFiles,
+      overlap_policy: overlapPolicy,
+    });
+    continue;
+  }
+  if (skipFeatureRequests && isProductFeatureRequest(representativeTitle)) {
+    skipCluster(clusterId, "product_feature_request", "skip product feature-request cluster", {
+      title: representativeTitle,
+    });
     continue;
   }
 
@@ -100,18 +144,23 @@ for (const clusterId of clusterIds) {
     state: first.representative_state,
     title: first.representative_title,
   };
-  const openMembers = members.filter((member) => member.state === "open");
+  const openMembers = targetMembers.filter((member) => member.state === "open");
   if (openMembers.length === 0) {
-    console.error(`skip closed-only cluster: ${clusterId} ${representative.title ?? ""}`);
+    skipCluster(clusterId, "closed_only", "skip closed-only cluster", { title: representative.title ?? "" });
     continue;
   }
   if (openMembers.length < minOpenMembers) {
-    console.error(
-      `skip low-open cluster: ${clusterId} ${representative.title ?? ""} (${openMembers.length} open < ${minOpenMembers})`,
-    );
+    skipCluster(clusterId, "low_open", "skip low-open cluster", {
+      title: representative.title ?? "",
+      open_members: openMembers.length,
+      min_open_members: minOpenMembers,
+    });
     continue;
   }
-  const closedMembers = members.filter((member) => member.state !== "open");
+  const closedMembers = targetMembers.filter((member) => member.state !== "open");
+  const excludedOverlapMembers = overlapPolicy === "exclude-existing"
+    ? members.filter((member) => overlappingRefSet.has(Number(member.number)))
+    : [];
   const issueCount = members.filter((member) => member.kind === "issue").length;
   const pullRequestCount = members.filter((member) => member.kind === "pull_request").length;
   const latestUpdatedAt = members.map((member) => member.updated_at).sort().at(-1);
@@ -119,7 +168,10 @@ for (const clusterId of clusterIds) {
   const fileStem = suffix ? `gitcrawl-${clusterId}-${slugify(suffix)}` : `gitcrawl-${clusterId}-${slug}`;
   const filePath = path.join(outDir, `${fileStem}.md`);
   const clusterSlug = suffix ? `gitcrawl-${clusterId}-${slugify(suffix)}` : `gitcrawl-${clusterId}-${slug}`;
-  const canonical = representative.number ? [`#${representative.number}`] : [];
+  const targetRepresentative = targetMemberNumbers.has(Number(representative.number));
+  const canonical = representative.number && targetRepresentative ? [`#${representative.number}`] : [];
+  const securityRefs = targetSecuritySensitiveMembers.map((member) => `#${member.number}`);
+  const overlapRefs = overlappingRefs.map((number) => `#${number}`);
 
   const markdown = [
     "---",
@@ -145,9 +197,13 @@ for (const clusterId of clusterIds) {
     "  - broad_code_delta",
     ...yamlField("canonical", canonical),
     ...yamlField("candidates", openMembers.map((member) => `#${member.number}`)),
-    ...yamlField("cluster_refs", members.map((member) => `#${member.number}`)),
+    ...yamlField("cluster_refs", targetMembers.map((member) => `#${member.number}`)),
+    `overlap_policy: ${quoteYaml(overlapPolicy)}`,
+    ...(overlapRefs.length > 0 ? yamlField("existing_overlap_refs", overlapRefs) : []),
     "security_policy: central_security_only",
+    `import_security_policy: ${quoteYaml(securityPolicy)}`,
     "security_sensitive: false",
+    ...(securityRefs.length > 0 ? yamlField("security_signal_refs", securityRefs) : []),
     ...(mode === "autonomous" || mode === "execute"
       ? [
           `allow_instant_close: ${allowInstantClose ? "true" : "false"}`,
@@ -157,8 +213,8 @@ for (const clusterId of clusterIds) {
           `require_fix_before_close: ${allowFixPr || allowMerge ? "true" : "false"}`,
         ]
       : []),
-    `canonical_hint: ${quoteYaml(canonicalHint(representative))}`,
-    `notes: ${quoteYaml(jobNotes(clusterId, securitySensitiveMembers))}`,
+    `canonical_hint: ${quoteYaml(canonicalHint(representative, targetRepresentative))}`,
+    `notes: ${quoteYaml(jobNotes(clusterId, targetSecuritySensitiveMembers, excludedOverlapMembers))}`,
     "---",
     "",
     `# Gitcrawl Cluster ${clusterId}`,
@@ -175,6 +231,8 @@ for (const clusterId of clusterIds) {
     `- issues: ${issueCount}`,
     `- pull requests: ${pullRequestCount}`,
     `- open candidates in local store: ${openMembers.length}`,
+    ...(excludedOverlapMembers.length > 0 ? [`- excluded existing-overlap refs: ${formatRefs(excludedOverlapMembers)}`] : []),
+    ...(securityRefs.length > 0 ? [`- security-signal refs requiring route_security: ${securityRefs.join(", ")}`] : []),
     `- representative: #${representative.number}, currently ${representative.state} in local store`,
     `- latest member update: ${latestUpdatedAt}`,
     "",
@@ -186,16 +244,24 @@ for (const clusterId of clusterIds) {
     "",
     "Closed context refs:",
     "",
-    ...bulletList(closedMembers),
+    ...bulletList(closedMembers, { securitySensitiveMembers: targetSecuritySensitiveMembers }),
     "",
     "Open candidates:",
     "",
-    ...bulletList(openMembers),
+    ...bulletList(openMembers, { securitySensitiveMembers: targetSecuritySensitiveMembers }),
+    ...(excludedOverlapMembers.length > 0
+      ? [
+          "",
+          "Existing-overlap context refs:",
+          "",
+          ...bulletList(excludedOverlapMembers, { securitySensitiveMembers }),
+        ]
+      : []),
     "",
   ].join("\n");
 
-  fs.writeFileSync(filePath, markdown);
-  for (const member of members) {
+  if (!dryRun) fs.writeFileSync(filePath, markdown);
+  for (const member of targetMembers) {
     const number = Number(member.number);
     if (!Number.isSafeInteger(number)) continue;
     const files = existingMemberRefs.get(number) ?? [];
@@ -203,7 +269,42 @@ for (const clusterId of clusterIds) {
     existingMemberRefs.set(number, files);
   }
   createdCount += 1;
-  console.log(path.relative(repoRoot(), filePath));
+  const generatedJob = {
+    path: path.relative(repoRoot(), filePath),
+    cluster_id: clusterSlug,
+    source_cluster_id: clusterId,
+    mode,
+    candidates: openMembers.map((member) => `#${member.number}`),
+    cluster_refs: targetMembers.map((member) => `#${member.number}`),
+    security_signal_refs: securityRefs,
+    existing_overlap_refs: overlapRefs,
+    dry_run: dryRun,
+  };
+  generated.push(generatedJob);
+  if (!jsonOutput) console.log(generatedJob.path);
+}
+
+if (jsonOutput) {
+  console.log(JSON.stringify({
+    generated,
+    skipped,
+    options: {
+      repo,
+      mode,
+      dry_run: dryRun,
+      overlap_policy: overlapPolicy,
+      security_policy: securityPolicy,
+      skip_existing: skipExisting,
+      skip_feature_requests: skipFeatureRequests,
+      limit,
+      min_size: minSize,
+      min_open_members: minOpenMembers,
+    },
+    totals: {
+      generated: generated.length,
+      skipped: skipped.length,
+    },
+  }, null, 2));
 }
 
 function selectClusterIds() {
@@ -358,6 +459,13 @@ function booleanArg(name, fallback) {
   throw new Error(`--${name} must be true or false`);
 }
 
+function securityPolicyArg() {
+  if (args["security-policy"] !== undefined) return String(args["security-policy"]);
+  if (args["include-security"] === true || args["skip-security"] === "false") return "include";
+  if (args["skip-security"] === true || args["skip-security"] === "true") return "skip-any";
+  return "skip-full";
+}
+
 function sqlNumber(value) {
   if (!Number.isSafeInteger(value)) {
     throw new Error(`unsafe cluster id: ${value}`);
@@ -422,8 +530,11 @@ function sqlString(value) {
   return `'${String(value).replaceAll("'", "''")}'`;
 }
 
-function canonicalHint(representative) {
+function canonicalHint(representative, targetRepresentative = true) {
   if (!representative.number) return "No gitcrawl representative was available; worker must choose a live canonical.";
+  if (!targetRepresentative) {
+    return `gitcrawl representative #${representative.number} is already owned by an existing job; worker must choose the best live canonical from the remaining open refs.`;
+  }
   if (representative.state === "open") {
     return `gitcrawl representative #${representative.number} is open; worker must verify it is still the best live canonical.`;
   }
@@ -437,15 +548,43 @@ function goalText(mode) {
   return "Run one live autonomous classification pass. Classify open candidates only, verify live GitHub state, choose the current canonical issue or PR if the representative is obsolete, and emit only high-confidence planned close/comment/label actions. Closed context refs are evidence only and must not receive close actions.";
 }
 
-function jobNotes(clusterId, securitySensitiveMembers) {
+function jobNotes(clusterId, securitySensitiveMembers, excludedOverlapMembers = []) {
   const base = `Generated from gitcrawl run cluster ${clusterId} on ${new Date().toISOString().slice(0, 10)}.`;
-  if (securitySensitiveMembers.length === 0) return base;
-  return `${base} Security-sensitive refs ${securitySensitiveMembers.map((member) => `#${member.number}`).join(", ")} must be routed with route_security and must not block unrelated non-security work.`;
+  const notes = [base];
+  if (securitySensitiveMembers.length > 0) {
+    notes.push(`Security-signal refs ${formatRefs(securitySensitiveMembers)} must be routed with route_security and must not block unrelated non-security work.`);
+  }
+  if (excludedOverlapMembers.length > 0) {
+    notes.push(`Existing-overlap refs ${formatRefs(excludedOverlapMembers)} were excluded from actionable refs and kept as context only.`);
+  }
+  return notes.join(" ");
 }
 
-function bulletList(members) {
+function bulletList(members, { securitySensitiveMembers = [] } = {}) {
   if (members.length === 0) return ["- none"];
-  return members.map((member) => `- #${member.number} ${member.title}`);
+  const securityRefs = new Set(securitySensitiveMembers.map((member) => Number(member.number)));
+  return members.map((member) =>
+    `- #${member.number}${securityRefs.has(Number(member.number)) ? " [security-signal]" : ""} ${member.title}`,
+  );
+}
+
+function formatRefs(members) {
+  return members.map((member) => `#${member.number}`).join(", ");
+}
+
+function skipCluster(clusterId, reason, message, details = {}) {
+  const refs = details.refs ?? [];
+  const examples = refs
+    .slice(0, 4)
+    .map((number) => `#${number}`)
+    .join(", ");
+  const suffixParts = [];
+  if (examples) suffixParts.push(`${examples}${refs.length > 4 ? ", ..." : ""}`);
+  if (details.existingFiles?.length) suffixParts.push(details.existingFiles.slice(0, 2).join(", "));
+  const suffix = suffixParts.length > 0 ? ` (${suffixParts.join("; ")})` : "";
+  const title = details.title ? ` ${details.title}` : "";
+  skipped.push({ cluster_id: clusterId, reason, ...details });
+  console.error(`${message}: ${clusterId}${title}${suffix}`);
 }
 
 function slugify(value) {

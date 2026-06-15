@@ -28,6 +28,7 @@
     "dispatch": "node scripts/dispatch-jobs.mjs",
     "requeue": "node scripts/requeue-job.mjs",
     "self-heal": "node scripts/self-heal-failed-runs.mjs",
+    "backfill-results": "node scripts/backfill-cluster-results.mjs",
     "publish-result": "node scripts/publish-result.mjs",
     "review-results": "node scripts/review-results.mjs",
     "message-samples": "node scripts/render-message-samples.mjs"
