@@ -111,7 +111,7 @@ jobs:
         run: |
           node --input-type=module <<'NODE'
           import fs from "node:fs";
-          import { execFileSync } from "node:child_process";
+          import { execFileSync, spawnSync } from "node:child_process";
           import { parseJob, validateJob } from "./scripts/lib.mjs";
 
           const payload = JSON.parse(process.env.CLIENT_PAYLOAD || "{}");
@@ -164,10 +164,26 @@ jobs:
           if (fromDispatch) {
             const ref = String(payload.ref ?? "main");
             if (ref !== "main") throw new Error(`repository_dispatch worker only supports ref=main for now, got ${ref}`);
+            const requiredAncestor = String(payload.required_ancestor_sha ?? payload.min_head_sha ?? "");
             const expectedHead = String(payload.head_sha ?? "");
             const actualHead = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
-            if (expectedHead && expectedHead !== actualHead) {
+            if (requiredAncestor) {
+              if (!/^[0-9a-f]{40,64}$/i.test(requiredAncestor)) {
+                throw new Error(`invalid repository_dispatch required_ancestor_sha: ${requiredAncestor}`);
+              }
+              const ancestorCheck = spawnSync("git", ["merge-base", "--is-ancestor", requiredAncestor, "HEAD"], {
+                encoding: "utf8",
+                stdio: "pipe",
+              });
+              if (ancestorCheck.status !== 0) {
+                throw new Error(
+                  `stale repository_dispatch required_ancestor_sha ${requiredAncestor}; workflow checked out ${actualHead}`,
+                );
+              }
+            } else if (expectedHead && expectedHead !== actualHead) {
               throw new Error(`stale repository_dispatch head_sha ${expectedHead}; workflow checked out ${actualHead}`);
+            } else if (!expectedHead) {
+              throw new Error("repository_dispatch worker requires required_ancestor_sha or legacy head_sha");
             }
           }
 

@@ -189,6 +189,14 @@ test("dispatch supports repository-worker canary dispatch", () => {
   assert.match(result.stdout, /dispatched 1\/1/);
 });
 
+test("cluster-worker repository dispatch guard accepts descendants", () => {
+  const workflow = fs.readFileSync(path.join(repoRoot, ".github/workflows/cluster-worker.yml"), "utf8");
+
+  assert.match(workflow, /required_ancestor_sha/);
+  assert.match(workflow, /spawnSync\("git", \["merge-base", "--is-ancestor", requiredAncestor, "HEAD"\]/);
+  assert.match(workflow, /repository_dispatch worker requires required_ancestor_sha or legacy head_sha/);
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-app-auth-"));
   const inbox = path.join(root, "inbox");
@@ -263,8 +271,12 @@ if (args[0] === "api" && args.includes("repos/openclaw/clownfish/dispatches")) {
         process.exit(1);
       }
     }
-    if (!client.head_sha) {
-      console.error("missing head_sha", JSON.stringify(payload));
+    if (client.head_sha) {
+      console.error("repository worker payload must not pin exact head_sha", JSON.stringify(payload));
+      process.exit(1);
+    }
+    if (!client.required_ancestor_sha || !/^[0-9a-f]{40,64}$/i.test(client.required_ancestor_sha)) {
+      console.error("missing required_ancestor_sha", JSON.stringify(payload));
       process.exit(1);
     }
   }

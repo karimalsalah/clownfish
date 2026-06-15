@@ -519,7 +519,7 @@ function dispatchRepositoryWorker(relative, position) {
       model,
       dry_run: dryRunBoolean,
       ref: ref || "main",
-      head_sha: headSha,
+      required_ancestor_sha: headSha,
       hydration: {
         hydrate_comments: hydrationInputs.hydrate_comments ?? "",
         max_linked_refs: hydrationInputs.max_linked_refs ?? "",
@@ -605,6 +605,7 @@ function dispatchAttempt(result, status) {
     model,
     ref: ref || null,
     head_sha: headSha,
+    required_ancestor_sha: repositoryWorkerDispatch ? headSha : null,
     position: result.position,
     dispatched_at: result.dispatched_at ?? new Date().toISOString(),
     batch_dispatch_id: result.batch_dispatch_id ?? null,
