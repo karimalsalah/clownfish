@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-432-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516801157"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516801157"
-head_sha: "cf553f2255960d5f7476dcf139c657a23ab10472"
+run_id: "27521431187"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521431187"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.419Z"
+published_at: "2026-06-15T03:58:14.925Z"
 canonical: "#92523"
 canonical_issue: "#92523"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516801157](https://github.com/openclaw/clownfish/actions/runs/27516801157)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521431187](https://github.com/openclaw/clownfish/actions/runs/27521431187)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #92523
 
 ## Summary
 
-Read-only plan: keep #92523 as the live canonical for orphaned waiting TaskFlows (https://github.com/openclaw/openclaw/issues/92523). Keep #92648 related but not merge-ready or fixed-by-candidate-ready because the hydrated ClawSweeper review requires stronger real behavior proof for the hard-coded waiting expiry and this job blocks merge, fix, and raise_pr. Linked #86090/#88970 are separate heartbeat scheduler phantom-run context; #91450 is already closed/merged.
+Plan mode only. #92523 remains the live canonical for the orphaned waiting TaskFlow heartbeat-deadlock report. #92648 is related implementation work for #92523 but is not merge-ready because the hydrated ClawSweeper review flags missing real heartbeat-deadlock proof and compatibility/session-state risk around hard-coded waiting-flow expiry. Linked #86090/#88970 are related heartbeat busy-state work for a different embedded-run/reply-admission root cause; closed #91450 is historical context only.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Read-only plan: keep #92523 as the live canonical for orphaned waiting TaskFlows
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92523 | keep_canonical | planned | canonical | #92523 is the best live canonical for the abandoned TaskFlow root cause; no close, merge, or fix action is planned in plan mode. |
-| #92648 | keep_related | planned | related | #92648 is related to the canonical issue and may become a fix path after proof/product review, but it is not safe to treat as a canonical fix in this plan. |
-| #86090 | keep_related | planned | related | #86090 is related heartbeat wake context with a different root cause and should stay separate from the #92523 TaskFlow canonical path. |
-| #88970 | keep_related | planned | related | #88970 is a separate related heartbeat scheduler PR and is not the canonical fix for #92523 in this cluster plan. |
-| #91450 | keep_closed | skipped | related | #91450 is already closed/merged linked context and requires no ProjectClownfish action. |
+| #92523 | keep_canonical | planned | canonical | #92523 is the clearest live issue for the TaskFlow waiting-status deadlock family and should remain open for maintainer-guided reproduction and semantics decisions. |
+| #92648 | keep_related | planned | related | #92648 is a plausible but not-ready implementation for the canonical issue; keep it related to #92523 without close, merge, or fix action. |
+| #86090 | keep_related | planned | related | #86090 is in the same heartbeat symptom family but tracks a different embedded-run/reply-admission root cause, so it should not be deduped into #92523. |
+| #88970 | keep_related | planned | related | #88970 is useful related heartbeat work for a different root cause and should stay on its own review path. |
+| #91450 | keep_closed | skipped | independent | Already closed and materially separate from the TaskFlow waiting-status canonical issue. |
 
 ## Needs Human
 

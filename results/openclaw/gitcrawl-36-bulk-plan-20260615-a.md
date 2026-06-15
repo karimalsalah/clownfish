@@ -2,14 +2,14 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-36-bulk-plan-20260615-a"
 mode: "plan"
-run_id: "27520943177"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27520943177"
-head_sha: "33cef557e55ce52eac8e0a2528e6417f8a9b826a"
+run_id: "27521376461"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521376461"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:56:52.563Z"
-canonical: "#89367"
-canonical_issue: null
+published_at: "2026-06-15T03:58:14.827Z"
+canonical: null
+canonical_issue: "#89095"
 canonical_pr: "#89367"
 actions_total: 15
 fix_executed: 0
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27520943177](https://github.com/openclaw/clownfish/actions/runs/27520943177)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521376461](https://github.com/openclaw/clownfish/actions/runs/27521376461)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #89367
+Canonical: #89095
 
 ## Summary
 
-Read-only plan. The job-provided representative #89099 is an explicit security-signal ref, so it is routed out of ProjectClownfish. The best non-security live canonical for the pending-run-timeout wait-layer subfamily is #89367. The cluster also contains distinct non-duplicate subfamilies: CLI runtime dispatch, UTC rollover overrides, sessions_yield delivery, announce give-up, parent-death lifecycle cleanup, Telegram mirror duplication, and thinking-level fallback. No GitHub mutations are executed or marked executed.
+Read-only plan: the seeded representative #89099 is security-routed by the job notes, so it should not remain the active cleanup canonical. The cluster splits into several non-security subfamilies: timeout wait-layer work best represented by #89367, broader timeout/no-output notification tracked by #89095, sessions_yield delivery tracked by #91370/#90944, rollover override tracked by #89087, and unrelated provider/runtime or channel-delivery reports kept open.
 
 ## Impact
 
@@ -66,21 +66,21 @@ Read-only plan. The job-provided representative #89099 is an explicit security-s
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #57326 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish mutation scope. |
-| #77720 | keep_related | planned | related | Related lifecycle family, different root cause and no duplicate closeout. |
-| #87994 | keep_related | planned | related | Related delivery-mirror symptom family, but no true duplicate or hydrated candidate fix. |
-| #89087 | keep_independent | planned | independent | Independent root cause within the imported cluster. |
-| #89088 | route_security | planned | security_sensitive | Explicit job-level security-signal quarantine. |
-| #89095 | keep_related | planned | related | Related to the #89367 fix path, but not safe to close as fixed by candidate. |
-| #89099 | route_security | planned | security_sensitive | Original representative is explicitly out of ProjectClownfish scope for this run. |
-| #89367 | keep_canonical | planned | canonical | Best non-security live canonical for the wait-layer timeout subfamily; merge is blocked by job frontmatter and missing merge_preflight. |
-| #90178 | keep_related | planned | related | Related but distinct announce-cleanup deadlock; no close or fix action allowed. |
-| #90944 | keep_related | planned | related | Related sessions_yield delivery bug with an open candidate fix, but not closable before validation/merge. |
-| #91370 | keep_related | planned | related | Plausible related fix for #90944, but merge/fixed-by closeout is blocked. |
-| #92204 | keep_related | planned | superseded | Superseded-related by #89367, but keep non-mutating to preserve contributor credit and avoid closing useful code in plan mode. |
-| #92405 | keep_related | planned | related | Related provider/runtime dispatch issue, not duplicate of the timeout canonical and not safe for fix routing in this job. |
-| #92412 | keep_closed | skipped | fixed_by_candidate | Already closed; no mutation planned. |
-| #92431 | keep_closed | skipped | superseded | Already closed; keep as historical evidence only. |
+| #57326 | route_security | planned | security_sensitive | Security-sensitive issue is out of ProjectClownfish cleanup scope. |
+| #77720 | keep_related | planned | related | Related subagent lifecycle bug with unique failure mode; do not close as duplicate. |
+| #87994 | keep_related | planned | related | Related delivery-mirror/message-delivery family, but unique Telegram reproduction remains open. |
+| #89087 | keep_canonical | planned | canonical | Best open issue canonical for the rollover override subfamily. |
+| #89088 | route_security | planned | security_sensitive | Exact security-signal ref named by the job; no ProjectClownfish mutation. |
+| #89095 | keep_canonical | planned | canonical | Keep open as canonical issue for the broader parent timeout notification gap; #89367 covers only the wait-layer slice. |
+| #89099 | route_security | planned | security_sensitive | Exact security-signal representative is quarantined; choose non-security subfamily canonicals instead. |
+| #89367 | keep_canonical | planned | canonical | Best non-security canonical PR for the wait-layer timeout snapshot sub-slice. |
+| #90178 | keep_related | planned | related | Related but distinct sessions_yield deadlock path; keep open. |
+| #90944 | keep_related | planned | related | Keep issue open with #91370 as candidate fix owner; do not close before landing. |
+| #91370 | keep_canonical | planned | canonical | Best open PR canonical for the sessions_yield direct-text delivery subfamily. |
+| #92204 | close_superseded | planned | superseded | Open PR is a narrower duplicate implementation superseded by better-validated #89367; planned close preserves contributor credit. |
+| #92405 | keep_related | planned | related | Related provider/runtime spawn bug, but not a duplicate and not suitable for autonomous close/fix in this job. |
+| #92412 | keep_closed | skipped | superseded | Already closed; no mutation should be planned. |
+| #92431 | keep_closed | skipped | fixed_by_candidate | Already closed; retain historical context only. |
 
 ## Needs Human
 

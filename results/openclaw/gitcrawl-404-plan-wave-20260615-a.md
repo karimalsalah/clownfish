@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-404-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516788072"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516788072"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27521397631"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521397631"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.413Z"
+published_at: "2026-06-15T03:58:14.892Z"
 canonical: "#92391"
 canonical_issue: "#92391"
 canonical_pr: "#92594"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516788072](https://github.com/openclaw/clownfish/actions/runs/27516788072)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521397631](https://github.com/openclaw/clownfish/actions/runs/27521397631)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #92391
 
 ## Summary
 
-Plan-only classification: keep #92391 as the canonical open bug report and keep #92594 as the related contributor PR candidate for that issue. No close, merge, fix, or security-routing action is planned.
+Read-only plan classification for two hydrated open items. #92391 remains the live canonical issue. #92594 is a focused related candidate fix for #92391, but no merge, close, or fix action is planned because the job is plan-only, merge/fix are blocked, and the PR still needs maintainer compatibility review before any merge path.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Plan-only classification: keep #92391 as the canonical open bug report and keep 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92391 | keep_canonical | planned | canonical | The representative remains open, hydrated, and contains the clearest user-visible failure and reproduction for this root cause. |
-| #92594 | keep_related | planned | related | This is useful contributor work tied to the canonical issue, but it is not merge-planned in this cluster because merge is blocked by job policy and the compatibility/auth-provider review gate remains maintainer-facing. |
+| #92391 | keep_canonical | planned | canonical | #92391 is the best surviving issue thread for the reported ollama-cloud DNS/runtime failure. |
+| #92594 | keep_related | planned | related | #92594 is a plausible candidate fix for the canonical issue, but should remain open for maintainer compatibility review rather than be merged or used for closeout in this plan-only cluster. |
 
 ## Needs Human
 

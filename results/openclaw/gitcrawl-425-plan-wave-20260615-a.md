@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-425-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516796400"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516796400"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27521425541"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521425541"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.416Z"
+published_at: "2026-06-15T03:58:14.913Z"
 canonical: "#37966"
 canonical_issue: "#37966"
 canonical_pr: "#92665"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516796400](https://github.com/openclaw/clownfish/actions/runs/27516796400)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521425541](https://github.com/openclaw/clownfish/actions/runs/27521425541)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #37966
 
 ## Summary
 
-#37966 remains the canonical open issue. #92665 is the active related fix PR for the same root cause, but no merge or close action is planned in this read-only job because merge/fix are blocked and merge preflight is incomplete. #38221 is historical closed context only.
+#37966 remains the live canonical issue. #92665 is a related open fix PR for the same root cause, but merge is out of scope for this plan-mode job and would also need full merge preflight before any merge recommendation. #38221 is a closed historical PR that is useful evidence only.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Canonical: #37966
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #37966 | keep_canonical | planned | canonical | Canonical hint is confirmed by live hydrated state; the representative issue is still open and continues to track the unresolved root cause. |
-| #92665 | keep_related | planned | related | This PR is the active candidate fix for the canonical issue, but this plan-mode job should keep it related rather than recommending a merge because merge/fix are blocked and merge preflight is incomplete. |
-| #38221 | keep_closed | skipped | superseded | Closed historical PRs are evidence only; no closure action is valid for #38221, and #92665 supersedes it as the current candidate fix path. |
+| #37966 | keep_canonical | planned | canonical | The issue remains open, hydrated, non-security-sensitive, and is still the best canonical thread for this root cause. |
+| #92665 | keep_related | planned | related | #92665 is a plausible fix path for the canonical issue, but it should remain open for normal PR review/merge handling rather than being closed or merged by this plan-mode cleanup job. |
+| #38221 | keep_closed | skipped | superseded | Already closed historical PR; keep as evidence and preserve contributor credit in any future replacement/fix narrative. |
 
 ## Needs Human
 

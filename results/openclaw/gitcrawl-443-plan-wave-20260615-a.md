@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-443-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516805608"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516805608"
-head_sha: "cf553f2255960d5f7476dcf139c657a23ab10472"
+run_id: "27521437254"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521437254"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.421Z"
+published_at: "2026-06-15T03:58:14.943Z"
 canonical: "#22676"
 canonical_issue: "#22676"
 canonical_pr: "#71863"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516805608](https://github.com/openclaw/clownfish/actions/runs/27516805608)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521437254](https://github.com/openclaw/clownfish/actions/runs/27521437254)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #22676
 
 ## Summary
 
-Plan-mode classification: #22676 remains the live canonical issue, and #71863 remains the focused open implementation candidate. No close, merge, label, comment, or fix PR actions are planned; closed linked refs are retained as historical evidence only.
+Plan-mode classification only. #22676 remains the live canonical issue for the Signal daemon SIGUSR1 restart shutdown race. #71863 is the open implementation candidate, but merge/close/fix actions are not allowed in this job and maintainer review/refresh remains the next path. Closed linked refs are historical evidence only.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Plan-mode classification: #22676 remains the live canonical issue, and #71863 re
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #22676 | keep_canonical | planned | canonical | The representative is still open and remains the best canonical issue for the Signal daemon stop/restart race; keep it open until #71863 or an equivalent focused fix lands. |
-| #71863 | keep_related | planned | related | Keep #71863 as the live related implementation candidate for #22676. This run should not merge or close it; maintainer review or refresh belongs to the PR path. |
-| #5421 | keep_closed | skipped | duplicate | Already closed historical duplicate context; no closure action is valid or needed. |
-| #10326 | keep_closed | skipped | related | Already closed related context with broader scope than the Signal-only canonical issue; no closure or security routing action is needed in this cluster. |
-| #46357 | keep_closed | skipped | superseded | Already closed unmerged historical PR, superseded by the narrower open candidate #71863; no action is valid beyond preserving it as evidence. |
+| #22676 | keep_canonical | planned | canonical | Best surviving issue for the root cause; keep open until #71863 or an equivalent focused Signal fix lands. |
+| #71863 | keep_related | planned | related | Open candidate fix for the canonical issue, but not merge-plannable in this read-only job because merge/fix/raise_pr are blocked and maintainer review/refresh remains unresolved. |
+| #5421 | keep_closed | skipped | duplicate | Closed historical duplicate evidence only. |
+| #10326 | keep_closed | skipped | related | Closed related context; broader scope means it should not be treated as the live canonical. |
+| #46357 | keep_closed | skipped | superseded | Closed superseded implementation context; preserve as evidence and contributor-credit context only. |
 
 ## Needs Human
 

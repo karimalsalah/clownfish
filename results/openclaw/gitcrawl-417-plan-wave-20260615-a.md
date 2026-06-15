@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-417-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516792605"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516792605"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27521422714"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521422714"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.414Z"
+published_at: "2026-06-15T03:58:14.902Z"
 canonical: "#92562"
 canonical_issue: "#92562"
 canonical_pr: "#92575"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516792605](https://github.com/openclaw/clownfish/actions/runs/27516792605)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521422714](https://github.com/openclaw/clownfish/actions/runs/27521422714)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #92562
 
 ## Summary
 
-Plan mode only: #92562 remains the canonical open issue for behavior override preservation across implicit daily/idle rollover, and #92575 is the focused open PR candidate for that issue. #90119/#90128 are closed historical model/auth rollover context, not the live canonical for this behavior-override cluster. No close, merge, or fix action is planned.
+Keep #92562 as the live canonical issue and #92575 as the canonical open fix candidate. The older #90119/#90128 model-override rollover pair is already closed/merged historical context for the same session rollover area, not a target for mutation. No security-sensitive signal was present, and this plan mode job should not close or merge anything.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Plan mode only: #92562 remains the canonical open issue for behavior override pr
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90119 | keep_closed | skipped | fixed_by_candidate | Already closed historical model/auth rollover issue; no close action is valid or needed for this plan. |
-| #90128 | keep_closed | skipped | related | Already merged related predecessor PR; it is evidence for the current root cause split, not a live candidate to close or merge. |
-| #92562 | keep_canonical | planned | canonical | Best live canonical issue for the current behavior-overrides root cause; no duplicate closeout is appropriate before the candidate fix lands and post-merge closeout is allowed. |
-| #92575 | keep_canonical | planned | canonical | Focused open PR candidate for #92562, but plan-mode and merge preflight gaps make keep-canonical the correct non-mutating classification. |
+| #90119 | keep_closed | skipped | related | Already closed linked context; no closure or mutation is valid for this item. |
+| #90128 | keep_closed | skipped | related | Already merged historical fix; no mutation is valid for this closed PR. |
+| #92562 | keep_canonical | planned | canonical | Best live canonical report for the behavior override daily/idle rollover bug; keep open for validation and follow-up through #92575. |
+| #92575 | keep_canonical | planned | canonical | Clear open candidate fix for #92562, but merge is out of scope for this plan-mode job and lacks the required clean review preflight. |
 
 ## Needs Human
 

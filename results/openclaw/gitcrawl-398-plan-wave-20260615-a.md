@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-398-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516785984"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516785984"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27521392441"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521392441"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.412Z"
+published_at: "2026-06-15T03:58:14.862Z"
 canonical: "#92094"
 canonical_issue: "#92094"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516785984](https://github.com/openclaw/clownfish/actions/runs/27516785984)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521392441](https://github.com/openclaw/clownfish/actions/runs/27521392441)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #92094
 
 ## Summary
 
-#92094 remains the live canonical issue. #92107 is a narrow related contributor PR for the same root cause, but no merge or fixed-by-candidate closeout is planned because this job blocks merge/fix work and the PR has failed checks, failed behavior proof, and unknown mergeability.
+Plan-mode classification only. #92094 remains the live canonical issue for the Telegram proactive send failure. #92107 is the related candidate PR for that issue, but it is not merge-ready because hydrated checks include failures and the real-behavior-proof gate failed; no closure, merge, fix, or GitHub mutation is planned.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Canonical: #92094
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92094 | keep_canonical | planned | canonical | Best live canonical issue for this root cause; keep open for validation because the linked PR is not merge-ready. |
-| #92107 | keep_related | planned | related | Related candidate fix for #92094, but merge and fixed-by-candidate closeout are blocked by failed checks, failed proof, unknown mergeability, and job permissions. |
+| #92094 | keep_canonical | planned | canonical | #92094 is open, has the clearest user-facing reproduction and follow-up context, and remains the canonical issue for this cluster. |
+| #92107 | keep_related | planned | related | #92107 targets the canonical issue and may be useful, but failing checks and missing/failed behavior proof block merge or fixed-by-candidate closeout. Keep it related to #92094 for maintainer follow-up. |
 
 ## Needs Human
 

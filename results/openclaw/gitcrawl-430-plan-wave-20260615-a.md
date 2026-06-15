@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-430-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516800081"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516800081"
-head_sha: "cf553f2255960d5f7476dcf139c657a23ab10472"
+run_id: "27521429927"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521429927"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.418Z"
+published_at: "2026-06-15T03:58:14.920Z"
 canonical: "#39307"
 canonical_issue: "#39307"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516800081](https://github.com/openclaw/clownfish/actions/runs/27516800081)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521429927](https://github.com/openclaw/clownfish/actions/runs/27521429927)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #39307
 
 ## Summary
 
-Kept #39307 as the open non-security canonical for user-visible mid-thread compaction/reset disclosure. Routed #58830 to central security handling because its preview, confirmation, and rollback surfaces are security/privacy-sensitive. Closed linked PRs are historical partial-fix context only.
+Plan only: keep #39307 as the live non-security canonical for mid-thread compaction visibility. Route #58830 to central security handling because the hydrated artifact marks it security-sensitive. Closed linked PRs are retained only as historical evidence.
 
 ## Impact
 
@@ -66,11 +66,11 @@ Kept #39307 as the open non-security canonical for user-visible mid-thread compa
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #39307 | keep_canonical | planned | canonical | #39307 remains the clearest live non-security canonical. Keep it open for maintainer product decision on disclosure policy and recovery behavior. |
-| #58830 | route_security | planned | security_sensitive | Quarantine only #58830 for central OpenClaw security/privacy handling. Do not close, merge, label, comment on, or open a fix for this item through Clownfish. |
-| #54251 | keep_closed | skipped | related | Already merged historical context; no action is needed or allowed for this closed PR. |
-| #67830 | keep_closed | skipped | related | Already merged historical context; no action is needed or allowed for this closed PR. |
-| #87171 | keep_closed | skipped | related | Already merged historical context; no action is needed or allowed for this closed PR. |
+| #39307 | keep_canonical | planned | canonical | #39307 is the best open non-security canonical for the narrower user-visible compaction/reset disclosure problem. |
+| #58830 | route_security | planned | security_sensitive | #58830 overlaps the compaction visibility family but adds preview, confirmation, modification, and rollback surfaces that the artifact marks security-sensitive, so it must be routed to central OpenClaw security handling rather than dedupe-closed. |
+| #54251 | keep_closed | skipped | related | Already closed and merged; useful only as related context for the canonical issue. |
+| #67830 | keep_closed | skipped | related | Already closed and merged; useful only as related context for the canonical issue. |
+| #87171 | keep_closed | skipped | related | Already closed and merged; useful only as related context for the canonical issue. |
 
 ## Needs Human
 

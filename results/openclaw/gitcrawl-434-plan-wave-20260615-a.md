@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-434-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516802151"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516802151"
-head_sha: "cf553f2255960d5f7476dcf139c657a23ab10472"
+run_id: "27521432337"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521432337"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.420Z"
+published_at: "2026-06-15T03:58:14.934Z"
 canonical: "#38076"
 canonical_issue: "#38076"
-canonical_pr: "#92126"
-actions_total: 7
+canonical_pr: null
+actions_total: 2
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516802151](https://github.com/openclaw/clownfish/actions/runs/27516802151)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521432337](https://github.com/openclaw/clownfish/actions/runs/27521432337)
 
 Workflow conclusion: success
 
@@ -35,13 +35,13 @@ Canonical: #38076
 
 ## Summary
 
-Plan-only classification: keep #38076 as the live canonical issue and keep #92126 open as the related draft implementation candidate. No close, merge, or fix-PR action is planned because the job is read-only plan mode, merge/fix/raise_pr are blocked, and the candidate PR still lacks merge preflight.
+Plan-only classification for two open candidates. #38076 remains the live canonical issue. #92126 is the current open implementation path for the same root cause, but merge and fixed-by-candidate closeout are not planned because the PR is draft, merge actions are blocked by the job, and merge preflight is incomplete.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 7 |
+| Worker actions | 2 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,13 +66,8 @@ Plan-only classification: keep #38076 as the live canonical issue and keep #9212
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #38073 | keep_closed | skipped | superseded | Already closed historical overlapping PR; keep as evidence and do not mutate. |
-| #38076 | keep_canonical | planned | canonical | Best surviving canonical for the root cause; keep open until a fix lands or maintainers close it through the normal fix path. |
-| #38095 | keep_closed | skipped | related | Already closed historical context; it is related to the canonical issue but does not change the current plan. |
-| #47316 | keep_closed | skipped | superseded | Already closed and unsuitable as the live path; superseded by the narrower open candidate #92126. |
-| #47773 | keep_closed | skipped | superseded | Already closed historical overlapping PR; keep it closed and treat #92126 as the current candidate path. |
-| #82693 | keep_closed | skipped | superseded | Already closed useful contributor PR; preserve as credit/evidence while keeping the current open candidate path on #92126. |
-| #92126 | keep_related | planned | related | This is the current related implementation candidate for the canonical issue, but it is a draft PR without merge preflight and cannot be merged or repaired in this plan-mode job. |
+| #38076 | keep_canonical | planned | canonical |  |
+| #92126 | keep_related | planned | related | Current open PR appears to be the implementation path for the canonical issue, but it is not merge-ready under this job's gates. |
 
 ## Needs Human
 

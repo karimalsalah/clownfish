@@ -2,14 +2,14 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-435-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516803422"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516803422"
-head_sha: "cf553f2255960d5f7476dcf139c657a23ab10472"
+run_id: "27521433533"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27521433533"
+head_sha: "c7fde105fe4b1bf849faf5ed130f10118614c64c"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T02:43:28.421Z"
+result_status: "planned"
+published_at: "2026-06-15T03:58:14.936Z"
 canonical: "#92011"
-canonical_issue: "#92271"
+canonical_issue: null
 canonical_pr: "#92011"
 actions_total: 2
 fix_executed: 0
@@ -25,17 +25,17 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516803422](https://github.com/openclaw/clownfish/actions/runs/27516803422)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27521433533](https://github.com/openclaw/clownfish/actions/runs/27521433533)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: #92011
 
 ## Summary
 
-Plan-only classification: #92011 remains the canonical implementation PR for the fallback completion-announcement recursion issue. #92271 is related and should stay open because it carries the incident report and the linked PR still has an unresolved Codex-native/runtime-boundary scope decision. No close, merge, label, or fix PR action is planned.
+Plan-only classification from the hydrated cluster preflight artifact. #92011 remains the canonical open PR for the fallback-completion recursive task execution fix path. #92271 should remain open as related issue evidence and maintainer follow-up because the linked PR is open, current main is not yet fixed, and the Codex-native/runtime-boundary scoping question is unresolved. No close, merge, fix, label, or comment mutation is planned.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan-only classification: #92011 remains the canonical implementation PR for the
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92011 | keep_canonical | planned | canonical | #92011 is the best live canonical implementation path, but merge and fix actions are blocked by job mode/frontmatter and by the unresolved runtime-boundary scope question. |
-| #92271 | keep_related | planned | related | #92271 belongs to the same root-cause family as #92011 but should remain open until the canonical fix path lands or maintainers split the Codex-native spawn_agent scope. |
+| #92011 | keep_canonical | planned | canonical | Best live canonical remains the open implementation PR, but plan mode and blocked merge/fix actions require non-mutating classification only. |
+| #92271 | keep_related | planned | related | Same root cause family as #92011, but not closable as duplicate or fixed-by-candidate while the fix is unmerged and the boundary decision remains open. |
 
 ## Needs Human
 
-- Maintainer decision needed: decide whether the Codex-native spawn_agent/runtime-boundary control must be handled inside #92011 or split to a codex-rs follow-up before any merge or fixed-by closeout can be recommended.
+- Maintainer/product decision remains outside this plan: whether Codex-native spawn_agent control must land in #92011 or as a codex-rs follow-up.
