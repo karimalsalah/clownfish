@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-696-autonomous-issue-wave"
 mode: "autonomous"
-run_id: "27568329033"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27568329033"
-head_sha: "8eeb9a8270cca7c9226312cc1f06b03db3d936cc"
+run_id: "27568570612"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27568570612"
+head_sha: "37591e2d2d2c81c6f55db2cb99a75e2d7b20041f"
 workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T18:47:16.711Z"
+published_at: "2026-06-15T18:52:22.474Z"
 canonical: "https://github.com/openclaw/openclaw/issues/82020"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/82020"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/90689"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27568329033](https://github.com/openclaw/clownfish/actions/runs/27568329033)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27568570612](https://github.com/openclaw/clownfish/actions/runs/27568570612)
 
 Workflow conclusion: failure
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/82020
 
 ## Summary
 
-Canonical issue #82020 remains open and current. Linked PR #90689 is the narrow canonical fix path, but it is not merge-ready because the hydrated ClawSweeper/Codex review still records an actionable auth-label resolver gap for `/model status`, mergeability is unknown, and no clean `/review` preflight is present. Plan a repair of the contributor branch rather than opening a replacement PR.
+Open issue #82020 remains the canonical bug report. Open PR #90689 is the useful canonical repair path, but it is not merge-ready because the hydrated ClawSweeper review still has an actionable `/model status` auth-label parity finding and mergeability is unknown. Plan a repair of the contributor branch rather than opening a replacement PR or closing the issue.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Canonical issue #82020 remains open and current. Linked PR #90689 is the narrow 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #82020 | keep_canonical | planned | canonical | Keep the issue open until the linked canonical fix path lands and can own post-merge closeout. |
-| #90689 | fix_needed | planned | related | Repair the existing contributor branch before any merge recommendation. |
-| cluster:gitcrawl-696-autonomous-issue-wave | build_fix_artifact | planned |  | Build an executable repair artifact for the canonical contributor PR. |
+| #82020 | keep_canonical | planned | canonical | Keep the issue open until the canonical repair PR lands or an equivalent focused fix is merged. |
+| #90689 | fix_needed | planned | canonical | Repair the existing contributor branch because it is narrow and editable, but unresolved bot review and unknown mergeability block merge. |
+| cluster:gitcrawl-696-autonomous-issue-wave | build_fix_artifact | planned |  | Build an executable repair artifact for the existing contributor PR instead of opening a separate replacement PR. |
 
 ## Needs Human
 
