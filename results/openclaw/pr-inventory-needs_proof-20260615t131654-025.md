@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T131654-025"
 mode: "plan"
-run_id: "27550392967"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27550392967"
-head_sha: "9a903e900d3280431ae7c80464316b3e5c248188"
+run_id: "27551760754"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27551760754"
+head_sha: "8a5b996ef10e2c54a93f0c70824bb3785eb43c75"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:46:46.273Z"
+published_at: "2026-06-15T14:10:44.614Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # pr-inventory-needs_proof-20260615T131654-025
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27550392967](https://github.com/openclaw/clownfish/actions/runs/27550392967)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27551760754](https://github.com/openclaw/clownfish/actions/runs/27551760754)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode inventory classification for 40 PR refs. Eight security-sensitive refs are routed to central security handling. Twenty-one hydrated open non-security PRs are kept independent because this shard is not a dedupe cluster and merge/fix/close work is blocked or disabled. One already-closed PR is kept closed. Ten refs could not be classified from live state because the preflight artifact only has unavailable/rate-limited state.
+Plan-only PR inventory classification. No canonical was selected. Security-sensitive PRs are routed to central security, the already-closed PR is kept closed, and the remaining open PRs are kept as independent backlog candidates because this job disables merge, fix PR, low-signal close, and instant close actions.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-mode inventory classification for 40 PR refs. Eight security-sensitive refs
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,47 +66,47 @@ Plan-mode inventory classification for 40 PR refs. Eight security-sensitive refs
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #70056 | keep_independent | planned | independent |  |
-| #70105 | keep_independent | planned | independent |  |
-| #70287 | keep_independent | planned | independent |  |
-| #70332 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #70471 | keep_independent | planned | independent |  |
-| #70497 | keep_independent | planned | independent |  |
-| #70605 | keep_independent | planned | independent |  |
-| #70630 | keep_independent | planned | independent |  |
-| #70813 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #70876 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #71113 | keep_independent | planned | independent |  |
-| #89656 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #89680 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #89688 | keep_independent | planned | independent |  |
-| #89693 | keep_independent | planned | independent |  |
-| #90690 | keep_independent | planned | independent |  |
-| #91712 | keep_closed | skipped |  | Already closed in hydrated preflight state. |
-| #89553 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #89586 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #92764 | keep_independent | planned | independent |  |
-| #92975 | keep_independent | planned | independent |  |
-| #39496 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #40311 | keep_independent | planned | independent |  |
-| #40877 | keep_independent | planned | independent |  |
-| #41265 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #58679 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #59221 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #61335 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #92999 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #64649 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #64805 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #70268 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #70409 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #70676 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #71024 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #71062 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #71503 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #71563 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #72025 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
-| #72224 | needs_human | blocked | needs_human | Live PR state is unavailable in the authoritative preflight artifact. |
+| #70056 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70105 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70287 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70332 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #70471 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70497 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70605 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70630 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70813 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #70876 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #71113 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #89656 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #89680 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #89688 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #89693 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #90690 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #91712 | keep_closed | skipped |  | Hydrated GitHub state is already closed; no close action is valid. |
+| #89553 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #89586 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #92764 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #92975 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #39496 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #40311 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #40877 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #41265 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #58679 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #59221 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #61335 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #92999 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #64649 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #64805 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70268 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #70409 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #70676 | route_security | planned | security_sensitive | Hydrated artifact marks this ref security-sensitive or security-boundary route-only; central security handling required. |
+| #71024 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #71062 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #71503 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #71563 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #72025 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
+| #72224 | keep_independent | planned | independent | Inventory shard has no shared canonical; keep this open PR independent. Merge/fix/low-signal close/instant close are disabled in this plan job. |
 
 ## Needs Human
 
-- Live state unavailable in the preflight artifact for candidate refs #41265, #58679, #59221, #61335, #92999, #64649, #64805, #70268, #70409, #70676, #71024, #71062, #71503, #71563, #72025, and #72224; this result emits blocked needs_human actions for the subset listed in the job candidates that could not be safely classified from hydrated state.
+- none

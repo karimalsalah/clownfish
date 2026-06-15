@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T131654-014"
 mode: "plan"
-run_id: "27550390726"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27550390726"
-head_sha: "9a903e900d3280431ae7c80464316b3e5c248188"
+run_id: "27551757365"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27551757365"
+head_sha: "8a5b996ef10e2c54a93f0c70824bb3785eb43c75"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:46:46.271Z"
+published_at: "2026-06-15T14:10:44.592Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 15
+needs_human_count: 1
 ---
 
 # pr-inventory-maintainer_owned-20260615T131654-014
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27550390726](https://github.com/openclaw/clownfish/actions/runs/27550390726)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27551757365](https://github.com/openclaw/clownfish/actions/runs/27551757365)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No GitHub mutations are planned. Security-sensitive refs are quarantined with route_security; already-closed #93220 is kept closed; hydrated non-security PRs are kept independent for normal maintainer review; unavailable candidates need a refreshed hydrate before classification.
+Plan-mode PR inventory classification. No shared canonical was selected because the job states this is not a dedupe cluster. Security-sensitive refs are quarantined with route_security; already-closed candidate #93220 is kept closed; all other open PRs remain independent backlog items with no close, merge, or fix PR action planned.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-only PR inventory classification. No GitHub mutations are planned. Security
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 15 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -66,61 +66,47 @@ Plan-only PR inventory classification. No GitHub mutations are planned. Security
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89798 | keep_independent | planned | independent | Independent plugin hardening PR; keep for normal maintainer review. |
-| #89805 | keep_independent | planned | independent | Independent plugin hardening PR; keep for normal maintainer review. |
-| #93220 | keep_closed | skipped | fixed_by_candidate | Already closed/merged; no closure action is valid. |
-| #89052 | keep_independent | planned | independent | Independent draft PR with unresolved review work. |
-| #89550 | keep_independent | planned | independent | Keep as an independent inventory item; do not infer dedupe closure from unavailable linked refs. |
-| #89634 | keep_independent | planned | independent | Independent LLM-core hardening PR. |
-| #89810 | keep_independent | planned | independent | Independent draft PR with unresolved review/overlap evidence. |
-| #90621 | keep_independent | planned | independent | Independent administrative PR; keep for maintainer review. |
-| #12581 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish backlog-cleanup scope. |
-| #46794 | route_security | planned | security_sensitive | Security-sensitive pairing/auth boundary work must route to central security handling. |
-| #79818 | route_security | planned | security_sensitive | Security-sensitive Slack OAuth/search boundary work is out of scope for this worker. |
-| #73399 | route_security | planned | security_sensitive | Security-sensitive channel identity/prompt-boundary concerns require central handling. |
-| #89041 | route_security | planned | security_sensitive | Security-adjacent dependency limit change must route to central security handling. |
-| #89042 | route_security | planned | security_sensitive | Security-boundary-labeled MCP projection work is out of ProjectClownfish cleanup scope. |
-| #82145 | keep_independent | planned | independent | Independent cron preflight PR with unresolved review status. |
-| #84205 | keep_independent | planned | independent | Independent bugfix candidate needing proof/maintainer review. |
-| #84972 | needs_human | planned | needs_human | Maintainer decision is explicitly requested for the Anthropic long-context classification/failover contract. |
-| #86160 | keep_independent | planned | independent | Large independent feature/fix stack item; keep for normal review. |
-| #86564 | keep_independent | planned | independent | Independent gateway bugfix candidate. |
-| #86584 | keep_independent | planned | independent | Independent session-state PR with unresolved review status. |
-| #87471 | keep_independent | planned | independent | Independent draft PR; keep. |
-| #87573 | keep_independent | planned | independent | Independent plugin install repair PR. |
-| #87669 | keep_independent | planned | independent | Independent feature PR; keep for maintainer/product review. |
-| #88970 | keep_independent | planned | independent | Independent heartbeat scheduler bugfix awaiting maintainer review. |
-| #89031 | keep_independent | planned | independent | Independent plugin hardening PR. |
-| #89056 | keep_independent | planned | independent | Independent MCP hardening PR. |
-| #89061 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89072 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89076 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89077 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89078 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89079 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89081 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89089 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89105 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89113 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89124 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89136 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89141 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
-| #89149 | needs_human | planned | needs_human | Needs refreshed hydration before classification. |
+| #89798 | keep_independent | planned | independent | Standalone maintainer-owned PR; no duplicate or closeout basis in this inventory shard. |
+| #89805 | keep_independent | planned | independent | Separate plugin hook hardening PR; keep for normal review rather than closing or merging in this plan. |
+| #93220 | keep_closed | skipped |  | Candidate is already closed; no mutation should be planned. |
+| #89052 | keep_independent | planned | independent | Useful but still author/review managed; keep as independent backlog item. |
+| #89550 | keep_independent | planned | independent | Standalone hardening PR requiring maintainer review outside this inventory plan. |
+| #89634 | keep_independent | planned | independent | Separate compatibility hardening PR; keep independent. |
+| #89810 | keep_independent | planned | independent | Keep open for author/maintainer branch selection; not safe to close or merge here. |
+| #90621 | keep_independent | planned | independent | Administrative PR should remain for maintainer review. |
+| #12581 | route_security | planned | security_sensitive | Quarantine this exact PR for central OpenClaw security handling. |
+| #46794 | route_security | planned | security_sensitive | Device-pairing authorization/token boundary work is out of ProjectClownfish cleanup scope. |
+| #79818 | route_security | planned | security_sensitive | Route only this Slack action parity PR to central security-aware handling. |
+| #73399 | route_security | planned | security_sensitive | Security-shaped Feishu attribution/cache concerns require central handling. |
+| #82145 | keep_independent | planned | independent | Standalone contributor PR; keep open for normal maintainer workflow. |
+| #84205 | keep_independent | planned | independent | Open proof-blocked contributor PR; keep independent rather than closing. |
+| #84972 | needs_human | planned | needs_human | Maintainer technical correctness decision is unresolved; no closure or fix PR is allowed by this job. |
+| #86160 | keep_independent | planned | independent | Substantial standalone feature/fix PR; keep independent. |
+| #86564 | keep_independent | planned | independent | Keep for maintainer review; no inventory closeout basis. |
+| #86584 | keep_independent | planned | independent | Standalone session-state PR; keep independent. |
+| #87471 | keep_independent | planned | independent | Draft or candidate work should stay open for normal review. |
+| #87573 | keep_independent | planned | independent | Open proof-needed PR; keep independent. |
+| #87669 | keep_independent | planned | independent | Feature PR remains independent and proof-gated. |
+| #88970 | keep_independent | planned | independent | Useful focused PR should remain open for maintainer review. |
+| #89031 | keep_independent | planned | independent | Draft plugin descriptor hardening PR; keep independent. |
+| #89041 | route_security | planned | security_sensitive | Security-shaped dependency/socket availability behavior should be routed, not triaged as backlog cleanup. |
+| #89042 | route_security | planned | security_sensitive | MCP/tool descriptor work flagged by the artifact as security-sensitive is out of ProjectClownfish mutation scope. |
+| #89056 | keep_independent | planned | independent | Draft MCP/plugin schema hardening PR; keep independent. |
+| #89061 | keep_independent | planned | independent | Separate agent-core hardening PR; keep independent. |
+| #89072 | keep_independent | planned | independent | Draft Codex reporting hardening PR; keep independent. |
+| #89076 | keep_independent | planned | independent | Standalone reporting hardening PR; keep independent. |
+| #89077 | keep_independent | planned | independent | Draft diagnostics hardening PR; keep independent. |
+| #89078 | keep_independent | planned | independent | Contributor proof-needed message-delivery PR; keep independent. |
+| #89079 | keep_independent | planned | independent | Open author-waiting runtime hardening PR; keep independent. |
+| #89081 | keep_independent | planned | independent | Draft runtime hardening PR; keep independent. |
+| #89089 | keep_independent | planned | independent | Draft tool-search hardening PR; keep independent. |
+| #89105 | keep_independent | planned | independent | Draft agent-core validation hardening PR; keep independent. |
+| #89113 | keep_independent | planned | independent | Open author-waiting runtime hardening PR; keep independent. |
+| #89124 | keep_independent | planned | independent | Refactor stack PR remains independent and proof-gated. |
+| #89136 | keep_independent | planned | independent | Draft harness hardening PR; keep independent. |
+| #89141 | keep_independent | planned | independent | Draft diagnostics hardening PR; keep independent. |
+| #89149 | keep_independent | planned | independent | Draft extension-tool validation PR; keep independent. |
 
 ## Needs Human
 
-- #84972 requires maintainer judgment on the Anthropic long-context compact/failover contract after CHANGES_REQUESTED and active author follow-up.
-- #89061 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89072 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89076 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89077 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89078 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89079 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89081 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89089 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89105 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89113 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89124 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89136 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89141 needs refreshed hydration; preflight has no kind/state/updated_at.
-- #89149 needs refreshed hydration; preflight has no kind/state/updated_at.
+- #84972: maintainer requested changes on the compact-then-fallback contract; technical correctness judgment remains unresolved and this plan cannot raise a fix PR.
