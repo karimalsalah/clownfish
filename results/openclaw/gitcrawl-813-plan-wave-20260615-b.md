@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-813-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519063962"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519063962"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526164624"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526164624"
+head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.668Z"
+published_at: "2026-06-15T05:35:54.327Z"
 canonical: "#76341"
 canonical_issue: null
 canonical_pr: "#76341"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519063962](https://github.com/openclaw/clownfish/actions/runs/27519063962)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526164624](https://github.com/openclaw/clownfish/actions/runs/27526164624)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #76341
 
 ## Summary
 
-Plan-only classification completed from the hydrated preflight artifact. #76341 remains the live canonical PR for the Slack ephemeral tool-progress draft bug. #82235 is already closed as implemented and should not receive a close action. Linked closed refs are historical context only.
+Plan-only classification: #76341 remains the live canonical PR for the Slack ephemeral tool-progress draft bug. #82235 is already closed and tracks a related but separate Slack native task-card feature path. No close, merge, label, comment, fix, or security action is planned.
 
 ## Impact
 
@@ -66,13 +66,13 @@ Plan-only classification completed from the hydrated preflight artifact. #76341 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #76341 | keep_canonical | planned | canonical | Best surviving open item for the cluster, but not merge-ready because proof is failing and merge is blocked by job frontmatter. |
-| #82235 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented; no close action should be emitted. |
-| #44592 | keep_closed | skipped | related | Closed historical related PR; no mutation needed. |
-| #59874 | keep_closed | skipped | related | Closed historical related issue; no mutation needed. |
-| #76917 | keep_closed | skipped | related | Closed merged related foundation PR; no mutation needed. |
-| #81887 | keep_closed | skipped | related | Closed merged related PR; no mutation needed. |
-| #82258 | keep_closed | skipped | related | Closed related feature PR; no mutation needed. |
+| #76341 | keep_canonical | planned | canonical | #76341 is still the best live canonical for the ephemeral Slack tool-progress preview bug, but it is not merge-ready because real behavior proof is failing. |
+| #82235 | keep_closed | skipped | related | Already closed in live state; related to the Slack progress-draft family but not a duplicate of #76341's ephemeral preview cleanup bug. |
+| #44592 | keep_closed | skipped | related | Historical related Slack Block Kit work; already merged and not an open cluster candidate. |
+| #59874 | keep_closed | skipped | related | Historical broader feature request; already closed as implemented and not the same narrow root cause as #76341. |
+| #76917 | keep_closed | skipped | related | Already merged related foundation PR; no action needed. |
+| #81887 | keep_closed | skipped | related | Already merged related channel progress-draft work; not an open candidate. |
+| #82258 | keep_closed | skipped | related | Already closed related feature PR; no closure or merge action is valid. |
 
 ## Needs Human
 

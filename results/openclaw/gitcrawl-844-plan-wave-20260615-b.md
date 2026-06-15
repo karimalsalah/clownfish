@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-844-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519079433"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519079433"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526174631"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526174631"
+head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.676Z"
+published_at: "2026-06-15T05:35:54.331Z"
 canonical: "#74070"
 canonical_issue: "#74070"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519079433](https://github.com/openclaw/clownfish/actions/runs/27519079433)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526174631](https://github.com/openclaw/clownfish/actions/runs/27526174631)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #74070
 
 ## Summary
 
-Plan-only classification: #74070 remains the live canonical issue for the ACP background-task terminalSummary/progressSummary bug. #74103 is already closed unmerged and should not receive any closure action; its useful contribution remains evidence for the canonical issue and any future credited fix path.
+Plan mode only. Hydrated state shows #74070 is still the best live canonical issue for the ACP background-task terminalSummary/progressSummary bug. #74103 targets the same fix shape but is already closed unmerged, conflicted/dirty, failed Real behavior proof, and cannot receive any closure or merge action.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Plan-only classification: #74070 remains the live canonical issue for the ACP ba
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #74070 | keep_canonical | planned | canonical | #74070 is the only open surviving item and still tracks the unresolved root cause after the direct PR was closed unmerged. |
-| #74103 | keep_closed | skipped | superseded | Already closed PRs must not receive close actions. Keep #74103 closed as historical contributor evidence while #74070 remains the canonical tracking issue. |
+| #74070 | keep_canonical | planned | canonical | The representative remains open and carries the live unresolved bug after the linked fix PR was closed unmerged. |
+| #74103 | keep_closed | skipped | superseded | Already closed unmerged; retain as historical superseded context for #74070, with no further action in plan mode. |
 
 ## Needs Human
 

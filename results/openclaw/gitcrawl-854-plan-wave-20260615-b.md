@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-854-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519084461"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519084461"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526184728"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526184728"
+head_sha: "d0c2ce6836176348e45f3b39f68ebc189c9a9b3e"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.679Z"
+published_at: "2026-06-15T05:35:54.334Z"
 canonical: null
 canonical_issue: "#74650"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519084461](https://github.com/openclaw/clownfish/actions/runs/27519084461)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526184728](https://github.com/openclaw/clownfish/actions/runs/27526184728)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #74650
 
 ## Summary
 
-Plan-mode classification only. The original representative issue #74650 is already closed, linked historical PR #74472 is already merged, and the only open candidate #77229 is security-sensitive in the hydrated preflight artifact, so it should be routed to central OpenClaw security handling rather than merged, closed, or used as a ProjectClownfish canonical.
+Plan-mode classification only. The representative issue #74650 is already closed, linked PR #74472 is already merged/closed historical context, and the only open candidate #77229 is marked security-sensitive in the hydrated preflight and must be routed to central OpenClaw security handling rather than closed, merged, or fixed by Clownfish.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan-mode classification only. The original representative issue #74650 is alrea
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #74472 | keep_closed | skipped | fixed_by_candidate | Already merged historical fix related to the stale pairing baseline family; keep as evidence and do not mutate. |
-| #74650 | keep_closed | skipped | canonical | The job representative is no longer open, so it cannot receive a close action. There is no non-security open replacement canonical in this cluster. |
-| #77229 | route_security | planned | security_sensitive | This open candidate touches an auth/pairing boundary and is explicitly marked security-sensitive by the live preflight artifact, so it must be routed to central OpenClaw security handling and not handled by ProjectClownfish cleanup. |
+| #74650 | keep_closed | skipped | canonical | The representative is already closed in live preflight state; keep it as historical canonical context only. |
+| #74472 | keep_closed | skipped | related | Merged related context; no action remains for this cluster. |
+| #77229 | route_security | planned | security_sensitive | This open PR touches an auth/provider/security-boundary-shaped ACP Gateway identity path and is explicitly marked security-sensitive in the live preflight artifact; route only this item to central OpenClaw security handling. |
 
 ## Needs Human
 

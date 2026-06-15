@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-847-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519080491"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519080491"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526176953"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526176953"
+head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.677Z"
+published_at: "2026-06-15T05:35:54.332Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519080491](https://github.com/openclaw/clownfish/actions/runs/27519080491)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526176953](https://github.com/openclaw/clownfish/actions/runs/27526176953)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Both hydrated cluster refs are already closed in the preflight artifact. No open live canonical remains in this cluster, and no closure, merge, label, comment, fix, or PR action should be planned.
+Plan mode only. The hydrated preflight state shows both cluster refs are already closed, so no close/comment/label mutation is planned. The representative issue #75026 is closed and the only candidate PR #75136 is also closed, so there is no open live canonical in this cluster.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Both hydrated cluster refs are already closed in the preflight artifact. No open
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #75026 | keep_closed | skipped | canonical | The hinted canonical is already closed, so no close action is valid and no open replacement canonical exists in this two-item cluster. |
-| #75136 | keep_closed | skipped | superseded | The PR is already closed and was previously closed as duplicate or superseded; failing proof, dirty merge state, and maintainer_can_modify=false also block any merge or fixed-by-candidate closeout. |
+| #75026 | keep_closed | skipped | canonical | Already closed; keep as historical canonical context only. |
+| #75136 | keep_closed | skipped | superseded | Already closed as duplicate or superseded; no merge or close planning is allowed for a closed PR. |
 
 ## Needs Human
 

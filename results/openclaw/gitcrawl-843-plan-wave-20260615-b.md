@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-843-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519078758"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519078758"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526173518"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526173518"
+head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.676Z"
+published_at: "2026-06-15T05:35:54.331Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519078758](https://github.com/openclaw/clownfish/actions/runs/27519078758)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526173518](https://github.com/openclaw/clownfish/actions/runs/27526173518)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only classification: the hinted representative #74098 is already closed, #74686 is also already closed, and no open live canonical remains in the hydrated cluster. No mutating close, label, comment, merge, or fix action is planned.
+Hydrated live state shows the hinted canonical #74098 is already closed and unmerged, and the only listed candidate #74686 is also already closed and unmerged. No open replacement canonical exists inside the job refs; linked #87620 is closed as merged historical context for cron.list filter forwarding, not a live candidate for these diagnostic PRs. No closure, label, comment, merge, or fix action is planned.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan-only classification: the hinted representative #74098 is already closed, #7
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #74098 | keep_closed | skipped | superseded | Representative #74098 cannot remain a live canonical because it is already closed and unmerged; no open replacement canonical is hydrated in this cluster. |
-| #74686 | keep_closed | skipped | superseded | Already closed and unmerged; keep as historical related/superseded context only. |
-| #87620 | keep_closed | skipped | fixed_by_candidate | Closed merged linked context; no action beyond preserving it as evidence. |
+| #74098 | keep_closed | skipped | superseded | Already closed in live hydrated state; closure actions are invalid for closed refs. |
+| #74686 | keep_closed | skipped | superseded | Already closed in live hydrated state; closure actions are invalid for closed refs. |
+| #87620 | keep_closed | skipped | related | Linked historical context only; already closed as merged and not an open candidate in the job. |
 
 ## Needs Human
 

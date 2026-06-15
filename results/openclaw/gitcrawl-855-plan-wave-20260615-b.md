@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-855-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519085365"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519085365"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526186118"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526186118"
+head_sha: "d0c2ce6836176348e45f3b39f68ebc189c9a9b3e"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.679Z"
+published_at: "2026-06-15T05:35:54.334Z"
 canonical: "#79681"
 canonical_issue: "#79681"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519085365](https://github.com/openclaw/clownfish/actions/runs/27519085365)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526186118](https://github.com/openclaw/clownfish/actions/runs/27526186118)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #79681
 
 ## Summary
 
-Plan mode only. The hinted canonical #73836 is already closed, so no closure action is valid for it. The only open primary candidate, #79681, should be kept as the live canonical for the narrower Telegram typing-indicator regression; the broader closed #73836 remains historical related context rather than a duplicate target because it also covered Control UI reconnect stalls, heartbeat transcript noise, and media mirror UX issues.
+Plan-mode classification only. The hinted canonical #73836 is already closed, so it cannot remain the live canonical. The only open hydrated candidate, #79681, is a narrower Telegram typing-regression issue with source-level reproduction and recent ClawSweeper keep-open guidance; it should be kept as the live canonical for the remaining open work rather than closed as a duplicate of the broader closed #73836.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Plan mode only. The hinted canonical #73836 is already closed, so no closure act
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #73836 | keep_closed | skipped | related | Already closed; keep as related historical context, not as live canonical. |
-| #79681 | keep_canonical | planned | canonical | Best surviving open canonical for the Telegram typing-indicator regression; keep open for focused follow-up. Fix and raise_pr are blocked by job frontmatter. |
+| #73836 | keep_closed | skipped | superseded | Already closed; use #79681 as the live open canonical for the narrower Telegram typing-regression work. |
+| #79681 | keep_canonical | planned | canonical | Best surviving open canonical for the remaining Telegram typing indicator regression; not a duplicate closeout target. |
 
 ## Needs Human
 

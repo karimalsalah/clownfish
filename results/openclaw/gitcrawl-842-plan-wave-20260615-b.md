@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-842-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519078042"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519078042"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526172343"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526172343"
+head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.676Z"
+published_at: "2026-06-15T05:35:54.330Z"
 canonical: "#73676"
 canonical_issue: "#73676"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519078042](https://github.com/openclaw/clownfish/actions/runs/27519078042)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526172343](https://github.com/openclaw/clownfish/actions/runs/27526172343)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #73676
 
 ## Summary
 
-Plan only: keep #73676 as the live canonical issue, route security-sensitive #74994 to central security handling without mutation, and keep already-merged context PR #83875 closed.
+Plan-mode classification only. #73676 remains the best live canonical issue for the deleted-CWD CLI startup crash. #74994 is already closed and marked security-sensitive in the preflight artifact, so it is quarantined read-only rather than used for closeout or merge planning. #83875 is already merged/closed and is related historical context, not the live canonical for the remaining CLI startup/dotenv/TUI crash.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan only: keep #73676 as the live canonical issue, route security-sensitive #74
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #73676 | keep_canonical | planned | canonical | The live representative is still open and best captures the remaining non-security bug work. |
-| #74994 | route_security | planned | security_sensitive | Security-sensitive PR handling belongs to central OpenClaw security handling, and the item is already closed. |
-| #83875 | keep_closed | skipped | related | Already merged related context; no mutation is needed or allowed for this cluster plan. |
+| #73676 | keep_canonical | planned | canonical | #73676 is the only open non-security primary item and still tracks the unresolved user-visible crash. |
+| #74994 | route_security | planned | security_sensitive | Security-sensitive PRs are out of scope for Clownfish cleanup; this item should stay read-only and be handled by central OpenClaw security routing if further action is needed. |
+| #83875 | keep_closed | skipped | related | Already-closed merged linked context is historical evidence only and should not receive a mutation. |
 
 ## Needs Human
 

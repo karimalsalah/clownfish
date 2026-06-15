@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-837-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519075288"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519075288"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526168419"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526168419"
+head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.674Z"
+published_at: "2026-06-15T05:35:54.329Z"
 canonical: "#76077"
 canonical_issue: null
 canonical_pr: "#76077"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519075288](https://github.com/openclaw/clownfish/actions/runs/27519075288)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526168419](https://github.com/openclaw/clownfish/actions/runs/27526168419)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #76077
 
 ## Summary
 
-Plan-only classification: the original representative #75895 is already closed, and the only live cluster item is PR #76077. #76077 remains the best live canonical path for the message-send timeout/SIGTERM work, but merge/fix actions are blocked by job mode, failing proof/checks, and ClawSweeper's request for real behavior proof.
+Plan-only classification completed from the hydrated preflight artifact. The representative issue #75895 is already closed, so no close action is valid. The only open in-cluster item, #76077, is the best live canonical path for the message-send timeout/SIGTERM work, but it is not merge-ready because real behavior proof and check gates are failing.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Plan-only classification: the original representative #75895 is already closed, 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #75895 | keep_closed | skipped | fixed_by_candidate | Already closed; use as historical canonical evidence only. The open PR #76077 is the live work item for the same message-send timeout/SIGTERM root cause. |
-| #76077 | keep_canonical | planned | canonical | Best live canonical, but not merge-ready. Keep the PR open for proof/check repair and maintainer review. |
-| #16491 | keep_closed | skipped | related | Closed related historical fix; not a live canonical for this cluster. |
-| #45689 | keep_closed | skipped | related | Closed related gateway timeout fix; useful context but a different scope from the live message-send CLI work. |
+| #16491 | keep_closed | skipped | related | Closed historical PR is useful related context but not the live canonical for this cluster. |
+| #45689 | keep_closed | skipped | related | Closed merged gateway timeout PR remains related background evidence only. |
+| #75895 | keep_closed | skipped | superseded | The original representative is closed; the open PR #76077 should carry the live canonical path instead. |
+| #76077 | keep_canonical | planned | canonical | Keep #76077 as the live canonical PR, but do not merge or close anything in this plan run. |
 
 ## Needs Human
 

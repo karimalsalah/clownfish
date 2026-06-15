@@ -2,14 +2,14 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-835-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519074481"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519074481"
-head_sha: "de7a4a9553b0a32003b8f88f0a5f7a5512c403ce"
+run_id: "27526167270"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526167270"
+head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.674Z"
+published_at: "2026-06-15T05:35:54.328Z"
 canonical: null
-canonical_issue: null
+canonical_issue: "#75634"
 canonical_pr: null
 actions_total: 3
 fix_executed: 0
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519074481](https://github.com/openclaw/clownfish/actions/runs/27519074481)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526167270](https://github.com/openclaw/clownfish/actions/runs/27526167270)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: #75634
 
 ## Summary
 
-Plan-mode classification only. The representative issue #75634 and candidate PR #75732 are both already closed in the hydrated preflight state, so no closure or merge action is available. No open live canonical remains in this cluster. The linked Rastermill PR #86923 is hydrated as security-sensitive and should be routed to central security handling only; its landed state is evidence that the old Sharp/libvips path is obsolete, but it is not a ProjectClownfish mutation target.
+Plan-only classification: both job-provided candidates are already closed in the hydrated preflight state, so no close/comment/label action is available. The original issue #75634 and fallback PR #75732 track the same old Sharp/SSE2 image-optimization failure, but ClawSweeper evidence on #75732 says current main/latest release solved the central path by moving image processing to Rastermill. Linked PR #86923 is security-sensitive in the artifact and is routed only for central security handling.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan-mode classification only. The representative issue #75634 and candidate PR 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #75634 | keep_closed | skipped | fixed_by_candidate | Already closed; no open issue remains to keep as canonical or close as duplicate. |
-| #75732 | keep_closed | skipped | superseded | Already closed and superseded by the landed Rastermill path; no mutation is valid. |
-| #86923 | route_security | planned | security_sensitive | Security-sensitive linked ref is out of ProjectClownfish cleanup scope and must be routed to central OpenClaw security handling. |
+| #75634 | keep_closed | skipped | canonical | The representative canonical is already closed. No open job-provided item should replace it as live canonical because #75732 is also closed and the artifact indicates the underlying behavior is already implemented on main. |
+| #75732 | keep_closed | skipped | superseded | The PR is already closed and superseded by the Rastermill implementation on main. No merge or close action is available in plan mode, and merge/fix actions are blocked by the job frontmatter. |
+| #86923 | route_security | planned | security_sensitive | Security-sensitive linked ref is quarantined exactly as scoped by the artifact; no close, merge, label, comment, or fix action is planned for it. |
 
 ## Needs Human
 

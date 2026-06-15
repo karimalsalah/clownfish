@@ -1,15 +1,15 @@
 ---
 repo: "openclaw/openclaw"
-cluster_id: "gitcrawl-849-plan-wave-20260615-b"
+cluster_id: "gitcrawl-850-bulk-plan-20260615-a"
 mode: "plan"
-run_id: "27526179277"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27526179277"
+run_id: "27526180581"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526180581"
 head_sha: "32e9de066550832a904e28c62eae1c4e36721a2b"
 workflow_conclusion: "success"
 result_status: "planned"
 published_at: "2026-06-15T05:35:54.333Z"
 canonical: null
-canonical_issue: null
+canonical_issue: "#74138"
 canonical_pr: null
 actions_total: 2
 fix_executed: 0
@@ -21,21 +21,21 @@ apply_skipped: 0
 needs_human_count: 0
 ---
 
-# gitcrawl-849-plan-wave-20260615-b
+# gitcrawl-850-bulk-plan-20260615-a
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27526179277](https://github.com/openclaw/clownfish/actions/runs/27526179277)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526180581](https://github.com/openclaw/clownfish/actions/runs/27526180581)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: #74138
 
 ## Summary
 
-Plan-only classification found no open live candidate to act on. The hinted canonical issue #75058 is already closed, and the only linked PR #75093 is also already closed and was not merged; no replacement live canonical is available in the hydrated cluster.
+Read-only plan: #74138 is already closed and must not receive a close action. #74223 is open but is explicitly listed by the job as a security-signal ref, so it is routed to central security handling instead of being merged, closed, or used as a normal fix candidate.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Plan-only classification found no open live candidate to act on. The hinted cano
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #75058 | keep_closed | skipped | canonical | Historical canonical only; already closed and no mutation is allowed or needed. |
-| #75093 | keep_closed | skipped | superseded | Closed stale contributor PR remains historical related work and should not be mutated. |
+| #74138 | keep_closed | skipped | canonical | The representative issue was the local canonical hint, but live hydrated state shows it is already closed. Keep it as historical canonical context only. |
+| #74223 | route_security | planned | security_sensitive | The job explicitly scopes #74223 as a security-signal ref. Route only this item to central OpenClaw security handling and do not mutate it through Clownfish backlog cleanup. |
 
 ## Needs Human
 
