@@ -25,6 +25,15 @@ const repo = String(args.repo ?? currentProjectRepo());
 const model = String(args.model ?? process.env.CLOWNFISH_MODEL ?? "gpt-5.5");
 const maxLiveWorkers = readMaxLiveWorkers(args);
 const waitForCapacity = Boolean(args["wait-for-capacity"]);
+const dispatchBatchSize = numberArg(
+  args["batch-size"] ?? args.batch_size ?? process.env.CLOWNFISH_DISPATCH_BATCH_SIZE ?? 0,
+  "batch-size",
+);
+const dispatchBatchDelayMs = numberArg(
+  args["batch-delay-ms"] ?? args.batch_delay_ms ?? process.env.CLOWNFISH_DISPATCH_BATCH_DELAY_MS ?? 15_000,
+  "batch-delay-ms",
+);
+const throttledDispatch = waitForCapacity || dispatchBatchSize > 0;
 const publishBacklogThreshold = Number(
   args["publish-backlog-threshold"] ?? process.env.CLOWNFISH_MAX_PUBLISH_BACKLOG ?? 25,
 );
@@ -37,7 +46,7 @@ const files = args._;
 
 if (files.length === 0) {
   console.error(
-    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--max-live-workers 50] [--wait-for-capacity] [--publish-backlog-threshold 25]",
+    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--max-live-workers 50] [--wait-for-capacity] [--batch-size N] [--batch-delay-ms N] [--publish-backlog-threshold 25]",
   );
   process.exit(2);
 }
@@ -48,6 +57,10 @@ if (!Number.isInteger(publishBacklogThreshold) || publishBacklogThreshold < 0) {
 }
 if (!Number.isInteger(publishBacklogLookback) || publishBacklogLookback < 1) {
   console.error("--publish-backlog-lookback must be a positive integer");
+  process.exit(2);
+}
+if (dispatchBatchSize > 0 && dispatchBatchDelayMs < 1) {
+  console.error("--batch-delay-ms must be positive when --batch-size is set");
   process.exit(2);
 }
 
@@ -77,9 +90,9 @@ if (!failed) {
 }
 
 if (!failed) {
-  const requested = waitForCapacity ? Math.min(jobs.length, 1) : jobs.length;
+  const requested = throttledDispatch ? Math.min(jobs.length, 1) : jobs.length;
   const capacityOptions = { repo, workflow, requested, maxLiveWorkers };
-  const capacity = waitForCapacity ? waitForLiveWorkerCapacity(capacityOptions) : assertLiveWorkerCapacity(capacityOptions);
+  const capacity = throttledDispatch ? waitForLiveWorkerCapacity(capacityOptions) : assertLiveWorkerCapacity(capacityOptions);
   console.log(
     `live worker capacity: ${capacity.active}/${capacity.max_live_workers} active; dispatching ${jobs.length} ${workflow} run(s)`,
   );
@@ -115,7 +128,7 @@ let dispatched = 0;
 let index = 0;
 while (!failed && index < jobs.length) {
   let batchSize = jobs.length - index;
-  if (waitForCapacity) {
+  if (throttledDispatch) {
     const capacity = waitForLiveWorkerCapacity({
       repo,
       workflow,
@@ -123,7 +136,11 @@ while (!failed && index < jobs.length) {
       maxLiveWorkers,
     });
     const refreshed = liveWorkerCapacity({ repo, workflow, requested: 1, maxLiveWorkers });
-    batchSize = Math.min(batchSize, Math.max(1, refreshed.available || capacity.available || 1));
+    batchSize = Math.min(
+      batchSize,
+      Math.max(1, refreshed.available || capacity.available || 1),
+      dispatchBatchSize > 0 ? dispatchBatchSize : Number.POSITIVE_INFINITY,
+    );
     console.log(
       `live worker capacity: ${refreshed.active}/${refreshed.max_live_workers} active; dispatching next ${batchSize} run(s)`,
     );
@@ -135,8 +152,8 @@ while (!failed && index < jobs.length) {
     dispatchJob(relative, dispatched, jobs.length);
   }
   index += batchSize;
-  if (waitForCapacity && !failed && index < jobs.length) {
-    sleepMs(15_000);
+  if (throttledDispatch && !failed && index < jobs.length) {
+    sleepMs(dispatchBatchDelayMs);
   }
 }
 
@@ -176,3 +193,12 @@ function sleepMs(milliseconds) {
 }
 
 if (failed) process.exit(1);
+
+function numberArg(value, name) {
+  const number = Number(value);
+  if (!Number.isInteger(number) || number < 0) {
+    console.error(`--${name} must be a non-negative integer`);
+    process.exit(2);
+  }
+  return number;
+}
