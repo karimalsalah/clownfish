@@ -27,17 +27,24 @@ const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_
 const dispatchEvent = String(
   args["dispatch-event"] ?? args.dispatch_event ?? process.env.CLOWNFISH_DISPATCH_EVENT ?? "workflow",
 );
-const validDispatchEvents = new Set(["workflow", "repository-batch"]);
+const validDispatchEvents = new Set(["workflow", "repository-worker", "repository-batch"]);
 if (!validDispatchEvents.has(dispatchEvent)) {
   console.error(`--dispatch-event must be one of ${[...validDispatchEvents].join(", ")}`);
   process.exit(2);
 }
+const repositoryWorkerDispatch = dispatchEvent === "repository-worker";
 const repositoryBatchDispatch = dispatchEvent === "repository-batch";
 const batchWorkflow = String(
   args["batch-workflow"] ?? args.batch_workflow ?? process.env.CLOWNFISH_BATCH_WORKFLOW ?? "cluster-batch.yml",
 );
 const batchEventType = String(
   args["batch-event-type"] ?? args.batch_event_type ?? process.env.CLOWNFISH_BATCH_EVENT_TYPE ?? "projectclownfish_batch",
+);
+const workerEventType = String(
+  args["worker-event-type"] ??
+    args.worker_event_type ??
+    process.env.CLOWNFISH_WORKER_EVENT_TYPE ??
+    "projectclownfish_worker",
 );
 const batchMaxParallel = positiveNumberArg(
   args["batch-max-parallel"] ?? args.batch_max_parallel ?? process.env.CLOWNFISH_BATCH_MAX_PARALLEL ?? 50,
@@ -101,6 +108,8 @@ const hydrationInputs = optionalDispatchInputs({
     "max-review-comments-per-pr",
   ),
 });
+const dryRunInput = optionalBooleanString(args["dry-run"] ?? args.dry_run, "dry-run") ?? "0";
+const dryRunBoolean = dryRunInput === "1";
 const writeDispatchLedger = !Boolean(args["no-dispatch-ledger"] ?? args.no_dispatch_ledger);
 const dispatchLedgerPath = path.resolve(
   repoRoot(),
@@ -114,7 +123,7 @@ const headSha = currentHeadSha();
 
 if (files.length === 0) {
   console.error(
-    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--jobs-file path] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--gh-bin ghx] [--max-live-workers 50] [--wait-for-capacity] [--batch-size N] [--batch-delay-ms N] [--dispatch-limit N] [--dispatch-concurrency N] [--dispatch-event workflow|repository-batch] [--batch-max-parallel N] [--publish-backlog-threshold 25] [--hydrate-comments 0|1] [--max-linked-refs N] [--allow-app-token-auth] [--skip-token-secret-check]",
+    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--jobs-file path] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--gh-bin ghx] [--max-live-workers 50] [--wait-for-capacity] [--batch-size N] [--batch-delay-ms N] [--dispatch-limit N] [--dispatch-concurrency N] [--dispatch-event workflow|repository-worker|repository-batch] [--batch-max-parallel N] [--publish-backlog-threshold 25] [--hydrate-comments 0|1] [--max-linked-refs N] [--dry-run 0|1] [--allow-app-token-auth] [--skip-token-secret-check]",
   );
   process.exit(2);
 }
@@ -141,6 +150,10 @@ if (repositoryBatchDispatch && writeMode) {
 }
 if (repositoryBatchDispatch && dispatchBatchSize > 0) {
   console.error("--batch-size is for single workflow dispatch waves; use --batch-matrix-limit for repository-batch");
+  process.exit(2);
+}
+if (repositoryWorkerDispatch && ref && ref !== "main") {
+  console.error("repository-worker dispatch only supports --ref main because repository_dispatch runs the default-branch workflow");
   process.exit(2);
 }
 if (repositoryBatchDispatch && batchMaxParallel > maxLiveWorkers) {
@@ -464,6 +477,7 @@ function dispatchBatch(batch, concurrency) {
 }
 
 function dispatchJob(relative, position) {
+  if (repositoryWorkerDispatch) return dispatchRepositoryWorker(relative, position);
   return runCommand(
     ghCommand,
     [
@@ -483,10 +497,44 @@ function dispatchJob(relative, position) {
       `execution_runner=${executionRunner}`,
       "-f",
       `model=${model}`,
+      "-f",
+      `dry_run=${dryRunBoolean ? "true" : "false"}`,
       ...Object.entries(hydrationInputs).flatMap(([name, value]) => ["-f", `${name}=${value}`]),
     ],
     relative,
     position,
+  );
+}
+
+function dispatchRepositoryWorker(relative, position) {
+  const workerDispatchId = `${dispatchBatchId}-${String(position).padStart(4, "0")}`;
+  const payload = {
+    event_type: workerEventType,
+    client_payload: {
+      dispatch_id: workerDispatchId,
+      job: relative,
+      mode,
+      runner,
+      execution_runner: executionRunner,
+      model,
+      dry_run: dryRunBoolean,
+      ref: ref || "main",
+      head_sha: headSha,
+      hydration: {
+        hydrate_comments: hydrationInputs.hydrate_comments ?? "",
+        max_linked_refs: hydrationInputs.max_linked_refs ?? "",
+        max_comments_per_item: hydrationInputs.max_comments_per_item ?? "",
+        max_review_comments_per_pr: hydrationInputs.max_review_comments_per_pr ?? "",
+      },
+    },
+  };
+  return runCommand(
+    ghCommand,
+    ["api", "--method", "POST", `repos/${repo}/dispatches`, "--input", "-"],
+    relative,
+    position,
+    `${JSON.stringify(payload)}\n`,
+    workerDispatchId,
   );
 }
 

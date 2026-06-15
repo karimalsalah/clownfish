@@ -1,6 +1,9 @@
 name: cluster worker
 
 on:
+  repository_dispatch:
+    types:
+      - projectclownfish_worker
   workflow_dispatch:
     inputs:
       job:
@@ -64,13 +67,130 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 concurrency:
-  group: projectclownfish-${{ inputs.job }}-${{ inputs.mode }}
+  group: projectclownfish-${{ github.event.inputs.job || github.event.client_payload.job }}-${{ github.event.inputs.mode || github.event.client_payload.mode || 'plan' }}
   cancel-in-progress: false
 
 jobs:
+  prepare:
+    name: Prepare worker inputs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      job: ${{ steps.plan.outputs.job }}
+      mode: ${{ steps.plan.outputs.mode }}
+      runner: ${{ steps.plan.outputs.runner }}
+      execution_runner: ${{ steps.plan.outputs.execution_runner }}
+      model: ${{ steps.plan.outputs.model }}
+      dry_run: ${{ steps.plan.outputs.dry_run }}
+      hydrate_comments: ${{ steps.plan.outputs.hydrate_comments }}
+      max_linked_refs: ${{ steps.plan.outputs.max_linked_refs }}
+      max_comments_per_item: ${{ steps.plan.outputs.max_comments_per_item }}
+      max_review_comments_per_pr: ${{ steps.plan.outputs.max_review_comments_per_pr }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Normalize worker inputs
+        id: plan
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+          INPUT_JOB: ${{ github.event.inputs.job || '' }}
+          INPUT_MODE: ${{ github.event.inputs.mode || 'plan' }}
+          INPUT_RUNNER: ${{ github.event.inputs.runner || 'blacksmith-4vcpu-ubuntu-2404' }}
+          INPUT_EXECUTION_RUNNER: ${{ github.event.inputs.execution_runner || 'blacksmith-16vcpu-ubuntu-2404' }}
+          INPUT_MODEL: ${{ github.event.inputs.model || vars.CLOWNFISH_MODEL || 'gpt-5.5' }}
+          INPUT_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          INPUT_HYDRATE_COMMENTS: ${{ github.event.inputs.hydrate_comments || '' }}
+          INPUT_MAX_LINKED_REFS: ${{ github.event.inputs.max_linked_refs || '' }}
+          INPUT_MAX_COMMENTS_PER_ITEM: ${{ github.event.inputs.max_comments_per_item || '' }}
+          INPUT_MAX_REVIEW_COMMENTS_PER_PR: ${{ github.event.inputs.max_review_comments_per_pr || '' }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import { execFileSync } from "node:child_process";
+          import { parseJob, validateJob } from "./scripts/lib.mjs";
+
+          const payload = JSON.parse(process.env.CLIENT_PAYLOAD || "{}");
+          const fromDispatch = process.env.EVENT_NAME === "repository_dispatch";
+          const hydration = payload.hydration ?? {};
+
+          const jobPath = String(fromDispatch ? payload.job ?? "" : process.env.INPUT_JOB ?? "");
+          const mode = String(fromDispatch ? payload.mode ?? "plan" : process.env.INPUT_MODE ?? "plan");
+          const runner = String(
+            fromDispatch ? payload.runner ?? "blacksmith-4vcpu-ubuntu-2404" : process.env.INPUT_RUNNER,
+          );
+          const executionRunner = String(
+            fromDispatch
+              ? payload.execution_runner ?? "blacksmith-16vcpu-ubuntu-2404"
+              : process.env.INPUT_EXECUTION_RUNNER,
+          );
+          const model = String(fromDispatch ? payload.model ?? "gpt-5.5" : process.env.INPUT_MODEL);
+          const dryRun = String(fromDispatch ? payload.dry_run === true || payload.dry_run === "true" : process.env.INPUT_DRY_RUN === "true");
+          const hydrateComments = String(
+            fromDispatch
+              ? hydration.hydrate_comments ?? payload.hydrate_comments ?? ""
+              : process.env.INPUT_HYDRATE_COMMENTS ?? "",
+          );
+          const maxLinkedRefs = String(
+            fromDispatch
+              ? hydration.max_linked_refs ?? payload.max_linked_refs ?? ""
+              : process.env.INPUT_MAX_LINKED_REFS ?? "",
+          );
+          const maxCommentsPerItem = String(
+            fromDispatch
+              ? hydration.max_comments_per_item ?? payload.max_comments_per_item ?? ""
+              : process.env.INPUT_MAX_COMMENTS_PER_ITEM ?? "",
+          );
+          const maxReviewCommentsPerPr = String(
+            fromDispatch
+              ? hydration.max_review_comments_per_pr ?? payload.max_review_comments_per_pr ?? ""
+              : process.env.INPUT_MAX_REVIEW_COMMENTS_PER_PR ?? "",
+          );
+
+          if (!jobPath.startsWith("jobs/") || !jobPath.endsWith(".md")) throw new Error(`invalid job path: ${jobPath}`);
+          if (!["plan", "execute", "autonomous"].includes(mode)) throw new Error(`invalid mode: ${mode}`);
+          for (const [name, value] of Object.entries({
+            hydrate_comments: hydrateComments,
+            max_linked_refs: maxLinkedRefs,
+            max_comments_per_item: maxCommentsPerItem,
+            max_review_comments_per_pr: maxReviewCommentsPerPr,
+          })) {
+            if (value !== "" && !/^\d+$/.test(value)) throw new Error(`invalid numeric override ${name}: ${value}`);
+          }
+          if (fromDispatch) {
+            const ref = String(payload.ref ?? "main");
+            if (ref !== "main") throw new Error(`repository_dispatch worker only supports ref=main for now, got ${ref}`);
+            const expectedHead = String(payload.head_sha ?? "");
+            const actualHead = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+            if (expectedHead && expectedHead !== actualHead) {
+              throw new Error(`stale repository_dispatch head_sha ${expectedHead}; workflow checked out ${actualHead}`);
+            }
+          }
+
+          const job = parseJob(jobPath);
+          const errors = validateJob(job);
+          if (errors.length > 0) throw new Error(`invalid job ${jobPath}: ${errors.join("; ")}`);
+
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `job=${job.relativePath}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `mode=${mode}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `runner=${runner}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `execution_runner=${executionRunner}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `model=${model}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `dry_run=${dryRun}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `hydrate_comments=${hydrateComments}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_linked_refs=${maxLinkedRefs}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_comments_per_item=${maxCommentsPerItem}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_review_comments_per_pr=${maxReviewCommentsPerPr}\n`);
+          NODE
+
   cluster:
     name: Plan and review cluster
-    runs-on: ${{ inputs.runner }}
+    needs: prepare
+    runs-on: ${{ needs.prepare.outputs.runner }}
     timeout-minutes: 90
     outputs:
       allow_execute: ${{ steps.capture_gates.outputs.allow_execute }}
@@ -80,17 +200,17 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       CODEX_API_KEY: ${{ secrets.CODEX_API_KEY || secrets.OPENAI_API_KEY }}
       CLOWNFISH_ALLOWED_OWNER: ${{ vars.CLOWNFISH_ALLOWED_OWNER || 'openclaw' }}
-      CLOWNFISH_ALLOW_EXECUTE: ${{ (inputs.mode == 'execute' || inputs.mode == 'autonomous') && vars.CLOWNFISH_ALLOW_EXECUTE == '1' && '1' || '0' }}
-      CLOWNFISH_ALLOW_FIX_PR: ${{ (inputs.mode == 'execute' || inputs.mode == 'autonomous') && vars.CLOWNFISH_ALLOW_FIX_PR == '1' && '1' || '0' }}
-      CLOWNFISH_ALLOW_MERGE: ${{ (inputs.mode == 'execute' || inputs.mode == 'autonomous') && (vars.CLOWNFISH_ALLOW_MERGE || '0') || '0' }}
+      CLOWNFISH_ALLOW_EXECUTE: ${{ (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && vars.CLOWNFISH_ALLOW_EXECUTE == '1' && '1' || '0' }}
+      CLOWNFISH_ALLOW_FIX_PR: ${{ (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && vars.CLOWNFISH_ALLOW_FIX_PR == '1' && '1' || '0' }}
+      CLOWNFISH_ALLOW_MERGE: ${{ (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && (vars.CLOWNFISH_ALLOW_MERGE || '0') || '0' }}
       CLOWNFISH_HYDRATE_CLUSTER_REFS: ${{ vars.CLOWNFISH_HYDRATE_CLUSTER_REFS || '1' }}
-      CLOWNFISH_HYDRATE_COMMENTS: ${{ inputs.hydrate_comments != '' && inputs.hydrate_comments || vars.CLOWNFISH_HYDRATE_COMMENTS || '1' }}
-      CLOWNFISH_MAX_COMMENTS_PER_ITEM: ${{ inputs.max_comments_per_item != '' && inputs.max_comments_per_item || vars.CLOWNFISH_MAX_COMMENTS_PER_ITEM || '30' }}
-      CLOWNFISH_MAX_LINKED_REFS: ${{ inputs.max_linked_refs != '' && inputs.max_linked_refs || vars.CLOWNFISH_MAX_LINKED_REFS || '20' }}
-      CLOWNFISH_MAX_REVIEW_COMMENTS_PER_PR: ${{ inputs.max_review_comments_per_pr != '' && inputs.max_review_comments_per_pr || vars.CLOWNFISH_MAX_REVIEW_COMMENTS_PER_PR || '50' }}
+      CLOWNFISH_HYDRATE_COMMENTS: ${{ needs.prepare.outputs.hydrate_comments != '' && needs.prepare.outputs.hydrate_comments || vars.CLOWNFISH_HYDRATE_COMMENTS || '1' }}
+      CLOWNFISH_MAX_COMMENTS_PER_ITEM: ${{ needs.prepare.outputs.max_comments_per_item != '' && needs.prepare.outputs.max_comments_per_item || vars.CLOWNFISH_MAX_COMMENTS_PER_ITEM || '30' }}
+      CLOWNFISH_MAX_LINKED_REFS: ${{ needs.prepare.outputs.max_linked_refs != '' && needs.prepare.outputs.max_linked_refs || vars.CLOWNFISH_MAX_LINKED_REFS || '20' }}
+      CLOWNFISH_MAX_REVIEW_COMMENTS_PER_PR: ${{ needs.prepare.outputs.max_review_comments_per_pr != '' && needs.prepare.outputs.max_review_comments_per_pr || vars.CLOWNFISH_MAX_REVIEW_COMMENTS_PER_PR || '50' }}
       CLOWNFISH_CODEX_TIMEOUT_MS: ${{ vars.CLOWNFISH_CODEX_TIMEOUT_MS || '1800000' }}
       CLOWNFISH_CODEX_REASONING_EFFORT: ${{ vars.CLOWNFISH_CODEX_REASONING_EFFORT || 'medium' }}
-      CLOWNFISH_MODEL: ${{ inputs.model || vars.CLOWNFISH_MODEL || 'gpt-5.5' }}
+      CLOWNFISH_MODEL: ${{ needs.prepare.outputs.model }}
       CODEX_CLI_VERSION: ${{ vars.CLOWNFISH_CODEX_CLI_VERSION || '0.125.0' }}
       OPENCLAW_LOCAL_CHECK: "0"
     steps:
@@ -184,13 +304,13 @@ jobs:
           printenv OPENAI_API_KEY | codex login --with-api-key >/dev/null
 
       - name: Validate job
-        run: npm run validate:job -- "${{ inputs.job }}"
+        run: npm run validate:job -- "${{ needs.prepare.outputs.job }}"
 
       - name: Prepare target checkout
-        if: ${{ (inputs.mode == 'execute' || inputs.mode == 'autonomous') && !inputs.dry_run }}
+        if: ${{ (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && needs.prepare.outputs.dry_run != 'true' }}
         run: |
           set -euo pipefail
-          target_repo="$(node --input-type=module -e 'import { parseJob } from "./scripts/lib.mjs"; console.log(parseJob(process.argv[1]).frontmatter.repo);' "${{ inputs.job }}")"
+          target_repo="$(node --input-type=module -e 'import { parseJob } from "./scripts/lib.mjs"; console.log(parseJob(process.argv[1]).frontmatter.repo);' "${{ needs.prepare.outputs.job }}")"
           target_dir=".projectclownfish/target/${target_repo//\//-}"
           rm -rf "$target_dir"
           repo_url="https://github.com/${target_repo}.git"
@@ -205,13 +325,13 @@ jobs:
 
       - name: Run worker
         run: |
-          worker_mode="${{ inputs.mode }}"
+          worker_mode="${{ needs.prepare.outputs.mode }}"
           if [ "$worker_mode" != "plan" ] && [ "${CLOWNFISH_ALLOW_EXECUTE}" != "1" ]; then
             echo "CLOWNFISH_ALLOW_EXECUTE is not explicitly 1; rendering plan-only output for requested $worker_mode run"
             worker_mode="plan"
           fi
-          args=("${{ inputs.job }}" --mode "$worker_mode")
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
+          args=("${{ needs.prepare.outputs.job }}" --mode "$worker_mode")
+          if [ "${{ needs.prepare.outputs.dry_run }}" = "true" ]; then
             args+=(--dry-run)
           fi
           npm run worker -- "${args[@]}"
@@ -224,7 +344,7 @@ jobs:
           fi
 
       - name: Upload worker transfer artifacts
-        if: ${{ always() && (inputs.mode == 'execute' || inputs.mode == 'autonomous') && !inputs.dry_run }}
+        if: ${{ always() && (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && needs.prepare.outputs.dry_run != 'true' }}
         uses: actions/upload-artifact@v7
         with:
           name: projectclownfish-worker-${{ github.run_id }}-${{ github.run_attempt }}
@@ -232,7 +352,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload final worker artifacts
-        if: ${{ always() && (!((inputs.mode == 'execute' || inputs.mode == 'autonomous') && !inputs.dry_run) || failure() || cancelled()) }}
+        if: ${{ always() && (!((needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && needs.prepare.outputs.dry_run != 'true') || failure() || cancelled()) }}
         uses: actions/upload-artifact@v7
         with:
           name: projectclownfish-${{ github.run_id }}-${{ github.run_attempt }}
@@ -242,9 +362,11 @@ jobs:
 
   execute:
     name: Execute and apply cluster actions
-    needs: cluster
-    if: ${{ needs.cluster.result == 'success' && (inputs.mode == 'execute' || inputs.mode == 'autonomous') && !inputs.dry_run }}
-    runs-on: ${{ inputs.execution_runner }}
+    needs:
+      - prepare
+      - cluster
+    if: ${{ needs.cluster.result == 'success' && (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && needs.prepare.outputs.dry_run != 'true' }}
+    runs-on: ${{ needs.prepare.outputs.execution_runner }}
     timeout-minutes: 60
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -261,7 +383,7 @@ jobs:
       CLOWNFISH_FIX_TIMEOUT_RESERVE_MS: ${{ vars.CLOWNFISH_FIX_TIMEOUT_RESERVE_MS || '300000' }}
       CLOWNFISH_FIX_PREFLIGHT_TIMEOUT_MS: ${{ vars.CLOWNFISH_FIX_PREFLIGHT_TIMEOUT_MS || '120000' }}
       CLOWNFISH_RESOLVE_REVIEW_THREADS: ${{ vars.CLOWNFISH_RESOLVE_REVIEW_THREADS || '1' }}
-      CLOWNFISH_MODEL: ${{ inputs.model || vars.CLOWNFISH_MODEL || 'gpt-5.5' }}
+      CLOWNFISH_MODEL: ${{ needs.prepare.outputs.model }}
       CLOWNFISH_TARGET_VALIDATION_MODE: ${{ vars.CLOWNFISH_TARGET_VALIDATION_MODE || 'changed-only' }}
       CLOWNFISH_POST_FLIGHT_IGNORE_CHECKS: ${{ vars.CLOWNFISH_POST_FLIGHT_IGNORE_CHECKS || 'auto-response,Labeler,Stale' }}
       CLOWNFISH_MAX_ACTIVE_PRS_PER_AREA: ${{ vars.CLOWNFISH_MAX_ACTIVE_PRS_PER_AREA || '50' }}
@@ -375,24 +497,24 @@ jobs:
           path: .projectclownfish/runs
 
       - name: Validate job
-        run: npm run validate:job -- "${{ inputs.job }}"
+        run: npm run validate:job -- "${{ needs.prepare.outputs.job }}"
 
       - name: Execute credited fix artifact
         if: ${{ env.CLOWNFISH_ALLOW_EXECUTE == '1' && env.CLOWNFISH_ALLOW_FIX_PR == '1' }}
         timeout-minutes: 45
-        run: npm run execute-fix -- "${{ inputs.job }}" --latest
+        run: npm run execute-fix -- "${{ needs.prepare.outputs.job }}" --latest
 
       - name: Apply safe closure actions
         if: ${{ env.CLOWNFISH_ALLOW_EXECUTE == '1' }}
-        run: npm run apply-result -- "${{ inputs.job }}" --latest
+        run: npm run apply-result -- "${{ needs.prepare.outputs.job }}" --latest
 
       - name: Post-flight finalize fix PRs
         if: ${{ env.CLOWNFISH_ALLOW_EXECUTE == '1' && env.CLOWNFISH_ALLOW_FIX_PR == '1' }}
-        run: npm run post-flight -- "${{ inputs.job }}" --latest
+        run: npm run post-flight -- "${{ needs.prepare.outputs.job }}" --latest
 
       - name: Apply post-flight closeouts
         if: ${{ env.CLOWNFISH_ALLOW_EXECUTE == '1' }}
-        run: npm run apply-result -- "${{ inputs.job }}" --latest
+        run: npm run apply-result -- "${{ needs.prepare.outputs.job }}" --latest
 
       - name: Tag Clownfish targets
         if: ${{ always() && env.CLOWNFISH_ALLOW_EXECUTE == '1' }}

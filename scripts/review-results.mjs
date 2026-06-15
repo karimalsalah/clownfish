@@ -340,10 +340,28 @@ function isSecuritySensitiveActionContext(action, item) {
   return hasSecuritySensitiveText(
     securityTextFromItem(item),
     action.classification,
-    action.reason,
-    action.comment,
-    action.evidence,
+    nonSecurityAssertionStrippedText(action.reason),
+    nonSecurityAssertionStrippedText(action.comment),
+    (action.evidence ?? []).map(nonSecurityAssertionStrippedText),
   );
+}
+
+function nonSecurityAssertionStrippedText(value) {
+  return String(value ?? "")
+    .replace(/\bsecurity[-_\s]?sensitive\s*[=:]\s*(?:false|0|no)\b/gi, "non-security classification")
+    .replace(/\bsecuritySensitive\s*[=:]\s*(?:false|0|no)\b/g, "non-security classification")
+    .replace(
+      /\b(?:validator|preflight|worker|plan|reviewer)?\s*(?:output\s+)?(?:did\s+not|does\s+not|didn't|is\s+not|was\s+not|not)\s+(?:mark|classify|flag|treat|identify|detect)[^.]{0,120}\bsecurity[-_\s]?sensitive(?:\s+target|\s+ref|\s+item)?\b/gi,
+      "non-security classification",
+    )
+    .replace(
+      /\b(?:no|without|absent)\s+(?:deterministic\s+|live\s+|preflight\s+)?security[-_\s]?sensitive\s+(?:signal|signals|refs?|items?|target|targets)\b/gi,
+      "non-security classification",
+    )
+    .replace(
+      /\bsecurity[-_\s]?sensitive\s+(?:refs?|issues?|items?|targets?)\s+(?:are\s+)?(?:resolved|absent|cleared)\b/gi,
+      "non-security classification",
+    );
 }
 
 function isUnavailableNonMutatingPlanAction(action, item, result) {

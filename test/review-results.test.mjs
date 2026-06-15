@@ -47,6 +47,86 @@ test("review-results allows actionless blocked maintainer decisions", () => {
   assert.match(result.stdout, /"status": "passed"/);
 });
 
+test("review-results ignores negated security-sensitive assertions", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#90672",
+          action: "keep_independent",
+          status: "planned",
+          idempotency_key: "cluster-test:keep-independent:90672",
+          classification: "independent",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-15T14:15:01Z",
+          evidence: ["Validator output did not mark #90672 as a security-sensitive target."],
+          reason: "Distinct Telegram diagnostic PR with conflict state; keep independent.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#90672",
+            kind: "pull_request",
+            state: "open",
+            title: "fix(telegram): report blocked group ingress in /status",
+            labels: ["channel: telegram", "proof: sufficient"],
+            updated_at: "2026-06-15T14:15:01Z",
+            security_sensitive: false,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  assert.match(result.stdout, /"status": "passed"/);
+});
+
+test("review-results ignores false security_sensitive field echoes", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#90672",
+          action: "keep_independent",
+          status: "planned",
+          idempotency_key: "cluster-test:keep-independent:90672",
+          classification: "independent",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-15T14:15:01Z",
+          evidence: ["Preflight item showed security_sensitive=false and securitySensitive: false."],
+          reason: "No security-sensitive signal detected in hydrated job refs.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#90672",
+            kind: "pull_request",
+            state: "open",
+            title: "fix(telegram): report blocked group ingress in /status",
+            labels: ["channel: telegram", "proof: sufficient"],
+            updated_at: "2026-06-15T14:15:01Z",
+            security_sensitive: false,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  assert.match(result.stdout, /"status": "passed"/);
+});
+
 test("review-results allows unavailable security route when hydration was rate limited", () => {
   const dir = makeResultDir(
     {

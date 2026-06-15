@@ -145,6 +145,50 @@ test("dispatch refuses high-volume write mode without explicit override", () => 
   assert.match(result.stderr, /refusing execute dispatch: max-live-workers=6 exceeds write lane cap=5/);
 });
 
+test("dispatch supports repository-worker canary dispatch", () => {
+  const fixture = makeFixture();
+  writeFailingGh(fixture.bin, "gh");
+  const fakeGhx = writeFakeGh(fixture.bin, "ghx");
+  const env = {
+    ...process.env,
+    PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
+    EXPECT_REPOSITORY_WORKER_FIELDS: "1",
+  };
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/dispatch-jobs.mjs",
+      "jobs/openclaw/inbox/cluster-example.md",
+      "--mode",
+      "autonomous",
+      "--dispatch-event",
+      "repository-worker",
+      "--gh-bin",
+      fakeGhx,
+      "--allow-app-token-auth",
+      "--skip-publish-backlog-check",
+      "--max-live-workers",
+      "1",
+      "--hydrate-comments",
+      "1",
+      "--max-linked-refs",
+      "20",
+      "--max-comments-per-item",
+      "30",
+      "--max-review-comments-per-pr",
+      "50",
+      "--dry-run",
+      "1",
+      "--no-dispatch-ledger",
+    ],
+    { cwd: repoRoot, encoding: "utf8", env },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /dispatched 1\/1/);
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-app-auth-"));
   const inbox = path.join(root, "inbox");
@@ -163,6 +207,7 @@ function writeFakeGh(binDir, name) {
   fs.writeFileSync(
     filePath,
     `#!/usr/bin/env node
+const fs = require("fs");
 const args = process.argv.slice(2);
 if (args[0] === "secret" && args[1] === "list") {
   console.log(JSON.stringify([{ name: "CLOWNFISH_APP_PRIVATE_KEY" }]));
@@ -191,6 +236,39 @@ if (args[0] === "workflow" && args[1] === "run") {
 }
 if (args[0] === "api" && args.some((arg) => arg.endsWith("/runs"))) {
   console.log(JSON.stringify([{ workflow_runs: [] }]));
+  process.exit(0);
+}
+if (args[0] === "api" && args.includes("repos/openclaw/clownfish/dispatches")) {
+  const payload = JSON.parse(fs.readFileSync(0, "utf8"));
+  if (process.env.EXPECT_REPOSITORY_WORKER_FIELDS === "1") {
+    const client = payload.client_payload || {};
+    const hydration = client.hydration || {};
+    const expected = [
+      ["event_type", payload.event_type, "projectclownfish_worker"],
+      ["job", client.job, "jobs/openclaw/inbox/cluster-example.md"],
+      ["mode", client.mode, "autonomous"],
+      ["runner", client.runner, "blacksmith-4vcpu-ubuntu-2404"],
+      ["execution_runner", client.execution_runner, "blacksmith-16vcpu-ubuntu-2404"],
+      ["model", client.model, "gpt-5.5"],
+      ["dry_run", String(client.dry_run), "true"],
+      ["ref", client.ref, "main"],
+      ["hydrate_comments", hydration.hydrate_comments, "1"],
+      ["max_linked_refs", hydration.max_linked_refs, "20"],
+      ["max_comments_per_item", hydration.max_comments_per_item, "30"],
+      ["max_review_comments_per_pr", hydration.max_review_comments_per_pr, "50"],
+    ];
+    for (const [name, actual, wanted] of expected) {
+      if (actual !== wanted) {
+        console.error("bad repository worker field", name, actual, "wanted", wanted, JSON.stringify(payload));
+        process.exit(1);
+      }
+    }
+    if (!client.head_sha) {
+      console.error("missing head_sha", JSON.stringify(payload));
+      process.exit(1);
+    }
+  }
+  console.log("accepted repository dispatch");
   process.exit(0);
 }
 if (args.includes("--version")) {
