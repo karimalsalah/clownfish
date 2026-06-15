@@ -351,6 +351,50 @@ npm run dispatch -- --jobs-file /tmp/clownfish-plan-wave-all.txt \
   --runner blacksmith-4vcpu-ubuntu-2404 \
   --execution-runner blacksmith-16vcpu-ubuntu-2404
 
+# Full open-PR inventory sweep from the local gitcrawl snapshot. Generate
+# plan-only shards from currently open PRs, skipping refs already present in
+# the active inbox. This is the high-volume lane; it performs classification,
+# not writes.
+npm run import-gitcrawl-pr-inventory -- \
+  --limit all \
+  --batch-size 40 \
+  --existing-dir jobs/openclaw/inbox \
+  --mode plan
+
+# Dispatch that full plan lane wide with lean hydration. This is intentionally
+# separate from write/apply dispatches.
+node scripts/queue-status.mjs \
+  --plan-ref-limit 4000 \
+  --write-missing-plan /tmp/clownfish-plan-wave-all.txt \
+  --allow-app-token-auth
+npm run dispatch -- --jobs-file /tmp/clownfish-plan-wave-all.txt \
+  --mode plan \
+  --allow-app-token-auth \
+  --wait-for-capacity \
+  --max-live-workers 200 \
+  --batch-size 200 \
+  --dispatch-concurrency 20 \
+  --hydrate-comments 0 \
+  --max-linked-refs 0 \
+  --max-comments-per-item 0 \
+  --max-review-comments-per-pr 0 \
+  --runner blacksmith-4vcpu-ubuntu-2404 \
+  --execution-runner blacksmith-16vcpu-ubuntu-2404
+
+# Write/apply dispatches are deliberately capped separately. The default
+# write lane cap is 5 workers even if the plan lane runs wider. Override only
+# after fresh canaries prove the App quota and applicator path are healthy.
+npm run dispatch -- --jobs-file /tmp/clownfish-close-retry.txt \
+  --mode execute \
+  --allow-app-token-auth \
+  --wait-for-capacity \
+  --write-live-worker-cap 3 \
+  --batch-size 1 \
+  --batch-delay-ms 120000 \
+  --dispatch-concurrency 1 \
+  --runner blacksmith-4vcpu-ubuntu-2404 \
+  --execution-runner blacksmith-16vcpu-ubuntu-2404
+
 # Find failed cluster jobs that have not been superseded by a later success.
 npm run self-heal
 

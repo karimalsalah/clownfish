@@ -11,7 +11,7 @@ const dbPath = path.resolve(String(args.db ?? path.join(os.homedir(), ".config",
 const outDir = path.resolve(String(args.out ?? path.join(repoRoot(), "jobs", repo.split("/")[0], "inbox")));
 const existingDir = path.resolve(String(args["existing-dir"] ?? path.join(repoRoot(), "jobs", repo.split("/")[0])));
 const mode = String(args.mode ?? "plan");
-const limit = numberArg("limit", 500);
+const limit = limitArg("limit", 500);
 const batchSize = numberArg("batch-size", 10);
 const sort = String(args.sort ?? "stale");
 const bucketFilter = String(args.bucket ?? "all");
@@ -34,21 +34,21 @@ const candidates = selectCandidates()
   .filter((candidate) => !skipExisting || !existingRefs.has(candidate.ref))
   .filter((candidate) => includeSecurity || candidate.bucket !== "security_route_candidate")
   .filter((candidate) => bucketFilter === "all" || candidate.bucket === bucketFilter)
-  .sort(compareCandidates)
-  .slice(0, limit);
+  .sort(compareCandidates);
+const limitedCandidates = limit === "all" ? candidates : candidates.slice(0, limit);
 
 const batches = [];
-for (let i = 0; i < candidates.length; i += batchSize) {
-  batches.push(candidates.slice(i, i + batchSize));
+for (let i = 0; i < limitedCandidates.length; i += batchSize) {
+  batches.push(limitedCandidates.slice(i, i + batchSize));
 }
 
 if (!dryRun) fs.mkdirSync(outDir, { recursive: true });
 const generated = batches.map((batch, index) => writeJob(batch, index + 1));
 
 if (jsonOutput) {
-  console.log(JSON.stringify({
+  console.log(JSON.stringify(sanitizeJsonValue({
     generated,
-    candidates,
+    candidates: limitedCandidates,
     options: {
       repo,
       mode,
@@ -62,10 +62,10 @@ if (jsonOutput) {
     },
     totals: {
       generated: generated.length,
-      candidates: candidates.length,
+      candidates: limitedCandidates.length,
       existing_refs: existingRefs.size,
     },
-  }, null, 2));
+  }), null, 2));
 } else {
   for (const item of generated) console.log(item.path);
 }
@@ -99,24 +99,24 @@ function classifyCandidate(row) {
   const raw = safeJson(row.raw_json, {});
   const labels = labelNames(row.labels_json);
   const assignees = safeJson(row.assignees_json, []);
-  const title = String(row.title ?? "");
-  const body = String(row.body ?? "");
-  const authorAssociation = raw.author_association ?? "";
+  const title = sanitizeString(row.title ?? "");
+  const body = sanitizeString(row.body ?? "");
+  const authorAssociation = sanitizeString(raw.author_association ?? "");
   const bucket = chooseBucket({ row, title, body, labels, assignees, authorAssociation });
 
   return {
     number: Number(row.number),
     ref: `#${row.number}`,
     title,
-    author: row.author_login ?? "",
+    author: sanitizeString(row.author_login ?? ""),
     author_association: authorAssociation || null,
     labels,
-    assignees: assignees.map((assignee) => assignee.login ?? assignee).filter(Boolean),
+    assignees: assignees.map((assignee) => sanitizeString(assignee.login ?? assignee)).filter(Boolean),
     is_draft: Boolean(row.is_draft),
-    created_at: row.created_at_gh ?? null,
-    updated_at: row.updated_at_gh ?? row.last_pulled_at ?? null,
+    created_at: sanitizeNullableString(row.created_at_gh),
+    updated_at: sanitizeNullableString(row.updated_at_gh ?? row.last_pulled_at),
     bucket,
-    body_excerpt: excerpt(body),
+    body_excerpt: scrubExcerpt(excerpt(body)),
   };
 }
 
@@ -207,7 +207,7 @@ function candidateBlock(candidate) {
     `- assignees: ${candidate.assignees.join(", ") || "none"}`,
     `- labels: ${candidate.labels.join(", ") || "none"}`,
     `- gitcrawl snapshot updated: ${candidate.updated_at || "unknown"} (ignore for target_updated_at; use hydrated preflight)`,
-    `- body excerpt: ${scrubExcerpt(candidate.body_excerpt) || "none"}`,
+    `- body excerpt: ${candidate.body_excerpt || "none"}`,
     "",
   ];
 }
@@ -269,18 +269,26 @@ function numberArg(name, fallback) {
   return value;
 }
 
+function limitArg(name, fallback) {
+  const raw = args[name] ?? fallback;
+  if (String(raw).toLowerCase() === "all") return "all";
+  const value = Number(raw);
+  if (!Number.isInteger(value) || value < 1) throw new Error(`--${name} must be a positive integer or all`);
+  return value;
+}
+
 function labelNames(value) {
   return safeJson(value, [])
     .map((label) => label.name ?? label)
     .filter(Boolean)
-    .map(String);
+    .map(sanitizeString);
 }
 
 function safeJson(value, fallback) {
   try {
-    return JSON.parse(value || JSON.stringify(fallback));
+    return sanitizeJsonValue(JSON.parse(value || JSON.stringify(fallback)));
   } catch {
-    return fallback;
+    return sanitizeJsonValue(fallback);
   }
 }
 
@@ -290,7 +298,7 @@ function yamlList(values) {
 }
 
 function quoteYaml(value) {
-  return JSON.stringify(String(value));
+  return JSON.stringify(sanitizeString(value));
 }
 
 function sqlString(value) {
@@ -298,13 +306,49 @@ function sqlString(value) {
 }
 
 function excerpt(value) {
-  return String(value ?? "").replace(/\s+/g, " ").trim().slice(0, 260);
+  return sanitizeString(value).replace(/\s+/g, " ").trim().slice(0, 260);
 }
 
 function scrubExcerpt(value) {
-  return String(value ?? "")
+  return sanitizeString(value)
     .replace(/\/Users\/[A-Za-z0-9._-]+/g, "/Users/<user>")
     .replace(/\/home\/[A-Za-z0-9._-]+/g, "/home/<user>")
     .replace(/\b(token|secret|password)=\S+/gi, "$1=<redacted>")
     .replace(/\b(token|secret|password):\s*\S+/gi, "$1: <redacted>");
+}
+
+function sanitizeNullableString(value) {
+  if (value == null) return null;
+  return sanitizeString(value);
+}
+
+function sanitizeJsonValue(value) {
+  if (typeof value === "string") return sanitizeString(value);
+  if (Array.isArray(value)) return value.map(sanitizeJsonValue);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [sanitizeString(key), sanitizeJsonValue(item)]));
+  }
+  return value;
+}
+
+function sanitizeString(value) {
+  const text = String(value ?? "");
+  let clean = "";
+  for (let i = 0; i < text.length; i += 1) {
+    const code = text.charCodeAt(i);
+    if (code >= 0xd800 && code <= 0xdbff) {
+      const next = text.charCodeAt(i + 1);
+      if (next >= 0xdc00 && next <= 0xdfff) {
+        clean += text[i] + text[i + 1];
+        i += 1;
+      } else {
+        clean += "\uFFFD";
+      }
+    } else if (code >= 0xdc00 && code <= 0xdfff) {
+      clean += "\uFFFD";
+    } else {
+      clean += text[i];
+    }
+  }
+  return clean;
 }

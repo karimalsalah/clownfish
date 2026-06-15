@@ -7,7 +7,7 @@ import test from "node:test";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
 
-test("queue-status treats explicit App token auth as plan-ready", () => {
+test("queue-status treats explicit App token auth as plan and execute ready", () => {
   const fixture = makeFixture();
   const fakeGh = writeFakeGh(fixture.bin, "ghx");
   writeJob(path.join(fixture.inbox, "app-auth-plan.md"), {
@@ -37,13 +37,15 @@ test("queue-status treats explicit App token auth as plan-ready", () => {
   assert.equal(result.status, 0, result.stderr || result.stdout);
   const payload = JSON.parse(result.stdout);
   assert.equal(payload.auth.read_secret_present, false);
+  assert.equal(payload.auth.write_secret_present, false);
+  assert.equal(payload.auth.write_auth_present, true);
   assert.equal(payload.auth.app_token_auth_allowed, true);
   assert.equal(payload.auth.app_token_auth_configured, true);
   assert.equal(payload.auth.plan_dispatch_ready, true);
-  assert.equal(payload.auth.execute_dispatch_ready, false);
+  assert.equal(payload.auth.execute_dispatch_ready, true);
 });
 
-test("dispatch accepts explicit App token auth for plan mode only", () => {
+test("dispatch accepts explicit App token auth for plan and capped execute mode", () => {
   const fixture = makeFixture();
   writeFailingGh(fixture.bin, "gh");
   const fakeGhx = writeFakeGh(fixture.bin, "ghx");
@@ -95,12 +97,52 @@ test("dispatch accepts explicit App token auth for plan mode only", () => {
       "--skip-publish-backlog-check",
       "--max-live-workers",
       "1",
+      "--hydrate-comments",
+      "0",
+      "--max-linked-refs",
+      "0",
+      "--max-comments-per-item",
+      "0",
+      "--max-review-comments-per-pr",
+      "0",
       "--no-dispatch-ledger",
     ],
     { cwd: repoRoot, encoding: "utf8", env },
   );
-  assert.notEqual(execute.status, 0);
-  assert.match(execute.stderr, /need CLOWNFISH_GH_TOKEN for write\/apply steps/);
+  assert.equal(execute.status, 0, execute.stderr || execute.stdout);
+  assert.match(execute.stderr, /accepting GitHub App token auth for write\/apply/);
+  assert.match(execute.stdout, /dispatched 1\/1/);
+});
+
+test("dispatch refuses high-volume write mode without explicit override", () => {
+  const fixture = makeFixture();
+  writeFailingGh(fixture.bin, "gh");
+  const fakeGhx = writeFakeGh(fixture.bin, "ghx");
+  const env = {
+    ...process.env,
+    PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
+  };
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/dispatch-jobs.mjs",
+      "jobs/openclaw/inbox/cluster-example.md",
+      "--mode",
+      "execute",
+      "--gh-bin",
+      fakeGhx,
+      "--allow-app-token-auth",
+      "--skip-publish-backlog-check",
+      "--max-live-workers",
+      "6",
+      "--no-dispatch-ledger",
+    ],
+    { cwd: repoRoot, encoding: "utf8", env },
+  );
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /refusing execute dispatch: max-live-workers=6 exceeds write lane cap=5/);
 });
 
 function makeFixture() {

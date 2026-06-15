@@ -24,7 +24,18 @@ const workflow = args.workflow ?? "cluster-worker.yml";
 const repo = String(args.repo ?? currentProjectRepo());
 const model = String(args.model ?? process.env.CLOWNFISH_MODEL ?? "gpt-5.5");
 const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_GH_BIN ?? firstAvailableCommand(["ghx", "gh"]));
-const maxLiveWorkers = readMaxLiveWorkers(args);
+const writeMode = mode === "execute" || mode === "autonomous";
+const writeLiveWorkerCap = positiveNumberArg(
+  args["write-live-worker-cap"] ??
+    args.write_live_worker_cap ??
+    process.env.CLOWNFISH_WRITE_LIVE_WORKER_CAP ??
+    5,
+  "write-live-worker-cap",
+);
+const allowHighVolumeWrite = Boolean(
+  truthyFlag(args["allow-high-volume-write"] ?? args.allow_high_volume_write ?? process.env.CLOWNFISH_ALLOW_HIGH_VOLUME_WRITE),
+);
+const maxLiveWorkers = readMaxLiveWorkers(effectiveCapacityArgs(args));
 const waitForCapacity = Boolean(args["wait-for-capacity"]);
 const dispatchBatchSize = numberArg(
   args["batch-size"] ?? args.batch_size ?? process.env.CLOWNFISH_DISPATCH_BATCH_SIZE ?? 0,
@@ -98,6 +109,16 @@ if (dispatchBatchSize > 0 && dispatchBatchDelayMs < 1) {
 }
 if (dispatchConcurrency < 1) {
   console.error("--dispatch-concurrency must be positive");
+  process.exit(2);
+}
+if (writeMode && maxLiveWorkers > writeLiveWorkerCap && !allowHighVolumeWrite) {
+  console.error(
+    [
+      `refusing ${mode} dispatch: max-live-workers=${maxLiveWorkers} exceeds write lane cap=${writeLiveWorkerCap}`,
+      "plan/classification waves may run wide, but write/apply waves must stay small unless explicitly overridden",
+      "use --allow-high-volume-write only after reviewing fresh canary artifacts and GitHub App rate-limit headroom",
+    ].join("\n"),
+  );
   process.exit(2);
 }
 
@@ -236,7 +257,7 @@ function assertRequiredTokenSecrets() {
 
   const hasReadSecret = secrets.has("CLOWNFISH_READ_GH_TOKEN") || secrets.has("CLOWNFISH_GH_TOKEN");
   const hasWriteSecret = secrets.has("CLOWNFISH_GH_TOKEN");
-  const hasAppTokenAuth = appTokenAuthConfigured({ secrets, variables });
+  const hasAppTokenAuth = appTokenAuthConfigured({ secrets, variables, purpose: writeMode ? "write/apply" : "read hydration" });
   if (!hasReadSecret && !hasAppTokenAuth) {
     failed = true;
     console.error(
@@ -249,7 +270,7 @@ function assertRequiredTokenSecrets() {
     );
     return;
   }
-  if ((mode === "execute" || mode === "autonomous") && !hasWriteSecret) {
+  if (writeMode && !hasWriteSecret && !hasAppTokenAuth) {
     failed = true;
     console.error(
       [
@@ -260,15 +281,15 @@ function assertRequiredTokenSecrets() {
   }
 }
 
-function appTokenAuthConfigured({ secrets, variables }) {
+function appTokenAuthConfigured({ secrets, variables, purpose }) {
   if (!allowAppTokenAuth) return false;
   const hasAppSecret = secrets.has("CLOWNFISH_APP_PRIVATE_KEY");
   const hasAppId = variables?.has("CLOWNFISH_APP_ID") || Boolean(process.env.CLOWNFISH_APP_ID);
   if (hasAppSecret && hasAppId) {
     console.warn(
       [
-        "warning: accepting GitHub App token auth for read hydration because --allow-app-token-auth was set",
-        "ensure the App installation can read every target repo before broad dispatch",
+        `warning: accepting GitHub App token auth for ${purpose} because --allow-app-token-auth was set`,
+        "ensure the App installation has the needed target-repo permissions before broad dispatch",
       ].join("\n"),
     );
     return true;
@@ -489,6 +510,32 @@ function numberArg(value, name) {
     process.exit(2);
   }
   return number;
+}
+
+function positiveNumberArg(value, name) {
+  const number = Number(value);
+  if (!Number.isInteger(number) || number < 1) {
+    console.error(`--${name} must be a positive integer`);
+    process.exit(2);
+  }
+  return number;
+}
+
+function truthyFlag(value) {
+  return value === true || ["1", "true", "yes"].includes(String(value ?? "").trim().toLowerCase());
+}
+
+function effectiveCapacityArgs(rawArgs) {
+  if (!writeMode) return rawArgs;
+  const explicitMaxLiveWorkers =
+    rawArgs["max-live-workers"] !== undefined ||
+    rawArgs.max_live_workers !== undefined ||
+    process.env.CLOWNFISH_MAX_LIVE_WORKERS !== undefined;
+  if (explicitMaxLiveWorkers) return rawArgs;
+  return {
+    ...rawArgs,
+    "max-live-workers": process.env.CLOWNFISH_MAX_LIVE_WRITE_WORKERS ?? String(writeLiveWorkerCap),
+  };
 }
 
 function optionalBooleanString(value, name) {

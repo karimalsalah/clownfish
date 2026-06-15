@@ -255,6 +255,7 @@ function summarizeAuth({ secrets, variables, targetRepos }) {
       checked: false,
       read_secret_present: false,
       write_secret_present: false,
+      write_auth_present: false,
       app_token_auth_allowed: false,
       app_token_auth_configured: false,
       dispatch_ready: false,
@@ -269,22 +270,24 @@ function summarizeAuth({ secrets, variables, targetRepos }) {
     secrets.has("CLOWNFISH_APP_PRIVATE_KEY") &&
     (variables?.has("CLOWNFISH_APP_ID") || Boolean(process.env.CLOWNFISH_APP_ID));
   const readAuthPresent = readSecretPresent || appTokenAuthConfigured;
+  const writeAuthPresent = writeSecretPresent || appTokenAuthConfigured;
   const blockers = [];
   if (crossRepoTargets.length > 0 && !readAuthPresent) {
     blockers.push(`missing CLOWNFISH_READ_GH_TOKEN or CLOWNFISH_GH_TOKEN for ${crossRepoTargets.join(", ")}`);
   }
-  if (crossRepoTargets.length > 0 && !writeSecretPresent) {
-    blockers.push(`missing CLOWNFISH_GH_TOKEN for execute/autonomous write steps`);
+  if (crossRepoTargets.length > 0 && !writeAuthPresent) {
+    blockers.push(`missing CLOWNFISH_GH_TOKEN or verified App token auth for execute/autonomous write steps`);
   }
   return {
     checked: true,
     cross_repo_targets: crossRepoTargets,
     read_secret_present: readSecretPresent,
     write_secret_present: writeSecretPresent,
+    write_auth_present: writeAuthPresent,
     app_token_auth_allowed: allowAppTokenAuth,
     app_token_auth_configured: appTokenAuthConfigured,
     plan_dispatch_ready: crossRepoTargets.length === 0 || readAuthPresent,
-    execute_dispatch_ready: crossRepoTargets.length === 0 || writeSecretPresent,
+    execute_dispatch_ready: crossRepoTargets.length === 0 || writeAuthPresent,
     blockers,
   };
 }
