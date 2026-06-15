@@ -199,7 +199,7 @@ function writeJob(batch, index) {
     "",
   ].join("\n");
 
-  if (!dryRun) fs.writeFileSync(filePath, markdown);
+  if (!dryRun) fs.writeFileSync(filePath, cleanGeneratedMarkdown(markdown));
   return {
     path: path.relative(repoRoot(), filePath),
     cluster_id: clusterId,
@@ -393,6 +393,10 @@ function scrubExcerpt(value) {
     .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, "<email>")
     .replace(/\b(token|secret|password)=\S+/gi, "$1=<redacted>")
     .replace(/\b(token|secret|password):\s*\S+/gi, "$1: <redacted>");
+}
+
+function cleanGeneratedMarkdown(value) {
+  return String(value).replace(/[ \t]+$/gm, "").replace(/\n+$/, "\n");
 }
 
 function sanitizeNullableString(value) {
