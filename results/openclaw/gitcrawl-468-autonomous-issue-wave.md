@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-468-autonomous-issue-wave"
 mode: "autonomous"
-run_id: "27567911250"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27567911250"
-head_sha: "65aabaf6f24287c47538121fa0ffce37874bdb99"
-workflow_conclusion: "failure"
+run_id: "27568309581"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27568309581"
+head_sha: "8eeb9a8270cca7c9226312cc1f06b03db3d936cc"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T18:38:54.945Z"
+published_at: "2026-06-15T18:45:19.753Z"
 canonical: "https://github.com/openclaw/openclaw/issues/86050"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/86050"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/86649"
@@ -25,9 +25,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27567911250](https://github.com/openclaw/clownfish/actions/runs/27567911250)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27568309581](https://github.com/openclaw/clownfish/actions/runs/27568309581)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -35,7 +35,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/86050
 
 ## Summary
 
-Cluster #86050 remains a valid open canonical issue. Hydrated linked PR #86649 is the clear repairable canonical fix path, but it is not merge-ready because the latest ClawSweeper review still says needs changes and no clean Codex /review preflight is present. Plan repair of the contributor branch rather than close the issue or merge now.
+Issue #86050 remains the live canonical report. Linked PR #86649 is the best canonical fix path, but it is not merge-ready because mergeability is unknown and the latest ClawSweeper review still blocks merge on review findings. Plan repair of the contributor branch rather than opening a duplicate replacement PR.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Cluster #86050 remains a valid open canonical issue. Hydrated linked PR #86649 i
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #86050 | keep_canonical | planned | canonical | Canonical issue remains live; closeout is blocked until the canonical fix path lands. |
-| #86649 | fix_needed | planned | canonical | The contributor branch is useful and editable, so the executor should repair/review/validate it before any merge recommendation. |
-| cluster:gitcrawl-468-autonomous-issue-wave | build_fix_artifact | planned |  | Build an executable repair plan for #86649; do not open a replacement PR while the contributor branch is repairable. |
+| #86050 | keep_canonical | planned | canonical | The report is still the canonical issue and require_fix_before_close blocks issue closure until the canonical fix lands. |
+| #86649 | fix_needed | planned | canonical | The useful contributor PR should be repaired on its branch before any merge recommendation. |
+| cluster:gitcrawl-468-autonomous-issue-wave | build_fix_artifact | planned |  | Build an executable repair plan for #86649; do not open a duplicate new PR while the contributor branch is editable. |
 
 ## Needs Human
 
