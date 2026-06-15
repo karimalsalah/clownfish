@@ -9,6 +9,9 @@ For every listed open candidate, include `target_kind` and `target_updated_at`
 from the artifact. If live state is unavailable from the artifact, do not emit a
 mutating close action. Use a non-mutating classification when possible and
 reserve `needs_human` for the specific unresolved decision.
+Partial PR enrichment gaps, such as missing files/reviews/checks with a
+`hydration_error`, are not by themselves a maintainer decision when `kind`,
+`state`, and `updated_at` are present; classify conservatively instead.
 
 Evidence must come from GitHub issue/PR data, GitHub PR checks/diffs, or the job file. Do not cite external websites or mirrors.
 

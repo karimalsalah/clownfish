@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import {
   assertAllowedOwner,
   hasDeterministicSecuritySignal,
@@ -12,10 +13,12 @@ import {
   validateJob,
 } from "./lib.mjs";
 
+const execFileAsync = promisify(execFile);
 const MAX_LINKED_REFS = Number(process.env.CLOWNFISH_MAX_LINKED_REFS ?? 0);
 const HYDRATE_COMMENTS = process.env.CLOWNFISH_HYDRATE_COMMENTS === "1";
 const MAX_COMMENTS_PER_ITEM = Number(process.env.CLOWNFISH_MAX_COMMENTS_PER_ITEM ?? 30);
 const MAX_REVIEW_COMMENTS_PER_PR = Number(process.env.CLOWNFISH_MAX_REVIEW_COMMENTS_PER_PR ?? 50);
+const HYDRATION_CONCURRENCY = positiveIntegerEnv(process.env.CLOWNFISH_HYDRATION_CONCURRENCY, 6);
 const MAINTAINER_AUTHOR_ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
 const REVIEW_BOT_PATTERN = /\b(greptile|codex|asile|coderabbit|code rabbit|copilot|reviewdog|sonar|deepsource|codecov|github-actions)\b/i;
 
@@ -60,31 +63,44 @@ const items = new Map();
 const linkedRefs = new Map();
 const pending = [...new Set(seedNumbers)].map((number) => ({ number, depth: 0 }));
 let linkedHydrateCount = 0;
-const branch = offline ? offlineMainBranch(job.frontmatter.repo) : fetchMainBranch(job.frontmatter.repo);
+const branch = offline ? offlineMainBranch(job.frontmatter.repo) : await fetchMainBranch(job.frontmatter.repo);
 
 while (pending.length > 0) {
-  const next = pending.shift();
-  const number = next?.number;
-  if (!number || items.has(number)) continue;
+  const batch = [];
+  const queuedNumbers = new Set();
+  while (pending.length > 0 && batch.length < HYDRATION_CONCURRENCY) {
+    const next = pending.shift();
+    const number = next?.number;
+    if (!number || items.has(number) || queuedNumbers.has(number)) continue;
+    queuedNumbers.add(number);
+    batch.push(next);
+  }
+  if (batch.length === 0) continue;
 
-  const item = offline
-    ? offlineItem(job.frontmatter.repo, number, job)
-    : hydrateItem(job.frontmatter.repo, number);
-  items.set(number, item);
+  const hydratedBatch = offline
+    ? batch.map((next) => ({ next, item: offlineItem(job.frontmatter.repo, next.number, job) }))
+    : await mapLimit(batch, HYDRATION_CONCURRENCY, async (next) => ({
+        next,
+        item: await hydrateItem(job.frontmatter.repo, next.number),
+      }));
 
-  if (offline || next.depth > 0) continue;
-  for (const linked of extractLinkedRefs(job.frontmatter.repo, item)) {
-    const key = `${linked.repo}#${linked.number}`;
-    linkedRefs.set(key, linked);
-    const alreadyPending = pending.some((entry) => entry.number === linked.number);
-    if (
-      linked.repo === job.frontmatter.repo &&
-      !items.has(linked.number) &&
-      !alreadyPending &&
-      linkedHydrateCount < MAX_LINKED_REFS
-    ) {
-      pending.push({ number: linked.number, depth: next.depth + 1 });
-      linkedHydrateCount += 1;
+  for (const { next, item } of hydratedBatch) {
+    items.set(next.number, item);
+
+    if (offline || next.depth > 0) continue;
+    for (const linked of extractLinkedRefs(job.frontmatter.repo, item)) {
+      const key = `${linked.repo}#${linked.number}`;
+      linkedRefs.set(key, linked);
+      const alreadyPending = pending.some((entry) => entry.number === linked.number);
+      if (
+        linked.repo === job.frontmatter.repo &&
+        !items.has(linked.number) &&
+        !alreadyPending &&
+        linkedHydrateCount < MAX_LINKED_REFS
+      ) {
+        pending.push({ number: linked.number, depth: next.depth + 1 });
+        linkedHydrateCount += 1;
+      }
     }
   }
 }
@@ -121,6 +137,7 @@ const plan = {
     hydrate_comments: HYDRATE_COMMENTS,
     max_comments_per_item: MAX_COMMENTS_PER_ITEM,
     max_review_comments_per_pr: MAX_REVIEW_COMMENTS_PER_PR,
+    hydration_concurrency: offline ? 0 : HYDRATION_CONCURRENCY,
   },
   items: itemList.map((item) => summarizeItem(item, job)),
   canonical_candidates: canonicalCandidates(itemList, job),
@@ -153,33 +170,33 @@ console.log(
   ),
 );
 
-function hydrateItem(repo, number) {
+async function hydrateItem(repo, number) {
   const hydrationErrors = [];
   let issue;
   try {
-    issue = ghJson(["api", `repos/${repo}/issues/${number}`]);
+    issue = await ghJson(["api", `repos/${repo}/issues/${number}`]);
   } catch (error) {
     return unavailableItem(repo, number, error);
   }
-  const comments = HYDRATE_COMMENTS
-    ? safeGhPaged(`repos/${repo}/issues/${number}/comments`, `issue #${number} comments`, hydrationErrors)
-    : [];
-  const pullRequest = issue.pull_request
-    ? safeGhJson(["api", `repos/${repo}/pulls/${number}`], `pull request #${number}`, hydrationErrors)
-    : null;
-  const files = pullRequest
-    ? safeGhPaged(`repos/${repo}/pulls/${number}/files`, `pull request #${number} files`, hydrationErrors)
-    : [];
-  const commits = pullRequest
-    ? safeGhPaged(`repos/${repo}/pulls/${number}/commits`, `pull request #${number} commits`, hydrationErrors)
-    : [];
-  const reviews = pullRequest
-    ? safeGhPaged(`repos/${repo}/pulls/${number}/reviews`, `pull request #${number} reviews`, hydrationErrors)
-    : [];
-  const reviewComments = pullRequest && HYDRATE_COMMENTS
-    ? safeGhPaged(`repos/${repo}/pulls/${number}/comments`, `pull request #${number} review comments`, hydrationErrors)
-    : [];
-  const checks = pullRequest ? ghPrChecks(repo, number) : [];
+  const [comments, pullRequest] = await Promise.all([
+    HYDRATE_COMMENTS
+      ? safeGhPaged(`repos/${repo}/issues/${number}/comments`, `issue #${number} comments`, hydrationErrors)
+      : [],
+    issue.pull_request
+      ? safeGhJson(["api", `repos/${repo}/pulls/${number}`], `pull request #${number}`, hydrationErrors)
+      : null,
+  ]);
+  const [files, commits, reviews, reviewComments, checks] = pullRequest
+    ? await Promise.all([
+        safeGhPaged(`repos/${repo}/pulls/${number}/files`, `pull request #${number} files`, hydrationErrors),
+        safeGhPaged(`repos/${repo}/pulls/${number}/commits`, `pull request #${number} commits`, hydrationErrors),
+        safeGhPaged(`repos/${repo}/pulls/${number}/reviews`, `pull request #${number} reviews`, hydrationErrors),
+        HYDRATE_COMMENTS
+          ? safeGhPaged(`repos/${repo}/pulls/${number}/comments`, `pull request #${number} review comments`, hydrationErrors)
+          : [],
+        ghPrChecks(repo, number),
+      ])
+    : [[], [], [], [], []];
   const hydrationError = hydrationErrors.length > 0 ? hydrationErrors.join("; ") : null;
 
   return {
@@ -604,8 +621,8 @@ function formatNormalizedRef(ref) {
   return ref.repo === job.frontmatter.repo ? `#${ref.number}` : `https://github.com/${ref.repo}/issues/${ref.number}`;
 }
 
-function fetchMainBranch(repo) {
-  const branch = ghJson(["api", `repos/${repo}/branches/main`]);
+async function fetchMainBranch(repo) {
+  const branch = await ghJson(["api", `repos/${repo}/branches/main`]);
   return {
     name: "main",
     sha: branch.commit?.sha,
@@ -644,44 +661,44 @@ function offlineItem(repo, number, job) {
   };
 }
 
-function ghJson(ghArgs) {
-  const text = execFileSync("gh", ghArgs, {
+async function ghJson(ghArgs) {
+  const { stdout } = await execFileAsync("gh", ghArgs, {
     cwd: repoRoot(),
     encoding: "utf8",
     env: ghEnv(),
     maxBuffer: 64 * 1024 * 1024,
-    stdio: ["ignore", "pipe", "pipe"],
-  }).trim();
+  });
+  const text = stdout.trim();
   return JSON.parse(stripAnsi(text) || "null");
 }
 
-function safeGhJson(ghArgs, label, errors) {
+async function safeGhJson(ghArgs, label, errors) {
   try {
-    return ghJson(ghArgs);
+    return await ghJson(ghArgs);
   } catch (error) {
     errors.push(`${label}: ${firstLine(error?.stderr || error?.message || String(error))}`);
     return null;
   }
 }
 
-function ghPaged(apiPath) {
-  const pages = ghJson(["api", apiPath, "--paginate", "--slurp"]);
+async function ghPaged(apiPath) {
+  const pages = await ghJson(["api", apiPath, "--paginate", "--slurp"]);
   if (!Array.isArray(pages)) return [];
   return pages.flatMap((page) => (Array.isArray(page) ? page : []));
 }
 
-function safeGhPaged(apiPath, label, errors) {
+async function safeGhPaged(apiPath, label, errors) {
   try {
-    return ghPaged(apiPath);
+    return await ghPaged(apiPath);
   } catch (error) {
     errors.push(`${label}: ${firstLine(error?.stderr || error?.message || String(error))}`);
     return [];
   }
 }
 
-function ghPrChecks(repo, number) {
+async function ghPrChecks(repo, number) {
   try {
-    const text = execFileSync(
+    const { stdout } = await execFileAsync(
       "gh",
       ["pr", "checks", String(number), "--repo", repo, "--json", "name,state,bucket,link"],
       {
@@ -689,9 +706,9 @@ function ghPrChecks(repo, number) {
         encoding: "utf8",
         env: ghEnv(),
         maxBuffer: 16 * 1024 * 1024,
-        stdio: ["ignore", "pipe", "pipe"],
       },
-    ).trim();
+    );
+    const text = stdout.trim();
     return JSON.parse(stripAnsi(text) || "[]");
   } catch (error) {
     return [{ error: firstLine(error?.stderr || error?.message || String(error)) }];
@@ -714,4 +731,23 @@ function excerpt(text, limit = 1200) {
 
 function firstLine(text) {
   return String(text ?? "").split(/\r?\n/)[0] ?? "";
+}
+
+async function mapLimit(values, limit, mapper) {
+  const results = new Array(values.length);
+  let nextIndex = 0;
+  const workers = Array.from({ length: Math.min(limit, values.length) }, async () => {
+    while (nextIndex < values.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      results[index] = await mapper(values[index], index);
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
+function positiveIntegerEnv(value, fallback) {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
 }

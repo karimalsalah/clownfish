@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import test from "node:test";
 
-import { hasDeterministicSecuritySignal, hasSecuritySignalText } from "../scripts/lib.mjs";
+import { hasDeterministicSecuritySignal, hasSecuritySignalText, renderPrompt } from "../scripts/lib.mjs";
 
 test("security signal detection ignores non-security advisory wording", () => {
   assert.equal(
@@ -40,4 +43,84 @@ test("deterministic security signals accept labels and structured ClawSweeper ma
     }),
     true,
   );
+});
+
+test("renderPrompt compacted cluster plan keeps live hydration metadata", () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-prompt-"));
+  const clusterPlanPath = path.join(tmp, "cluster-plan.json");
+  const plan = {
+    repo: "openclaw/openclaw",
+    cluster_id: "prompt-metadata",
+    mode: "plan",
+    generated_at: "2026-06-15T00:00:00Z",
+    safety_gates: [],
+    items: [
+      {
+        repo: "openclaw/openclaw",
+        ref: "#123",
+        number: 123,
+        kind: "pull_request",
+        state: "open",
+        title: "test pr",
+        url: "https://github.com/openclaw/openclaw/pull/123",
+        author: "contributor",
+        author_association: "CONTRIBUTOR",
+        labels: [],
+        created_at: "2026-06-14T00:00:00Z",
+        updated_at: "2026-06-15T00:00:00Z",
+        closed_at: null,
+        hydration_error: "pull request #123 reviews: rate limited",
+        body_excerpt: "x".repeat(330_000),
+        security_sensitive: false,
+        comments_count: 0,
+        comments_hydrated: 0,
+        comments_truncated: 0,
+        pull_request: {
+          draft: false,
+          merged: false,
+          merged_at: null,
+          merge_commit_sha: null,
+          mergeable: null,
+          mergeable_state: "unknown",
+          base_ref: "main",
+          head_ref: "patch-1",
+          head_repo: "contributor/openclaw",
+          head_repo_owner: "contributor",
+          head_sha: "abc123",
+          maintainer_can_modify: true,
+          hydration_error: "pull request #123 reviews: rate limited",
+          requested_reviewers: ["reviewer"],
+          requested_teams: ["maintainers"],
+          changed_files: 1,
+          additions: 2,
+          deletions: 0,
+          files: [],
+          commits: [],
+          reviews: [],
+          review_comments_count: 0,
+          review_comments_hydrated: 0,
+          review_comments_truncated: 0,
+          review_comments: [],
+          review_bot_comments: [],
+          checks: [{ error: "checks unavailable" }],
+        },
+      },
+    ],
+  };
+  fs.writeFileSync(clusterPlanPath, `${JSON.stringify(plan, null, 2)}\n`);
+
+  const prompt = renderPrompt(
+    {
+      raw: "---\nrepo: openclaw/openclaw\ncluster_id: prompt-metadata\nmode: plan\ncandidates:\n  - \"#123\"\n---\n",
+      frontmatter: { repo: "openclaw/openclaw", cluster_id: "prompt-metadata", mode: "plan" },
+    },
+    "plan",
+    { clusterPlanPath },
+  );
+
+  assert.match(prompt, /"_prompt_compacted": true/);
+  assert.match(prompt, /"hydration_error": "pull request #123 reviews: rate limited"/);
+  assert.match(prompt, /"created_at": "2026-06-14T00:00:00Z"/);
+  assert.match(prompt, /"head_repo_owner": "contributor"/);
+  assert.match(prompt, /"requested_reviewers": \[\s+"reviewer"\s+\]/);
 });
