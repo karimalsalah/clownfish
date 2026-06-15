@@ -151,6 +151,45 @@ test("PR inventory skips refs already published in result reports", { skip: hasS
   );
 });
 
+test("PR inventory can restrict candidates to a refs file", { skip: hasSqlite ? false : "sqlite3 missing" }, () => {
+  const fixture = makeFixture();
+  seedGitcrawlDb(fixture.db);
+  const refsFile = path.join(fixture.root, "live-open-refs.txt");
+  fs.writeFileSync(refsFile, "# refreshed live refs\n102\n");
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/import-gitcrawl-pr-inventory.mjs",
+      "--db",
+      fixture.db,
+      "--out",
+      fixture.out,
+      "--existing-dir",
+      fixture.existing,
+      "--existing-results-dir",
+      fixture.results,
+      "--include-refs-file",
+      refsFile,
+      "--dry-run",
+      "--json",
+      "--limit",
+      "all",
+      "--batch-size",
+      "1",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+  assert.equal(payload.totals.include_refs, 1);
+  assert.deepEqual(
+    payload.candidates.map((candidate) => candidate.ref),
+    ["#102"],
+  );
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-pr-inventory-"));
   const db = path.join(root, "gitcrawl.db");

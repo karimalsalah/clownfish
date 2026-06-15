@@ -5,6 +5,9 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { parseArgs, parseJob, repoRoot } from "./lib.mjs";
 
+const SECURITY_TEXT_PATTERN =
+  /\b(vulnerabilit(?:y|ies)|cve-\d+|ghsa|exploit|ssrf|xss|csrf|rce|(?:sql|command|code|prompt)\s*injection|auth(?:entication)?\s*bypass|privilege\s+escalation|sensitive\s+data|security[-_\s]?sensitive|security\s+(?:issue|bug|advisory|triage|review|re-evaluation|flag)|flagged\s+as\s+suspicious|(?:secretref|secret|credential|api[-_\s]?key|private[-_\s]?key|token).{0,80}(?:leak(?:ed|age)?|expos(?:e|ed|ure)|plaintext|plain[-_\s]?text|residue)|(?:leak(?:ed|age)?|expos(?:e|ed|ure)|plaintext|plain[-_\s]?text|residue).{0,80}(?:secretref|secret|credential|api[-_\s]?key|private[-_\s]?key|token))\b/i;
+
 const args = parseArgs(process.argv.slice(2));
 const repo = String(args.repo ?? "openclaw/openclaw");
 const dbPath = path.resolve(String(args.db ?? path.join(os.homedir(), ".config", "gitcrawl", "gitcrawl.db")));
@@ -20,6 +23,7 @@ const sort = String(args.sort ?? "stale");
 const bucketFilter = String(args.bucket ?? "all");
 const skipExisting = args["skip-existing"] !== "false";
 const includeSecurity = Boolean(args["include-security-candidates"]);
+const includeRefs = optionalRefsFile(args["include-refs-file"] ?? args.include_refs_file);
 const dryRun = Boolean(args["dry-run"]);
 const jsonOutput = Boolean(args.json);
 
@@ -35,6 +39,7 @@ if (!["stale", "recent", "bucket"].includes(sort)) {
 const existingRefs = skipExisting ? existingJobRefs(existingDir) : new Set();
 const existingResultRefs = skipExisting ? existingPublishedResultRefs(existingResultsDir, repo) : new Set();
 const candidates = selectCandidates()
+  .filter((candidate) => !includeRefs || includeRefs.has(candidate.ref))
   .filter((candidate) => !skipExisting || (!existingRefs.has(candidate.ref) && !existingResultRefs.has(candidate.ref)))
   .filter((candidate) => includeSecurity || candidate.bucket !== "security_route_candidate")
   .filter((candidate) => bucketFilter === "all" || candidate.bucket === bucketFilter)
@@ -62,12 +67,16 @@ if (jsonOutput) {
       sort,
       bucket: bucketFilter,
       skip_existing: skipExisting,
+      include_refs_file: includeRefs
+        ? path.relative(repoRoot(), path.resolve(String(args["include-refs-file"] ?? args.include_refs_file)))
+        : null,
       existing_results_dir: path.relative(repoRoot(), existingResultsDir),
       include_security_candidates: includeSecurity,
     },
     totals: {
       generated: generated.length,
       candidates: limitedCandidates.length,
+      include_refs: includeRefs?.size ?? null,
       existing_refs: existingRefs.size,
       existing_result_refs: existingResultRefs.size,
     },
@@ -274,6 +283,22 @@ function normalizeRefs(values) {
     .filter((value) => /^#\d+$/.test(value));
 }
 
+function optionalRefsFile(filePath) {
+  if (!filePath) return null;
+  const absolutePath = path.resolve(String(filePath));
+  const refs = new Set(
+    fs
+      .readFileSync(absolutePath, "utf8")
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("# "))
+      .map((line) => line.match(/^#?\d+$/) ? `#${line.replace(/^#/, "")}` : line)
+      .filter((line) => /^#\d+$/.test(line)),
+  );
+  if (refs.size === 0) throw new Error(`--include-refs-file ${absolutePath} did not contain any refs`);
+  return refs;
+}
+
 function compareCandidates(left, right) {
   if (sort === "recent") return String(right.updated_at).localeCompare(String(left.updated_at));
   if (sort === "bucket") return left.bucket.localeCompare(right.bucket) || staleCompare(left, right);
@@ -291,7 +316,7 @@ function hasExactSecuritySignal({ title, body, labels }) {
   const structuredMarker = /<!--\s*clawsweeper-(?:security|route|verdict)\s*:\s*(?:security|security-sensitive|sensitive|route-security|central-security)\b[^>]*-->/i.test(
     `${title}\n${body}`,
   );
-  return exactSecurityLabel || structuredMarker;
+  return exactSecurityLabel || structuredMarker || SECURITY_TEXT_PATTERN.test(`${title}\n${body}`);
 }
 
 function isMaintainerAssociated(value) {
