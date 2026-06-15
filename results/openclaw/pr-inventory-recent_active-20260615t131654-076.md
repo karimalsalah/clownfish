@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-recent_active-20260615T131654-076"
 mode: "plan"
-run_id: "27549048589"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27549048589"
-head_sha: "e8e65d821b5c55a11a8a30d2023428743182215a"
+run_id: "27552748837"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552748837"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:28:19.811Z"
+published_at: "2026-06-15T14:25:19.130Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 2
+needs_human_count: 0
 ---
 
 # pr-inventory-recent_active-20260615T131654-076
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27549048589](https://github.com/openclaw/clownfish/actions/runs/27549048589)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552748837](https://github.com/openclaw/clownfish/actions/runs/27552748837)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. The hydrated artifact is explicitly not a dedupe cluster and provides no shared canonical; no GitHub mutations, merges, closeouts, labels, comments, or fix PRs are planned. Hydrated open PRs are kept independently unless the artifact shows a specific maintainer/technical judgment blocker. One already-closed PR is recorded as keep_closed. Later job refs missing from the compacted preflight artifact are non-mutating keep_independent classifications with null live timestamps.
+Plan-only PR inventory classification for 40 candidate PRs. No shared canonical was selected because the job is an inventory shard. No close, merge, label, comment, or fix PR action is planned; security-shaped items are scoped to route_security.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-only PR inventory classification. The hydrated artifact is explicitly not a
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 2 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,48 +66,47 @@ Plan-only PR inventory classification. The hydrated artifact is explicitly not a
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92040 | needs_human | planned | needs_human | Needs maintainer technical judgment before any close, supersede, or canonical choice. |
-| #92126 | keep_independent | planned | independent | Draft contributor PR should remain open for its own review path. |
-| #91625 | keep_independent | planned | independent | Distinct small CLI/docs fix; no inventory cleanup action is justified. |
-| #91463 | keep_independent | planned | independent | Independent browser bridge bug fix remains on its own review path. |
-| #90267 | keep_independent | planned | independent | Ready-for-review independent fix; no close or merge is allowed in this plan job. |
-| #92227 | keep_independent | planned | independent | Independent provider/auth bug fix with mock-only proof label; leave for normal review. |
-| #90648 | keep_independent | planned | independent | Independent message-delivery fix; keep open for review-bot/maintainer handling. |
-| #92237 | keep_independent | planned | independent | Independent agents settings bug fix. |
-| #92261 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #90259 | keep_independent | planned | independent | Broad independent feature/fix candidate should stay open for its own proof and review path. |
-| #92263 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #88796 | keep_independent | planned | independent | Independent Discord action bug fix. |
-| #92283 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #91644 | keep_independent | planned | independent | Large independent feature PR remains a maintainer review item, not cleanup. |
-| #91921 | keep_independent | planned | independent | Independent exec-adjacent behavior bug fix; not security-routed without a boundary-bypass claim. |
-| #92339 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92328 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #88898 | keep_independent | planned | independent | Independent small reply behavior fix. |
-| #92236 | keep_independent | planned | independent | Independent WebChat progress-display fix. |
-| #92363 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92383 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #91889 | needs_human | planned | needs_human | API/product surface change requires maintainer signal before any stronger recommendation. |
-| #91776 | keep_independent | planned | independent | Independent iOS bug fix. |
-| #91768 | keep_independent | planned | independent | Independent iOS UI bug fix. |
-| #91977 | keep_independent | planned | independent | Independent iOS UI behavior fix. |
-| #92430 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92441 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92445 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92456 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92440 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #91656 | keep_independent | planned | independent | Independent test coverage PR. |
-| #92541 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
+| #92040 | keep_independent | planned | independent | Independent open provider PR; keep for normal maintainer review. |
+| #92126 | keep_related | planned | related | Related to the skill-creator resource parsing family but not safe to close in this plan. |
+| #91625 | keep_independent | planned | independent | Independent open CLI follow-up; keep for maintainer review. |
+| #91463 | keep_related | planned | related | Related to the hydrated browser bridge issue; keep open. |
+| #90267 | keep_related | planned | related | Related open PR in an active multi-ref bug family; do not close from inventory classification. |
+| #92227 | keep_independent | planned | independent | Independent open auth-provider behavior PR; keep for proof and maintainer review. |
+| #90648 | keep_related | planned | related | Related to a hydrated issue/fix family; keep open for maintainer review. |
+| #92237 | keep_independent | planned | independent | Independent open PR; keep for ordinary review. |
+| #92261 | keep_independent | planned | independent | Independent open memory PR; keep open. |
+| #90259 | route_security | planned | security_sensitive | Out of scope for Clownfish backlog cleanup; route to central OpenClaw security handling. |
+| #92263 | keep_independent | planned | independent | Independent open PR; keep open. |
+| #88796 | keep_independent | planned | independent | Independent open Discord PR; keep for review. |
+| #92283 | keep_independent | planned | independent | Independent open agents PR; keep open. |
+| #91644 | keep_independent | planned | independent | Independent open feature PR; keep open. |
+| #91921 | keep_independent | planned | independent | Independent open agents/session-state PR; keep for maintainer review. |
+| #92339 | keep_independent | planned | independent | Independent open PR with failing checks; keep open. |
+| #92328 | keep_independent | planned | independent | Independent open gateway/agents PR; keep open. |
+| #88898 | keep_independent | planned | independent | Independent open PR with unresolved review-bot feedback; keep open. |
+| #92236 | keep_independent | planned | independent | Independent open UI/channel PR; keep open. |
+| #92363 | keep_independent | planned | independent | Independent open commands PR; keep open. |
+| #92383 | keep_independent | planned | independent | Independent open gateway PR; keep open. |
+| #91889 | keep_independent | planned | independent | Independent open plugin SDK feature PR; keep open. |
+| #91776 | keep_independent | planned | independent | Independent open iOS PR; keep open. |
+| #91768 | keep_independent | planned | independent | Independent open iOS PR; keep open. |
+| #91977 | keep_independent | planned | independent | Independent open iOS PR; keep open. |
+| #92430 | keep_independent | planned | independent | Independent open memory-wiki PR; keep open. |
+| #92441 | keep_independent | planned | independent | Independent broad cleanup/hardening PR; keep open rather than closing from this shard. |
+| #92445 | route_security | planned | security_sensitive | Potential sensitive data exposure/privacy-boundary work; route to central OpenClaw security handling. |
+| #92456 | keep_independent | planned | independent | Independent exec-approval feature/hardening PR; keep for maintainer review. |
+| #92440 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #91656 | keep_independent | planned | independent | Independent test-only PR; keep open for maintainer review. |
+| #92541 | keep_independent | planned | independent | Independent open plugins PR; keep open. |
 | #92156 | keep_closed | skipped |  | Already closed in live preflight state. |
-| #92556 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92394 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92375 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92575 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92287 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92570 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
-| #92499 | keep_independent | planned | independent | Non-mutating classification only because live artifact data is unavailable. |
+| #92556 | keep_independent | planned | independent | Independent open provider feature PR; keep open. |
+| #92394 | keep_independent | planned | independent | Independent open WebChat PR needing proof/review. |
+| #92375 | keep_independent | planned | independent | Independent open memory-wiki PR with failing checks; keep open. |
+| #92575 | keep_independent | planned | independent | Independent open sessions PR; keep open. |
+| #92287 | keep_independent | planned | independent | Independent open Telegram PR; keep open. |
+| #92570 | route_security | planned | security_sensitive | Closed but security-shaped auth/profile-data handling; route read-only to central OpenClaw security handling. |
+| #92499 | keep_independent | planned | independent | Independent open memory/QMD PR; keep open. |
 
 ## Needs Human
 
-- #92040: hydrated review identifies overlapping unhydrated #92053 for the same issue and failing checks; canonical/technical path requires maintainer judgment.
-- #91889: PR body explicitly requests maintainer decision for plugin SDK accountId API surface.
+- none

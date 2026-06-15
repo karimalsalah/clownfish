@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T131654-061"
 mode: "plan"
-run_id: "27550393447"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27550393447"
-head_sha: "9a903e900d3280431ae7c80464316b3e5c248188"
+run_id: "27552745890"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552745890"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:46:46.278Z"
+published_at: "2026-06-15T14:25:19.072Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27550393447](https://github.com/openclaw/clownfish/actions/runs/27550393447)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552745890](https://github.com/openclaw/clownfish/actions/runs/27552745890)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical exists for this shard; hydrated non-security PRs are kept as independent maintainer-review items, #78968 is routed to central security handling, and refs whose live state was unavailable are blocked for human/live-state refresh before any action.
+Plan-mode PR inventory classification. No GitHub mutations are planned. Most PRs are independent ready-for-maintainer items; security-shaped items are routed or held non-mutating, and the overlapping Skill Workshop stale-proposal pair needs a maintainer choice.
 
 ## Impact
 
@@ -66,47 +66,47 @@ Plan-only PR inventory classification. No shared canonical exists for this shard
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #82514 | keep_independent | planned | independent | Independent open PR; no duplicate/superseded/low-signal closeout is supported. |
-| #82552 | keep_independent | planned | independent | Independent repair PR with maintainer/author follow-up, not a cleanup close candidate. |
-| #82562 | keep_independent | planned | independent | Independent candidate awaiting maintainer review; merge is blocked by job frontmatter. |
-| #78916 | keep_independent | planned | independent | Independent PR with active author/mergeability follow-up, not closable in this inventory shard. |
-| #78968 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope. |
-| #82585 | keep_independent | planned | independent | Independent feature/fix PR awaiting maintainer/author work. |
-| #79041 | keep_independent | planned | independent | Independent open PR with review/mergeability gates, not a closeout candidate. |
-| #82618 | keep_independent | planned | independent | Independent PR with technical correctness and mergeability follow-up. |
-| #79339 | keep_independent | planned | independent | Independent PR, not eligible for merge or closure in this plan shard. |
-| #79405 | keep_independent | planned | independent | Independent PR with author/review follow-up. |
-| #82665 | keep_independent | planned | independent | Independent docs PR awaiting maintainer/rebase handling. |
-| #80388 | keep_independent | planned | independent | Independent broad feature PR requiring maintainer judgment, not cleanup closure. |
-| #82718 | keep_independent | planned | independent | Independent docs/doctor PR awaiting maintainer review. |
-| #82870 | keep_independent | planned | independent | Independent PR with mergeability/review blockers. |
-| #82906 | keep_independent | planned | independent | Independent non-security hardening PR requiring maintainer review. |
-| #82909 | keep_independent | planned | independent | Independent focused PR awaiting maintainer/rebase handling. |
-| #85829 | keep_independent | planned | independent | Independent PR; merge and post-merge closure are disallowed in this job. |
-| #82951 | keep_independent | planned | independent | Independent PR with author/rebase/mergeability blockers. |
-| #82955 | keep_independent | planned | independent | Independent PR with active review/rebase blockers. |
-| #82985 | keep_independent | planned | independent | Independent SDK feature PR requiring maintainer review. |
-| #83041 | keep_independent | planned | independent | Independent PR awaiting maintainer/live-check verification. |
-| #83048 | keep_independent | planned | independent | Independent PR with maintainer/check gates. |
-| #90421 | keep_independent | planned | independent | Independent PR awaiting maintainer review. |
-| #90450 | keep_independent | planned | independent | Independent PR awaiting maintainer/check validation. |
-| #90453 | keep_independent | planned | independent | Independent PR, with incomplete PR metadata blocking any stronger recommendation. |
-| #90468 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90487 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90489 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90490 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90493 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90503 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #91378 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #93080 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #93058 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #79687 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #79702 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #92223 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90537 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90547 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
-| #90566 | needs_human | blocked | needs_human | Live state refresh required for this listed candidate. |
+| #82514 | keep_independent | planned | independent |  |
+| #82552 | keep_independent | planned | independent |  |
+| #82562 | keep_independent | planned | independent |  |
+| #78916 | keep_independent | planned | independent |  |
+| #78968 | route_security | planned | security_sensitive | Route exact PR to central OpenClaw security handling; do not close, merge, or repair here. |
+| #82585 | keep_independent | planned | independent |  |
+| #79041 | keep_independent | planned | independent |  |
+| #82618 | keep_independent | planned | independent |  |
+| #79339 | keep_independent | planned | independent |  |
+| #79405 | keep_independent | planned | independent |  |
+| #82665 | keep_independent | planned | independent |  |
+| #80388 | keep_independent | planned | independent |  |
+| #82718 | keep_independent | planned | independent |  |
+| #82870 | keep_independent | planned | independent |  |
+| #82906 | keep_independent | planned | independent |  |
+| #82909 | keep_independent | planned | independent |  |
+| #85829 | keep_independent | planned | independent |  |
+| #82951 | route_security | planned | security_sensitive | Quarantine exact PR for central OpenClaw security handling. |
+| #82955 | keep_independent | planned | independent |  |
+| #82985 | keep_independent | planned | independent |  |
+| #83041 | keep_independent | planned | independent |  |
+| #83048 | keep_independent | planned | independent |  |
+| #90421 | needs_human | planned | needs_human | Maintainer needs to choose the canonical Skill Workshop stale-proposal approach. |
+| #90450 | keep_independent | planned | independent |  |
+| #90453 | keep_independent | planned | independent |  |
+| #90468 | keep_independent | planned | independent |  |
+| #90487 | keep_related | planned | related |  |
+| #90489 | keep_independent | planned | independent |  |
+| #90490 | keep_independent | planned | independent |  |
+| #90493 | needs_human | planned | needs_human | Maintainer needs to choose whether stale proposal status should be derived read-only or persisted during read paths. |
+| #90503 | keep_independent | planned | independent |  |
+| #91378 | keep_independent | planned | independent |  |
+| #93080 | keep_independent | planned | independent |  |
+| #93058 | keep_independent | planned | independent |  |
+| #79687 | keep_independent | planned | independent |  |
+| #79702 | keep_independent | planned | independent |  |
+| #92223 | keep_independent | planned | independent |  |
+| #90537 | keep_independent | planned | independent |  |
+| #90547 | keep_independent | planned | independent |  |
+| #90566 | keep_independent | planned | independent |  |
 
 ## Needs Human
 
-- Live state refresh is required for candidate refs whose preflight item was unavailable due GitHub API rate limit: #90468, #90487, #90489, #90490, #90493, #90503, #91378, #93080, #93058, #79687, #79702, #92223, #90537, #90547, #90566.
+- #90421 and #90493: maintainer must choose the canonical Skill Workshop stale-proposal behavior: read-only derived stale state versus persisting stale during read/list/inspect paths.

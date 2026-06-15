@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T131654-005"
 mode: "plan"
-run_id: "27549039942"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27549039942"
-head_sha: "e8e65d821b5c55a11a8a30d2023428743182215a"
+run_id: "27552749003"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552749003"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:28:19.511Z"
+published_at: "2026-06-15T14:25:19.144Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # pr-inventory-maintainer_owned-20260615T131654-005
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27549039942](https://github.com/openclaw/clownfish/actions/runs/27549039942)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552749003](https://github.com/openclaw/clownfish/actions/runs/27552749003)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was selected. Most refs are independent PRs that should stay open for normal maintainer review; #74302 is routed to central security handling because its hydrated body describes untrusted workspace provider execution across a trust boundary. No GitHub mutations are planned.
+Plan-only PR inventory classification. No canonical was selected because the job is an inventory shard, not a dedupe cluster. Routed the exact security-sensitive PRs identified by the hydrated preflight artifact and kept the remaining open PRs as independent backlog items; no close, merge, label, comment, fix, or PR-raise action is planned.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-only PR inventory classification. No shared canonical was selected. Most re
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,9 +66,9 @@ Plan-only PR inventory classification. No shared canonical was selected. Most re
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #73751 | keep_independent | planned | independent |  |
+| #73751 | route_security | planned | security_sensitive |  |
 | #74163 | keep_independent | planned | independent |  |
-| #74761 | keep_independent | planned | independent |  |
+| #74761 | route_security | planned | security_sensitive |  |
 | #75427 | keep_independent | planned | independent |  |
 | #75614 | keep_independent | planned | independent |  |
 | #89769 | keep_independent | planned | independent |  |
@@ -78,29 +78,29 @@ Plan-only PR inventory classification. No shared canonical was selected. Most re
 | #89794 | keep_independent | planned | independent |  |
 | #89824 | keep_independent | planned | independent |  |
 | #89829 | keep_independent | planned | independent |  |
-| #76027 | keep_independent | planned | independent |  |
-| #76221 | keep_independent | planned | independent |  |
+| #76027 | route_security | planned | security_sensitive |  |
+| #76221 | route_security | planned | security_sensitive |  |
 | #76235 | keep_independent | planned | independent |  |
 | #89579 | keep_independent | planned | independent |  |
-| #76730 | keep_independent | planned | independent |  |
+| #76730 | route_security | planned | security_sensitive |  |
 | #77020 | keep_independent | planned | independent |  |
 | #77045 | keep_independent | planned | independent |  |
 | #77134 | keep_independent | planned | independent |  |
 | #77213 | keep_independent | planned | independent |  |
-| #89755 | keep_independent | planned | independent |  |
+| #89755 | route_security | planned | security_sensitive |  |
 | #89836 | keep_independent | planned | independent |  |
 | #89860 | keep_independent | planned | independent |  |
 | #89863 | keep_independent | planned | independent |  |
 | #88945 | keep_independent | planned | independent |  |
-| #65205 | keep_independent | planned | independent |  |
-| #66444 | keep_independent | planned | independent |  |
+| #65205 | route_security | planned | security_sensitive |  |
+| #66444 | route_security | planned | security_sensitive |  |
 | #68020 | keep_independent | planned | independent |  |
-| #70762 | keep_independent | planned | independent |  |
-| #74041 | keep_independent | planned | independent |  |
-| #74302 | route_security | planned | security_sensitive |  |
+| #70762 | route_security | planned | security_sensitive |  |
+| #74041 | route_security | planned | security_sensitive |  |
+| #74302 | keep_independent | planned | independent |  |
 | #74402 | keep_independent | planned | independent |  |
 | #89906 | keep_independent | planned | independent |  |
-| #89912 | needs_human | planned | needs_human | Active author follow-up and broad transcript identity contract work require maintainer judgment; hydrated target_updated_at is unavailable. |
+| #89912 | keep_independent | planned | independent |  |
 | #89924 | keep_independent | planned | independent |  |
 | #89940 | keep_independent | planned | independent |  |
 | #89945 | keep_independent | planned | independent |  |
@@ -109,4 +109,4 @@ Plan-only PR inventory classification. No shared canonical was selected. Most re
 
 ## Needs Human
 
-- #89912: active author follow-up and broad technical correctness judgment with no hydrated target_updated_at in the compacted artifact.
+- none

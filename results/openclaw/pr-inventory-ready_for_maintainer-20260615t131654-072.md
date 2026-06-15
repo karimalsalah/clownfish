@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T131654-072"
 mode: "plan"
-run_id: "27550393491"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27550393491"
-head_sha: "9a903e900d3280431ae7c80464316b3e5c248188"
+run_id: "27552745769"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552745769"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:49:10.325Z"
+published_at: "2026-06-15T14:25:19.053Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 17
+needs_human_count: 0
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T131654-072
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27550393491](https://github.com/openclaw/clownfish/actions/runs/27550393491)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552745769](https://github.com/openclaw/clownfish/actions/runs/27552745769)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory shard. No shared canonical was selected. Hydrated non-security PRs are classified independently and kept open for normal maintainer/author review; no close, merge, label, comment, or fix action is planned. Security-sensitive #84779 is quarantined to central security handling only. Candidate refs whose live state was unavailable in the preflight artifact are blocked for human/fresh hydration instead of being classified with missing target_updated_at.
+Plan-only PR inventory classification. No shared canonical was selected because the job is an independent ready-for-maintainer shard. Non-security open PRs are kept independently for normal maintainer review; security-sensitive/auth-secret-boundary candidates are routed to central security handling.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-mode PR inventory shard. No shared canonical was selected. Hydrated non-sec
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 17 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,63 +66,47 @@ Plan-mode PR inventory shard. No shared canonical was selected. Hydrated non-sec
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #88449 | keep_independent | planned | independent | Independent open PR; keep open for ordinary maintainer/author review. |
-| #88798 | keep_independent | planned | independent | Independent open PR; no closure or merge action is allowed in this plan shard. |
-| #90968 | keep_independent | planned | independent | Independent open PR with author follow-up/maintainer review still outside this shard. |
-| #93194 | keep_independent | planned | independent | Independent open PR; linked issue was not hydrated enough for fixed-by-candidate closure. |
-| #92125 | keep_independent | planned | independent | Independent dependency PR; leave open for normal maintainer dependency review. |
-| #93225 | keep_independent | planned | independent | Independent dependency PR requiring maintainer review; no ProjectClownfish mutation planned. |
-| #93007 | keep_independent | planned | independent | Independent feature PR; keep open for author/maintainer review. |
-| #91691 | keep_independent | planned | independent | Independent open PR; leave for technical correctness review. |
-| #88988 | keep_independent | planned | independent | Independent open PR; linked issue closeout is not safe from unavailable live state. |
-| #78395 | keep_independent | planned | independent | Independent open PR that may be reviewable, but merge is blocked in plan mode and by missing merge preflight. |
-| #91685 | keep_independent | planned | independent | Independent bugfix PR; keep open for maintainer review. |
-| #84779 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish backlog-cleanup scope and should route to central OpenClaw security handling only. |
-| #87504 | keep_independent | planned | independent | Independent open PR; keep for maintainer review. |
-| #89101 | keep_independent | planned | independent | Independent PR; no fixed-by-candidate closeout is safe without hydrated linked issue state and passing gates. |
-| #89287 | keep_independent | planned | independent | Independent open PR requiring maintainer technical review. |
-| #89367 | keep_independent | planned | independent | Independent open PR; keep for maintainer review. |
-| #92946 | keep_independent | planned | independent | Independent open PR; keep open for author follow-up/maintainer review. |
-| #92341 | keep_independent | planned | independent | Independent open PR; leave for normal author/maintainer path. |
-| #93239 | keep_independent | planned | independent | Independent docs PR; keep open because low-signal closure is not allowed in this job. |
-| #50463 | keep_independent | planned | independent | Independent PR with unresolved review-bot findings and dirty merge state; keep open rather than close or merge. |
-| #53920 | keep_independent | planned | independent | Independent open PR that remains a maintainer review decision, not a cleanup closure. |
-| #54904 | keep_independent | planned | independent | Independent open PR with unstable checks/needs-changes review state; keep open. |
-| #70046 | keep_independent | planned | independent | Independent open PR; keep open because live PR detail/checks are incomplete and author update is needed. |
-| #86655 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #87613 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89172 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89395 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89416 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89442 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #77017 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89482 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89547 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89576 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #92863 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89584 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89604 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89612 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89621 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #93245 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
-| #89714 | needs_human | blocked | needs_human | Blocked pending fresh hydration; the PR cannot be safely classified as keep_independent with missing target_updated_at. |
+| #88449 | keep_independent | planned | independent | Independent open PR; not a duplicate or low-signal close candidate. |
+| #88798 | route_security | planned | security_sensitive | Auth-boundary fix linked to a security-sensitive issue. |
+| #90968 | keep_independent | planned | independent | Independent open PR requiring author/maintainer follow-up. |
+| #93194 | keep_independent | planned | independent | Independent implementation PR with maintainer-review surface, not a dedupe closeout. |
+| #92125 | keep_independent | planned | independent | Independent dependency bump awaiting maintainer review. |
+| #93225 | keep_independent | planned | independent | Independent dependency bump with compatibility/security-boundary review considerations. |
+| #93007 | keep_independent | planned | independent | Independent open feature/fix PR blocked on review findings. |
+| #91691 | keep_independent | planned | independent | Independent open PR awaiting maintainer review. |
+| #88988 | keep_independent | planned | independent | Independent open UX PR; no cluster close action is supported. |
+| #78395 | keep_independent | planned | independent | Independent open PR with useful focused code. |
+| #91685 | keep_independent | planned | independent | Independent open PR; leave for maintainer review. |
+| #84779 | route_security | planned | security_sensitive | Credential/secret exposure handling is outside Clownfish backlog cleanup. |
+| #87504 | keep_independent | planned | independent | Independent open PR awaiting normal maintainer review. |
+| #89101 | keep_independent | planned | independent | Independent open PR; not closable as duplicate or low-signal. |
+| #89287 | keep_independent | planned | independent | Independent open PR. |
+| #89367 | keep_independent | planned | independent | Independent open PR; leave queued for maintainer decision. |
+| #92946 | keep_independent | planned | independent | Independent open PR blocked on proof/review, not a cleanup close candidate. |
+| #92341 | keep_independent | planned | independent | Independent open PR requiring author/maintainer follow-up. |
+| #93239 | keep_independent | planned | independent | Independent docs PR; keep for maintainer review. |
+| #50463 | keep_independent | planned | independent | Independent open PR; not safe to close or merge in this shard. |
+| #53920 | keep_independent | planned | independent | Independent useful contributor PR. |
+| #54904 | keep_independent | planned | independent | Independent open PR blocked on review changes. |
+| #70046 | keep_independent | planned | independent | Independent clean PR for maintainer review. |
+| #86655 | route_security | planned | security_sensitive | Broad auth-provider/security-boundary extension is out of ProjectClownfish cleanup scope. |
+| #87613 | route_security | planned | security_sensitive | Security-boundary tagged run-control work should not be processed by backlog cleanup automation. |
+| #89172 | keep_independent | planned | independent | Independent open PR. |
+| #89395 | keep_independent | planned | independent | Independent open PR; no mutation allowed. |
+| #89416 | keep_independent | planned | independent | Independent open PR. |
+| #89442 | keep_independent | planned | independent | Independent open PR awaiting maintainer review. |
+| #77017 | keep_independent | planned | independent | Independent broad open PR; no closure or merge action in plan mode. |
+| #89482 | keep_independent | planned | independent | Independent open PR requiring follow-up. |
+| #89547 | keep_independent | planned | independent | Independent feature PR for maintainer review. |
+| #89576 | keep_independent | planned | independent | Independent open PR. |
+| #92863 | keep_independent | planned | independent | Independent docs PR. |
+| #89584 | keep_independent | planned | independent | Independent open feature PR. |
+| #89604 | keep_independent | planned | independent | Independent open PR. |
+| #89612 | keep_independent | planned | independent | Independent open PR. |
+| #89621 | keep_independent | planned | independent | Independent open PR. |
+| #93245 | keep_independent | planned | independent | Independent open PR; merge is blocked by job mode/frontmatter. |
+| #89714 | keep_independent | planned | independent | Independent open PR. |
 
 ## Needs Human
 
-- #86655 requires fresh hydration because preflight updated_at is null.
-- #87613 requires fresh hydration because preflight updated_at is null.
-- #89172 requires fresh hydration because preflight updated_at is null.
-- #89395 requires fresh hydration because preflight updated_at is null.
-- #89416 requires fresh hydration because preflight updated_at is null.
-- #89442 requires fresh hydration because preflight updated_at is null.
-- #77017 requires fresh hydration because preflight updated_at is null.
-- #89482 requires fresh hydration because preflight updated_at is null.
-- #89547 requires fresh hydration because preflight updated_at is null.
-- #89576 requires fresh hydration because preflight updated_at is null.
-- #92863 requires fresh hydration because preflight updated_at is null.
-- #89584 requires fresh hydration because preflight updated_at is null.
-- #89604 requires fresh hydration because preflight updated_at is null.
-- #89612 requires fresh hydration because preflight updated_at is null.
-- #89621 requires fresh hydration because preflight updated_at is null.
-- #93245 requires fresh hydration because preflight updated_at is null.
-- #89714 requires fresh hydration because preflight updated_at is null.
+- none

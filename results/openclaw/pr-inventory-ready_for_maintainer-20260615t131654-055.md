@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T131654-055"
 mode: "plan"
-run_id: "27550390566"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27550390566"
-head_sha: "9a903e900d3280431ae7c80464316b3e5c248188"
+run_id: "27552746161"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552746161"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:49:10.315Z"
+published_at: "2026-06-15T14:25:19.100Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 2
+needs_human_count: 24
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T131654-055
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27550390566](https://github.com/openclaw/clownfish/actions/runs/27550390566)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552746161](https://github.com/openclaw/clownfish/actions/runs/27552746161)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was selected. Hydrated non-security PRs are kept as independent maintainer-review items; already-closed #75213 is kept closed; security-shaped #51822, #64546, and artifact-marked #92725 are routed to central security handling; refs with unavailable live state are scoped needs-human refresh decisions.
+Plan-mode PR inventory classification shard. No shared canonical was selected. Security-sensitive PRs are quarantined individually; all other open PRs are kept for independent maintainer or author-track review without mutation.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-only PR inventory classification. No shared canonical was selected. Hydrate
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 2 |
+| Needs human | 24 |
 
 ## Fix Execution Actions
 
@@ -66,48 +66,70 @@ Plan-only PR inventory classification. No shared canonical was selected. Hydrate
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89745 | keep_independent | planned | independent | Standalone maintainer-review PR; keep non-mutating and independent in this inventory shard. |
-| #89767 | keep_independent | planned | independent | Standalone maintainer-review PR; no closure or merge action is safe in plan mode. |
-| #89428 | keep_independent | planned | independent | Keep as independent pending normal maintainer review; linked context is not hydrated enough for closeout. |
-| #59695 | keep_independent | planned | independent | Small standalone PR, but maintainer review and checks are unresolved; keep independent. |
-| #89567 | keep_independent | planned | independent | Standalone non-security hardening PR; keep independent for maintainer review. |
-| #62063 | keep_independent | planned | independent | Independent broad locale PR with active author/review blockers; not close-safe in this shard. |
-| #74131 | keep_independent | planned | independent | Standalone maintainer-review PR; keep independent. |
-| #74136 | keep_independent | planned | independent | Standalone focused PR; keep independent for maintainer review. |
-| #92725 | route_security | planned | security_sensitive | Route this exact PR to central OpenClaw security handling; no ProjectClownfish close, merge, label, comment, or fix action. |
-| #74185 | keep_independent | planned | independent | Independent PR with author-followup state; keep non-mutating. |
-| #74235 | keep_independent | planned | independent | Standalone maintainer-review PR; keep independent. |
-| #74252 | keep_independent | planned | independent | Standalone maintainer-review PR; keep independent. |
-| #74369 | keep_independent | planned | independent | Standalone focused PR; keep independent. |
-| #74444 | keep_independent | planned | independent | Independent feature PR with author-followup state; keep non-mutating. |
-| #89577 | keep_independent | planned | independent | Standalone non-security hardening PR; keep independent for maintainer review. |
-| #92996 | keep_independent | planned | independent | Independent PR in re-review; keep non-mutating. |
-| #75100 | keep_independent | planned | independent | Independent feature PR with author/dirty-candidate followup; low-signal closeout is disabled. |
-| #75157 | keep_independent | planned | independent | Independent PR with author-followup state; keep non-mutating. |
-| #75213 | keep_closed | skipped |  | Already closed in live preflight state; no mutation should be planned. |
-| #88901 | keep_independent | planned | independent | Standalone maintainer-review PR; keep independent. |
-| #75293 | keep_independent | planned | independent | Standalone maintainer-review PR; keep independent. |
-| #77736 | keep_independent | planned | independent | Independent PR with author-followup state; keep non-mutating. |
-| #89800 | keep_independent | planned | independent | Standalone maintainer-review PR; keep independent. |
-| #89806 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #89818 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #92243 | needs_human | planned | needs_human | Needs refreshed live state before any maintainer-review or closeout decision. |
-| #92185 | needs_human | planned | needs_human | Needs refreshed live state before classification beyond the job snapshot. |
-| #89855 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #89864 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #89882 | needs_human | planned | needs_human | Needs refreshed live state before classification beyond the job snapshot. |
-| #87487 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #51822 | route_security | planned | security_sensitive | Credential/secret-leakage-shaped report should be quarantined to central security handling even though live hydration failed. |
-| #55901 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #92899 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #64316 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #64546 | route_security | planned | security_sensitive | Security-boundary/token-forgery-shaped report should be quarantined to central security handling. |
-| #66150 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #66174 | needs_human | planned | needs_human | Needs refreshed live state before classification beyond the job snapshot. |
-| #66478 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
-| #67432 | needs_human | planned | needs_human | Needs a refreshed live preflight before classification beyond the job snapshot. |
+| #89745 | needs_human | planned | needs_human | Maintainer technical correctness decision required; no closure basis. |
+| #89767 | needs_human | planned | needs_human | Maintainer compatibility judgment required. |
+| #89428 | needs_human | planned | needs_human | Maintainer review is needed for the linked session-state behavior change. |
+| #59695 | needs_human | planned | needs_human | Small independent PR ready for maintainer decision; merge is blocked by job frontmatter. |
+| #89567 | needs_human | planned | needs_human | Independent PR awaiting maintainer technical judgment. |
+| #62063 | keep_independent | planned | independent | Broad independent feature/localization PR remains on author/maintainer track, not a dedupe closeout. |
+| #74131 | keep_independent | planned | independent | Independent PR with check/review gating; no closure or merge action is available. |
+| #74136 | needs_human | planned | needs_human | Likely canonical for this narrow bug, but maintainer merge judgment is required and merge is blocked. |
+| #92725 | route_security | planned | security_sensitive | Route this exact PR to central OpenClaw security handling. |
+| #74185 | keep_independent | planned | independent | Independent author-track PR; no closeout or merge action is justified. |
+| #74235 | needs_human | planned | needs_human | Maintainer decision required for a message-delivery fix; no merge action allowed. |
+| #74252 | needs_human | planned | needs_human | Independent small PR awaiting maintainer correctness review. |
+| #74369 | needs_human | planned | needs_human | Maintainer frontend behavior judgment required. |
+| #74444 | keep_independent | planned | independent | Independent feature/provider PR remains on author track. |
+| #89577 | needs_human | planned | needs_human | Maintainer compatibility judgment required. |
+| #92996 | keep_independent | planned | independent | Independent PR remains in review loop, not closeable. |
+| #75100 | keep_independent | planned | independent | Independent feature PR remains on author track. |
+| #75157 | keep_independent | planned | independent | Independent author-track UI PR. |
+| #75213 | needs_human | planned | needs_human | Maintainer review required for reliability fix; merge/fix actions are blocked. |
+| #88901 | needs_human | planned | needs_human | Maintainer message-delivery review required. |
+| #75293 | needs_human | planned | needs_human | Maintainer review required; automation-risk PR cannot be merged here. |
+| #77736 | keep_independent | planned | independent | Independent author-track provider routing PR. |
+| #89800 | needs_human | planned | needs_human | Maintainer session semantics review required. |
+| #89806 | needs_human | planned | needs_human | Maintainer review required for integration behavior. |
+| #89818 | needs_human | planned | needs_human | Maintainer provider contract review required. |
+| #92243 | route_security | planned | security_sensitive | Route this exact PR to central OpenClaw security handling. |
+| #92185 | needs_human | planned | needs_human | Maintainer behavior review required. |
+| #89855 | needs_human | planned | needs_human | Maintainer message/session behavior review required. |
+| #89864 | needs_human | planned | needs_human | Maintainer correctness review required. |
+| #89882 | needs_human | planned | needs_human | Broad plugin compatibility change requires maintainer judgment. |
+| #87487 | needs_human | planned | needs_human | Maintainer docs/CLI wording review required. |
+| #51822 | keep_independent | planned | independent | Independent author-track hardening PR with unresolved review/check blockers. |
+| #55901 | keep_independent | planned | independent | Independent feature PR remains blocked by author/review work. |
+| #92899 | needs_human | planned | needs_human | Maintainer session-state review required. |
+| #64316 | keep_independent | planned | independent | Independent PR not closeable; no merge allowed in this job. |
+| #64546 | route_security | planned | security_sensitive | Route this exact PR to central OpenClaw security handling. |
+| #66150 | keep_independent | planned | independent | Independent PR with prior review thread context; no closeout. |
+| #66174 | keep_independent | planned | independent | Independent author-track PR blocked by review/check failures. |
+| #66478 | needs_human | planned | needs_human | Contributor-credit-preserving path appears ready for maintainer decision; merge is blocked by job frontmatter. |
+| #67432 | needs_human | planned | needs_human | Small accessibility PR needs maintainer review; checks block any merge recommendation. |
 
 ## Needs Human
 
-- Refresh live GitHub state for unavailable non-security candidates before classification: #89806, #89818, #92243, #92185, #89855, #89864, #89882, #87487, #55901, #92899, #64316, #66150, #66174, #66478, #67432.
-- Central security handling should review routed security-shaped refs: #51822, #64546, #92725.
+- #89745
+- #89767
+- #89428
+- #59695
+- #89567
+- #74136
+- #74235
+- #74252
+- #74369
+- #89577
+- #75213
+- #88901
+- #75293
+- #89800
+- #89806
+- #89818
+- #92185
+- #89855
+- #89864
+- #89882
+- #87487
+- #92899
+- #66478
+- #67432

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T131654-046"
 mode: "plan"
-run_id: "27550390372"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27550390372"
-head_sha: "9a903e900d3280431ae7c80464316b3e5c248188"
+run_id: "27552748504"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552748504"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:49:10.310Z"
+published_at: "2026-06-15T14:25:19.113Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 14
+needs_human_count: 0
 ---
 
 # pr-inventory-needs_proof-20260615T131654-046
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27550390372](https://github.com/openclaw/clownfish/actions/runs/27550390372)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552748504](https://github.com/openclaw/clownfish/actions/runs/27552748504)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No GitHub mutations are planned because the shard is not a dedupe cluster, merge/fix actions are blocked by job frontmatter, low-signal closeout is disabled, and many PRs either need proof, have unavailable live state, or are security-sensitive route-only.
+Plan-only PR inventory classification shard. No shared canonical was selected. Open security-sensitive PRs are routed to central security handling; already-closed PRs are kept closed; remaining open non-security PRs are kept as independent inventory items because closure, merge, and fix PR paths are blocked or not allowed by this job.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-only PR inventory classification. No GitHub mutations are planned because t
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 14 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,60 +66,47 @@ Plan-only PR inventory classification. No GitHub mutations are planned because t
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #49914 | route_security | planned | security_sensitive | Security-boundary/session-state PR is out of scope for Clownfish backlog cleanup. |
-| #92079 | keep_independent | planned | independent | Open memory-core fix needs normal review/proof; no duplicate or close path is established in this inventory shard. |
-| #39245 | keep_independent | planned | independent | Focused provider-compatibility PR remains its own review item and is not safe to close or merge from this shard. |
-| #51683 | keep_independent | planned | independent | Useful focused PR needs proof/rebase; no close action is allowed or supported. |
-| #52365 | keep_independent | planned | independent | Substantive cron fix is not a duplicate or low-signal PR; it needs normal repair/review outside this plan-only shard. |
-| #53441 | route_security | planned | security_sensitive | Webhook behavior with security-boundary label should be routed to central security handling, not backlog cleanup. |
-| #54805 | route_security | planned | security_sensitive | Plugin lifecycle hook changes under a security-boundary label are out of scope for Clownfish cleanup. |
-| #55519 | keep_closed | skipped | security_sensitive | Already closed; no mutation or further route action should be planned in this shard. |
-| #55723 | keep_independent | planned | independent | Open ACP requester override fix needs proof; unavailable detail prevents any stronger classification. |
-| #56420 | route_security | planned | security_sensitive | The PR explicitly describes a spoofing/security issue and must be routed to central security handling. |
-| #88997 | keep_independent | planned | independent | Open Discord compatibility PR remains an independent review/proof item. |
-| #89127 | route_security | planned | security_sensitive | Browser camera-frame inspection under security-boundary risk is not safe for backlog cleanup automation. |
-| #89156 | route_security | planned | security_sensitive | Security-boundary-labeled Feishu identity handling should be routed centrally. |
-| #89419 | keep_related | planned | related | Related to #89490, but no canonical should be chosen in this PR inventory shard. |
-| #89422 | keep_independent | planned | independent | Open focused plugin diagnostics PR needs normal proof/review and has no close basis. |
-| #89490 | keep_related | planned | related | Related to #89419, but selecting a winner would require maintainer/technical judgment outside this shard. |
-| #89526 | route_security | planned | security_sensitive | Auth-provider/runtime reload drift changes are route-only under the preflight security boundary. |
-| #89538 | keep_independent | planned | independent | Open cleanup fix is independent and needs proof, not closure. |
-| #89580 | keep_independent | planned | independent | Broad performance PR lacks proof and is not eligible for low-signal closeout because that action is disabled. |
-| #89590 | route_security | planned | security_sensitive | Plugin approval routing with a security-boundary label must route to central security handling. |
-| #89636 | keep_independent | planned | independent | SecretRef collector fix is an independent non-security review item under the provided security posture. |
-| #89637 | route_security | planned | security_sensitive | Security-boundary-labeled media/message delivery fallback is route-only. |
-| #89690 | keep_closed | skipped | independent | Already closed; no action needed. |
-| #89694 | route_security | planned | security_sensitive | Operator-scope gating changes affect authorization boundary behavior and must route centrally. |
-| #93246 | keep_independent | planned | independent | Open focused doctor diagnostics PR needs proof/review and has no duplicate close path. |
-| #89695 | needs_human | blocked | needs_human | Live state is unavailable, so the PR cannot be safely classified or routed from this plan. |
-| #89696 | needs_human | blocked | needs_human | Live state is unavailable, so only human/live rehydration can classify it safely. |
-| #89702 | route_security | planned | security_sensitive | Security-boundary-labeled approval/platform metadata behavior must be routed to central security handling; no GitHub mutation is planned. |
-| #89719 | needs_human | blocked | needs_human | Live state is unavailable, preventing safe classification beyond human rehydration. |
-| #93247 | needs_human | blocked | needs_human | Live state is unavailable, so this specific PR needs human/live rehydration. |
-| #89754 | needs_human | blocked | needs_human | Live state is unavailable, so this specific PR cannot receive a close or keep classification safely. |
-| #52236 | needs_human | blocked | needs_human | Live state is unavailable, so this exact candidate needs rehydration before classification. |
-| #89768 | needs_human | blocked | needs_human | Live state is unavailable; human/live rehydration is required. |
-| #89772 | needs_human | blocked | needs_human | Live state is unavailable, so classification is blocked for this PR only. |
-| #92086 | needs_human | blocked | needs_human | Potentially security-shaped item has unavailable live state; human/live rehydration is required before routing. |
-| #89491 | needs_human | blocked | needs_human | Live state is unavailable for a security-boundary-shaped PR; human/live rehydration is required. |
-| #89645 | needs_human | blocked | needs_human | Live state is unavailable, so classification is blocked for this candidate. |
-| #89796 | needs_human | blocked | needs_human | Live state is unavailable for a security-boundary-labeled PR; human/live rehydration is required. |
-| #93241 | needs_human | blocked | needs_human | Live state is unavailable, so this PR needs rehydration before classification. |
-| #93244 | needs_human | blocked | needs_human | Live state is unavailable, so this candidate needs human/live rehydration. |
+| #49914 | route_security | planned | security_sensitive | Security-boundary-labeled session-state PR is out of ProjectClownfish cleanup scope. |
+| #92079 | keep_independent | planned | independent | Useful independent PR that still needs proof; no closure or merge action is safe in plan mode. |
+| #39245 | keep_independent | planned | independent | Independent useful PR with proof blocker. |
+| #51683 | keep_independent | planned | independent | Useful but not merge-ready; no safe close because remaining work appears real. |
+| #52365 | keep_independent | planned | independent | Independent cron fallback fix with rebase/merge blocker; merge is blocked by job frontmatter. |
+| #53441 | route_security | planned | security_sensitive | Security-boundary-labeled webhook PR is routed to central security handling. |
+| #54805 | route_security | planned | security_sensitive | Plugin lifecycle hook PR is security-boundary-labeled and out of cleanup scope. |
+| #55519 | keep_closed | skipped | security_sensitive | Already closed; no mutation should be planned. |
+| #55723 | keep_independent | planned | independent | Independent non-security PR with proof blocker. |
+| #56420 | route_security | planned | security_sensitive | Security issue claim requires central security handling. |
+| #88997 | keep_independent | planned | independent | Independent compatibility PR with failed proof/checks. |
+| #89127 | route_security | planned | security_sensitive | Camera-frame/tooling security-boundary PR is out of cleanup scope. |
+| #89156 | route_security | planned | security_sensitive | Security-boundary-labeled Feishu identity PR is routed to central security handling. |
+| #89419 | keep_independent | planned | independent | Independent config compatibility PR; no canonical selected in this inventory shard. |
+| #89422 | keep_independent | planned | independent | Independent plugin diagnostics PR with dependency check blocker. |
+| #89490 | keep_independent | planned | independent | Independent inventory item; no canonical chosen between overlapping config PRs. |
+| #89526 | route_security | planned | security_sensitive | Auth-provider/gateway runtime PR is security-sensitive in the artifact. |
+| #89538 | keep_independent | planned | independent | Independent maintenance PR with failed checks/proof. |
+| #89580 | keep_independent | planned | independent | Draft independent PR; no close-low-signal action is allowed. |
+| #89590 | route_security | planned | security_sensitive | Approval-routing security-boundary PR is routed to central security handling. |
+| #89636 | keep_independent | planned | independent | Independent non-security PR retained for normal maintainer review. |
+| #89637 | route_security | planned | security_sensitive | Security-boundary-labeled chat media PR is out of cleanup scope. |
+| #89690 | keep_closed | skipped | independent | Already closed. |
+| #89694 | route_security | planned | security_sensitive | Operator-scope gating changes are security-boundary-labeled. |
+| #93246 | keep_independent | planned | independent | Independent doctor diagnostic PR with proof blocker. |
+| #89695 | route_security | planned | security_sensitive | Media download controls touch a security-boundary-labeled surface. |
+| #89696 | keep_independent | planned | independent | Independent availability/tooling PR with check blockers. |
+| #89702 | route_security | planned | security_sensitive | Approval/pairing metadata behavior belongs in central security handling. |
+| #89719 | keep_independent | planned | independent | Independent non-security PR retained for normal review. |
+| #93247 | keep_independent | planned | independent | Independent diagnostics cleanup PR with proof blocker. |
+| #89754 | keep_closed | skipped | independent | Already closed. |
+| #52236 | keep_independent | planned | independent | Draft abandoned contributor PR cannot be closed by this shard because low-signal closeout is disabled. |
+| #89768 | keep_closed | skipped | independent | Already closed. |
+| #89772 | keep_independent | planned | independent | Independent UI PR with proof/check blockers. |
+| #92086 | route_security | planned | security_sensitive | Security Matrix work must be routed to central security handling. |
+| #89491 | route_security | planned | security_sensitive | OAuth/SSRF-shaped auth-provider work requires central security handling. |
+| #89645 | keep_independent | planned | independent | Independent CLI compatibility PR with proof/check blockers. |
+| #89796 | route_security | planned | security_sensitive | Sender identity/security-boundary PR is routed to central security handling. |
+| #93241 | keep_independent | planned | independent | Independent provider failover PR retained for proof review. |
+| #93244 | keep_independent | planned | independent | Independent broad compatibility/availability PR with review blockers. |
 
 ## Needs Human
 
-- #89695: live state unavailable in preflight artifact; candidate cannot be safely classified or routed.
-- #89696: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #89719: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #93247: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #89754: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #52236: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #89768: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #89772: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #92086: live state unavailable in preflight artifact for a security-shaped candidate.
-- #89491: live state unavailable in preflight artifact for an auth/security-boundary-shaped candidate.
-- #89645: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #89796: live state unavailable in preflight artifact for a security-boundary-labeled candidate.
-- #93241: live state unavailable in preflight artifact; candidate cannot be safely classified.
-- #93244: live state unavailable in preflight artifact; candidate cannot be safely classified.
+- none

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T131654-060"
 mode: "plan"
-run_id: "27549047493"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27549047493"
-head_sha: "e8e65d821b5c55a11a8a30d2023428743182215a"
+run_id: "27552748939"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552748939"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:28:19.757Z"
+published_at: "2026-06-15T14:25:19.138Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 5
+needs_human_count: 0
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T131654-060
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27549047493](https://github.com/openclaw/clownfish/actions/runs/27549047493)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552748939](https://github.com/openclaw/clownfish/actions/runs/27552748939)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan mode only. This is a PR inventory shard with no shared canonical. No GitHub mutation, close, merge, label, comment, fix, or security routing action is planned. Hydrated preflight state was available for 20 refs; the remaining refs are non-mutating classifications with null target_updated_at because the compacted artifact did not provide live hydrated timestamps.
+Plan-mode PR inventory classification. No shared canonical was selected because the job explicitly identifies this as an inventory shard, not a dedupe cluster. No GitHub mutations, merges, fix PRs, or close actions are planned. Security-sensitive PRs are routed to central OpenClaw security handling; all other hydrated candidate PRs are kept independent for normal maintainer or author follow-up.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan mode only. This is a PR inventory shard with no shared canonical. No GitHub
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 5 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,51 +66,47 @@ Plan mode only. This is a PR inventory shard with no shared canonical. No GitHub
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #81190 | keep_independent | planned | independent |  |
-| #92900 | keep_independent | planned | independent |  |
-| #90227 | keep_independent | planned | independent |  |
-| #90234 | keep_independent | planned | independent |  |
-| #90266 | keep_independent | planned | independent |  |
-| #80632 | keep_independent | planned | independent |  |
-| #92892 | keep_independent | planned | independent |  |
-| #77784 | needs_human | planned | needs_human | Requires maintainer and technical correctness judgment before any close or merge recommendation. |
-| #79747 | needs_human | planned | needs_human | Requires maintainer product and UX judgment. |
-| #79882 | needs_human | planned | needs_human | Requires maintainer judgment on shared MCP runtime semantics and boundary implications. |
-| #80033 | keep_related | planned | related | Keep for follow-up rather than mutate. |
-| #81158 | keep_independent | planned | independent |  |
-| #81243 | keep_independent | planned | independent |  |
-| #89635 | keep_independent | planned | independent |  |
-| #81300 | keep_related | planned | related | Failed proof requires follow-up validation. |
-| #81415 | keep_independent | planned | independent |  |
-| #81641 | keep_related | planned | related | Failed dependency guard checks require follow-up. |
-| #81778 | keep_independent | planned | independent |  |
-| #90300 | keep_independent | planned | independent |  |
-| #90328 | keep_independent | planned | independent |  |
-| #90331 | keep_independent | planned | independent |  |
-| #90356 | keep_independent | planned | independent |  |
-| #90365 | keep_independent | planned | independent |  |
-| #90373 | keep_independent | planned | independent |  |
-| #90394 | keep_independent | planned | independent |  |
-| #90401 | keep_independent | planned | independent |  |
-| #90407 | keep_independent | planned | independent |  |
-| #89517 | keep_independent | planned | independent |  |
-| #92307 | keep_independent | planned | independent |  |
-| #81794 | keep_independent | planned | independent |  |
-| #81825 | keep_independent | planned | independent |  |
-| #81834 | needs_human | planned | needs_human | Requires maintainer product and provider-contract judgment. |
-| #81857 | keep_independent | planned | independent |  |
-| #81864 | needs_human | planned | needs_human | Requires maintainer scope and technical correctness judgment. |
-| #81907 | keep_independent | planned | independent |  |
-| #81916 | keep_independent | planned | independent |  |
-| #81921 | keep_independent | planned | independent |  |
-| #82232 | keep_independent | planned | independent |  |
-| #82458 | keep_independent | planned | independent |  |
-| #82495 | keep_independent | planned | independent |  |
+| #81190 | keep_independent | planned | independent | Independent open PR in an inventory shard; no close, merge, or fix action is allowed or justified in plan mode. |
+| #92900 | keep_independent | planned | independent | Independent open PR for normal maintainer review; no shared canonical or safe close action applies. |
+| #90227 | keep_independent | planned | independent | Independent test-compatibility PR; keep for maintainer review outside dedupe cleanup. |
+| #90234 | keep_independent | planned | independent | Independent broad provider/model-registry PR; no inventory cleanup mutation is appropriate. |
+| #90266 | keep_independent | planned | independent | Independent PR awaiting author follow-up; keep open. |
+| #80632 | route_security | planned | security_sensitive | Route this PR to central OpenClaw security handling; ProjectClownfish should not close, merge, label, or comment on it. |
+| #92892 | keep_independent | planned | independent | Independent provider capability PR for maintainer review; no closure or merge plan applies. |
+| #77784 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; do not process through backlog cleanup automation. |
+| #79747 | keep_independent | planned | independent | Independent feature PR awaiting author or maintainer follow-up; keep open. |
+| #79882 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; do not mutate this PR via ProjectClownfish. |
+| #80033 | keep_independent | planned | independent | Independent draft PR with failing proof and review concerns; keep open rather than close or merge. |
+| #81158 | keep_independent | planned | independent | Independent PR needing branch/check follow-up; no closure, merge, or fix action is available in this plan job. |
+| #81243 | keep_independent | planned | independent | Independent Discord feature PR; keep for maintainer review. |
+| #89635 | keep_independent | planned | independent | Independent hardening PR awaiting author follow-up; no ProjectClownfish close or fix action applies. |
+| #81300 | keep_independent | planned | independent | Independent Codex extension PR with failing proof and author-follow-up state; keep open. |
+| #81415 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; no ProjectClownfish mutation should target this PR. |
+| #81641 | keep_independent | planned | independent | Independent CLI PR with failing dependency guard; keep open for maintainer or author follow-up. |
+| #81778 | keep_independent | planned | independent | Independent status/gateway PR for maintainer review; no inventory cleanup action applies. |
+| #90300 | keep_independent | planned | independent | Independent message-delivery fix PR; keep for maintainer review. |
+| #90328 | keep_independent | planned | independent | Independent UI/gateway metadata PR; keep for maintainer review. |
+| #90331 | keep_independent | planned | independent | Independent agent config hardening PR; keep for maintainer review. |
+| #90356 | keep_independent | planned | independent | Independent status/auth-provider PR for maintainer review. |
+| #90365 | keep_independent | planned | independent | Independent test PR awaiting author follow-up; keep open. |
+| #90373 | keep_independent | planned | independent | Independent gateway/file-transfer PR for maintainer review. |
+| #90394 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; do not mutate this PR through ProjectClownfish. |
+| #90401 | keep_independent | planned | independent | Independent docs PR still requiring proof/maintainer triage; keep open. |
+| #90407 | route_security | planned | security_sensitive | Route to central OpenClaw security/dependency handling per artifact safety boundary. |
+| #89517 | keep_independent | planned | independent | Independent gateway reload PR awaiting author follow-up; keep open. |
+| #92307 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; do not process via PR inventory cleanup. |
+| #81794 | keep_independent | planned | independent | Independent Control UI asset-compression PR awaiting author follow-up; keep open. |
+| #81825 | keep_independent | planned | independent | Independent skills fix PR for maintainer review. |
+| #81834 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; no ProjectClownfish mutation should target this PR. |
+| #81857 | keep_independent | planned | independent | Independent plugin tool lookup PR for maintainer review; no cleanup action applies. |
+| #81864 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; ProjectClownfish should not mutate this PR. |
+| #81907 | keep_independent | planned | independent | Independent WebChat whitespace PR for maintainer review. |
+| #81916 | keep_independent | planned | independent | Independent compaction PR for maintainer review. |
+| #81921 | route_security | planned | security_sensitive | Route to central OpenClaw security handling; no ProjectClownfish mutation should target this PR. |
+| #82232 | keep_independent | planned | independent | Independent CLI tool-plan feature PR for maintainer review; no cleanup action applies. |
+| #82458 | keep_independent | planned | independent | Independent small infra text fix PR for maintainer review. |
+| #82495 | keep_independent | planned | independent | Independent doctor command PR for maintainer review. |
 
 ## Needs Human
 
-- #77784 broad Teams delegated-auth scope and unresolved/unhydrated Codex bot review findings.
-- #79747 broad pinned-chat feature needs maintainer product/UX judgment.
-- #79882 shared MCP runtime scope needs maintainer technical judgment.
-- #81834 new SenseAudio TTS provider needs maintainer provider-contract judgment.
-- #81864 broad approval-boundary-adjacent PR needs maintainer scope and correctness judgment.
+- none

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T131654-052"
 mode: "plan"
-run_id: "27550393888"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27550393888"
-head_sha: "9a903e900d3280431ae7c80464316b3e5c248188"
+run_id: "27552745833"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27552745833"
+head_sha: "6219e4cb8ba01b5666ea86632936d90d53200623"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T13:49:10.326Z"
+published_at: "2026-06-15T14:25:19.062Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -18,14 +18,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 17
+needs_human_count: 0
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T131654-052
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27550393888](https://github.com/openclaw/clownfish/actions/runs/27550393888)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27552745833](https://github.com/openclaw/clownfish/actions/runs/27552745833)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No GitHub mutations were performed. Hydrated candidate PRs were classified independently, security-sensitive refs were routed, and candidates with unavailable live state were scoped to needs_human.
+Plan-only PR inventory classification. No shared canonical was selected because the job explicitly says this is not a dedupe cluster. Open non-security PRs are kept as independent maintainer-review inventory; already-closed candidates are skipped as closed; security-sensitive refs identified by preflight are routed to central security handling.
 
 ## Impact
 
@@ -48,7 +48,7 @@ Plan-mode PR inventory classification only. No GitHub mutations were performed. 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 17 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,63 +66,47 @@ Plan-mode PR inventory classification only. No GitHub mutations were performed. 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #91963 | keep_independent | planned | independent |  |
-| #88504 | keep_independent | planned | independent |  |
-| #88550 | keep_independent | planned | independent |  |
-| #88551 | keep_independent | planned | independent |  |
-| #88683 | keep_independent | planned | independent |  |
-| #88709 | keep_independent | planned | independent |  |
-| #88726 | keep_independent | planned | independent |  |
-| #91376 | keep_closed | skipped | superseded | Already closed in live preflight state. |
-| #91427 | keep_independent | planned | independent |  |
-| #92037 | route_security | planned | security_sensitive | Route to central OpenClaw security handling. |
-| #92147 | keep_independent | planned | independent |  |
-| #92165 | keep_independent | planned | independent |  |
-| #92174 | route_security | planned | security_sensitive | Route to central OpenClaw security handling. |
-| #91693 | keep_related | planned | related | Close-style duplicate action is blocked because the referenced canonical fix is unhydrated. |
-| #92196 | keep_independent | planned | independent |  |
-| #92176 | keep_independent | planned | independent |  |
-| #92376 | keep_independent | planned | independent |  |
-| #91923 | keep_independent | planned | independent |  |
-| #91967 | needs_human | planned | needs_human | Maintainer must decide whether the intentional private-notch dependency and App Store risk are acceptable. |
-| #88581 | keep_independent | planned | independent |  |
-| #92477 | keep_independent | planned | independent |  |
-| #91828 | keep_independent | planned | independent |  |
-| #90089 | keep_independent | planned | independent |  |
-| #91807 | keep_independent | planned | independent |  |
-| #92178 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #91499 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #92484 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #92594 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #88180 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #88885 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #91481 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #91600 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #91870 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #92491 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #92495 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #92521 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #92574 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #91408 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #91955 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
-| #92610 | needs_human | planned | needs_human | Live state unavailable from preflight artifact. |
+| #91963 | keep_independent | planned | independent | Independent maintainer-review PR; no safe close, merge, or fix action is available in plan mode. |
+| #88504 | keep_independent | planned | independent | Broad independent feature PR; not suitable for inventory closeout. |
+| #88550 | keep_independent | planned | independent | Independent PR with an affected validation gate; keep for normal review. |
+| #88551 | keep_independent | planned | independent | Independent auth-provider PR awaiting maintainer review. |
+| #88683 | keep_independent | planned | independent | Independent CLI update PR; no dedupe or closure target. |
+| #88709 | keep_independent | planned | independent | Independent auth-provider PR; keep in maintainer-review inventory. |
+| #88726 | keep_independent | planned | independent | Independent feature/provider PR; no closure basis in inventory shard. |
+| #91376 | keep_closed | skipped |  | Already closed before this plan. |
+| #91427 | keep_independent | planned | independent | Independent message-delivery fix PR awaiting maintainer review. |
+| #92037 | route_security | planned | security_sensitive | Scoped quarantine for central OpenClaw security handling. |
+| #92147 | keep_independent | planned | independent | Independent compatibility PR; draft/open status is not a closeout basis. |
+| #92165 | keep_independent | planned | independent | Independent PR with author-followup signal; no inventory mutation. |
+| #92174 | route_security | planned | security_sensitive | Scoped quarantine for central OpenClaw security handling. |
+| #91693 | keep_closed | skipped |  | Already closed before this plan. |
+| #92196 | keep_independent | planned | independent | Independent memory-search fix PR. |
+| #92176 | keep_independent | planned | independent | Independent agents/media fix PR. |
+| #92376 | keep_independent | planned | independent | Independent approval UX fix with active author-followup signal. |
+| #91923 | keep_independent | planned | independent | Independent iOS PR. |
+| #91967 | keep_independent | planned | independent | Independent iOS feature PR. |
+| #88581 | keep_independent | planned | independent | Independent command feature PR. |
+| #92477 | keep_independent | planned | independent | Independent iOS/watch migration PR. |
+| #91828 | keep_independent | planned | independent | Independent memory-wiki hardening PR; no security route in preflight. |
+| #90089 | keep_independent | planned | independent | Independent sandbox bugfix PR. |
+| #91807 | keep_independent | planned | independent | Independent CLI feature PR. |
+| #92178 | keep_independent | planned | independent | Independent gateway crash fix PR. |
+| #91499 | route_security | planned | security_sensitive | Scoped quarantine for central OpenClaw security handling. |
+| #92484 | keep_independent | planned | independent | Independent MCP config PR; no security route in preflight. |
+| #92594 | keep_independent | planned | independent | Independent provider/runtime fix PR. |
+| #88180 | keep_independent | planned | independent | Independent prompt fix PR with validation blocker. |
+| #88885 | keep_independent | planned | independent | Independent session-delivery PR. |
+| #91481 | keep_independent | planned | independent | Independent gateway approval PR. |
+| #91600 | keep_independent | planned | independent | Independent logging/recovery PR. |
+| #91870 | keep_independent | planned | independent | Independent provider metadata PR with author-followup signal. |
+| #92491 | keep_independent | planned | independent | Independent MCP PR; possible overlap with #92484 is not enough to close without hydrated duplicate proof. |
+| #92495 | keep_independent | planned | independent | Independent provider catalog PR. |
+| #92521 | keep_independent | planned | independent | Independent agents PR; security-shaped label alone was not routed by the authoritative preflight. |
+| #92574 | keep_independent | planned | independent | Independent test coverage PR. |
+| #91408 | keep_independent | planned | independent | Independent channel feature PR with validation blocker. |
+| #91955 | keep_independent | planned | independent | Independent agents PR with author-followup signal. |
+| #92610 | keep_independent | planned | independent | Independent session-usage PR. |
 
 ## Needs Human
 
-- #92178 live state unavailable due GitHub API rate limit.
-- #91499 live state unavailable due GitHub API rate limit.
-- #92484 live state unavailable due GitHub API rate limit.
-- #92594 live state unavailable due GitHub API rate limit.
-- #88180 live state unavailable due GitHub API rate limit.
-- #88885 live state unavailable due GitHub API rate limit.
-- #91481 live state unavailable due GitHub API rate limit.
-- #91600 live state unavailable due GitHub API rate limit.
-- #91870 live state unavailable due GitHub API rate limit.
-- #92491 live state unavailable due GitHub API rate limit.
-- #92495 live state unavailable due GitHub API rate limit.
-- #92521 live state unavailable due GitHub API rate limit.
-- #92574 live state unavailable due GitHub API rate limit.
-- #91408 live state unavailable due GitHub API rate limit.
-- #91955 live state unavailable due GitHub API rate limit.
-- #92610 live state unavailable due GitHub API rate limit.
-- #91967 requires maintainer judgment on intentional private-notch/App Store dependency risk.
+- none
