@@ -1,0 +1,294 @@
+name: cluster batch
+
+on:
+  repository_dispatch:
+    types:
+      - projectclownfish_batch
+  workflow_dispatch:
+    inputs:
+      jobs_json:
+        description: "JSON array of job markdown paths"
+        required: true
+        type: string
+      mode:
+        description: "Worker mode; batch v1 only allows plan"
+        required: true
+        default: plan
+        type: choice
+        options:
+          - plan
+      runner:
+        description: "Runner label for cluster planning/review work"
+        required: true
+        default: blacksmith-4vcpu-ubuntu-2404
+        type: string
+      execution_runner:
+        description: "Reserved for parity with cluster-worker dispatch"
+        required: true
+        default: blacksmith-16vcpu-ubuntu-2404
+        type: string
+      model:
+        description: "Codex model"
+        required: true
+        default: gpt-5.5
+        type: string
+      max_parallel:
+        description: "Maximum concurrent matrix workers"
+        required: true
+        default: "50"
+        type: string
+      hydrate_comments:
+        description: "Override CLOWNFISH_HYDRATE_COMMENTS for this run"
+        required: false
+        default: "0"
+        type: string
+      max_linked_refs:
+        description: "Override CLOWNFISH_MAX_LINKED_REFS for this run"
+        required: false
+        default: "0"
+        type: string
+      max_comments_per_item:
+        description: "Override CLOWNFISH_MAX_COMMENTS_PER_ITEM for this run"
+        required: false
+        default: "0"
+        type: string
+      max_review_comments_per_pr:
+        description: "Override CLOWNFISH_MAX_REVIEW_COMMENTS_PER_PR for this run"
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  prepare:
+    name: Prepare plan batch
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    timeout-minutes: 10
+    outputs:
+      jobs: ${{ steps.plan.outputs.jobs }}
+      mode: ${{ steps.plan.outputs.mode }}
+      runner: ${{ steps.plan.outputs.runner }}
+      model: ${{ steps.plan.outputs.model }}
+      max_parallel: ${{ steps.plan.outputs.max_parallel }}
+      hydrate_comments: ${{ steps.plan.outputs.hydrate_comments }}
+      max_linked_refs: ${{ steps.plan.outputs.max_linked_refs }}
+      max_comments_per_item: ${{ steps.plan.outputs.max_comments_per_item }}
+      max_review_comments_per_pr: ${{ steps.plan.outputs.max_review_comments_per_pr }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Normalize batch inputs
+        id: plan
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+          INPUT_JOBS_JSON: ${{ inputs.jobs_json || '[]' }}
+          INPUT_MODE: ${{ inputs.mode || 'plan' }}
+          INPUT_RUNNER: ${{ inputs.runner || 'blacksmith-4vcpu-ubuntu-2404' }}
+          INPUT_MODEL: ${{ inputs.model || vars.CLOWNFISH_MODEL || 'gpt-5.5' }}
+          INPUT_MAX_PARALLEL: ${{ inputs.max_parallel || '50' }}
+          INPUT_HYDRATE_COMMENTS: ${{ inputs.hydrate_comments || '0' }}
+          INPUT_MAX_LINKED_REFS: ${{ inputs.max_linked_refs || '0' }}
+          INPUT_MAX_COMMENTS_PER_ITEM: ${{ inputs.max_comments_per_item || '0' }}
+          INPUT_MAX_REVIEW_COMMENTS_PER_PR: ${{ inputs.max_review_comments_per_pr || '0' }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import { parseJob, validateJob } from "./scripts/lib.mjs";
+
+          const payload = JSON.parse(process.env.CLIENT_PAYLOAD || "{}");
+          const fromDispatch = process.env.EVENT_NAME === "repository_dispatch";
+          const jobs = fromDispatch ? payload.jobs : JSON.parse(process.env.INPUT_JOBS_JSON || "[]");
+          const mode = String(fromDispatch ? payload.mode ?? "plan" : process.env.INPUT_MODE ?? "plan");
+          const runner = String(fromDispatch ? payload.runner ?? "blacksmith-4vcpu-ubuntu-2404" : process.env.INPUT_RUNNER);
+          const model = String(fromDispatch ? payload.model ?? "gpt-5.5" : process.env.INPUT_MODEL);
+          const maxParallel = Number(fromDispatch ? payload.max_parallel ?? 50 : process.env.INPUT_MAX_PARALLEL);
+          const hydrateComments = String(
+            fromDispatch ? payload.hydrate_comments ?? "0" : process.env.INPUT_HYDRATE_COMMENTS ?? "0",
+          );
+          const maxLinkedRefs = String(
+            fromDispatch ? payload.max_linked_refs ?? "0" : process.env.INPUT_MAX_LINKED_REFS ?? "0",
+          );
+          const maxCommentsPerItem = String(
+            fromDispatch ? payload.max_comments_per_item ?? "0" : process.env.INPUT_MAX_COMMENTS_PER_ITEM ?? "0",
+          );
+          const maxReviewCommentsPerPr = String(
+            fromDispatch
+              ? payload.max_review_comments_per_pr ?? "0"
+              : process.env.INPUT_MAX_REVIEW_COMMENTS_PER_PR ?? "0",
+          );
+
+          if (mode !== "plan") throw new Error("cluster-batch only supports plan mode");
+          if (!Array.isArray(jobs) || jobs.length === 0) throw new Error("jobs must be a non-empty JSON array");
+          if (jobs.length > 256) throw new Error("jobs must fit GitHub's 256-cell matrix limit");
+          if (!Number.isInteger(maxParallel) || maxParallel < 1 || maxParallel > 200) {
+            throw new Error("max_parallel must be an integer from 1 to 200");
+          }
+          for (const value of [hydrateComments, maxLinkedRefs, maxCommentsPerItem, maxReviewCommentsPerPr]) {
+            if (!/^\d+$/.test(value)) throw new Error(`invalid numeric override: ${value}`);
+          }
+
+          const normalized = [];
+          for (const jobPath of jobs) {
+            if (typeof jobPath !== "string" || !jobPath.startsWith("jobs/") || !jobPath.endsWith(".md")) {
+              throw new Error(`invalid job path: ${jobPath}`);
+            }
+            const job = parseJob(jobPath);
+            const errors = validateJob(job);
+            if (errors.length > 0) throw new Error(`invalid job ${jobPath}: ${errors.join("; ")}`);
+            if (job.frontmatter.mode !== "plan") throw new Error(`batch job is not plan mode: ${jobPath}`);
+            normalized.push(job.relativePath);
+          }
+
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `jobs=${JSON.stringify(normalized)}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `mode=${mode}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `runner=${runner}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `model=${model}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_parallel=${maxParallel}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `hydrate_comments=${hydrateComments}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_linked_refs=${maxLinkedRefs}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_comments_per_item=${maxCommentsPerItem}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_review_comments_per_pr=${maxReviewCommentsPerPr}\n`);
+          NODE
+
+  plan:
+    name: Plan cluster
+    needs: prepare
+    runs-on: ${{ needs.prepare.outputs.runner }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJson(needs.prepare.outputs.max_parallel) }}
+      matrix:
+        job_path: ${{ fromJson(needs.prepare.outputs.jobs) }}
+    concurrency:
+      group: projectclownfish-${{ matrix.job_path }}-${{ needs.prepare.outputs.mode }}
+      cancel-in-progress: false
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      CODEX_API_KEY: ${{ secrets.CODEX_API_KEY || secrets.OPENAI_API_KEY }}
+      CLOWNFISH_ALLOWED_OWNER: ${{ vars.CLOWNFISH_ALLOWED_OWNER || 'openclaw' }}
+      CLOWNFISH_ALLOW_EXECUTE: "0"
+      CLOWNFISH_ALLOW_FIX_PR: "0"
+      CLOWNFISH_ALLOW_MERGE: "0"
+      CLOWNFISH_HYDRATE_CLUSTER_REFS: ${{ vars.CLOWNFISH_HYDRATE_CLUSTER_REFS || '1' }}
+      CLOWNFISH_HYDRATE_COMMENTS: ${{ needs.prepare.outputs.hydrate_comments }}
+      CLOWNFISH_MAX_COMMENTS_PER_ITEM: ${{ needs.prepare.outputs.max_comments_per_item }}
+      CLOWNFISH_MAX_LINKED_REFS: ${{ needs.prepare.outputs.max_linked_refs }}
+      CLOWNFISH_MAX_REVIEW_COMMENTS_PER_PR: ${{ needs.prepare.outputs.max_review_comments_per_pr }}
+      CLOWNFISH_CODEX_TIMEOUT_MS: ${{ vars.CLOWNFISH_CODEX_TIMEOUT_MS || '1800000' }}
+      CLOWNFISH_CODEX_REASONING_EFFORT: ${{ vars.CLOWNFISH_CODEX_REASONING_EFFORT || 'medium' }}
+      CLOWNFISH_MODEL: ${{ needs.prepare.outputs.model }}
+      CODEX_CLI_VERSION: ${{ vars.CLOWNFISH_CODEX_CLI_VERSION || '0.125.0' }}
+      OPENCLAW_LOCAL_CHECK: "0"
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Create GitHub App token
+        id: app_token
+        continue-on-error: true
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.CLOWNFISH_APP_ID }}
+          private-key: ${{ secrets.CLOWNFISH_APP_PRIVATE_KEY }}
+          owner: ${{ vars.CLOWNFISH_ALLOWED_OWNER || github.repository_owner }}
+          permission-contents: read
+          permission-issues: read
+          permission-pull-requests: read
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Cache Codex CLI and npm downloads
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.npm
+            ~/.projectclownfish/codex
+          key: ${{ runner.os }}-node24-codex-${{ env.CODEX_CLI_VERSION }}-v1
+          restore-keys: |
+            ${{ runner.os }}-node24-codex-
+
+      - name: Select GitHub read token
+        env:
+          CLOWNFISH_APP_GH_TOKEN: ${{ steps.app_token.outputs.token }}
+          CLOWNFISH_READ_GH_TOKEN: ${{ secrets.CLOWNFISH_READ_GH_TOKEN }}
+          CLOWNFISH_WRITE_GH_TOKEN: ${{ secrets.CLOWNFISH_GH_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          summarize_gh_error() {
+            if [ ! -s /tmp/clownfish-gh-token-check.err ]; then
+              return 0
+            fi
+            head -n 5 /tmp/clownfish-gh-token-check.err |
+              sed -E \
+                -e 's/(authorization|bearer|token)[^[:space:]]+/\1=[redacted]/Ig' \
+                -e 's/[A-Za-z0-9_=-]{40,}/[redacted]/g'
+          }
+          for candidate in CLOWNFISH_READ_GH_TOKEN CLOWNFISH_WRITE_GH_TOKEN CLOWNFISH_APP_GH_TOKEN GITHUB_TOKEN; do
+            token="${!candidate:-}"
+            if [ -z "$token" ]; then
+              continue
+            fi
+            if GH_TOKEN="$token" gh api "repos/${CLOWNFISH_ALLOWED_OWNER}/openclaw" --jq .full_name >/dev/null 2>/tmp/clownfish-gh-token-check.err; then
+              echo "GH_TOKEN=$token" >> "$GITHUB_ENV"
+              echo "selected $candidate for GitHub read access"
+              exit 0
+            fi
+            echo "::warning::$candidate failed GitHub read probe"
+            summarize_gh_error || true
+          done
+          echo "no GitHub token could read repos/${CLOWNFISH_ALLOWED_OWNER}/openclaw"
+          exit 1
+
+      - name: Install Codex CLI
+        run: |
+          set -euo pipefail
+          npm config set prefix "$HOME/.projectclownfish/codex"
+          npm config set cache "$HOME/.npm"
+          echo "$HOME/.projectclownfish/codex/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.projectclownfish/codex/bin:$PATH"
+
+          if ! command -v codex >/dev/null 2>&1 || ! codex --version | grep -Fq "$CODEX_CLI_VERSION"; then
+            npm install -g "@openai/codex@$CODEX_CLI_VERSION" --prefer-offline --no-audit --no-fund
+          fi
+          codex --version
+
+      - name: Authenticate Codex
+        run: |
+          test -n "${OPENAI_API_KEY:-}"
+          test -n "${CODEX_API_KEY:-}"
+          printenv OPENAI_API_KEY | codex login --with-api-key >/dev/null
+
+      - name: Validate job
+        run: npm run validate:job -- "${{ matrix.job_path }}"
+
+      - name: Run worker
+        run: npm run worker -- "${{ matrix.job_path }}" --mode plan
+
+      - name: Review worker result
+        if: always()
+        run: |
+          if find .projectclownfish/runs -name result.json -print -quit | grep -q .; then
+            npm run review-results -- .projectclownfish/runs
+          fi
+
+      - name: Upload final worker artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: projectclownfish-${{ github.run_id }}-${{ github.run_attempt }}-${{ strategy.job-index }}
+          path: |
+            .projectclownfish/runs/**
+          if-no-files-found: warn

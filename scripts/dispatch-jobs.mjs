@@ -24,6 +24,30 @@ const workflow = args.workflow ?? "cluster-worker.yml";
 const repo = String(args.repo ?? currentProjectRepo());
 const model = String(args.model ?? process.env.CLOWNFISH_MODEL ?? "gpt-5.5");
 const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_GH_BIN ?? firstAvailableCommand(["ghx", "gh"]));
+const dispatchEvent = String(
+  args["dispatch-event"] ?? args.dispatch_event ?? process.env.CLOWNFISH_DISPATCH_EVENT ?? "workflow",
+);
+const validDispatchEvents = new Set(["workflow", "repository-batch"]);
+if (!validDispatchEvents.has(dispatchEvent)) {
+  console.error(`--dispatch-event must be one of ${[...validDispatchEvents].join(", ")}`);
+  process.exit(2);
+}
+const repositoryBatchDispatch = dispatchEvent === "repository-batch";
+const batchWorkflow = String(
+  args["batch-workflow"] ?? args.batch_workflow ?? process.env.CLOWNFISH_BATCH_WORKFLOW ?? "cluster-batch.yml",
+);
+const batchEventType = String(
+  args["batch-event-type"] ?? args.batch_event_type ?? process.env.CLOWNFISH_BATCH_EVENT_TYPE ?? "projectclownfish_batch",
+);
+const batchMaxParallel = positiveNumberArg(
+  args["batch-max-parallel"] ?? args.batch_max_parallel ?? process.env.CLOWNFISH_BATCH_MAX_PARALLEL ?? 50,
+  "batch-max-parallel",
+);
+const batchMatrixLimit = positiveNumberArg(
+  args["batch-matrix-limit"] ?? args.batch_matrix_limit ?? process.env.CLOWNFISH_BATCH_MATRIX_LIMIT ?? 200,
+  "batch-matrix-limit",
+);
+const dispatchWorkflow = repositoryBatchDispatch ? batchWorkflow : workflow;
 const writeMode = mode === "execute" || mode === "autonomous";
 const writeLiveWorkerCap = positiveNumberArg(
   args["write-live-worker-cap"] ??
@@ -90,7 +114,7 @@ const headSha = currentHeadSha();
 
 if (files.length === 0) {
   console.error(
-    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--jobs-file path] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--gh-bin ghx] [--max-live-workers 50] [--wait-for-capacity] [--batch-size N] [--batch-delay-ms N] [--dispatch-limit N] [--dispatch-concurrency N] [--publish-backlog-threshold 25] [--hydrate-comments 0|1] [--max-linked-refs N] [--allow-app-token-auth] [--skip-token-secret-check]",
+    "usage: node scripts/dispatch-jobs.mjs <job.md> [...] [--jobs-file path] [--mode plan|execute|autonomous] [--runner label] [--execution-runner label] [--model model] [--gh-bin ghx] [--max-live-workers 50] [--wait-for-capacity] [--batch-size N] [--batch-delay-ms N] [--dispatch-limit N] [--dispatch-concurrency N] [--dispatch-event workflow|repository-batch] [--batch-max-parallel N] [--publish-backlog-threshold 25] [--hydrate-comments 0|1] [--max-linked-refs N] [--allow-app-token-auth] [--skip-token-secret-check]",
   );
   process.exit(2);
 }
@@ -109,6 +133,18 @@ if (dispatchBatchSize > 0 && dispatchBatchDelayMs < 1) {
 }
 if (dispatchConcurrency < 1) {
   console.error("--dispatch-concurrency must be positive");
+  process.exit(2);
+}
+if (repositoryBatchDispatch && writeMode) {
+  console.error("refusing repository-batch dispatch for execute/autonomous mode; batch v1 is plan-only");
+  process.exit(2);
+}
+if (repositoryBatchDispatch && dispatchBatchSize > 0) {
+  console.error("--batch-size is for single workflow dispatch waves; use --batch-matrix-limit for repository-batch");
+  process.exit(2);
+}
+if (repositoryBatchDispatch && batchMaxParallel > maxLiveWorkers) {
+  console.error("--batch-max-parallel cannot exceed --max-live-workers");
   process.exit(2);
 }
 if (writeMode && maxLiveWorkers > writeLiveWorkerCap && !allowHighVolumeWrite) {
@@ -160,11 +196,15 @@ if (!failed) {
 }
 
 if (!failed) {
-  const requested = throttledDispatch ? Math.min(jobsToDispatch.length, 1) : jobsToDispatch.length;
-  const capacityOptions = { repo, workflow, requested, maxLiveWorkers, ghCommand };
+  const requested = repositoryBatchDispatch
+    ? Math.ceil(jobsToDispatch.length / batchMatrixLimit)
+    : throttledDispatch
+      ? Math.min(jobsToDispatch.length, 1)
+      : jobsToDispatch.length;
+  const capacityOptions = { repo, workflow: dispatchWorkflow, requested, maxLiveWorkers, ghCommand };
   const capacity = throttledDispatch ? waitForLiveWorkerCapacity(capacityOptions) : assertLiveWorkerCapacity(capacityOptions);
   console.log(
-    `live worker capacity: ${capacity.active}/${capacity.max_live_workers} active; dispatching ${jobsToDispatch.length} ${workflow} run(s)`,
+    `live worker capacity: ${capacity.active}/${capacity.max_live_workers} active; dispatching ${jobsToDispatch.length} ${dispatchWorkflow} job(s)`,
   );
 }
 
@@ -176,7 +216,7 @@ function assertPublishBacklog() {
       "--repo",
       repo,
       "--workflow",
-      workflow,
+      dispatchWorkflow,
       "--lookback",
       String(publishBacklogLookback),
       "--conclusion",
@@ -199,6 +239,56 @@ function assertPublishBacklog() {
 let dispatched = 0;
 let index = 0;
 const dispatchAttempts = [];
+if (!failed && repositoryBatchDispatch) {
+  while (index < jobsToDispatch.length) {
+    if (!skipPublishBacklogCheck) assertPublishBacklog();
+    if (failed) break;
+
+    const batch = jobsToDispatch.slice(index, index + batchMatrixLimit);
+    const result = await dispatchRepositoryBatch(batch, index + 1);
+    if (result.status === 0) {
+      const acceptedAt = new Date().toISOString();
+      for (let offset = 0; offset < batch.length; offset += 1) {
+        dispatched += 1;
+        dispatchAttempts.push(
+          dispatchAttempt(
+            {
+              relative: batch[offset],
+              position: index + offset + 1,
+              batch_dispatch_id: result.batch_dispatch_id,
+              stdout: result.stdout,
+              stderr: result.stderr,
+              dispatched_at: acceptedAt,
+            },
+            "accepted",
+          ),
+        );
+      }
+      console.log(
+        `dispatched repository batch ${result.batch_dispatch_id} with ${batch.length} ${mode} job(s); max_parallel=${batchMaxParallel}`,
+      );
+    } else {
+      failed = true;
+      for (let offset = 0; offset < batch.length; offset += 1) {
+        dispatchAttempts.push(
+          dispatchAttempt(
+            {
+              relative: batch[offset],
+              position: index + offset + 1,
+              batch_dispatch_id: result.batch_dispatch_id,
+              stdout: result.stdout,
+              stderr: result.stderr,
+            },
+            "failed",
+          ),
+        );
+      }
+      console.error(result.stderr || result.stdout || `failed to dispatch repository batch ${result.batch_dispatch_id}`);
+    }
+    if (writeDispatchLedger && dispatchAttempts.length > 0) appendDispatchLedger(dispatchAttempts);
+    index += batch.length;
+  }
+}
 while (!failed && index < jobsToDispatch.length) {
   let batchSize = jobsToDispatch.length - index;
   if (throttledDispatch) {
@@ -400,9 +490,39 @@ function dispatchJob(relative, position) {
   );
 }
 
-function runCommand(command, commandArgs, relative, position) {
+function dispatchRepositoryBatch(batch, position) {
+  const batchDispatchId = `${dispatchBatchId}-${String(position).padStart(4, "0")}`;
+  const payload = {
+    event_type: batchEventType,
+    client_payload: {
+      batch_id: batchDispatchId,
+      jobs: batch,
+      mode,
+      runner,
+      execution_runner: executionRunner,
+      model,
+      max_parallel: batchMaxParallel,
+      ref: ref || "main",
+      head_sha: headSha,
+      hydrate_comments: hydrationInputs.hydrate_comments ?? "0",
+      max_linked_refs: hydrationInputs.max_linked_refs ?? "0",
+      max_comments_per_item: hydrationInputs.max_comments_per_item ?? "0",
+      max_review_comments_per_pr: hydrationInputs.max_review_comments_per_pr ?? "0",
+    },
+  };
+  return runCommand(
+    ghCommand,
+    ["api", "--method", "POST", `repos/${repo}/dispatches`, "--input", "-"],
+    "__repository_batch__",
+    position,
+    `${JSON.stringify(payload)}\n`,
+    batchDispatchId,
+  );
+}
+
+function runCommand(command, commandArgs, relative, position, stdin = null, batchDispatchId = null) {
   return new Promise((resolve) => {
-    const child = spawn(command, commandArgs, { cwd: repoRoot(), stdio: ["ignore", "pipe", "pipe"] });
+    const child = spawn(command, commandArgs, { cwd: repoRoot(), stdio: ["pipe", "pipe", "pipe"] });
     let stdout = "";
     let stderr = "";
     child.stdout.on("data", (chunk) => {
@@ -412,11 +532,13 @@ function runCommand(command, commandArgs, relative, position) {
       stderr += chunk;
     });
     child.on("error", (error) => {
-      resolve({ relative, position, status: 1, stdout, stderr: `${stderr}${error.message}` });
+      resolve({ relative, position, status: 1, stdout, stderr: `${stderr}${error.message}`, batch_dispatch_id: batchDispatchId });
     });
     child.on("close", (status) => {
-      resolve({ relative, position, status: status ?? 1, stdout, stderr });
+      resolve({ relative, position, status: status ?? 1, stdout, stderr, batch_dispatch_id: batchDispatchId });
     });
+    if (stdin !== null) child.stdin.end(stdin);
+    else child.stdin.end();
   });
 }
 
@@ -425,7 +547,7 @@ function dispatchAttempt(result, status) {
     batch_id: dispatchBatchId,
     status,
     repo,
-    workflow,
+    workflow: repositoryBatchDispatch ? batchWorkflow : workflow,
     source_job: result.relative,
     mode,
     runner,
@@ -434,7 +556,9 @@ function dispatchAttempt(result, status) {
     ref: ref || null,
     head_sha: headSha,
     position: result.position,
-    dispatched_at: new Date().toISOString(),
+    dispatched_at: result.dispatched_at ?? new Date().toISOString(),
+    batch_dispatch_id: result.batch_dispatch_id ?? null,
+    dispatch_event: dispatchEvent,
     error: status === "failed" ? stripAnsi(result.stderr || result.stdout || "") : null,
   };
 }

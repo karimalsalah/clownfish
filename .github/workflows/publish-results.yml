@@ -34,6 +34,7 @@ on:
   workflow_run:
     workflows:
       - cluster worker
+      - cluster batch
     types:
       - completed
 
@@ -72,6 +73,7 @@ jobs:
           BACKFILL_LOOKBACK: ${{ github.event.inputs.lookback || vars.CLOWNFISH_PUBLISH_BACKFILL_LOOKBACK || '1200' }}
           BACKFILL_CONCLUSION: ${{ github.event.inputs.conclusion || 'any' }}
           BACKFILL_ORDER: ${{ github.event.inputs.order || 'newest' }}
+          BACKFILL_WORKFLOW: ${{ github.event.workflow_run.name == 'cluster batch' && 'cluster-batch.yml' || 'cluster-worker.yml' }}
         run: |
           set -euo pipefail
           git fetch origin main
@@ -79,7 +81,7 @@ jobs:
           rm -rf artifacts
           args=(
             --repo "$GITHUB_REPOSITORY"
-            --workflow cluster-worker.yml
+            --workflow "$BACKFILL_WORKFLOW"
             --conclusion "$BACKFILL_CONCLUSION"
             --limit "$BACKFILL_LIMIT"
             --lookback "$BACKFILL_LOOKBACK"

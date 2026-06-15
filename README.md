@@ -339,11 +339,11 @@ npm run queue-status -- \
 # classification; follow-up execute/autonomous jobs can rehydrate deeper.
 npm run dispatch -- --jobs-file /tmp/clownfish-plan-wave-all.txt \
   --mode plan \
+  --dispatch-event repository-batch \
   --allow-app-token-auth \
-  --wait-for-capacity \
   --max-live-workers 200 \
-  --batch-size 200 \
-  --dispatch-concurrency 20 \
+  --batch-max-parallel 100 \
+  --batch-matrix-limit 200 \
   --hydrate-comments 0 \
   --max-linked-refs 0 \
   --max-comments-per-item 0 \
@@ -369,11 +369,11 @@ node scripts/queue-status.mjs \
   --allow-app-token-auth
 npm run dispatch -- --jobs-file /tmp/clownfish-plan-wave-all.txt \
   --mode plan \
+  --dispatch-event repository-batch \
   --allow-app-token-auth \
-  --wait-for-capacity \
   --max-live-workers 200 \
-  --batch-size 200 \
-  --dispatch-concurrency 20 \
+  --batch-max-parallel 100 \
+  --batch-matrix-limit 200 \
   --hydrate-comments 0 \
   --max-linked-refs 0 \
   --max-comments-per-item 0 \
