@@ -27,6 +27,10 @@ on:
         description: newest or oldest missing runs first
         required: false
         default: "newest"
+      aggregate:
+        description: Also rebuild dashboard and finalize open PRs
+        required: false
+        default: "false"
   workflow_run:
     workflows:
       - cluster worker
@@ -121,6 +125,7 @@ jobs:
         if: steps.download-artifacts.outputs.has_results == 'true'
         env:
           GH_TOKEN: ${{ secrets.CLOWNFISH_READ_GH_TOKEN || github.token }}
+          PUBLISH_AGGREGATE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.aggregate || 'false' }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -128,9 +133,15 @@ jobs:
 
           git fetch origin main
           git checkout -B main origin/main
-          npm run publish-result -- artifacts --runs-json artifacts/runs.json
-          npm run finalize-open-prs -- --write-report
-          npm run publish-result
+          publish_args=(artifacts --runs-json artifacts/runs.json)
+          if [ "$PUBLISH_AGGREGATE" != "true" ]; then
+            publish_args+=(--skip-aggregate)
+          fi
+          npm run publish-result -- "${publish_args[@]}"
+          if [ "$PUBLISH_AGGREGATE" = "true" ]; then
+            npm run finalize-open-prs -- --write-report
+            npm run publish-result
+          fi
           git add README.md results jobs/openclaw/closed apply-report.json
           if git diff --cached --quiet; then
             echo "No result changes"

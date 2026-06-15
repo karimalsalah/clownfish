@@ -25,6 +25,7 @@ const archivedClusters = readArchivedClusters();
 const args = parseArgs(process.argv.slice(2));
 const inputs = args._.length > 0 ? args._ : [path.join(repoRoot(), ".projectclownfish", "runs")];
 const metadataByRunId = readRunMetadata(args["runs-json"]);
+const skipAggregate = Boolean(args["skip-aggregate"]);
 const published = [];
 
 for (const input of inputs) {
@@ -34,10 +35,12 @@ for (const input of inputs) {
   }
 }
 
-writeAggregateApplyReport();
-updateDashboard();
+if (!skipAggregate) {
+  writeAggregateApplyReport();
+  updateDashboard();
+}
 
-console.log(JSON.stringify({ published: published.length, records: published }, null, 2));
+console.log(JSON.stringify({ published: published.length, aggregate: !skipAggregate, records: published }, null, 2));
 
 function publishResult(resultPath) {
   const runDir = path.dirname(resultPath);
