@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, size: M, proof: supplied, proof: sufficient, P2, rating: 🦞 diamond lobster, status: 👀 ready for maintainer look
-- updated: 2026-05-24T14:54:37Z
+- gitcrawl snapshot updated: 2026-05-24T14:54:37Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Symptom On installations whose per-agent session store has grown past `session.maintenance.maxEntries`, or whose sessions directory has accumulated thousands of transcript files, `openclaw doctor` spends most of its wall-clock inside `doctor:state-integrity
 
 ### #56904 feat(plugins): add guard delivery and subagent review hooks
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, maintainer, size: L, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 session-state, merge-risk: 🚨 security-boundary, status: ⏳ waiting on author
-- updated: 2026-05-24T15:53:17Z
+- gitcrawl snapshot updated: 2026-05-24T15:53:17Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: the current hook surface can gate tool execution, but it cannot synchronously guard tool results before the agent sees them and it has no explicit pre-spawn / pre-return subagent review phases. - Why it matters: phase 1-3 guard work needs
 
 ### #86085 i18n(zh-TW): align Control UI locale with Taiwan-standard terminology
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, size: M, proof: sufficient, P3, rating: 🦞 diamond lobster, status: 👀 ready for maintainer look
-- updated: 2026-05-24T15:57:39Z
+- gitcrawl snapshot updated: 2026-05-24T15:57:39Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary The `zh-TW` Control UI locale on `main` still uses a number of mainland-China terms that are not idiomatic Traditional Chinese (Taiwan). Key parity is already complete (1228/1228), so this is a focused **terminology** pass — no key additions, no str
 
 ### #79913 fix(config): apply SPAWN_ALLOWLIST env for sessions_spawn (#79490)
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, proof: supplied, proof: sufficient, P1, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 security-boundary, status: ⏳ waiting on author
-- updated: 2026-05-24T16:36:53Z
+- gitcrawl snapshot updated: 2026-05-24T16:36:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Applies `OPENCLAW_SPAWN_ALLOWLIST` or `SPAWN_ALLOWLIST` during config load → `agents.defaults.subagents.allowAgents`. - Supports `*`, comma-separated ids, JSON string arrays. Env wins when set (Docker-focused). Fixes #79490 ## Test plan - [x] `pnp
 
 ### #55828 feat(msteams): add native plugin interactivity parity
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: msteams, maintainer, size: XL, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, merge-risk: 🚨 security-boundary, status: ⏳ waiting on author
-- updated: 2026-05-24T17:21:21Z
+- gitcrawl snapshot updated: 2026-05-24T17:21:21Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary DO NOT MERGE YET -- for review - Problem: OpenClaw's Teams channel could send messages/cards, but the native plugin interactivity path still stopped short of Teams. The Codex app-server Teams work therefore had to rely on a command bridge instead of
 
 ### #59842 fix(gateway): cap authenticated websocket identities
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: jacobtomlinson
 - labels: gateway, maintainer, size: M, rating: 🌊 off-meta tidepool
-- updated: 2026-05-24T18:21:52Z
+- gitcrawl snapshot updated: 2026-05-24T18:21:52Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Cap authenticated gateway websocket sessions per device identity instead of moving every successful handshake into an unbounded shared client set. - Keep device-less authenticated sessions inside the existing pre-auth budget so shared-auth clients
 
 ### #59986 refactor(plugins): add lane-oriented channel interface
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: discord, channel: msteams, channel: slack, channel: telegram, maintainer, channel: feishu, size: XL, rating: 🌊 off-meta tidepool
-- updated: 2026-05-24T18:22:43Z
+- gitcrawl snapshot updated: 2026-05-24T18:22:43Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Describe the problem and fix in 2–5 bullets: - Problem: plugin-facing channel runtime and interactive APIs were still shaped around channel-specific surfaces, which pushed plugins toward Telegram/Discord/Slack-specific logic. - Why it matters: that 
 
 ### #58367 Gateway: preserve approved scope baseline during pairing
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, maintainer, size: M, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider, status: 📣 needs proof
-- updated: 2026-05-24T18:42:09Z
+- gitcrawl snapshot updated: 2026-05-24T18:42:09Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - preserves the approved operator scope baseline during silent pairing flows - requires explicit approval before a fresh shared-auth device gains newly requested operator scopes - adds regression coverage for fresh-device pairing and reconnect behav
 
 ### #58378 macOS: confirm discovered gateway trust
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: macos, maintainer, size: L, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 security-boundary, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-24T18:42:15Z
+- gitcrawl snapshot updated: 2026-05-24T18:42:15Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - require an explicit trust step before the macOS app applies discovered remote gateway selections - pin discovered direct WSS endpoints and tighten SSH host key checks for remote macOS flows ## Changes - added a macOS discovery trust support path f
 
 ### #59705 [codex] improve parallels windows smoke logging
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: scripts, maintainer, size: M, P3, rating: 🧂 unranked krab, merge-risk: 🚨 automation, status: 📣 needs proof
-- updated: 2026-05-24T19:10:39Z
+- gitcrawl snapshot updated: 2026-05-24T19:10:39Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## What changed - added explicit Windows update phase markers in the npm-update Parallels helper so outer progress output reflects guest work - added guarded Windows helper launch retries plus incremental guest-log draining for the npm-update wrapper - applied
 

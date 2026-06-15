@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: zalouser, size: S, proof: supplied, proof: sufficient, P2, rating: 🦐 gold shrimp, merge-risk: 🚨 security-boundary, status: ⏳ waiting on author
-- updated: 2026-05-29T05:19:24Z
+- gitcrawl snapshot updated: 2026-05-29T05:19:24Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## What Adds a `groupLink` action to the zalouser tool that returns a group's shareable invite link. The tool can already `groups` (list) and `link` (send a URL as a message), but there was no way to read a group's invite link. ## Changes - `zca-client.ts`: ad
 
 ### #86749 fix: install gogcli and add linuxbrew to global PATH
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docker, size: XS, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-29T05:20:01Z
+- gitcrawl snapshot updated: 2026-05-29T05:20:01Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Fixes missing gogcli and PATH issues for sandbox image.
 
 ### #86554 fix(agents): add missing DeepSeek V4 proxy models to reasoning_content replay set
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-29T05:20:17Z
+- gitcrawl snapshot updated: 2026-05-29T05:20:17Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - proxy providers like OpenCode Zen can expose DeepSeek V4 models through `opencode-native`, so endpoint-class detection alone does not preserve `reasoning_content` replay - add `deepseek-v4-flash-free` and `big-pickle` to the replay model allowlist
 
 ### #86873 fix(line): add chunk-idle timeout to inbound media download
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: line, size: M, proof: supplied, proof: sufficient, P2, rating: 🐚 platinum hermit, merge-risk: 🚨 message-delivery, status: 👀 ready for maintainer look
-- updated: 2026-05-29T05:58:03Z
+- gitcrawl snapshot updated: 2026-05-29T05:58:03Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary `downloadLineMedia` in `extensions/line/src/download.ts` wraps the LINE Messaging API `getMessageContent` response in a `for-await` loop with no read deadline. When the LINE CDN returns HTTP headers but then stalls the body stream, the function bloc
 
 ### #86608 docs: add existing-solutions preflight guardrail
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, scripts, size: XS, proof: supplied, proof: sufficient, P2, rating: 🐚 platinum hermit, merge-risk: 🚨 compatibility, status: 👀 ready for maintainer look
-- updated: 2026-05-29T06:23:03Z
+- gitcrawl snapshot updated: 2026-05-29T06:23:03Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add a repo-root AGENTS.md rule requiring a lightweight existing-solutions check before custom builds - add the same reusable guardrail to default workspace AGENTS templates and the Kubernetes starter AGENTS config - keep wording scoped to open-sou
 
 ### #86062 feat(ui): timestamp unnamed dashboard sessions
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, gateway, size: S, proof: supplied, proof: sufficient, P3, rating: 🐚 platinum hermit, status: 👀 ready for maintainer look
-- updated: 2026-05-29T06:23:34Z
+- gitcrawl snapshot updated: 2026-05-29T06:23:34Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: new Control UI dashboard sessions without a label/displayName fall back to raw session keys, making multiple new chats hard to distinguish. - Solution: add a Control UI fallback that renders unnamed dashboard sessions as their local creat
 
 ### #85878 fix(telegram): retain superseded draft previews
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: telegram, maintainer, size: XS, mantis: telegram-visible-proof, P1, rating: 🦪 silver shellfish, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-05-29T06:23:53Z
+- gitcrawl snapshot updated: 2026-05-29T06:23:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Summary: - Preserve Telegram draft previews that were superseded after a new generation already forced a new message. - Recreates #85825 on a maintainer branch because the original contributor branch no longer allows maintainer updates. Behavior addressed: Tel
 
 ### #85793 docs(github): make post-install restart explicit
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P3, rating: 🦪 silver shellfish, status: 📣 needs proof
-- updated: 2026-05-29T06:23:57Z
+- gitcrawl snapshot updated: 2026-05-29T06:23:57Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: GitHub skill restart requirement after installing `gh` is easy to miss. - Solution: Make the restart guidance explicit and add the canonical restart command. - What changed: Expanded `skills/github/SKILL.md` Auth section with restart + HO
 
 ### #85745 fix(discord): add configurable REST API timeout via channels.discord.apiTimeoutMs
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: discord, size: XS, triage: needs-real-behavior-proof
-- updated: 2026-05-29T06:24:00Z
+- gitcrawl snapshot updated: 2026-05-29T06:24:00Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Adds `channels.discord.apiTimeoutMs` to the Discord channel config schema (max 120000ms). Threads it through to `RequestClient` where the REST timeout was previously hardcoded at 15s. ## Root Cause Large guild operations (ban lists, channel enumerat
 
 ### #85727 docs: add first run setup steps to CONTRIBUTING.md
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: low-signal-docs, triage: needs-real-behavior-proof
-- updated: 2026-05-29T06:24:03Z
+- gitcrawl snapshot updated: 2026-05-29T06:24:03Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Added "First Run Setup" section to CONTRIBUTING.md with step-by-step instructions - Covers API key setup, doctor verification, gateway startup, and quick test - Added links to full config and provider docs ## Problem New contributors didn't have c
 

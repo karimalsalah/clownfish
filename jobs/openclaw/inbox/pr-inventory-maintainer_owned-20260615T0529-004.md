@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, gateway, maintainer, size: S
-- updated: 2026-05-14T05:24:40Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:40Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Fixes #75814. - Keeps gateway startup online when a stale SecretRef exists only in a stored auth profile. - Degrades the affected runtime auth profile by removing the failed keyRef/tokenRef from the prepared snapshot, making it ineligible as missi
 
 ### #77542 [codex] add gateway stall diagnostics
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: slack, gateway, cli, scripts, maintainer, size: M
-- updated: 2026-05-14T05:24:43Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:43Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary This adds higher-signal gateway stall diagnostics for slow Telegram turns where the transport is healthy but the Gateway/embedded Codex run stops making useful progress. Changes: - Add a lightweight diagnostic phase ring and emit `diagnostic.phase.c
 
 ### #77559 [codex] Fix missing channel plugin diagnostics
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: maintainer, size: S
-- updated: 2026-05-14T05:24:48Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:48Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Treat missing catalog-backed `plugins.entries.*` channel plugins as repairable installs instead of stale config. - Keep `plugins.allow` on the existing stale-config warning path because `openclaw doctor --fix` does not repair allow-only references
 
 ### #77672 fix(webchat): unblock backend exec approvals
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, app: web-ui, cli, maintainer, size: M
-- updated: 2026-05-14T05:24:49Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:49Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Summary - Let WebChat send `/approve ...` through the existing backend command path immediately while a run is blocked on approval. - Hydrate pending exec/plugin approval cards after Control UI reconnects. - Add CLI inspection affordances: `openclaw approvals 
 
 ### #77891 fix(sessions): unbind conversation bindings when missing transcripts are pruned
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: maintainer, size: M
-- updated: 2026-05-14T05:24:58Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:58Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ### Summary - **Problem**: When `sessions cleanup --fix-missing` removes a session store entry because its transcript file is missing, the matching conversation binding in `current-conversations.json` is left intact. Subsequent messages resolve this stale bind
 
 ### #78054 fix: clarify group mentions target other people
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, maintainer, size: XS
-- updated: 2026-05-14T05:25:00Z
+- gitcrawl snapshot updated: 2026-05-14T05:25:00Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - tighten group-chat prompt rules so agents mostly lurk and do not answer every message - clarify that @mentions of other people are addressed to that person, not the agent - allow exceptions only for direct asks or concise corrections that prevent 
 
 ### #78099 chore(catalog): split Weixin entry from channel fix
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: scripts, commands, maintainer, size: S
-- updated: 2026-05-14T05:25:02Z
+- gitcrawl snapshot updated: 2026-05-14T05:25:02Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Split the non-bug-fix Weixin official external catalog addition back out of #77269. - Keep the channel-catalog install-records fix and its regression coverage intact on main. - Restore stale-plugin doctor tests to use `openclaw-weixin` as missing 
 
 ### #78591 fix(channels): list channel catalog status
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: cli, commands, maintainer, size: M
-- updated: 2026-05-14T05:25:25Z
+- gitcrawl snapshot updated: 2026-05-14T05:25:25Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Fix `openclaw channels list` so it lists channel surfaces only, instead of mixing in model/auth provider profiles. - includes bundled chat channels, trusted catalog channels, and configured channel ids - reports configured/enabled/installed status f
 
 ### #78631 test(plugins): cover stale OpenClaw peer repair during install
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: vincentkoc
 - labels: maintainer, size: S
-- updated: 2026-05-14T05:25:26Z
+- gitcrawl snapshot updated: 2026-05-14T05:25:26Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary This adds an e2e regression for the dirty managed-npm state that can make `openclaw plugins install @opik/opik-openclaw` fail with `ERESOLVE` after prior host-peer plugin installs. The fixture mirrors the bad state from the live box: - a Codex-like 
 
 ### #78789 fix(status): reduce deep status manifest scans
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, extensions: memory-core, scripts, commands, agents, maintainer, size: XL
-- updated: 2026-05-14T05:25:28Z
+- gitcrawl snapshot updated: 2026-05-14T05:25:28Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Reuse the gateway startup plugin metadata snapshot for compatible direct metadata loads so deep status paths avoid repeatedly restatting bundled plugin manifests. - Carry bundled manifests discovered during plugin discovery into channel catalog me
 

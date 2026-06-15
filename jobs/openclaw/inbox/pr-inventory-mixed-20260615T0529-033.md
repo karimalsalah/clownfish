@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: telegram, size: XS, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery
-- updated: 2026-05-29T05:15:40Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:40Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary When a final voice payload arrives in Telegram after partial/block streaming has already sent the text, two separate Telegram messages appear: first the streamed text, then the voice note. This restores the pre-bca16d0f00 behavior where audioAsVoice
 
 ### #87061 feat(agents): add top-level subsystem logger
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: XS, proof: supplied, proof: sufficient, P3, rating: 🐚 platinum hermit, status: 👀 ready for maintainer look
-- updated: 2026-05-29T05:15:45Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:45Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Adds `src/agents/log.ts` exporting a `SubsystemLogger` for the `"agents"` subsystem - Follows the existing pattern of `src/agents/cli-runner/log.ts` and `src/agents/pi-embedded-runner/logger.ts` - Wires `agent-command.ts` as the first caller via `
 
 ### #87206 fix(memory-core): recover narrative text from trajectory when session archived early (#87182)
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: extensions: memory-core, size: S, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool
-- updated: 2026-05-29T05:15:46Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:46Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary This PR fixes #87182 where the gateway's post-completion session cleanup races with memory-core's narrative extraction, causing model-generated narrative text to be silently discarded. ## Root Cause After subagent runs complete, the gateway immediat
 
 ### #87046 fix(plugins): preserve agent harnesses across empty-plugin-scope reloads
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, size: S, proof: supplied, P1, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 security-boundary
-- updated: 2026-05-29T05:15:47Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:47Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: > 🤖 **AI-assisted PR** (Claude). Root-cause analysis, patch, and test were AI-generated; the real-environment evidence below is from a human-operated production gateway. ## Summary **Problem:** A config/plugin reload that resolves to an *empty plugin scope* t
 
 ### #86716 fix(discord): harden reply delivery accounting
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: discord, size: S, triage: refactor-only, proof: supplied, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 message-delivery
-- updated: 2026-05-29T05:15:53Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Scope - Return an explicit delivery result from Discord interaction replies so expired interactions are not counted as delivered. - Fail final Discord delivery when sanitizer removes all visible/sendable payload content. - Normalize Discord message send ext
 
 ### #86681 Clarify secrets runtime plugin source test hook
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-29T05:16:21Z
+- gitcrawl snapshot updated: 2026-05-29T05:16:21Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Clarifies a secrets runtime test-hook comment to avoid implying runtime origin allowlist behavior. ## Scope Comment-only advisory cleanup in `src/secrets/runtime.ts`. No runtime behavior, secret resolution behavior, auth store loading, plugin metada
 
 ### #87231 feat(feishu): include reply context in comment auto replies
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: feishu, size: S, proof: supplied, proof: sufficient, P2, rating: 🐚 platinum hermit, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, status: 👀 ready for maintainer look
-- updated: 2026-05-29T05:16:41Z
+- gitcrawl snapshot updated: 2026-05-29T05:16:41Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: Feishu document comment auto replies did not carry source-reply context into the Drive comment write requests, so the receiving side could not distinguish which original comment reply triggered an automatic follow-up. - Why it matters: co
 
 ### #86577 fix(discord): persist inbound replay recovery
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: discord, size: M, proof: supplied, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 message-delivery
-- updated: 2026-05-29T05:17:09Z
+- gitcrawl snapshot updated: 2026-05-29T05:17:09Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - persist Discord inbound replay claims per account so retryable worker failures can recover without dropping the inbound event - wire the Discord provider state dir into the replay guard and keep queue commit/release paths on the same replay namesp
 
 ### #86460 Redesign Overview as an operator-first OpenClaw dashboard
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, app: web-ui, gateway, extensions: diagnostics-otel, extensions: memory-core, scripts, agents, size: XL, channel: qqbot, extensions: diagnostics-prometheus, proof: supplied, extensions: openrouter, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility
-- updated: 2026-05-29T05:17:15Z
+- gitcrawl snapshot updated: 2026-05-29T05:17:15Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Rework the connected Overview page into an operator-first dashboard instead of a setup/status landing page. - Keep first-run Gateway Access and Snapshot cards intact for disconnected installs, then move them below daily operating signals once the 
 
 ### #86901 fix(feishu): fall back to post mode when markdown tables exceed card limit
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: feishu, size: XS, proof: supplied, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 message-delivery
-- updated: 2026-05-29T05:17:24Z
+- gitcrawl snapshot updated: 2026-05-29T05:17:24Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem When an agent's reply contains more than 5 Markdown tables, the Feishu plugin detects tables and automatically sends the reply as an interactive card. However, the Feishu card API limits each card to at most 5 table components (`ErrCode: 11310; card
 

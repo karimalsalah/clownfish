@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, size: S, triage: needs-real-behavior-proof, P2
-- updated: 2026-05-17T17:24:39Z
+- gitcrawl snapshot updated: 2026-05-17T17:24:39Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Split writeAssistantContentChunk (always finish_reason: null) from a new writeAssistantFinishChunk (empty delta, finish_reason: stop) - Emit the finish chunk from the lifecycle end handler, the error path, and the finally fallback path - Updated s
 
 ### #83240 Resolve model aliases for agent run overrides
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, agents, size: S, triage: needs-real-behavior-proof, P2, impact:auth-provider
-- updated: 2026-05-17T19:11:43Z
+- gitcrawl snapshot updated: 2026-05-17T19:11:43Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - resolve explicit agent run model overrides through the configured model alias index before falling back to provider/model parsing - preserve provider+model override behavior when both fields are supplied - add a regression case for an alias-only r
 
 ### #83363 fix(outbound): log failDelivery rejection on bestEffort partial failure (#83113)
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P2, impact:message-loss, rating: 🧂 unranked krab
-- updated: 2026-05-18T04:43:24Z
+- gitcrawl snapshot updated: 2026-05-18T04:43:24Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Closes #83113 ## Problem In `src/infra/outbound/deliver.ts` (around line 1298), when best-effort partial delivery occurs the queue entry is marked failed via `failDelivery()` so the retry count is incremented. The previous code wrapped that call in `.catch(() 
 
 ### #83436 fix(agents): rethrow EmbeddedAttemptSessionTakeoverError before model fallback
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: XS, triage: needs-real-behavior-proof, P1, impact:session-state, impact:auth-provider, rating: 🧂 unranked krab, merge-risk: 🚨 auth-provider, merge-risk: 🚨 session-state
-- updated: 2026-05-18T05:14:53Z
+- gitcrawl snapshot updated: 2026-05-18T05:14:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary `EmbeddedAttemptSessionTakeoverError` (the embedded-attempt fingerprint guard that fires when the session JSONL changes during the released-lock window) is currently routed through `runWithModelFallback` as an ordinary candidate failure. Every model
 
 ### #83446 feat(mattermost): thread follow-ups, threadId fallback, and root-post resolution
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: mattermost, size: S, triage: needs-real-behavior-proof, P2, impact:message-loss, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery
-- updated: 2026-05-18T05:22:14Z
+- gitcrawl snapshot updated: 2026-05-18T05:22:14Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem Three Mattermost integration issues affecting thread-based conversations: 1. **Thread follow-ups:** The bot could not reply in a thread it already participated in without being @mentioned again. Every follow-up message required a new mention. 2. **T
 
 ### #83295 perf(agents): bootstrap context cache, PI model-discovery cache, auth-store option keys, tool-descriptor kill switch
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: M, triage: needs-real-behavior-proof, P2, impact:session-state, impact:auth-provider, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider, merge-risk: 🚨 session-state
-- updated: 2026-05-18T05:33:47Z
+- gitcrawl snapshot updated: 2026-05-18T05:33:47Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Rebased follow-up to #76348. Since #76348 was filed, upstream landed the simpler half it proposed — the per-session bootstrap-files snapshot cache (`src/agents/bootstrap-cache.ts`'s `getOrLoadBootstrapFiles`). This PR isolates and re-bases the **still-relevant
 
 ### #83537 codex: log app-server startup close diagnostics
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, extensions: codex, triage: needs-real-behavior-proof, rating: 🧂 unranked krab, status: 📣 needs proof
-- updated: 2026-05-18T09:32:11Z
+- gitcrawl snapshot updated: 2026-05-18T09:32:11Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Add a structured diagnostic payload for Codex app-server startup-close retry/exhaustion logs. - Include run/session/model/auth/workspace/thread context so startup exits can be diagnosed without guessing which agent/model/session launched the app-s
 
 ### #83646 fix(gateway/boot): classify BOOT.md turns as boot-run sessions
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, extensions: memory-core, size: M, triage: dirty-candidate, triage: needs-real-behavior-proof, P1, rating: 🧂 unranked krab, merge-risk: 🚨 session-state, status: 📣 needs proof
-- updated: 2026-05-18T15:02:08Z
+- gitcrawl snapshot updated: 2026-05-18T15:02:08Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Boot-check turns currently get written into agents' main session transcripts, which causes them to flow into dreaming session-corpus ingestion and short-term recall. The polluting effect compounds across gateway restarts: in a real openclaw install,
 
 ### #83536 test(qa-lab): trace Slack RTT ping pong
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: slack, maintainer, size: XL, extensions: qa-lab, P1, rating: 🦐 gold shrimp, merge-risk: 🚨 automation, merge-risk: 🚨 compatibility, merge-risk: 🚨 security-boundary, status: 👀 ready for maintainer look
-- updated: 2026-05-18T15:51:31Z
+- gitcrawl snapshot updated: 2026-05-18T15:51:31Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Summary - Switch the Slack live canary to a ping/pong marker and measure RTT from Slack accepted timestamps when available. - Record observer lag, poll counts, gateway RSS samples, gateway phase traces, and optional heap checkpoints for Slack live runs. - Add 
 
 ### #83715 [codex] Guard doctor repairs for newer configs
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, size: S, triage: needs-real-behavior-proof, rating: 🧂 unranked krab, status: 📣 needs proof
-- updated: 2026-05-18T17:52:43Z
+- gitcrawl snapshot updated: 2026-05-18T17:52:43Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Block `doctor --fix`, `--yes`, and gateway-token generation from applying repairs when the config was last written by a newer OpenClaw binary. - Downgrade the doctor prompter to read-only after that guard trips, so later health contributions do no
 

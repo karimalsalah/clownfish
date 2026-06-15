@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P1, rating: 🧂 unranked krab, merge-risk: 🚨 security-boundary, status: 📣 needs proof
-- updated: 2026-05-22T19:43:49Z
+- gitcrawl snapshot updated: 2026-05-22T19:43:49Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - **Problem:** `tightenStateDirPermissionsIfNeeded` in `src/config/io.ts` unconditionally calls `chmod(configDir, 0o700)` on every config save when the config dir matches the state dir. Multi-uid shared-volume deployments (e.g. Fly Machines running 
 
 ### #71235 Dockerfile: add python -> python3 symlink for bookworm
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docker, size: XS, triage: risky-infra, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, status: 📣 needs proof
-- updated: 2026-05-22T19:43:55Z
+- gitcrawl snapshot updated: 2026-05-22T19:43:55Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Add a conditional `python` → `python3` symlink to every Debian-based OpenClaw Dockerfile so agents that default to `python` (rather than `python3`) don't waste a tool round trip on `command not found`. ## Problem Debian bookworm dropped the unversio
 
 ### #71249 fix(plugins): clear stale plugin debug banners
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: M, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 session-state, status: 📣 needs proof, proof: 📸 screenshot
-- updated: 2026-05-22T19:44:02Z
+- gitcrawl snapshot updated: 2026-05-22T19:44:02Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Describe the problem and fix in 2–5 bullets: - Problem: turn-scoped `pluginDebugEntries` could outlive the turn that produced them, and the initial stale-banner cleanup fix still had two regressions: metadata-only clears touched `updatedAt`, and ver
 
 ### #71589 fix(agent): suppress tool-use assistant text
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, agents, size: M, extensions: qa-lab, triage: needs-real-behavior-proof, mantis: telegram-visible-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-05-22T19:46:14Z
+- gitcrawl snapshot updated: 2026-05-22T19:46:14Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - suppress assistant messages that are tool-use continuations (`stopReason: "toolUse"` or tool-call content) from user-visible assistant output - keep explicit `final_answer` phase output deliverable - add regression coverage for unphased tool-use a
 
 ### #71678 Fix: Issue 71522 memory embeddings
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, extensions: memory-core, size: L, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-05-22T20:28:10Z
+- gitcrawl snapshot updated: 2026-05-22T20:28:10Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Describe the problem and fix in 2–5 bullets: If this PR fixes a plugin beta-release blocker, title it `fix(<plugin-id>): beta blocker - <summary>` and link the matching `Beta blocker: <plugin-name> - <summary>` issue labeled `beta-blocker`. Contribu
 
 ### #71839 fix(telegram): avoid routine reply quoting
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: telegram, agents, size: S, extensions: qa-lab, triage: needs-real-behavior-proof, mantis: telegram-visible-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-05-22T20:28:56Z
+- gitcrawl snapshot updated: 2026-05-22T20:28:56Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Stops Telegram draft previews and default assistant guidance from causing routine replies to quote the triggering message. This keeps native Telegram quoting available when explicitly useful, without making the first streamed paragraph appear as an 
 
 ### #71885 fix(tasks): serialize structured task values for sqlite
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 session-state, status: 📣 needs proof
-- updated: 2026-05-22T20:29:24Z
+- gitcrawl snapshot updated: 2026-05-22T20:29:24Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - serialize structured `TaskRecord.task` values before binding them into sqlite - preserve existing string task values unchanged - add regression coverage that object task payloads are stored as JSON strings instead of throwing during sqlite binding
 
 ### #71887 fix(channels): remove stale --deep guidance
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, cli, commands, size: XS, triage: needs-real-behavior-proof, P3, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-05-22T20:29:32Z
+- gitcrawl snapshot updated: 2026-05-22T20:29:32Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - remove stale `--deep` guidance from `channels status` help and runtime tips - clarify that broader gateway health probes live on top-level `openclaw status --deep` - add a regression test covering the config-only status footer ## Why `openclaw cha
 
 ### #71902 Add managed flow residue resolution
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: cli, commands, agents, size: L, extensions: qa-lab, triage: refactor-only, triage: dirty-candidate, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 automation, merge-risk: 🚨 session-state, status: 📣 needs proof
-- updated: 2026-05-22T20:29:39Z
+- gitcrawl snapshot updated: 2026-05-22T20:29:39Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add source-level resolution for managed TaskFlow terminal residue - expose `openclaw tasks flow resolve-residue` and residue readback/audit coverage - keep flow terminal residue resolution distinct from linked child task cleanup - allow queued non
 
 ### #71940 fix(browser): fall back to Hyprland grim capture for headed viewport screenshots
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, scripts, size: L, triage: needs-real-behavior-proof, P1, rating: 🧂 unranked krab, merge-risk: 🚨 security-boundary, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-22T20:29:51Z
+- gitcrawl snapshot updated: 2026-05-22T20:29:51Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Closes #54470 ### Problem On native Windows, `openclaw webhooks gmail setup --account` crashed immediately with `Error: spawn gcloud ENOENT`. Node's `child_process.spawn` with `shell: false` does not consult `PATHEXT`, so bare `gcloud`, `gog`, and `tailscale` 
 

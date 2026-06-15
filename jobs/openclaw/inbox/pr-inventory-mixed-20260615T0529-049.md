@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-05-30T04:59:52Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:52Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## What Bundled MCP tool calls in [src/agents/pi-bundle-mcp-runtime.ts](src/agents/pi-bundle-mcp-runtime.ts) always failed at the MCP SDK's hardcoded `DEFAULT_REQUEST_TIMEOUT_MSEC = 60_000`, no matter what the operator configured in `mcp.servers.<name>.connect
 
 ### #74687 fix: avoid replaying channel restart recovery turns
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T05:00:07Z
+- gitcrawl snapshot updated: 2026-05-30T05:00:07Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Describe the problem and fix in 2–5 bullets: - Problem: restart-aborted main-session recovery can auto-replay a synthetic recovery turn into channel-backed sessions. - Why it matters: channel-backed sessions have external delivery state; hidden repl
 
 ### #75076 Harden Control UI auth, status warnings, and build provenance
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: slack, app: web-ui, gateway, scripts, size: XL, triage: dirty-candidate, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T05:00:44Z
+- gitcrawl snapshot updated: 2026-05-30T05:00:44Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Harden Control UI serving with security headers/CSP and authenticated bootstrap config. - Prefer fragment-token handoff, strip URL token material after bootstrap, and document the `?token=` deprecation plan. - Render assistant media through authen
 
 ### #73511 fix: allow custom control UI origins
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, size: XS, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T05:00:50Z
+- gitcrawl snapshot updated: 2026-05-30T05:00:50Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: `gateway.controlUi.allowedOrigins` can include a custom desktop-app origin like `tauri://localhost`, but the gateway normalises that browser `Origin` header to the opaque `null` origin and never matches the explicit allowlist entry. - Why
 
 ### #74954 fix(agents): prevent provider defaultModel from overriding agents.defaults.model (fixes #24170)
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, size: XL, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T05:00:51Z
+- gitcrawl snapshot updated: 2026-05-30T05:00:51Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: When creating a new agent via 'openclaw agents add', the provider's defaultModel was incorrectly being set as the agent's model.primary, instead of inheriting from agents.defaults.model. Changes: - applyAuthChoiceLoadedPluginProvider: no longer returns agentMo
 
 ### #75140 feat(memory-core): record terminal task outcomes for dreaming feedback
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, extensions: memory-core, scripts, size: M, triage: dirty-candidate, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T05:00:53Z
+- gitcrawl snapshot updated: 2026-05-30T05:00:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Adds a plugin-sdk seam (`openclaw/plugin-sdk/task-events`) that lets plugins subscribe to the task registry's lifecycle events without owning the singleton observer that tests rely on. Multiple listeners can register in parallel via `addTaskRegistry
 
 ### #74274 fix(control-ui): download assistant markdown attachments
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, gateway, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-05-30T05:01:03Z
+- gitcrawl snapshot updated: 2026-05-30T05:01:03Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - render assistant `mediaUrl` / `mediaUrls` payload fields as attachment cards in the Control UI - add download links for non-image assistant attachments instead of opening them inline - force `Content-Disposition: attachment` for local markdown fil
 
 ### #73938 fix(memory): thread remote batch HTTP timeout budget
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, size: L, extensions: openai, clawsweeper, P2, rating: 🦪 silver shellfish, merge-risk: 🚨 compatibility, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-30T05:02:07Z
+- gitcrawl snapshot updated: 2026-05-30T05:02:07Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Thread the configured remote embedding batch timeout through current memory-host SDK HTTP helpers and provider batch upload/create/status/error-read/download calls. - Use one shared remaining-time budget across submit, wait, error-read, retry, and
 
 ### #73628 Add sessions_yield completion truth metadata
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: XL, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T05:02:17Z
+- gitcrawl snapshot updated: 2026-05-30T05:02:17Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary This patch adds an internal completion truth seam for `sessions_yield` and wires it through the embedded runner so parent/session orchestration can observe an explicit, trustworthy completion source. For a real `sessions_yield` turn, the expected se
 
 ### #73982 fix(chat-bash): inherit exec policy defaults
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: M, clawsweeper, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 security-boundary, status: ⏳ waiting on author
-- updated: 2026-05-30T05:02:48Z
+- gitcrawl snapshot updated: 2026-05-30T05:02:48Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - repair #50392 so `/bash` chat sessions inherit the effective `tools.exec` defaults used by the exec tool - include security, ask, path prepend, safe-bin settings/profiles, strict inline eval, approval running notice timing, timeout, and notificati
 

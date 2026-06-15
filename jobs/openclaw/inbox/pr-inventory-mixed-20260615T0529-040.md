@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, triage: needs-real-behavior-proof
-- updated: 2026-05-29T06:32:29Z
+- gitcrawl snapshot updated: 2026-05-29T06:32:29Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem When a bundled provider module (e.g. codex) has unresolved imports in Nix builds — specifically `Cannot find package 'openclaw'` imported from `codex/provider.js` — the call to `resolvePluginCapabilityProviders()` in `buildMediaUnderstandingRegistry
 
 ### #77774 feat: redesign control overview dashboard
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, maintainer, size: L
-- updated: 2026-05-29T06:32:31Z
+- gitcrawl snapshot updated: 2026-05-29T06:32:31Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - adds a two-column overview dashboard layout with a sticky status rail - surfaces gateway health, channels, sessions, runs, skills, cron, hooks, and attention counts - keeps rail controls clickable so summary stats jump to the relevant Control sect
 
 ### #77313 Fix/nodes paired token row responsive
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, size: S
-- updated: 2026-05-29T06:32:43Z
+- gitcrawl snapshot updated: 2026-05-29T06:32:43Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Describe the problem and fix in 2–5 bullets: If this PR fixes a plugin beta-release blocker, title it `fix(<plugin-id>): beta blocker - <summary>` and link the matching `Beta blocker: <plugin-name> - <summary>` issue labeled `beta-blocker`. Contribu
 
 ### #77290 docs(plugins): add module-level documentation for plugin registry and API builder
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S
-- updated: 2026-05-29T06:32:46Z
+- gitcrawl snapshot updated: 2026-05-29T06:32:46Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary This PR adds meaningful JSDoc annotations to two core plugin system files that currently have almost no comments despite being critical infrastructure: ### Changes **`src/plugins/api-builder.ts`** (+50 lines) - Module-level doc explaining the "parti
 
 ### #76666 fix(memory, builtin backend): eagerly preload session transcript listeners at gateway startup
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, size: M, triage: needs-real-behavior-proof
-- updated: 2026-05-29T06:32:59Z
+- gitcrawl snapshot updated: 2026-05-29T06:32:59Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary (scope narrowed to builtin backend per Codex review) Eagerly preload `MemoryIndexManager` at gateway startup for every agent whose `agents.defaults.memorySearch.sources` (or per-agent overlay) includes `"sessions"`, **when using the builtin session-
 
 ### #76631 docs(prometheus): warn that plugins.allow is strict-mode
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, gateway, size: XS
-- updated: 2026-05-29T06:33:01Z
+- gitcrawl snapshot updated: 2026-05-29T06:33:01Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Adds a `<Warning>` callout to the Prometheus Quick Start clarifying that `plugins.allow` is **strict-mode** — when set, only listed plugins are eligible to load. The current Quick Start example shows `allow: ["diagnostics-prometheus"]` without warni
 
 ### #76618 fix(comfy): match Comfy Cloud API completion status values
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS
-- updated: 2026-05-29T06:33:03Z
+- gitcrawl snapshot updated: 2026-05-29T06:33:03Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Comfy Cloud API returns `"success"` for completed workflows, but OpenClaw only checked for `"completed"`. This caused workflows that succeeded on Comfy Cloud to time out after 300s in OpenClaw. Additionally, Comfy Cloud uses `"error"` as a terminal 
 
 ### #76617 fix(zalouser): split messages at line boundaries instead of mid-word
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: zalouser, size: XS
-- updated: 2026-05-29T06:33:05Z
+- gitcrawl snapshot updated: 2026-05-29T06:33:05Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## TL;DR Long bot responses were split mid-word because the default chunk mode cut at exactly 2000 characters with no regard for word or sentence boundaries. --- ## Problem `DEFAULT_TEXT_CHUNK_MODE = "length"` cuts the outgoing message at exactly the 2000-char
 
 ### #76479 docs: add macOS setup notes and common setup troubleshooting
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, triage: low-signal-docs, triage: docs-discoverability, triage: refactor-only
-- updated: 2026-05-29T06:33:09Z
+- gitcrawl snapshot updated: 2026-05-29T06:33:09Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Added macOS setup notes and a common troubleshooting section to improve onboarding for new contributors. ## Changes - Added macOS setup instructions (Xcode tools, Node, Homebrew) - Added common setup errors section - Improved clarity for new develop
 
 ### #75679 fix(agents): canonicalize subagent list requester keys
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, mantis: telegram-visible-proof
-- updated: 2026-05-29T06:33:27Z
+- gitcrawl snapshot updated: 2026-05-29T06:33:27Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Describe the problem and fix in 2–5 bullets: If this PR fixes a plugin beta-release blocker, title it `fix(<plugin-id>): beta blocker - <summary>` and link the matching `Beta blocker: <plugin-name> - <summary>` issue labeled `beta-blocker`. Contribu
 

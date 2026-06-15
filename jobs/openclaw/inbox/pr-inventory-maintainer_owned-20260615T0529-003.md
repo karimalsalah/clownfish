@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: obviyus
 - labels: docs, channel: telegram, maintainer, size: M
-- updated: 2026-05-14T05:23:57Z
+- gitcrawl snapshot updated: 2026-05-14T05:23:57Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Reuse shared presentation URL buttons in Telegram inline keyboards. - Render direct-chat HTTPS presentation buttons as Telegram Mini App web_app buttons. - Document the Telegram HTTPS, private-chat, and initData constraints. ## Validation - pnpm t
 
 ### #74402 fix(agents): route async media completions through wake media
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, maintainer, size: XS
-- updated: 2026-05-14T05:24:00Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:00Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - stop async media completion wakes from instructing the parent to call the message tool - rely on structured media carried by the wake, with MEDIA lines only as fallback - assert fallback instructions no longer mention message-tool delivery or NO_R
 
 ### #75614 docs: consolidate remote testing around Crabbox
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: maintainer, size: L
-- updated: 2026-05-14T05:24:10Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:10Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: none
 
 ### #76221 [codex] Fix Anthropic Vertex npm audit regression
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: cli, maintainer, size: M, clawsweeper:automerge, clawsweeper:human-review
-- updated: 2026-05-14T05:24:18Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:18Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - remove the `@anthropic-ai/vertex-sdk` runtime dependency from the shipped OpenClaw package - replace it with a small local Anthropic Vertex client built on the existing `@anthropic-ai/sdk` and `google-auth-library@10.6.2` - update the lockfile so 
 
 ### #76235 [codex] Fix doctor completion cache plugin loading
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, maintainer, size: XS
-- updated: 2026-05-14T05:24:20Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:20Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Fixes the Windows `openclaw doctor` shell-completion cache path observed in the maintainer workshop: doctor was spawning `openclaw completion --write-state` without the plugin-command skip guard, so completion cache generation could load plugin CLI 
 
 ### #76245 [codex] Fallback when Windows gateway task exits early
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, maintainer, size: S
-- updated: 2026-05-14T05:24:21Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:21Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Adds a Windows scheduled-task fallback for the failure shape from Brad's workshop log: `schtasks /Run` is accepted, but the task quickly reports `Last Run Result=0` / stopped and no gateway listener appears. Previously the fallback only handled the 
 
 ### #76895 perf(core): trim channel RTT hot paths
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: discord, channel: mattermost, channel: slack, channel: telegram, channel: voice-call, scripts, agents, maintainer, extensions: device-pair, size: XL, extensions: qa-lab
-- updated: 2026-05-14T05:24:30Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:30Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Summary - Trims Telegram, Slack, Discord, Mattermost, agent-turn, plugin control-plane, channel snapshot, catalog, media, and model-catalog hot paths. - Adds Convex credential-source support to the Telegram RTT package harness. - Records the optimization inven
 
 ### #77020 [codex] fix delivery suppression diagnostics
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, maintainer, size: S
-- updated: 2026-05-14T05:24:34Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:34Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - mark message-tool-only/send-policy-suppressed turns with generated visible output as `source-reply-delivery-suppressed` in diagnostics - use the shared reply-content predicate so rich presentation/channel payloads are counted consistently with fin
 
 ### #77045 fix(slack): tag gateway failure echoes
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: slack, maintainer, size: S
-- updated: 2026-05-14T05:24:35Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:35Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: none
 
 ### #77134 feat(plugin-state): add atomic dedupe claims
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: bluebubbles, maintainer, size: M, plugin: file-transfer
-- updated: 2026-05-14T05:24:37Z
+- gitcrawl snapshot updated: 2026-05-14T05:24:37Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: claim/check dedupe consumers need an atomic durable claim primitive before they can safely use the SQLite-backed plugin runtime state store. - Why it matters: lookup + register can race for inbound message dedupe; BlueBubbles also needs t
 

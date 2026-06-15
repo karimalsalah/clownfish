@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: M, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility
-- updated: 2026-05-29T05:12:16Z
+- gitcrawl snapshot updated: 2026-05-29T05:12:16Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem When callers pass a `Request` object or a request-like plain object `{url, method, headers, body}` to `makeProxyFetch` / `resolveProxyFetchFromEnv`, the current code casts `input as string | URL` and passes `init` directly to undici's `fetch`. This 
 
 ### #87527 fix(bash-tools): default stdin to pipe-closed in service-managed mode
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility
-- updated: 2026-05-29T05:12:22Z
+- gitcrawl snapshot updated: 2026-05-29T05:12:22Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem When OpenClaw runs as a launchd service (`OPENCLAW_SERVICE_MODE=launchd`), spawned child processes inherit fd 0 (stdin) from the service manager process. On Node 26, launchd closes fd 0 before exec. The child process inherits a closed file descripto
 
 ### #87260 docs: add secure multi-agent routing pattern for research workflows
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, size: XS, triage: low-signal-docs, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 security-boundary
-- updated: 2026-05-29T05:12:23Z
+- gitcrawl snapshot updated: 2026-05-29T05:12:23Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary This PR adds a documentation example for a secure Multi-Agent routing pattern in OpenClaw. The pattern separates routine execution from research-heavy workflows: - `main Agent` remains the default interaction and execution entrypoint. - `main Agent`
 
 ### #87394 docs(gateway): add optional caffeinate-wrapper note to macOS troubleshooting
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, gateway, size: XS, proof: supplied, P3, rating: 🌊 off-meta tidepool, merge-risk: 🚨 other
-- updated: 2026-05-29T05:12:27Z
+- gitcrawl snapshot updated: 2026-05-29T05:12:27Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Adds a fourth "What to do" step in the macOS gateway troubleshooting section that just landed via 6727985365, documenting the well-established operator pattern of wrapping the gateway in `caffeinate(8)` to prevent macOS Maintenance Sleep entirely. T
 
 ### #87164 Fix Session File Corruption During Embedded Retry (critical bug)
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, P1, rating: 🌊 off-meta tidepool, merge-risk: 🚨 session-state, merge-risk: 🚨 security-boundary
-- updated: 2026-05-29T05:12:36Z
+- gitcrawl snapshot updated: 2026-05-29T05:12:36Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Summary What problem does this PR solve? Fixes critical bug where session files become permanently corrupted with an EmbeddedAttemptSessionTakeoverError if an embedded retry fails while the model I/O lock is released. Previously, if the session file fingerprin
 
 ### #87275 fix(tools): treat non-positive gateway timeoutMs as absent
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P1, rating: 🌊 off-meta tidepool
-- updated: 2026-05-29T05:12:57Z
+- gitcrawl snapshot updated: 2026-05-29T05:12:57Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary `resolveGatewayOptions` in `src/agents/tools/gateway.ts` clamps an optional `opts.timeoutMs` via `Math.max(1, Math.floor(opts.timeoutMs))` before falling back to the 30s default. A caller-supplied `0` was rewritten to `1ms` instead of falling back t
 
 ### #87083 fix(agents): break bootstrap-context append doomloop with a recent-entry circuit breaker
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: M, proof: supplied, P1, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 session-state
-- updated: 2026-05-29T05:13:05Z
+- gitcrawl snapshot updated: 2026-05-29T05:13:05Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Add `FULL_BOOTSTRAP_COMPLETED_PERSIST_LIMIT = 10` plus two pure helpers (`countRecentCompletedBootstrapTurns`, `hasReachedBootstrapPersistLimit`) in `src/agents/bootstrap-files.ts`. The helpers reuse the existing tail-scan budget (`CONTINUATION_SC
 
 ### #87166 fix(models): strip plaintext api keys from models json
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, maintainer, size: S, rating: 🌊 off-meta tidepool
-- updated: 2026-05-29T05:13:37Z
+- gitcrawl snapshot updated: 2026-05-29T05:13:37Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Part of #11829. Replaces #83294; the contributor branch cannot be updated because maintainer edits are disabled. This keeps the contributor commits and adds maintainer fixups. Summary: - Strip newly generated plaintext provider `apiKey` values from `models.jso
 
 ### #87202 refactor: internalize OpenClaw agent runtime
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: discord, channel: matrix, channel: slack, channel: telegram, channel: tlon, channel: voice-call, channel: whatsapp-web, app: macos, app: web-ui, gateway, extensions: llm-task, extensions: memory-core, cli, scripts, commands, docker, agents, size: XL, extensions: acpx, extensions: anthropic, extensions: openai, extensions: minimax, extensions: cloudflare-ai-gateway, extensions: byteplus, extensions: huggingface, extensions: kimi-coding, extensions: moonshot, extensions: synthetic, extensions: together, extensions: volcengine, extensions: xiaomi, extensions: kilocode, extensions: nvidia, extensions: vercel-ai-gateway, extensions: fal, extensions: tavily, extensions: deepseek, channel: qqbot, extensions: qa-lab, extensions: arcee, extensions: codex, extensions: lmstudio, extensions: tokenjuice, extensions: tencent, plugin: google-meet, extensions: senseaudio, extensions: litellm, extensions: inworld, extensions: gradium, plugin: azure-speech, plugin: migrate-hermes, plugin: migrate-claude, extensions: cerebras, plugin: file-transfer, triage: needs-real-behavior-proof, extensions: amazon-bedrock, extensions: anthropic-vertex, extensions: brave, extensions: chutes, extensions: elevenlabs, extensions: firecrawl, extensions: github-copilot, extensions: google, extensions: mistral, extensions: ollama, extensions: opencode, extensions: opencode-go, extensions: openrouter, extensions: perplexity, extensions: xai, extensions: sglang, extensions: vllm, extensions: zai, dependencies-changed, P1, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider, merge-risk: 🚨 security-boundary, extensions: policy
-- updated: 2026-05-29T05:13:50Z
+- gitcrawl snapshot updated: 2026-05-29T05:13:50Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Applies changes from PR #85341 (internalize agent runtime) on top of latest main.
 
 ### #87330 fix: prevent sessions_yield completion wake freeze
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, P1, rating: 🌊 off-meta tidepool, merge-risk: 🚨 session-state, merge-risk: 🚨 message-delivery
-- updated: 2026-05-29T05:13:59Z
+- gitcrawl snapshot updated: 2026-05-29T05:13:59Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Prefer direct requester-agent handoff for expected subagent completion messages so yielded parent sessions resume instead of being steered into an aborting active run. - Mark sessions_yield abort transitions as temporarily not accepting embedded m
 

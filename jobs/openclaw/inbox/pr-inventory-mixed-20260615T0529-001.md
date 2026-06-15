@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, maintainer, size: L
-- updated: 2026-05-14T05:22:01Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:01Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Guards the remaining channel-setup catalog lookups so setup-scoped plugin resolution only considers non-workspace entries by default - Keeps bundled channel setup behavior consistent across preload, discovery, and scoped reload paths ## Changes - 
 
 ### #63123 feat(ios): add background alive beacon support
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: ios, gateway, maintainer, size: L
-- updated: 2026-05-14T05:22:02Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:02Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: iOS background wakes did not give the gateway a durable, acked way to record that a node was recently alive unless a live websocket reconnect happened. - Why it matters: operators could not distinguish "currently connected" from "recently
 
 ### #63456 Scope workspace guidance to coding contexts
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, maintainer, size: XL
-- updated: 2026-05-14T05:22:13Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:13Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - scope repo-style workspace guidance to coding contexts only - stop injecting commit reminders for general assistant/product sessions - add tests covering coding vs non-coding prompt behavior ## Testing - pnpm exec vitest run src/agents/system-prom
 
 ### #65205 feat(discord): add canvas-first Discord Activities support
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: discord, gateway, agents, maintainer, size: XL
-- updated: 2026-05-14T05:22:20Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:20Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Describe the problem and fix in 2–5 bullets: If this PR fixes a plugin beta-release blocker, title it `fix(<plugin-id>): beta blocker - <summary>` and link the matching `Beta blocker: <plugin-name> - <summary>` issue labeled `beta-blocker`. Contribu
 
 ### #66444 fix(systemd): reconcile managed-env unit migrations
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: vincentkoc
 - labels: gateway, maintainer, size: XL
-- updated: 2026-05-14T05:22:28Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:28Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - carry `#66295` onto current `main` - fix the two real migration regressions from review: rebuild malformed units when `ExecStart=` is missing, and reconcile stale `WorkingDirectory=` in-place instead of leaving `CHDIR` failures behind - remove the
 
 ### #66968 style: apply oxfmt formatting to 16 files
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, app: web-ui, docker, agents, maintainer, size: S
-- updated: 2026-05-14T05:22:32Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:32Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Running `pnpm format:check` found 16 files with formatting drift. Applied `pnpm format` (`oxfmt --write`). No logic changes. Files touched: - `.agents/skills/openclaw-secret-scanning-maintainer/scripts/secret-scanning.mjs` - `docs/style.css` - `extensions/acti
 
 ### #68236 test(auth): add oauth e2e regression coverage
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, maintainer, size: L
-- updated: 2026-05-14T05:22:51Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:51Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add an OAuth auth-regressions e2e suite covering CLI and gateway auth-status surfaces - add targeted regression tests for stale auth order, shared refresh coordination, unhealthy status persistence, and recovery - document the deterministic OAuth 
 
 ### #68289 feat(workspace): add safe workspace reset command
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: cli, commands, maintainer, size: L
-- updated: 2026-05-14T05:22:53Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add a dedicated `openclaw workspace reset` command for safely trashing and reseeding a workspace - register the command in the core CLI and wire it through the existing onboard reset helpers - add focused command, helper, and CLI registration cove
 
 ### #69039 add option for MCP apps support
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, app: web-ui, gateway, agents, maintainer, size: XL
-- updated: 2026-05-14T05:22:54Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:54Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: OpenClaw calls MCP servers, but ignores MCP Apps UI metadata/resources - Why it matters: MCP Apps turns trusted MCP servers into richer tool providers with purpose-built UI. Without host support, OpenClaw misses that part of the MCP ecosy
 
 ### #69824 [RFC] ACP everywhere: consolidate all LLM/agent launches behind a single ACP runtime seam
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, maintainer, size: XS
-- updated: 2026-05-14T05:22:57Z
+- gitcrawl snapshot updated: 2026-05-14T05:22:57Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: > **RFC — not a merge candidate.** This PR adds `docs/refactor/acp-everywhere.md` as a proposal. Please do not merge until (a) the direction is agreed and (b) sandbox-capability modeling (see Cons) is agreed. After merge, phasing issues will be filed from the 
 

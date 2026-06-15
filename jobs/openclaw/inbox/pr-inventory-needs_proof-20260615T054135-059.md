@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: telegram, size: S, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 security-boundary
-- updated: 2026-06-07T05:12:55Z
+- gitcrawl snapshot updated: 2026-06-07T05:12:55Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Rebase `bugfix/undefined-trim` onto the latest `main`, harden Telegram `allowFrom` handling and target resolution, and verify with `extensions/telegram/src/setup-surface.test.ts`. Flight test: - `pnpm vitest run extensions/telegram/src/setup-surface.test.ts --
 
 ### #68180 fix(daemon): add aliases/default/bin to Linux fnm PATH resolver (fixes #68169)
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, size: S, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, merge-risk: 🚨 security-boundary
-- updated: 2026-06-07T05:13:03Z
+- gitcrawl snapshot updated: 2026-06-07T05:13:03Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Fix issue #68169: Linux service PATH resolver now checks both aliases/default/bin (modern fnm) and current/bin (legacy fnm).
 
 ### #71382 feat: add WhatsApp read-only mode
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: whatsapp-web, stale, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-06-07T05:13:06Z
+- gitcrawl snapshot updated: 2026-06-07T05:13:06Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Adds a true read-only mode for WhatsApp channels so OpenClaw can ingest and analyze inbound WhatsApp messages without ever sending outbound WhatsApp traffic. Fixes openclaw/openclaw#71166. ## Problem WhatsApp could emit automatic outbound messages d
 
 ### #70287 fix(msteams): drop unsupported $search on msteams:search (AI-assisted)
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: msteams, stale, size: M, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-06-07T05:13:14Z
+- gitcrawl snapshot updated: 2026-06-07T05:13:14Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - **Problem:** `msteams:search` action hits `HTTP 400: Search is not supported` because Graph API blocks `$search` on `/chats/{id}/messages` and `/teams/*/channels/*/messages` when called with Application permissions (the default for bot auth). - **
 
 ### #70518 fix(config): add heartbeat skill allowlist
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, gateway, stale, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-06-07T05:13:22Z
+- gitcrawl snapshot updated: 2026-06-07T05:13:22Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: heartbeat runs currently inherit the target agent's full skill set, even when heartbeat only needs a small subset or none. - Why it matters: large skill catalogs inflate the skills prompt and waste input context on every heartbeat turn. -
 
 ### #68176 CLI: bake git commit at build time so --version reports built commit not live HEAD [AI-assisted]
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool
-- updated: 2026-06-07T05:13:27Z
+- gitcrawl snapshot updated: 2026-06-07T05:13:27Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Fixes #68148. ## Summary Before: `node dist/index.js --version` reports the current value of `.git/HEAD`, which can drift past the commit the binary was actually built from. After: the short SHA is baked into `dist/` at build time as a tsdown compile-time defi
 
 ### #71113 CI: add AGENTS.md size guard to check-additional
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: scripts, stale, size: M, triage: needs-real-behavior-proof, P3, rating: 🧂 unranked krab, merge-risk: 🚨 automation, status: 📣 needs proof
-- updated: 2026-06-07T05:13:56Z
+- gitcrawl snapshot updated: 2026-06-07T05:13:56Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Adds `scripts/check-agents-md.ts` — caps every tracked `AGENTS.md` at 150 lines to stop any single guide from regrowing into a monolith. - Wires into the sharded `check-additional` layout via `BOUNDARY_CHECKS` in `scripts/run-additional-boundary-c
 
 ### #70851 fix(ui): hide internal sessions from the chat picker
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, stale, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 session-state, status: 📣 needs proof
-- updated: 2026-06-07T05:14:00Z
+- gitcrawl snapshot updated: 2026-06-07T05:14:00Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - hide internal subagent, ACP, and node-backed sessions from the chat header session picker - keep the currently selected internal session visible so active internal runs don't strand the UI - add picker coverage for hidden internal sessions and the
 
 ### #68996 fix(google): route Gemma models through native Generative AI API
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider, status: 📣 needs proof
-- updated: 2026-06-07T05:19:08Z
+- gitcrawl snapshot updated: 2026-06-07T05:19:08Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem Gemma models (gemma-4-31b-it, gemma-4-26b-it, etc.) fail silently when used through the Google provider. The OpenAI-compatible endpoint (`/v1beta/openai/chat/completions`) returns 400/401 errors for Gemma models — only the native Generative AI endpo
 
 ### #69355 feat(doctor): detect local rebuild vs pristine npm release
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, commands, size: L, triage: needs-real-behavior-proof, P2, rating: 🦪 silver shellfish, merge-risk: 🚨 compatibility, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-06-07T05:21:05Z
+- gitcrawl snapshot updated: 2026-06-07T05:21:05Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem A stock `openclaw update` silently overwrites locally patched installs. Regressions return quietly because operators have no signal that the running package has diverged from the pristine npm release. Concrete trigger: the 2026-04-20 dist-overlay au
 

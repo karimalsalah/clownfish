@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 security-boundary
-- updated: 2026-05-30T04:58:51Z
+- gitcrawl snapshot updated: 2026-05-30T04:58:51Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem `assertLocalMediaAllowed` rejects out-of-tree paths with: ``` Local media path is not under an allowed directory: /tmp/file.png ``` This tells the operator their path was wrong but not what *was* allowed. In production the user just sees the rejecti
 
 ### #73919 fix(mcp): dispose bundled runtimes after one-shot runs
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, clawsweeper, P1, rating: 🌊 off-meta tidepool, merge-risk: 🚨 availability
-- updated: 2026-05-30T04:59:04Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:04Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Replaces the broad source PR #68450 with a narrow MCP runtime cleanup patch. - Ensures isolated cron, heartbeat, and follow-up one-shot runs retire bundled MCP runtimes at the outer run boundary, including rotated session IDs. - Keeps cleanup fail
 
 ### #73247 feat(slack): run message_sending hook on agent replies + ship slack-addressee-guard plugin
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: slack, size: XL, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:59:11Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:11Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Two-part fix to a long-standing Slack outbound coverage gap. ### 1. Wire `message_sending` hook into agent replies (`extensions/slack/src/monitor/replies.ts`) Before this PR, the `message_sending` plugin hook only fired for **proactive** `message`-t
 
 ### #74940 Fix legacy LLM timeout diagnostics
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, size: S, proof: supplied, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:59:13Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:13Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Preserve the numeric `agents.defaults.llm.idleTimeoutSeconds` value in `doctor --fix` output instead of silently dropping it. - Add a one-shot config-load warning when `agents.defaults.llm` is still present, pointing users to `models.providers.<id
 
 ### #74990 feat(anthropic): surface Claude subscription path in onboard wizard
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, commands, size: L, extensions: anthropic, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:59:18Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:18Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Renames the `anthropic-cli` auth choice to **"Claude subscription (no API key needed)"** and bumps `assistantPriority` to `-50` so Pro/Max users see the headless `claude -p` flow ahead of API-key paths in `openclaw onboard`. - Adds `extensions/ant
 
 ### #75018 feat: add Gradium realtime speech-to-text provider
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, size: M, extensions: gradium, triage: refactor-only, triage: blank-template, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:59:24Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:24Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - **Problem:** PR #64958 added Gradium TTS but no matching STT, so Gradium-only voice deployments still had to bring in a second vendor for inbound transcription on Voice Call. - **Why it matters:** Lets operators run end-to-end speech (in and out) 
 
 ### #73159 Add tool-call failure guardrails
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-05-30T04:59:30Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:30Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Implements guardrails for recurring OpenClaw tool-call failure classes from task 7d0f53dc.\n\nChanges:\n- read tool adds actionable guidance for missing-file ENOENT/ENOTDIR path failures\n- message tool rejects unsupported channel actions before dispatch when 
 
 ### #74083 fix(sandbox): pass --init so tini reaps zombie processes
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docker, agents, size: XS, triage: refactor-only, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:59:32Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:32Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: What: Adding --init to the docker sandbox makes tini the PID 1 and reaps zombie processes. Why: Long-running sandboxes generate a large number of short-lived child processes (shell/browser helpers), and the entrypoint does not reap them →
 
 ### #73884 fix(telegram): avoid false polling stall restarts
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: telegram, size: S, triage: dirty-candidate, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:59:46Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:46Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - raise the minimum Telegram polling stall threshold to 60s so it stays above grammY's 30s long-poll window - reject unsafe low pollingStallThresholdMs values in config validation - update Telegram docs and generated config metadata ## Testing - nod
 
 ### #74719 fix: handle undefined message/text at runtime to prevent TypeError
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, gateway, size: XS, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:59:52Z
+- gitcrawl snapshot updated: 2026-05-30T04:59:52Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem When `message` / `payload.text` is `undefined` at runtime (e.g., across RPC boundaries), the code crashes with: ``` TypeError: Cannot read properties of undefined (reading 'trim') ``` TypeScript type annotations only apply at compile time, but runti
 

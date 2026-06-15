@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: shakkernerd
 - labels: docs, agents, maintainer, size: M, rating: 🧂 unranked krab, status: ⏳ waiting on author
-- updated: 2026-05-28T09:51:24Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:24Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add `local_skill_route`, a read-only local tool that ranks available skills for the current user task and returns matched/ambiguous/nomatch guidance - wire the tool through `createOpenClawTools` from the per-run `skillsSnapshot`, and pass that sna
 
 ### #85507 fix(slack): include assistant loading messages
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: slack, size: XS, triage: needs-real-behavior-proof, P3, rating: 🧂 unranked krab, status: 📣 needs proof
-- updated: 2026-05-28T09:51:33Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:33Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - pass Slack assistant `loading_messages` into native `assistant.threads.setStatus` calls - cover loading messages in Slack monitor status tests and preview fallback dispatch tests - add a changelog entry for the native Slack thinking/status message
 
 ### #85522 Emit command output events for approved gateway execs
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: M, triage: needs-real-behavior-proof, proof: sufficient, P2, rating: 🧂 unranked krab, merge-risk: 🚨 message-delivery, merge-risk: 🚨 security-boundary, status: 📣 needs proof
-- updated: 2026-05-28T09:51:34Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:34Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Emit a `command_output` agent event when an async approved gateway exec finishes. - Add optional `command` and `approvalId` fields to command output event data. - Register follow-up run context so Control UI visibility follows the originating chan
 
 ### #85716 fix(agents,gateway): three subagent announce delivery failures in loopback token-auth setups
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, agents, size: XS, triage: needs-real-behavior-proof, P1, rating: 🧂 unranked krab, merge-risk: 🚨 message-delivery, merge-risk: 🚨 security-boundary, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-28T09:51:43Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:43Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Three related bugs that break subagent completion delivery when running OpenClaw with loopback token-auth (e.g. Google Chat channel, `sessions_spawn` orchestration pattern). All three were found and validated on a production Linux/GCP deployment: Op
 
 ### #85747 fix(agents): add worker thread pool for event-loop isolation of model calls
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: discord, gateway, agents, size: L, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 session-state, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-28T09:51:45Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:45Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Offloads LLM API `fetch()` calls to a bounded `worker_threads` pool to prevent event-loop starvation on the main gateway thread during long-running streaming model responses. ## Root Cause Model API calls (Chat Completions, streaming LLM responses) 
 
 ### #85746 fix(gateway): add graduated force-close drain for gateway restart
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: discord, gateway, size: M, triage: needs-real-behavior-proof, P1, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 session-state, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-28T09:51:45Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:45Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Replaces the single-timeout `deferGatewayRestartUntilIdle` with a **ShutdownController** implementing a graduated 4-phase force-close cascade for gateway restart. Prevents zombie gateway processes from blocking graceful shutdown. ## Root Cause `defe
 
 ### #85828 [codex] web_search: add Perplexity model override
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, agents, size: M, proof: supplied, proof: sufficient, extensions: perplexity, P2, rating: 🦐 gold shrimp, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider, status: ⏳ waiting on author
-- updated: 2026-05-28T09:51:48Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:48Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Perplexity web_search now accepts a per-call `model` override, but only allowlisted models from `plugins.entries.perplexity.config.webSearch.allowedModels` are honored. ## Verification - `node scripts/run-vitest.mjs src/agents/tools/web-search.test.
 
 ### #85866 [codex] Add WhatsApp phone-code login
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: whatsapp-web, app: macos, cli, size: L, proof: supplied, proof: sufficient, P2, rating: 🐚 platinum hermit, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider, merge-risk: 🚨 session-state, status: 👀 ready for maintainer look
-- updated: 2026-05-28T09:51:50Z
+- gitcrawl snapshot updated: 2026-05-28T09:51:50Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add `openclaw channels login --phone-number <number>` to the generic channel auth adapter and CLI - implement WhatsApp phone-code pairing through Baileys as a headless/QR-free login fallback, including cleanup for stale partial phone-code credenti
 
 ### #85151 fix(status): detect system-level systemd units via INVOCATION_ID
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, size: XS, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-05-28T12:04:43Z
+- gitcrawl snapshot updated: 2026-05-28T12:04:43Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary When the gateway runs under a system-level systemd unit (not user-level), `systemctl --user` is unavailable and `openclaw status --deep` reports "systemd user services unavailable" as a false positive, even though the gateway is healthy. ## Fix Dete
 
 ### #83292 feat(gigachat): add provider integration
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, app: web-ui, gateway, extensions: diagnostics-otel, extensions: memory-core, cli, scripts, commands, docker, agents, size: XL, channel: qqbot, extensions: qa-lab, extensions: codex, extensions: diagnostics-prometheus, extensions: deepinfra, proof: supplied, extensions: diffs, P2, rating: 🧂 unranked krab, merge-risk: 🚨 auth-provider, merge-risk: 🚨 security-boundary, status: 📣 needs proof
-- updated: 2026-05-28T13:35:29Z
+- gitcrawl snapshot updated: 2026-05-28T13:35:29Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: # feat(gigachat): add provider integration ## Summary - Problem: OpenClaw did not have a bundled GigaChat provider, and GigaChat cannot be represented as a plain static API-key provider because Sber requires OAuth token exchange from an Authorization key. - Wh
 

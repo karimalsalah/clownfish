@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: matrix, gateway, cli, scripts, agents, size: XL, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:03Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:03Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: # feat(matrix): add AI-gated participation and final-reply freshness controls ## Summary - Problem: In busy Matrix rooms with multiple OpenClaw bots, a bot can draft a reply while newer visible room activity arrives, or reply when the user intended only one bo
 
 ### #74503 fix(agents): disable pi-agent auto-retry + thinking repetition detection
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:12Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:12Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Fixes #73781 Two layered fixes for the deterministic tool-call loop observed with reasoning models (Qwen3.6): ### 1. Disable pi-coding-agent SDK auto-retry (original PR #74434) The pi-coding-agent SDK has auto-retry enabled by default (up to 3 retri
 
 ### #73897 Fix Android node system.run shell wrapper
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, size: XS, plugin: file-transfer, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:15Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:15Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Title: Fix Android node system.run shell wrapper Summary: - Use Termux's shell path for Android node system.run wrappers. - Keep Windows and other POSIX platforms unchanged. - Document the Android/Termux node-host shell behavior. Problem: Android/Termux does n
 
 ### #73984 fix(tui): autocomplete plugin commands like active-memory
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: M, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:16Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:16Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Merge remote command entries from `commands.list` into TUI slash-command autocomplete so plugin commands (for example `/active-memory`) appear in suggestions. - Refresh remote command suggestions when command context changes (`/agent`, `/model`, a
 
 ### #73635 Errors: rewrite 403 HTML auth pages
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: refactor-only, triage: blank-template, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:22Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:22Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Fix incorrect user-facing error reporting when provider requests return `403` HTML auth/challenge pages. Previously these failures could be surfaced as transport or rate-limit style errors, which sent users down the wrong debugging path. This change
 
 ### #73792 fix(mcp): evict cached session runtime when transport closes unexpectedly
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:27Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:27Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem When a stdio MCP child subprocess exits unexpectedly (idle-exit, OOM, external `SIGKILL`, crash), the MCP SDK's transport correctly fires `onclose` and the SDK's `Protocol._onclose` correctly nulls `Client._transport`. But `SessionMcpRuntime` keeps 
 
 ### #73917 feat(bootstrap): allow arbitrary extra bootstrap files
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, agents, size: S, clawsweeper, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:31Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:31Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - allow the bundled `bootstrap-extra-files` hook to include arbitrary workspace-relative files instead of rejecting basenames outside the fixed bootstrap list - preserve existing workspace containment checks, bootstrap size budgets, ordering, and se
 
 ### #73165 Add MCP readiness gate for advertised skills
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: gateway, scripts, agents, size: M, channel: qa-channel, triage: dirty-candidate, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:31Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:31Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - filters MCP-backed advertised skills behind verified readiness metadata - adds readiness parsing for skill metadata and config/mcp-readiness.json - adds dry-run smoke script for mcporter/readiness mismatch checks ## Verification Reported by Rex be
 
 ### #74411 feat(browser): add agent download actions
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, size: M, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:41Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:41Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: the agent-facing `browser` tool did not expose the managed browser download helpers even though the CLI/control API already supported `/download` and `/wait/download`. - Why it matters: agents could inspect pages and snapshots but could n
 
 ### #74200 fix(skills): never wipe target skills dir on sync to prevent data los…
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, triage: refactor-only, triage: blank-template, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-30T04:57:52Z
+- gitcrawl snapshot updated: 2026-05-30T04:57:52Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: …s on partial load `syncSkillsToWorkspace` used to call `fsp.rm(targetSkillsDir)` before recopying every skill. Any transient failure inside `loadWorkspaceSkillEntries` (a filesystem hiccup, a config parse error, an agent-filter edge case) returns fewer entrie
 

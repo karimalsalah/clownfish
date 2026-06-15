@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: low-signal-docs, triage: needs-real-behavior-proof, P3, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-05-29T06:24:13Z
+- gitcrawl snapshot updated: 2026-05-29T06:24:13Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Doc-only SafeOps reviewed-risk reduction pass for skill documentation. Changes: - Clarify Graincrawl encrypted source checks so they require explicit readiness checks and no unexpected OS approval prompts. - Clarify browser automation user-session g
 
 ### #85611 Replace curl-piped install in duplicate PR tagging skill
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 automation, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-05-29T06:24:19Z
+- gitcrawl snapshot updated: 2026-05-29T06:24:19Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Replaces curl-piped-to-shell prtags install guidance with a pinned download and checksum-verification flow. This removes the SafeOps curl-pipe-shell reviewed risk for the duplicate PR tagging skill.
 
 ### #85561 docs: use concrete URLs in markdown examples
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, size: XS, triage: low-signal-docs, triage: needs-real-behavior-proof, P3, rating: 🦐 gold shrimp, status: ⏳ waiting on author
-- updated: 2026-05-29T06:24:21Z
+- gitcrawl snapshot updated: 2026-05-29T06:24:21Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - replace placeholder `url` targets in inline markdown examples with concrete `https://example.com/...` URLs - do the same for markdown image examples used in channel docs ## Why Several docs pages currently use inline examples like `[label](url)` a
 
 ### #85400 test(perf): compare saved CLI startup benchmarks
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: scripts, size: S, proof: supplied, proof: sufficient, P3, rating: 🐚 platinum hermit, status: 👀 ready for maintainer look
-- updated: 2026-05-29T06:24:39Z
+- gitcrawl snapshot updated: 2026-05-29T06:24:39Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add saved-report comparison mode to `scripts/bench-cli-startup.ts` - emit duration and RSS deltas as either terminal text or JSON - keep the existing entry-vs-entry comparison path for same-run experiments - refresh shrinkwrap snapshots so `check-
 
 ### #85293 fix(codex): prevent isolated app-server process leaks on timeout
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, extensions: codex, triage: refactor-only, triage: blank-template, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-29T06:24:51Z
+- gitcrawl snapshot updated: 2026-05-29T06:24:51Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ### Summary This PR fixes a bug where isolated `codex app-server` child processes were leaked and left orphaned when client initialization or individual requests timed out or hung. ### Details of Changes 1. **Combined Setup Timeout (`shared-client.ts`)**: Grou
 
 ### #85173 fix(discord): degrade audioAsVoice to media attachment when voice adapter unavailable
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: discord, size: XS, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-05-29T06:25:06Z
+- gitcrawl snapshot updated: 2026-05-29T06:25:06Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary When `messages.tts.auto = "always"`, the TTS pipeline sets `audioAsVoice = true` on reply payloads. The Discord outbound adapter then attempted to route through `discordVoice`, falling back to `sendVoiceMessageDiscord` runtime. In cron delivery cont
 
 ### #85134 fix(slack): respect mute / stop-responding requests in shared channel threads
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: slack, size: L, triage: needs-real-behavior-proof, rating: 🧂 unranked krab, status: 📣 needs proof
-- updated: 2026-05-29T06:25:08Z
+- gitcrawl snapshot updated: 2026-05-29T06:25:08Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary In shared Slack channel threads, the bot kept replying after users asked it to stop. Two failure modes: 1. After the bot's first reply in a thread, every subsequent message implicitly re-engaged the bot via `bot_thread_participant` in `prepareSlackM
 
 ### #85004 fix(plugins): allow disabled migration provider plugins to be discovered and loaded
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, triage: needs-real-behavior-proof, rating: 🧂 unranked krab, status: 📣 needs proof
-- updated: 2026-05-29T06:25:14Z
+- gitcrawl snapshot updated: 2026-05-29T06:25:14Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Bypasses enablement check specifically for plugins implementing the migrationProviders contract, allowing them to be discovered and loaded during migration commands even if they are disabled in config.
 
 ### #84937 feat: add minimal Discord /ask command
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: discord, scripts, size: XL, triage: dirty-candidate, triage: external-plugin-candidate, proof: supplied, extensions: openrouter, dependencies-changed, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, merge-risk: 🚨 security-boundary, status: 📣 needs proof
-- updated: 2026-05-29T06:25:22Z
+- gitcrawl snapshot updated: 2026-05-29T06:25:22Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add bundled Ask plugin with a Discord-native `/ask` command - choose button/select/modal from the prompt and store log-only ask sessions/feedback - add `/ask grill <request>` as a prefix-mode clarification flow that asks one modal question at a ti
 
 ### #84791 Fix Telegram TTS voice-note routing
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: telegram, size: XS, triage: needs-real-behavior-proof, mantis: telegram-visible-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-05-29T06:25:32Z
+- gitcrawl snapshot updated: 2026-05-29T06:25:32Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - preserve generic `audioAsVoice` payload intent through Telegram sends - treat generated TTS voice output filenames as Telegram voice-note intent when routing audio - add regression coverage for generated TTS MP3 voice compatibility ## Verification
 

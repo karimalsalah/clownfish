@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: discord, channel: slack, channel: telegram, maintainer, size: S, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery
-- updated: 2026-05-29T05:14:18Z
+- gitcrawl snapshot updated: 2026-05-29T05:14:18Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - lets Discord, Slack, and Telegram send the configured initial ack reaction for ambient `room_event` messages when `messages.ackReactionScope` is `"all"` - keeps lifecycle status reactions suppressed for room events unless that behavior is changed 
 
 ### #86828 [codex] test: lock plugin-owned web search startup snapshots
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, triage: mock-only-proof, P2, rating: 🌊 off-meta tidepool
-- updated: 2026-05-29T05:14:18Z
+- gitcrawl snapshot updated: 2026-05-29T05:14:18Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: #86779 reports gateway startup rebuilding legacy `tools.web.search.<provider>` objects from plugin-owned web search config, then failing validation during startup. - Solution: add regression coverage around config snapshot reads so plugin
 
 ### #87092 Update contributors in CONTRIBUTING.md
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: low-signal-docs, triage: docs-discoverability, triage: needs-real-behavior-proof, P3, rating: 🌊 off-meta tidepool, merge-risk: 🚨 other
-- updated: 2026-05-29T05:14:23Z
+- gitcrawl snapshot updated: 2026-05-29T05:14:23Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: Added Wahyu Maulana Ishaq to the contributors list. ## Summary What problem does this PR solve? * Missing recognition for community contribution. This PR adds my profile to the contributor list in `CONTRIBUTING.md`. Why does this matter now? * I have been acti
 
 ### #87414 [codex] Key llama.cpp sessions for local reuse
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, proof: supplied, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 security-boundary
-- updated: 2026-05-29T05:14:24Z
+- gitcrawl snapshot updated: 2026-05-29T05:14:24Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Adds a narrow OpenClaw wrapper for the `llama-cpp-turboquant` provider that injects stable `cache_key` and `session_id` values into OpenAI-compatible request payloads. The key is derived from the OpenClaw session key when available, falling back to 
 
 ### #87100 fix(channels): defensively handle non-string prompter.text() results in token replace flow
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: S, proof: supplied, P2, rating: 🌊 off-meta tidepool
-- updated: 2026-05-29T05:14:37Z
+- gitcrawl snapshot updated: 2026-05-29T05:14:37Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Stop calling `.trim()` directly on `await prompter.text({...})` in `promptSingleChannelToken` (`src/channels/plugins/setup-wizard-helpers.ts`) and in the `runTextInputSteps` block inside `runChannelSetupWizard` (`src/channels/plugins/setup-wizard.
 
 ### #86932 fix(doctor): warn on stale prompt cache config
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: vincentkoc
 - labels: commands, agents, maintainer, size: XL, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 other
-- updated: 2026-05-29T05:14:41Z
+- gitcrawl snapshot updated: 2026-05-29T05:14:41Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Adds `openclaw doctor` warnings for cache-ttl configs whose selected chat model/provider cannot keep the prompt-cache window warm. - Covers direct Anthropic, Anthropic-compatible providers, Bedrock Claude, Google prompt-cache models, OpenAI-family
 
 ### #87037 fix(issue): resolve #86880 [Bug]: Context Overflow Bug With OpenRouter Models (Latest V
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: android, app: ios, size: XS, triage: needs-real-behavior-proof, rating: 🌊 off-meta tidepool
-- updated: 2026-05-29T05:14:54Z
+- gitcrawl snapshot updated: 2026-05-29T05:14:54Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## 关联Issue Fixes #86880 ## PR 改动说明 ### Bug type Regression (worked before, now fails) ### Beta release blocker No ### Summary **Environment** **OpenClaw version:** 2026.05.22 **Provider:** OpenRouter **Models tested:** qwen/qwen3-coder:free moonshotai/kimi-k2.
 
 ### #86776 fix(models): apply provider policy defaults to inline models
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: S, proof: supplied, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility
-- updated: 2026-05-29T05:15:01Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:01Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - apply provider policy config defaults when building inline provider models - ensure Anthropic inline provider entries inherit the default `anthropic-messages` API - preserve model-level `api`/`baseUrl` precedence over provider-level defaults ## Re
 
 ### #87122 Avoid profile cooldowns for provider overloads
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, size: XS, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider
-- updated: 2026-05-29T05:15:30Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:30Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary\n- Record provider overloaded failures without setting auth-profile cooldownUntil\n- Preserve cooldown/disable behavior for rate-limit, auth, and billing failures\n- Update fallback and auth-profile tests for repeated overload attempts\n\n## Testing
 
 ### #86913 fix(gateway): expose restart pending state
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, gateway, size: M, proof: supplied, extensions: admin-http-rpc, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility
-- updated: 2026-05-29T05:15:31Z
+- gitcrawl snapshot updated: 2026-05-29T05:15:31Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add read-only `gateway.restart.pending` state for restart/update guards - expose scheduled, preparing, active deferral, unconsumed signal, delay, reason, and deferral timeout state - register the method as `operator.read`, expose it through admin 
 

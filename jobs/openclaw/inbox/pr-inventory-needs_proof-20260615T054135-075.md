@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, triage: needs-real-behavior-proof, P2, rating: 🦪 silver shellfish, status: 📣 needs proof
-- updated: 2026-06-10T05:03:21Z
+- gitcrawl snapshot updated: 2026-06-10T05:03:21Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - **Problem:** `mapSensitivePaths` performed `{ ...hints }` shallow copy on every recursive call while traversing the Zod schema tree, resulting in O(N²) allocation overhead. - **Why it matters:** For the full `OpenClawSchema` tree (hundreds of node
 
 ### #54838 Control UI: add toggle to expand tool call output by default in webchat (fixes #54478)
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, size: S, triage: needs-real-behavior-proof, P3, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility
-- updated: 2026-06-10T05:03:31Z
+- gitcrawl snapshot updated: 2026-06-10T05:03:31Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - **Problem:** In the webchat (Control UI), tool call output is always collapsed by default. Users must manually click to expand each output, which is inconvenient when debugging or tracking agent workflows. - **Why it matters:** The TUI already sup
 
 ### #56116 Improve Feishu streaming visibility and filter scratchpad text
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: feishu, size: M, triage: needs-real-behavior-proof, P2, rating: 🌊 off-meta tidepool, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, merge-risk: 🚨 security-boundary
-- updated: 2026-06-10T05:04:04Z
+- gitcrawl snapshot updated: 2026-06-10T05:04:04Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: # Upstream Draft: Feishu IM Long-Task Visibility ## Issue Draft ### Title Feishu IM long-task visibility: status footer, last activity, completion confirmation, and scratchpad suppression ### Summary When OpenClaw is used through Feishu IM, long-running agent 
 
 ### #54934 Feishu: reject empty message cards
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: channel: feishu, size: S, triage: needs-real-behavior-proof, P2, rating: 🦪 silver shellfish, merge-risk: 🚨 compatibility, merge-risk: 🚨 message-delivery, status: 📣 needs proof
-- updated: 2026-06-10T05:04:31Z
+- gitcrawl snapshot updated: 2026-06-10T05:04:31Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: Feishu message actions treated `card: {}` as a valid card-only payload, then forwarded it to Feishu and triggered a 400 API error. - Why it matters: proactive Feishu sends can fail when the model emits an empty card object, especially in 
 
 ### #58134 Improve confirmation message clarity
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: stale, size: XS, triage: blank-template, triage: needs-real-behavior-proof, P3, rating: 🧂 unranked krab, status: 📣 needs proof
-- updated: 2026-06-10T05:07:32Z
+- gitcrawl snapshot updated: 2026-06-10T05:07:32Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: none
 
 ### #57260 fix: dedupe discord target-validation retries
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, stale, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-06-10T05:07:59Z
+- gitcrawl snapshot updated: 2026-06-10T05:07:59Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Fix a Discord messaging edge case where a failed send using a bare numeric recipient id can leave a stale `Message failed` warning visible even after an immediate successful retry using `channel:<id>`. This keeps the existing narrow behavior intact:
 
 ### #57825 Preserve session model overrides on generic persistence
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, stale, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 auth-provider, merge-risk: 🚨 session-state, status: 📣 needs proof
-- updated: 2026-06-10T05:08:06Z
+- gitcrawl snapshot updated: 2026-06-10T05:08:06Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary Generic session persistence was clearing omitted override fields by default. That can drop a previously selected `/model` session override when a later non-model session write merges a partial entry. ## Repro 1. Set a per-session model with `/model`
 
 ### #58051 fix: primary probe should not consume transient probe slot for same-provider fallbacks
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: agents, stale, size: S, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 auth-provider, status: 📣 needs proof
-- updated: 2026-06-10T05:10:28Z
+- gitcrawl snapshot updated: 2026-06-10T05:10:28Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Problem When the primary model is in cooldown and gets probed (near expiry), the probe failure marks the provider in `cooldownProbeUsedProviders`. This blocks same-provider fallback candidates from getting their own probe attempt, causing the fallback chain
 
 ### #58805 Plugins: preserve manifest skills on loaded plugin records
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: stale, size: M, triage: needs-real-behavior-proof, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof
-- updated: 2026-06-10T05:10:35Z
+- gitcrawl snapshot updated: 2026-06-10T05:10:35Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: plugin manifests can declare `skills`, and `loadPluginManifestRegistry()` preserves that metadata, but loaded runtime `PluginRecord`s were dropping it. - Why it matters: runtime/status consumers end up seeing an incomplete plugin record e
 
 ### #58478 fix(android): resolve TLS handshake failure on Android 15
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: android, stale, size: S, triage: needs-real-behavior-proof, P1, rating: 🧂 unranked krab, merge-risk: 🚨 security-boundary, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-06-10T05:10:53Z
+- gitcrawl snapshot updated: 2026-06-10T05:10:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Fixes a TLS handshake crash on Android 15 devices during gateway onboarding - Android's `RootTrustManager` requires hostname-aware `checkServerTrusted` when `<domain-config>` entries exist in `network_security_config.xml`, but the custom `X509Trus
 

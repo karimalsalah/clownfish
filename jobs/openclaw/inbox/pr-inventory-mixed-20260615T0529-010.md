@@ -52,7 +52,7 @@ This is a high-volume classification shard over open pull requests. It is not a 
 
 ## Goal
 
-Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.
+Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.
 
 ## Inventory
 
@@ -64,7 +64,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: cli, size: S, triage: refactor-only, proof: supplied, proof: sufficient, P2, rating: 🐚 platinum hermit, merge-risk: 🚨 availability, status: 👀 ready for maintainer look
-- updated: 2026-05-19T13:35:53Z
+- gitcrawl snapshot updated: 2026-05-19T13:35:53Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Fix a gateway service startup race where one service-mode gateway can kill another healthy gateway listener before the normal gateway lock/startup path runs. - Move service-mode stale listener cleanup behind bind resolution and a `/healthz` probe 
 
 ### #84206 fix(agents): cleanup parent agent directory during deletion
@@ -75,7 +75,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, channel: discord, channel: googlechat, channel: imessage, channel: line, channel: matrix, channel: mattermost, channel: msteams, channel: nextcloud-talk, channel: nostr, channel: signal, channel: slack, channel: telegram, channel: tlon, channel: voice-call, channel: whatsapp-web, channel: zalo, channel: zalouser, app: ios, app: macos, gateway, extensions: copilot-proxy, extensions: diagnostics-otel, extensions: llm-task, extensions: lobster, extensions: memory-core, extensions: memory-lancedb, extensions: open-prose, commands, channel: feishu, channel: twitch, channel: irc, extensions: acpx, extensions: anthropic, extensions: openai, extensions: minimax, extensions: cloudflare-ai-gateway, extensions: byteplus, extensions: huggingface, extensions: kimi-coding, extensions: moonshot, extensions: synthetic, extensions: together, extensions: venice, extensions: volcengine, extensions: xiaomi, extensions: kilocode, extensions: nvidia, extensions: qianfan, extensions: vercel-ai-gateway, extensions: fal, extensions: tavily, extensions: duckduckgo, extensions: deepseek, channel: qqbot, extensions: stepfun, channel: qa-channel, extensions: qa-lab, extensions: memory-wiki, extensions: webhooks, extensions: arcee, extensions: codex, extensions: lmstudio, extensions: tokenjuice, extensions: tencent, plugin: bonjour, plugin: google-meet, extensions: senseaudio, extensions: tts-local-cli, extensions: litellm, extensions: inworld, extensions: gradium, plugin: azure-speech, extensions: diagnostics-prometheus, plugin: migrate-hermes, channel: synology-chat, plugin: migrate-claude, extensions: cerebras, extensions: deepinfra, plugin: file-transfer, extensions: oc-path, extensions: amazon-bedrock, extensions: anthropic-vertex, extensions: brave, extensions: chutes, extensions: diffs, extensions: elevenlabs, extensions: firecrawl, extensions: github-copilot, extensions: google, extensions: microsoft, extensions: mistral, extensions: ollama, extensions: opencode, extensions: opencode-go, extensions: openrouter, extensions: openshell, extensions: perplexity, dependencies-changed, extensions: admin-http-rpc
-- updated: 2026-05-19T15:33:41Z
+- gitcrawl snapshot updated: 2026-05-19T15:33:41Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ### Description Currently, deleting an agent only trashes the leaf subdirectories (`agentDir` and `sessionsDir`). In the default hierarchical structure (`agents/{id}/agent`), this leaves behind an empty parent directory (`agents/{id}/`). This PR updates both t
 
 ### #80394 feat(agents): per-agent model allowlist (with fallback to global)
@@ -86,7 +86,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: docs, app: web-ui, gateway, cli, scripts, commands, agents, size: L, extensions: kimi-coding, extensions: qa-lab, extensions: memory-wiki, extensions: deepinfra, proof: supplied, extensions: google, extensions: openrouter, P2, rating: 🧂 unranked krab, merge-risk: 🚨 auth-provider, status: 📣 needs proof
-- updated: 2026-05-19T16:47:00Z
+- gitcrawl snapshot updated: 2026-05-19T16:47:00Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: When `agents.list[<agentId>].models` is defined and non-empty, scope the visibility allowlist (used by the Control UI model picker, `/model`, and the gateway `models.list` catalog view) to that agent. Otherwise fall back to `agents.defaults.models` exactly as 
 
 ### #84275 fix(codex): add openclaw runtime dependency
@@ -97,7 +97,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: size: XS, extensions: codex, proof: supplied, proof: sufficient, dependencies-changed, P1, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, merge-risk: 🚨 auth-provider, status: ⏳ waiting on author
-- updated: 2026-05-19T19:51:18Z
+- gitcrawl snapshot updated: 2026-05-19T19:51:18Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - add the host `openclaw` package as a concrete runtime dependency for `@openclaw/codex` - keep the change scoped to `extensions/codex/package.json` ## Why `@openclaw/codex` imports `openclaw/plugin-sdk/...` from its published runtime bundle. When t
 
 ### #84334 fix(gateway): mark SIGUSR1 token consumed on restartIntent path, reset stale tokens on in-process restart
@@ -108,7 +108,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: cli, size: S, triage: needs-real-behavior-proof, P1, rating: 🧂 unranked krab, merge-risk: 🚨 availability, status: 📣 needs proof
-- updated: 2026-05-20T00:43:58Z
+- gitcrawl snapshot updated: 2026-05-20T00:43:58Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary `update.run` from the control UI downloads the new package but the gateway never restarts to pick it up. Every attempt logs `restart coalesced (already in-flight)` and is silently dropped for the lifetime of the process. ### Root cause Two bugs comb
 
 ### #80924 feat(i18n): translate dreaming module UI strings to Simplified Chinese
@@ -119,7 +119,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, size: L, proof: supplied, proof: sufficient, P3, rating: 🐚 platinum hermit, status: 👀 ready for maintainer look, proof: 📸 screenshot
-- updated: 2026-05-20T02:03:16Z
+- gitcrawl snapshot updated: 2026-05-20T02:03:16Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: Dreaming module diary UI had hardcoded English strings and incomplete Chinese translations (restartConfirmation was still in English). - Why it matters: Non-English users see mixed-language UI in the Dreaming tab. - What changed: Extracte
 
 ### #81378 feat(i18n): translate cron page UI strings to Simplified Chinese
@@ -130,7 +130,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, size: L, proof: supplied, P2, rating: 🧂 unranked krab, merge-risk: 🚨 compatibility, status: 📣 needs proof, proof: 📸 screenshot
-- updated: 2026-05-20T02:12:35Z
+- gitcrawl snapshot updated: 2026-05-20T02:12:35Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: Cron page had hardcoded English strings when using Simplified Chinese locale, including job list chips (session target, wake mode, delivery mode), schedule labels, form fields (session key, account ID, light context, failure alerts), and 
 
 ### #81724 ui(i18n): localize overview, sessions, and channels pages for zh-CN
@@ -141,7 +141,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, size: L, proof: supplied, P3, rating: 🧂 unranked krab, merge-risk: 🚨 security-boundary, status: 📣 needs proof
-- updated: 2026-05-20T02:12:52Z
+- gitcrawl snapshot updated: 2026-05-20T02:12:52Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: Overview, sessions, and channels pages had hardcoded English strings when using Simplified Chinese locale. - Why it matters: Non-English users see English labels, filters, table headers, and pagination controls. - What changed: Extracted 
 
 ### #80955 ui(i18n): localize chat page slash commands and composer for zh-CN
@@ -152,7 +152,7 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: app: web-ui, size: XL, proof: supplied, P2, rating: 🧂 unranked krab, status: 📣 needs proof, proof: 📸 screenshot
-- updated: 2026-05-20T02:14:06Z
+- gitcrawl snapshot updated: 2026-05-20T02:14:06Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: ## Summary - Problem: Chat page slash command palette and composer had hardcoded English strings when using Simplified Chinese locale. - Why it matters: Non-English users see English labels, descriptions, and hints in the chat command menu, footer shortcuts, T
 
 ### #84424 fix(doctor): honor per-agent bootstrap profile in size check
@@ -163,6 +163,6 @@ Hydrate live GitHub state for each listed PR and emit one conservative action pe
 - draft: no
 - assignees: none
 - labels: commands, size: S, triage: needs-real-behavior-proof, P2, rating: 🦐 gold shrimp, status: 📣 needs proof
-- updated: 2026-05-20T04:22:56Z
+- gitcrawl snapshot updated: 2026-05-20T04:22:56Z (ignore for target_updated_at; use hydrated preflight)
 - body excerpt: > AI-assisted: drafted with Claude Code. Bug discovery, fix, regression test, and behavior-proof reproducer all verified by the author on Windows 11 + Node 24. ## Summary - Problem: `openclaw doctor` reports bootstrap-file-size warnings against the global `age
 

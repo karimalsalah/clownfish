@@ -178,7 +178,7 @@ function writeJob(batch, index) {
     "",
     "## Goal",
     "",
-    "Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies.",
+    "Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style planned actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. For `target_updated_at`, copy only the hydrated value from the Cluster preflight artifact; do not use gitcrawl snapshot timestamps from this job body.",
     "",
     "## Inventory",
     "",
@@ -206,7 +206,7 @@ function candidateBlock(candidate) {
     `- draft: ${candidate.is_draft ? "yes" : "no"}`,
     `- assignees: ${candidate.assignees.join(", ") || "none"}`,
     `- labels: ${candidate.labels.join(", ") || "none"}`,
-    `- updated: ${candidate.updated_at || "unknown"}`,
+    `- gitcrawl snapshot updated: ${candidate.updated_at || "unknown"} (ignore for target_updated_at; use hydrated preflight)`,
     `- body excerpt: ${candidate.body_excerpt || "none"}`,
     "",
   ];
