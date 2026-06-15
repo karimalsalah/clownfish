@@ -151,17 +151,48 @@ function selectCandidates() {
     .filter((record) => record.workflow_conclusion === "failure")
     .filter((record) => allowRepeat || !attemptedJobs.has(record.source_job))
     .map((record) => {
-      const job = parseJob(record.source_job);
+      const sourceJob = resolveExistingJobPath(record.source_job);
+      if (!sourceJob) return null;
+      const job = parseJob(sourceJob);
       const errors = validateJob(job);
       if (errors.length > 0) {
-        throw new Error(`invalid job ${record.source_job}: ${errors.join("; ")}`);
+        throw new Error(`invalid job ${sourceJob}: ${errors.join("; ")}`);
       }
       return {
         ...record,
+        source_job: sourceJob,
         mode: requestedMode ?? record.mode ?? job.frontmatter.mode,
       };
     })
+    .filter(Boolean)
     .sort((left, right) => runSortKey(right) - runSortKey(left));
+}
+
+function resolveExistingJobPath(sourceJob) {
+  const text = String(sourceJob ?? "");
+  if (!text) return text;
+  if (fs.existsSync(path.resolve(repoRoot(), text))) return text;
+
+  const basename = path.basename(text);
+  const roots = [
+    path.join(repoRoot(), "jobs", "openclaw", "inbox"),
+    path.join(repoRoot(), "jobs", "openclaw", "outbox", "finalized"),
+    path.join(repoRoot(), "jobs", "openclaw", "outbox", "stuck"),
+  ];
+  for (const root of roots) {
+    const candidate = path.join(root, basename);
+    if (fs.existsSync(candidate)) return path.relative(repoRoot(), candidate);
+  }
+  const jobsRoot = path.join(repoRoot(), "jobs", "openclaw");
+  if (fs.existsSync(jobsRoot)) {
+    for (const entry of fs.readdirSync(jobsRoot, { recursive: true })) {
+      const candidate = path.join(jobsRoot, String(entry));
+      if (path.basename(candidate) === basename && fs.existsSync(candidate)) {
+        return path.relative(repoRoot(), candidate);
+      }
+    }
+  }
+  return null;
 }
 
 function dispatchCandidate(candidate) {

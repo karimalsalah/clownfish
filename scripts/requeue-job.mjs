@@ -45,7 +45,11 @@ if (!resolved.source_job) {
   process.exit(2);
 }
 
-const job = parseJob(resolved.source_job);
+const sourceJob = resolveExistingJobPath(resolved.source_job);
+if (!fs.existsSync(path.resolve(repoRoot(), sourceJob))) {
+  throw new Error(`job not found for requeue: ${resolved.source_job}`);
+}
+const job = parseJob(sourceJob);
 const errors = validateJob(job);
 if (errors.length > 0) {
   console.error(`invalid job: ${job.relativePath}`);
@@ -113,7 +117,7 @@ try {
 function resolveFromRunId(runId) {
   const fromLedger = readPublishedRunRecord(runId);
   if (fromLedger?.source_job) {
-    return { source_job: fromLedger.source_job, mode: fromLedger.mode };
+    return { source_job: resolveExistingJobPath(fromLedger.source_job), mode: fromLedger.mode };
   }
 
   const artifactDir = fs.mkdtempSync(path.join(os.tmpdir(), `projectclownfish-requeue-${runId}-`));
@@ -130,7 +134,34 @@ function resolveFromRunId(runId) {
   if (!planPath) throw new Error(`run ${runId} artifact did not include cluster-plan.json`);
   const plan = JSON.parse(fs.readFileSync(planPath, "utf8"));
   const result = resultPath ? JSON.parse(fs.readFileSync(resultPath, "utf8")) : null;
-  return { source_job: plan.source_job, mode: result?.mode ?? plan.mode };
+  return { source_job: resolveExistingJobPath(plan.source_job), mode: result?.mode ?? plan.mode };
+}
+
+function resolveExistingJobPath(sourceJob) {
+  const text = String(sourceJob ?? "");
+  if (!text) return text;
+  if (fs.existsSync(path.resolve(repoRoot(), text))) return text;
+
+  const basename = path.basename(text);
+  const roots = [
+    path.join(repoRoot(), "jobs", "openclaw", "inbox"),
+    path.join(repoRoot(), "jobs", "openclaw", "outbox", "finalized"),
+    path.join(repoRoot(), "jobs", "openclaw", "outbox", "stuck"),
+  ];
+  for (const root of roots) {
+    const candidate = path.join(root, basename);
+    if (fs.existsSync(candidate)) return path.relative(repoRoot(), candidate);
+  }
+  const jobsRoot = path.join(repoRoot(), "jobs", "openclaw");
+  if (fs.existsSync(jobsRoot)) {
+    for (const entry of fs.readdirSync(jobsRoot, { recursive: true })) {
+      const candidate = path.join(jobsRoot, String(entry));
+      if (path.basename(candidate) === basename && fs.existsSync(candidate)) {
+        return path.relative(repoRoot(), candidate);
+      }
+    }
+  }
+  return text;
 }
 
 function readPublishedRunRecord(runId) {
