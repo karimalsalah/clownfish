@@ -26,6 +26,7 @@ const args = parseArgs(process.argv.slice(2));
 const inputs = args._.length > 0 ? args._ : [path.join(repoRoot(), ".projectclownfish", "runs")];
 const metadataByRunId = readRunMetadata(args["runs-json"]);
 const skipAggregate = Boolean(args["skip-aggregate"]);
+const noRunUrl = Boolean(args["no-run-url"]);
 const published = [];
 
 for (const input of inputs) {
@@ -52,10 +53,11 @@ function publishResult(resultPath) {
   const runId = String(args["run-id"] ?? inferRunId(resultPath) ?? "");
   const metadata = runId ? metadataByRunId.get(runId) : undefined;
   const previousRecord = runId ? readExistingRunRecord(runId) : null;
-  const runUrl =
-    String(args["run-url"] ?? metadata?.url ?? "") ||
-    previousRecord?.run_url ||
-    (runId ? githubActionsRunUrl(runId) : null);
+  const runUrl = noRunUrl
+    ? null
+    : String(args["run-url"] ?? metadata?.url ?? "") ||
+      previousRecord?.run_url ||
+      (runId ? githubActionsRunUrl(runId) : null);
   const headSha = String(args["head-sha"] ?? metadata?.headSha ?? metadata?.head_sha ?? previousRecord?.head_sha ?? "");
   const workflowConclusion = String(args.conclusion ?? metadata?.conclusion ?? previousRecord?.workflow_conclusion ?? "");
   const workflowStatus = String(metadata?.status ?? previousRecord?.workflow_status ?? "");
