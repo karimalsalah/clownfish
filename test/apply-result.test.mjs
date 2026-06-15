@@ -70,6 +70,28 @@ test("apply-result treats closed target with matching marker as idempotently exe
   assert.equal(report.actions[0].live_state, "closed");
 });
 
+test("apply-result records primary GitHub rate limits as retryable blocks", () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-apply-"));
+  const binDir = path.join(tmp, "bin");
+  fs.mkdirSync(binDir, { recursive: true });
+  writeRateLimitedGhStub(binDir);
+
+  const jobPath = path.join(tmp, "job.md");
+  const resultPath = path.join(tmp, "result.json");
+  const reportPath = path.join(tmp, "apply-report.json");
+  fs.writeFileSync(jobPath, jobMarkdown({ allowUnmergedFixClose: true }));
+  fs.writeFileSync(resultPath, `${JSON.stringify(resultJson(), null, 2)}\n`);
+
+  const result = apply(jobPath, resultPath, reportPath, binDir);
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+  assert.equal(report.actions[0].status, "blocked");
+  assert.equal(report.actions[0].retry_recommended, true);
+  assert.equal(report.actions[0].transient_error, "github_rate_limit");
+  assert.match(report.actions[0].reason, /GitHub rate limit/);
+});
+
 function apply(jobPath, resultPath, reportPath, binDir) {
   return spawnSync(
     process.execPath,
@@ -114,6 +136,18 @@ if (args[0] === "api" && args[1] === "repos/openclaw/openclaw/issues/60063") {
   process.stderr.write("unexpected gh call: " + args.join(" ") + "\\n");
   process.exit(1);
 }
+`,
+  );
+  fs.chmodSync(ghPath, 0o755);
+}
+
+function writeRateLimitedGhStub(binDir) {
+  const ghPath = path.join(binDir, "gh");
+  fs.writeFileSync(
+    ghPath,
+    `#!/usr/bin/env node
+process.stderr.write("GraphQL: API rate limit already exceeded for installation ID 127893203.\\n");
+process.exit(1);
 `,
   );
   fs.chmodSync(ghPath, 0o755);

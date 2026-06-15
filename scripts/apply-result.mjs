@@ -80,6 +80,7 @@ const report = {
   applied_at: new Date().toISOString(),
   actions: [],
 };
+let githubRateLimitBlockReason = "";
 
 const allowedRefs = new Set(
   [
@@ -162,14 +163,33 @@ function applyAction({ job, result, action, dryRun, allowMissingUpdatedAt }) {
       reason: `action status is ${action.status ?? "missing"}`,
     };
   }
+  if (githubRateLimitBlockReason) {
+    return transientRateLimitBlock(base, githubRateLimitBlockReason);
+  }
   if (MERGE_ACTIONS.has(actionName)) {
-    return applyMergeAction({ job, result, action, dryRun, allowMissingUpdatedAt, target, base });
+    try {
+      return applyMergeAction({ job, result, action, dryRun, allowMissingUpdatedAt, target, base });
+    } catch (error) {
+      if (isPrimaryRateLimitError(error)) {
+        githubRateLimitBlockReason = transientRateLimitReason(error);
+        return transientRateLimitBlock(base, githubRateLimitBlockReason);
+      }
+      throw error;
+    }
   }
   if (!CLOSE_ACTIONS.has(actionName)) {
     return { ...base, status: "skipped", reason: "action is not an applicator action" };
   }
 
-  return applyCloseAction({ job, result, action, dryRun, allowMissingUpdatedAt, target, base, actionName, classification, canonical, candidateFix, idempotencyKey });
+  try {
+    return applyCloseAction({ job, result, action, dryRun, allowMissingUpdatedAt, target, base, actionName, classification, canonical, candidateFix, idempotencyKey });
+  } catch (error) {
+    if (isPrimaryRateLimitError(error)) {
+      githubRateLimitBlockReason = transientRateLimitReason(error);
+      return transientRateLimitBlock(base, githubRateLimitBlockReason);
+    }
+    throw error;
+  }
 }
 
 function applyCloseAction({
@@ -293,7 +313,11 @@ function applyCloseAction({
       live_updated_at: live.updated_at,
     };
   }
-  if (expectedUpdatedAt && expectedUpdatedAt !== live.updated_at) {
+  if (
+    expectedUpdatedAt &&
+    expectedUpdatedAt !== live.updated_at &&
+    !(existingComment && commentMatchesLiveUpdatedAt(existingComment, live))
+  ) {
     return {
       ...base,
       status: "blocked",
@@ -835,6 +859,11 @@ function findExistingComment(repo, number, marker, body) {
   return comments.find((comment) => comment.body?.includes(marker) || comment.body === body);
 }
 
+function commentMatchesLiveUpdatedAt(comment, live) {
+  const liveUpdatedAt = String(live?.updated_at ?? "");
+  return Boolean(liveUpdatedAt && [comment?.updated_at, comment?.created_at].includes(liveUpdatedAt));
+}
+
 function postIssueComment(repo, number, body) {
   const payloadPath = writePayload(`comment-${number}`, { body });
   ghWithRetry(["api", `repos/${repo}/issues/${number}/comments`, "--method", "POST", "--input", payloadPath]);
@@ -898,8 +927,48 @@ function ghBestEffort(ghArgs) {
 }
 
 function commandErrorText(error) {
-  const stderr = String(error?.stderr ?? "").trim();
-  return stderr || error?.message || String(error);
+  return [
+    error?.stderr,
+    error?.stdout,
+    error instanceof Error ? error.message : String(error ?? ""),
+  ]
+    .filter(Boolean)
+    .join("\n")
+    .trim();
+}
+
+function transientRateLimitBlock(base, reason) {
+  return {
+    ...base,
+    status: "blocked",
+    reason,
+    retry_recommended: true,
+    transient_error: "github_rate_limit",
+  };
+}
+
+function transientRateLimitReason(error) {
+  return `GitHub rate limit while applying action; retry the job after quota resets: ${compactErrorText(commandErrorText(error), 500)}`;
+}
+
+function isPrimaryRateLimitError(error) {
+  return isGithubRateLimitText(commandErrorText(error));
+}
+
+function isGithubRateLimitText(value) {
+  return /\b(?:graphql:\s*)?(?:api\s*)?(?:secondary\s*)?rate limit(?: already)? exceeded\b/i.test(
+    String(value ?? ""),
+  );
+}
+
+function compactErrorText(text, maxChars) {
+  const compacted = stripAnsi(String(text ?? "")).replace(/\s+/g, " ").trim();
+  if (compacted.length <= maxChars) return compacted;
+  return `${compacted.slice(0, maxChars - 3)}...`;
+}
+
+function stripAnsi(text) {
+  return String(text ?? "").replace(/\u001b\[[0-?]*[ -/]*[@-~]/g, "");
 }
 
 function shouldRetryGh(error) {
@@ -908,7 +977,6 @@ function shouldRetryGh(error) {
   return (
     message.includes("was submitted too quickly") ||
     message.includes("secondary rate") ||
-    message.includes("API rate limit exceeded") ||
     message.includes("Base branch was modified") ||
     message.includes("Head branch was modified")
   );

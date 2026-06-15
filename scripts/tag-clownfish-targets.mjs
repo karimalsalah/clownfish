@@ -38,26 +38,42 @@ if (apply && process.env.CLOWNFISH_ALLOW_EXECUTE !== "1") {
 
 const targets = new Map();
 const sourceFiles = [];
+let githubRateLimitBlockReason = "";
 
 for (const input of inputs) {
   collectTargetsFromInput(path.resolve(input));
 }
 if (includeOpenBranches && live) {
-  collectOpenClownfishPullRequests();
+  try {
+    collectOpenClownfishPullRequests();
+  } catch (error) {
+    if (!isPrimaryRateLimitError(error)) throw error;
+    githubRateLimitBlockReason = transientRateLimitReason("collecting open Clownfish pull requests", error);
+  }
 }
 
-const labelExists = live ? githubLabelExists() : null;
-if (apply && !labelExists) {
-  createGithubLabel();
+let labelExists = null;
+if (live && !githubRateLimitBlockReason) {
+  try {
+    labelExists = githubLabelExists();
+    if (apply && !labelExists) createGithubLabel();
+  } catch (error) {
+    if (!isPrimaryRateLimitError(error)) throw error;
+    githubRateLimitBlockReason = transientRateLimitReason("checking or creating the GitHub label", error);
+  }
 }
 
 const rows = [];
 for (const target of [...targets.values()].sort(sortTarget)) {
-  rows.push(labelTarget(target));
+  if (githubRateLimitBlockReason) {
+    rows.push(transientRateLimitTarget(target, githubRateLimitBlockReason));
+  } else {
+    rows.push(labelTarget(target));
+  }
 }
 
 const summary = {
-  status: apply ? "applied" : "dry_run",
+  status: githubRateLimitBlockReason ? "blocked" : apply ? "applied" : "dry_run",
   label: labelName,
   live,
   apply,
@@ -69,6 +85,7 @@ const summary = {
     planned: rows.filter((row) => row.status === "planned").length,
     labeled: rows.filter((row) => row.status === "labeled").length,
     already_labeled: rows.filter((row) => row.status === "already_labeled").length,
+    blocked: rows.filter((row) => row.status === "blocked").length,
     missing: rows.filter((row) => row.status === "missing").length,
     failed: rows.filter((row) => row.status === "failed").length,
     skipped: rows.filter((row) => row.status === "skipped").length,
@@ -262,6 +279,9 @@ function labelTarget(target) {
   try {
     item = fetchIssue(target.repo, target.number);
   } catch (error) {
+    if (isPrimaryRateLimitError(error)) {
+      return { ...base, ...transientRateLimitFields(transientRateLimitReason(`fetching ${target.ref}`, error)) };
+    }
     return { ...base, status: "failed", reason: ghErrorMessage(error) };
   }
   if (!item?.number) return { ...base, status: "missing", reason: "target not found" };
@@ -284,15 +304,12 @@ function labelTarget(target) {
   }
 
   try {
-    execFileSync("gh", ["issue", "edit", String(target.number), "--repo", target.repo, "--add-label", labelName], {
-      cwd: repoRoot(),
-      encoding: "utf8",
-      env: process.env,
-      stdio: ["ignore", "pipe", "pipe"],
-      maxBuffer: 8 * 1024 * 1024,
-    });
+    ghWithRetry(["issue", "edit", String(target.number), "--repo", target.repo, "--add-label", labelName]);
     return { ...verified, status: "labeled", reason: `added ${labelName}` };
   } catch (error) {
+    if (isPrimaryRateLimitError(error)) {
+      return { ...verified, ...transientRateLimitFields(transientRateLimitReason(`labeling ${target.ref}`, error)) };
+    }
     return { ...verified, status: "failed", reason: ghErrorMessage(error) };
   }
 }
@@ -325,11 +342,17 @@ function githubLabelExists() {
 
 function createGithubLabel() {
   const repo = process.env.CLOWNFISH_TARGET_REPO ?? "openclaw/openclaw";
-  execFileSync(
-    "gh",
-    ["label", "create", labelName, "--repo", repo, "--color", "0E8A16", "--description", "Tracked by Clownfish automation"],
-    { cwd: repoRoot(), encoding: "utf8", env: process.env, stdio: ["ignore", "pipe", "pipe"] },
-  );
+  ghWithRetry([
+    "label",
+    "create",
+    labelName,
+    "--repo",
+    repo,
+    "--color",
+    "0E8A16",
+    "--description",
+    "Tracked by Clownfish automation",
+  ]);
 }
 
 function fetchIssue(repo, number) {
@@ -355,19 +378,100 @@ function readJson(filePath) {
 }
 
 function ghJson(ghArgs) {
-  const text = execFileSync("gh", ghArgs, {
-    cwd: repoRoot(),
-    encoding: "utf8",
-    env: process.env,
-    stdio: ["ignore", "pipe", "pipe"],
-    maxBuffer: 64 * 1024 * 1024,
-  });
+  const text = ghWithRetry(ghArgs);
   return JSON.parse(text || "null");
 }
 
 function ghErrorMessage(error) {
-  const stderr = String(error?.stderr ?? "").trim();
-  return stderr || error?.message || String(error);
+  return commandErrorText(error);
+}
+
+function transientRateLimitTarget(target, reason) {
+  return {
+    repo: target.repo,
+    target: target.ref,
+    url: target.url,
+    sources: target.sources,
+    ...transientRateLimitFields(reason),
+  };
+}
+
+function transientRateLimitFields(reason) {
+  return {
+    status: "blocked",
+    reason,
+    retry_recommended: true,
+    transient_error: "github_rate_limit",
+  };
+}
+
+function transientRateLimitReason(operation, error) {
+  return `GitHub rate limit while ${operation}; retry after quota resets: ${compactErrorText(commandErrorText(error), 500)}`;
+}
+
+function ghWithRetry(ghArgs, attempts = 6) {
+  let lastError;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      return execFileSync("gh", ghArgs, {
+        cwd: repoRoot(),
+        encoding: "utf8",
+        env: process.env,
+        stdio: ["ignore", "pipe", "pipe"],
+        maxBuffer: 64 * 1024 * 1024,
+      }).trim();
+    } catch (error) {
+      lastError = error;
+      if (!shouldRetryGh(error) || attempt === attempts - 1) throw error;
+      sleepMs(Math.min(120_000, 10_000 * 2 ** attempt));
+    }
+  }
+  throw lastError;
+}
+
+function shouldRetryGh(error) {
+  const message = commandErrorText(error);
+  return (
+    message.includes("was submitted too quickly") ||
+    message.includes("secondary rate")
+  );
+}
+
+function isPrimaryRateLimitError(error) {
+  return isGithubRateLimitText(commandErrorText(error));
+}
+
+function isGithubRateLimitText(value) {
+  return /\b(?:graphql:\s*)?(?:api\s*)?(?:secondary\s*)?rate limit(?: already)? exceeded\b/i.test(
+    String(value ?? ""),
+  );
+}
+
+function compactErrorText(text, maxChars) {
+  const compacted = stripAnsi(String(text ?? "")).replace(/\s+/g, " ").trim();
+  if (compacted.length <= maxChars) return compacted;
+  return `${compacted.slice(0, maxChars - 3)}...`;
+}
+
+function commandErrorText(error) {
+  return compactErrorText(
+    [
+      error?.stderr,
+      error?.stdout,
+      error instanceof Error ? error.message : String(error ?? ""),
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    2000,
+  );
+}
+
+function stripAnsi(text) {
+  return String(text ?? "").replace(/\u001b\[[0-?]*[ -/]*[@-~]/g, "");
+}
+
+function sleepMs(milliseconds) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
 }
 
 function noteSource(filePath) {
