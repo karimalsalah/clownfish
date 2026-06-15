@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-491-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516838180"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516838180"
-head_sha: "1aabb2d816f9888d8a4f648c6fa800f88117c1b4"
+run_id: "27526062263"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526062263"
+head_sha: "c7ad8e870b6f3caec4c09cae355087e2dab5e58d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.435Z"
+published_at: "2026-06-15T05:32:02.757Z"
 canonical: "#60381"
 canonical_issue: "#60381"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516838180](https://github.com/openclaw/clownfish/actions/runs/27516838180)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526062263](https://github.com/openclaw/clownfish/actions/runs/27526062263)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #60381
 
 ## Summary
 
-#60381 remains the live canonical issue. #92005 is already closed and unmerged, so it is historical evidence rather than a close, merge, or fixed-by-candidate target. #13498 is a closed merged evaluate-related prior fix and does not cover the remaining force-click scope. No security-sensitive item was detected, and this plan job does not allow merge or fix PR actions.
+Plan-only classification: #60381 remains the live canonical issue. #92005 appears to be the matching force-click implementation path for #60381, but it is already closed and unmerged, so no close, merge, or fix action is planned. #13498 is closed historical evaluate-related context only.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Canonical: #60381
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60381 | keep_canonical | planned | canonical | Keep #60381 open as the surviving canonical thread for the remaining force-click product/implementation decision. |
-| #92005 | keep_closed | skipped | related | Already closed and unmerged; retain as historical related implementation evidence for #60381 without planning a mutation. |
-| #13498 | keep_closed | skipped | related | Closed merged prior work explains the evaluate portion of the issue but is not the live canonical or a remaining force-click fix candidate. |
+| #60381 | keep_canonical | planned | canonical | #60381 is still the best live canonical because it is the only open issue in the cluster and still tracks the remaining force-click product/implementation decision. |
+| #92005 | keep_closed | skipped | fixed_by_candidate | #92005 is relevant source-prior-art for #60381, but it is already closed and unmerged; closed refs must not receive close or merge actions. |
+| #13498 | keep_closed | skipped | related | #13498 is already-merged historical context for the evaluate part of the browser-tool family, not an open candidate to mutate. |
 
 ## Needs Human
 

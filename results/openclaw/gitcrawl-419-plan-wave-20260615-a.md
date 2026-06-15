@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-419-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516793552"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516793552"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27526048797"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526048797"
+head_sha: "c7ad8e870b6f3caec4c09cae355087e2dab5e58d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.415Z"
+published_at: "2026-06-15T05:32:02.754Z"
 canonical: "#90292"
 canonical_issue: "#90292"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516793552](https://github.com/openclaw/clownfish/actions/runs/27516793552)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526048797](https://github.com/openclaw/clownfish/actions/runs/27526048797)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #90292
 
 ## Summary
 
-Canonical remains open issue #90292. The closed PR #92663 is useful source-fix evidence but is already closed and unmerged, so no closure, merge, or fix action is planned. Hydrated linked issues stay related rather than duplicate because they preserve distinct lifecycle, warning, or broader symptom scope.
+Plan-mode classification only. #90292 remains the live canonical for the current Dreaming fallback/narrative extraction report. #92663 is relevant contributor fix evidence but is already closed and unmergeable in this job because merge/fix/raise_pr are blocked. No security-sensitive items were detected in the hydrated refs.
 
 ## Impact
 
@@ -66,12 +66,12 @@ Canonical remains open issue #90292. The closed PR #92663 is useful source-fix e
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #65412 | keep_closed | skipped | related | Already closed historical context; keep as related evidence only. |
-| #87182 | keep_related | planned | related | Same dreaming fallback symptom family, but distinct lifecycle/session-cleanup scope and no safe duplicate closeout. |
-| #87306 | keep_related | planned | related | Related extraction/logging issue with active contributor context and unique warning behavior; do not close as duplicate. |
-| #90292 | keep_canonical | planned | canonical | Best surviving canonical issue for the cluster's narrow fallback-snippet/root-cause thread. |
-| #90781 | keep_related | planned | related | Related symptom-family issue, but root cause remains broader and unresolved; keep open rather than duplicate-close. |
-| #92663 | keep_closed | skipped | related | Useful source PR evidence for #90292, but already closed and unmerged; no plan-mode mutation is valid. |
+| #90292 | keep_canonical | planned | canonical |  |
+| #92663 | keep_closed | skipped | related | Already closed contributor PR remains useful implementation evidence for #90292 but cannot be merged or replaced by this job. |
+| #65412 | keep_closed | skipped | related |  |
+| #87182 | keep_related | planned | related | Related Dreaming fallback/session-read issue with distinct root-cause scope. |
+| #87306 | keep_closed | skipped | related |  |
+| #90781 | keep_related | planned | related | Related symptom family, but broader scope and unresolved reproduction details. |
 
 ## Needs Human
 

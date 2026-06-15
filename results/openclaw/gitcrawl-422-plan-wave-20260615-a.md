@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-422-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516795477"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516795477"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27526050858"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526050858"
+head_sha: "c7ad8e870b6f3caec4c09cae355087e2dab5e58d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.416Z"
+published_at: "2026-06-15T05:32:02.755Z"
 canonical: "#35406"
 canonical_issue: "#35406"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516795477](https://github.com/openclaw/clownfish/actions/runs/27516795477)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526050858](https://github.com/openclaw/clownfish/actions/runs/27526050858)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #35406
 
 ## Summary
 
-Plan mode only. #35406 remains the live canonical issue for the read-tool binary document handling problem. #57600 is already closed as duplicate/superseded and should receive no further close action. #35494 is historical closed contributor work and remains evidence only. #57612 is security-sensitive and should stay quarantined to central OpenClaw security handling.
+Plan-mode classification: #35406 remains the open canonical issue for the read-tool binary document/token-waste problem. #57600 is already closed and must not receive a closure action. The linked security-sensitive #57612 is quarantined only for central security handling. No merge, fix PR, label, comment, or close mutation is planned.
 
 ## Impact
 
@@ -66,10 +66,10 @@ Plan mode only. #35406 remains the live canonical issue for the read-tool binary
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #35406 | keep_canonical | planned | canonical | Best live canonical remains the open issue because the bug is still reported as present on main and all candidate PR paths are closed or out of scope. |
-| #57600 | keep_closed | skipped | superseded | Already closed; treat as historical superseded work under #35406, with no planned mutation. |
-| #35494 | keep_closed | skipped | superseded | Already closed contributor PR; keep as historical evidence and preserve credit in any future replacement plan. |
-| #57612 | route_security | planned | security_sensitive | Security-sensitive linked PR is out of ProjectClownfish scope; quarantine only this ref and continue non-security classification. |
+| #35406 | keep_canonical | planned | canonical | Best surviving live item for this cluster; keep open for maintainer product/fix follow-up. |
+| #35494 | keep_closed | skipped | superseded | Already closed; useful historical fix evidence, but no mutation is valid. |
+| #57600 | keep_closed | skipped | superseded | Already closed; no close action may be planned. The canonical issue remains #35406. |
+| #57612 | route_security | planned | security_sensitive | Quarantine this exact linked item for central OpenClaw security handling only. |
 
 ## Needs Human
 

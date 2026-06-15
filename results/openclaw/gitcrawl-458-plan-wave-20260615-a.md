@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-458-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516810293"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516810293"
-head_sha: "cf553f2255960d5f7476dcf139c657a23ab10472"
+run_id: "27526054608"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526054608"
+head_sha: "c7ad8e870b6f3caec4c09cae355087e2dab5e58d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.424Z"
+published_at: "2026-06-15T05:32:02.756Z"
 canonical: "#92373"
 canonical_issue: "#92360"
 canonical_pr: "#92373"
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516810293](https://github.com/openclaw/clownfish/actions/runs/27516810293)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526054608](https://github.com/openclaw/clownfish/actions/runs/27526054608)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #92373
 
 ## Summary
 
-Hydrated preflight shows the local open-candidate inventory is stale: #92360 is already closed and #92373 is already merged and closed. No open item should become the live canonical; keep #92360 as the closed canonical issue and #92373 as the merged canonical fix path, with no close, comment, label, merge, or fix action planned.
+No open candidates remain in the hydrated live state. The original canonical issue #92360 is closed, and candidate PR #92373 is closed as merged with merge commit 2e20dd8dbf82ff96d73c16f85f7545ce64f5c2ea. No closure, comment, label, merge, or fix action is planned.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Hydrated preflight shows the local open-candidate inventory is stale: #92360 is 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92360 | keep_closed | skipped | canonical | Already closed canonical issue; no close action is valid and no open successor exists in this cluster. |
-| #92373 | keep_closed | skipped | canonical | Merged and closed canonical fix PR; no merge or close mutation is valid. |
+| #92360 | keep_closed | skipped | fixed_by_candidate | Already closed in live hydrated state; closure actions are invalid for closed items. |
+| #92373 | keep_closed | skipped | canonical | Already merged and closed in live hydrated state; merge and closure actions are blocked by job frontmatter and unnecessary. |
 
 ## Needs Human
 

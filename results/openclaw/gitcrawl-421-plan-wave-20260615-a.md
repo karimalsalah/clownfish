@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-421-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516794526"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516794526"
-head_sha: "d5c8e573becb51fea320c5586e82b186a64ac8a2"
+run_id: "27526049832"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526049832"
+head_sha: "c7ad8e870b6f3caec4c09cae355087e2dab5e58d"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:43:28.415Z"
+published_at: "2026-06-15T05:32:02.754Z"
 canonical: "#36212"
 canonical_issue: "#36212"
-canonical_pr: "#91272"
-actions_total: 2
+canonical_pr: null
+actions_total: 3
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516794526](https://github.com/openclaw/clownfish/actions/runs/27516794526)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526049832](https://github.com/openclaw/clownfish/actions/runs/27526049832)
 
 Workflow conclusion: success
 
@@ -35,13 +35,13 @@ Canonical: #36212
 
 ## Summary
 
-Keep #36212 as the live canonical issue and #91272 as the active canonical fix PR for the same queue-drain message_id root cause. No close, merge, or fix action is planned because the job is read-only plan mode and #91272 is blocked by the failing Real behavior proof check.
+Read-only plan: #36212 remains the best live canonical issue. #91272 is already closed as redundant because the same queue message-id preservation is implemented on main through merged #90943. No GitHub mutations are planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 2 |
+| Worker actions | 3 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,8 +66,9 @@ Keep #36212 as the live canonical issue and #91272 as the active canonical fix P
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #36212 | keep_canonical | planned | canonical | #36212 remains the best live canonical issue for the root cause; keep it open until the active fix PR has acceptable proof and validation. |
-| #91272 | keep_canonical | planned | canonical | #91272 is the active canonical fix PR for #36212, but it is not merge-ready and should not drive issue closeout until the failing behavior-proof gate is resolved. |
+| #36212 | keep_canonical | planned | canonical | This is the only open item in the cluster and remains the canonical issue for the root cause. The likely fix path is merged #90943, but this read-only plan does not emit a post-merge close action. |
+| #90943 | keep_closed | skipped | fixed_by_candidate | Already merged historical fix evidence; no action is valid for this closed PR. |
+| #91272 | keep_closed | skipped | superseded | The PR is already closed as redundant/superseded by the merged #90943 path, so the only safe plan action is keep_closed. |
 
 ## Needs Human
 
