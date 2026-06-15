@@ -2,15 +2,15 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-746-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519038045"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519038045"
-head_sha: "30afd4b1d5fd5919294bee21d7dd4b30ef87b468"
+run_id: "27526154495"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526154495"
+head_sha: "bfcc40c5b46da4bbfb978e647e07c894fba40d90"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.655Z"
-canonical: null
-canonical_issue: null
-canonical_pr: "#88946"
+published_at: "2026-06-15T05:34:46.322Z"
+canonical: "#89100"
+canonical_issue: "#89100"
+canonical_pr: null
 actions_total: 2
 fix_executed: 0
 fix_failed: 0
@@ -25,17 +25,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519038045](https://github.com/openclaw/clownfish/actions/runs/27519038045)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526154495](https://github.com/openclaw/clownfish/actions/runs/27526154495)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #88946
+Canonical: #89100
 
 ## Summary
 
-Plan-mode classification only. #89100 is explicitly marked security-sensitive in the preflight artifact and should be routed to central OpenClaw security handling. #89118 is already closed and needs no mutation; its closeout already records that FM-3 was superseded by merged #88946 while #89100 remains open for FM-2/security follow-up.
+Plan-only classification: #89100 is open but marked security-sensitive in the preflight artifact, so it should be routed to central OpenClaw security handling without ProjectClownfish mutation. #89118 is already closed as superseded by the merged #88946 FM-3 path, with #89100 left open for the remaining FM-2 routing concern.
 
 ## Impact
 
@@ -66,8 +66,8 @@ Plan-mode classification only. #89100 is explicitly marked security-sensitive in
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89100 | route_security | planned | security_sensitive | Security-sensitive issue is out of Clownfish backlog-cleanup scope and should be quarantined to central OpenClaw security handling. |
-| #89118 | keep_closed | skipped | superseded | Already closed as superseded by the merged #88946 FM-3 implementation; no mutation is allowed or needed. |
+| #89100 | route_security | planned | security_sensitive | Security-sensitive item is outside ProjectClownfish mutation scope; route only this ref to central security handling. |
+| #89118 | keep_closed | skipped | superseded | Already closed; preserve the closed superseded state and keep remaining discussion on the routed #89100 security item and historical #88946 FM-3 fix path. |
 
 ## Needs Human
 

@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-763-plan-wave-20260615-b"
 mode: "plan"
-run_id: "27519044309"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27519044309"
-head_sha: "30afd4b1d5fd5919294bee21d7dd4b30ef87b468"
+run_id: "27526157054"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526157054"
+head_sha: "bfcc40c5b46da4bbfb978e647e07c894fba40d90"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:20:44.658Z"
+published_at: "2026-06-15T05:34:46.322Z"
 canonical: "#79603"
 canonical_issue: "#79603"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27519044309](https://github.com/openclaw/clownfish/actions/runs/27519044309)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526157054](https://github.com/openclaw/clownfish/actions/runs/27526157054)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #79603
 
 ## Summary
 
-Read-only plan: #79603 remains the live canonical issue for the gateway WebSocket handshake phase logging gap. #82029 is already closed as a low-signal, unmergeable mixed-scope PR, so no closure action is valid. Hydrated linked PR #79654 is also already closed and remains historical implementation evidence only. No security-sensitive items were detected, and no merge or fix PR is allowed by this job.
+Plan-mode classification only. #79603 remains the open canonical issue for the gateway WebSocket handshake phase logging bug. #82029 is already closed and should not receive any close mutation; the hydrated linked PR #79654 is also already closed historical evidence. No security-sensitive signal was detected, and no merge or fix action is allowed by this job.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Read-only plan: #79603 remains the live canonical issue for the gateway WebSocke
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #79603 | keep_canonical | planned | canonical | #79603 is the only open live item and remains the best canonical thread for the unresolved gateway/ws diagnostics issue. |
-| #82029 | keep_closed | skipped | low_signal | Already closed; keep as historical evidence that a broad mixed-scope implementation was rejected while #79603 remains open. |
-| #79654 | keep_closed | skipped | related | Already closed related implementation evidence; it should not become a live candidate fix in this plan run. |
+| #79603 | keep_canonical | planned | canonical | Best surviving open item for the root cause; keep it open as canonical while no landable fix PR exists. |
+| #82029 | keep_closed | skipped | low_signal | Already closed low-signal unmergeable PR; preserve the canonical issue #79603 instead of planning any mutation. |
+| #79654 | keep_closed | skipped | related | Closed historical related implementation attempt; useful as evidence and possible contributor-credit context, but not an actionable candidate in this plan job. |
 
 ## Needs Human
 

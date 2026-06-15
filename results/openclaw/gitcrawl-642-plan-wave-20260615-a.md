@@ -2,12 +2,12 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-642-plan-wave-20260615-a"
 mode: "plan"
-run_id: "27516899412"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27516899412"
-head_sha: "756c7e01926673fc4be49b47719fc3f2b097892a"
+run_id: "27526140738"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27526140738"
+head_sha: "e7afb37030cc6d436522c8e9ca7202262840e10b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T02:27:57.070Z"
+published_at: "2026-06-15T05:34:46.317Z"
 canonical: "#69605"
 canonical_issue: "#69605"
 canonical_pr: null
@@ -25,7 +25,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27516899412](https://github.com/openclaw/clownfish/actions/runs/27516899412)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27526140738](https://github.com/openclaw/clownfish/actions/runs/27526140738)
 
 Workflow conclusion: success
 
@@ -35,7 +35,7 @@ Canonical: #69605
 
 ## Summary
 
-Plan-only classification: keep #69605 as the live canonical issue for the Control UI code-block copy payload bug. #73633 is already closed and should receive no closure action. Linked issue #51664 is a different Edge clipboard failure and should stay related, not folded into this duplicate family.
+Plan-mode classification only. #69605 remains the live canonical issue for the Control UI code-block copy payload bug. #73633 is already closed and should not receive any close action. Hydrated linked issue #51664 is related clipboard-copy work but has a different Edge Clipboard API/fallback failure, so it should stay separate.
 
 ## Impact
 
@@ -66,9 +66,9 @@ Plan-only classification: keep #69605 as the live canonical issue for the Contro
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #69605 | keep_canonical | planned | canonical | #69605 is the best surviving live canonical for the Control UI rendered code-block copy payload bug. |
-| #73633 | keep_closed | skipped | superseded | Already-closed PRs must not receive closure actions; keep it as historical closed context for #69605. |
-| #51664 | keep_related | planned | related | Same WebChat code-block copy area, but different failure mode and likely root cause; do not close it as a duplicate of #69605. |
+| #69605 | keep_canonical | planned | canonical | #69605 is the best live canonical for this cluster because it is open, directly describes the clustered user-visible payload-selection bug, and the only linked fix PR is already closed unmerged. |
+| #73633 | keep_closed | skipped | superseded | Already-closed refs must not receive closure actions. Keep #73633 as historical contributor/fix-shape evidence for #69605. |
+| #51664 | keep_related | planned | related | #51664 is in the same WebChat copy-button area but has a meaningfully different browser/fallback failure, so it should not be deduped into #69605 in this cluster. |
 
 ## Needs Human
 
