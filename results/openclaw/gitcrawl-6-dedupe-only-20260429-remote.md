@@ -2,40 +2,41 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-6-dedupe-only-20260429-remote"
 mode: "autonomous"
-run_id: "25136429710"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25136429710"
-head_sha: "648e71ed1e7bd7c58c0085195d8e3302fdbfa10f"
+run_id: "27595877124"
+workflow_run_id: "27595877124"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27595877124"
+head_sha: "d9b9bfb6cf45a4e1ff3cbc2c7635601fa862d87f"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T04:05:51.268Z"
-canonical: null
+result_status: "planned"
+published_at: "2026-06-16T05:23:25.216Z"
+canonical: "https://github.com/openclaw/openclaw/pull/84802"
 canonical_issue: null
-canonical_pr: null
+canonical_pr: "https://github.com/openclaw/openclaw/pull/84802"
 actions_total: 5
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-6-dedupe-only-20260429-remote
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25136429710](https://github.com/openclaw/clownfish/actions/runs/25136429710)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27595877124](https://github.com/openclaw/clownfish/actions/runs/27595877124)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
-Canonical: unknown
+Canonical: https://github.com/openclaw/openclaw/pull/84802
 
 ## Summary
 
-Classified the hydrated open candidates and one linked open PR from the preflight artifact. No security-sensitive refs were detected. No close actions are safe to plan: #68020 is no longer a clean canonical choice because hydrated comments point to current-main fixes not hydrated as candidate refs, while #70464 is a broader related cleanup PR with failing checks and unresolved review blockers.
+Classified the live hydrated cluster without mutating GitHub. The original representative #68020 is now covered by current main behavior and the merged #84802 cleanup path, so it can be closed as fixed by candidate with contributor credit preserved. Security-sensitive #70332 is quarantined only for central security handling. #78458 remains open as a related but distinct Gateway-restart cleanup follow-up. Already-closed candidate PRs are evidence only.
 
 ## Impact
 
@@ -46,9 +47,9 @@ Classified the hydrated open candidates and one linked open PR from the prefligh
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -60,18 +61,18 @@ Classified the hydrated open candidates and one linked open PR from the prefligh
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #68020 | close_fixed_by_candidate | blocked | fixed_by_candidate | candidate fix is not listed in job refs |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #68020 | needs_human | planned | needs_human | Canonical choice and any fixed-by-current-main closeout for #68020 require a refreshed plan that hydrates the landed #72712 fix or an explicit maintainer decision. |
-| #68774 | keep_related | planned | related | Keep open as a related Dreaming contamination fix outside the canonical cleanup-warning decision. |
-| #70332 | keep_related | planned | related | Keep open as related Dream Diary pipeline work; do not close it as a duplicate or superseded item in this cluster. |
-| #70464 | keep_related | planned | related | Keep open as related cleanup implementation work; failing checks and unresolved P1 review findings block any merge or fixed-by-candidate closeout. |
-| #70523 | keep_related | planned | related | Keep open as a focused related candidate for #70509-style raw fallback pollution; no high-confidence superseded or duplicate closeout is available. |
+| #68020 | close_fixed_by_candidate | planned | fixed_by_candidate | Current main and hydrated merged PR #84802 cover the Dreaming cleanup path with stronger validation than the unmerged log-suppression PR; #68020 is not merge-ready and has no unique remaining high-confidence work in this dedupe-only job. |
+| #70332 | route_security | planned | security_sensitive | Security-sensitive PRs are out of scope for ProjectClownfish mutation and must route to central OpenClaw security handling without blocking unrelated non-security classification. |
+| #78458 | keep_related | planned | related | Not a duplicate of the log-suppression PR or the merged bounded cleanup path; the artifact shows unique remaining restart cleanup behavior. |
+| #70464 | keep_closed | skipped | fixed_by_candidate | Already closed; historical evidence only. |
+| #70523 | keep_closed | skipped | superseded | Already closed; historical evidence only. |
 
 ## Needs Human
 
-- Hydrate the current-main fix referenced from #68252, especially #72712, before deciding whether #68020 should be closed as fixed/superseded or kept as the canonical open PR.
+- none
