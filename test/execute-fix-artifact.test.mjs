@@ -48,7 +48,7 @@ test("execute-fix-artifact preserves recoverable replacement branch when review 
         CLOWNFISH_ALLOWED_OWNER: "openclaw",
         CLOWNFISH_ALLOW_EXECUTE: "1",
         CLOWNFISH_ALLOW_FIX_PR: "1",
-        CLOWNFISH_FIX_STEP_TIMEOUT_MS: "61000",
+        CLOWNFISH_FIX_STEP_TIMEOUT_MS: "70000",
         CLOWNFISH_FIX_TIMEOUT_RESERVE_MS: "0",
         CLOWNFISH_FIX_REPORT_RESERVE_MS: "0",
         CLOWNFISH_INSTALL_TARGET_DEPS: "0",
@@ -148,7 +148,8 @@ test("execute-fix-artifact bounds and traces rebase-only repair execution", () =
   assert.match(source, /validation_command_start/);
   assert.match(source, /codex_review_start/);
   assert.match(source, /do not rerun pnpm, npm, corepack, test, lint, build, or other validation commands/);
-  assert.match(source, /do not use gh, curl, or network reads to re-fetch PR or review state/);
+  assert.match(source, /may run the minimum read-only `gh pr view` or `gh api` query needed to satisfy them/);
+  assert.match(source, /do not mutate GitHub: do not push, comment, review, label, close, merge, assign, or change any remote state/);
 });
 
 test("execute-fix-artifact retries transient GitHub reads before branch repair", () => {
@@ -226,7 +227,7 @@ if (args.includes("--output-schema")) {
 }
 const cd = args[args.indexOf("--cd") + 1];
 const output = args.includes("--output-last-message") ? args[args.indexOf("--output-last-message") + 1] : "";
-Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 2500);
+Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 10000);
 fs.appendFileSync(path.join(cd, "src", "app.js"), "\\n// ProjectClownfish test edit\\n");
 if (output) fs.writeFileSync(output, "edited\\n");
 `,
