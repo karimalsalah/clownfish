@@ -355,6 +355,26 @@ function nonSecurityAssertionStrippedText(value) {
     .replace(/\bsecurity[-_\s]?sensitive\s*[=:]\s*(?:false|0|no)\b/gi, "non-security classification")
     .replace(/\bsecuritySensitive\s*[=:]\s*(?:false|0|no)\b/g, "non-security classification")
     .replace(
+      /\b(?:any\s+)?security[-_\s]?sensitive\s+(?:linked|related|other|unrelated|separate|adjacent)\s+(?:implementation\s+path|refs?|issues?|prs?|items?|targets?|work)\s+(?:is|are|was|were)?\s*(?:quarantined|routed|handled|triaged|excluded)(?:\s+separately|\s+elsewhere)?\b/gi,
+      "separate security context",
+    )
+    .replace(
+      /\b(?:linked|related|other|unrelated|separate|adjacent)\s+security[-_\s]?sensitive\s+(?:implementation\s+path|refs?|issues?|prs?|items?|targets?|work)\s+(?:is|are|was|were)?\s*(?:quarantined|routed|handled|triaged|excluded)?(?:\s+separately|\s+elsewhere)?\b/gi,
+      "separate security context",
+    )
+    .replace(
+      /\b(?:linked|related|other|unrelated|separate|adjacent)[^.]{0,80}\bsecurity[-_\s]?sensitive\b[^.]{0,80}\b(?:quarantined|routed|handled|triaged|excluded|refs?|issues?|prs?|items?|targets?|implementation\s+path)\b/gi,
+      "separate security context",
+    )
+    .replace(
+      /\bsecurity[-_\s]?sensitive\b[^.]{0,80}\b(?:linked|related|other|unrelated|separate|adjacent)[^.]{0,80}\b(?:quarantined|routed|handled|triaged|excluded|refs?|issues?|prs?|items?|targets?|implementation\s+path)\b/gi,
+      "separate security context",
+    )
+    .replace(
+      /\b(?:route|routed|quarantine|quarantined|handle|handled|triage|triaged)\s+(?:only\s+)?(?:the\s+)?(?:linked|related|other|unrelated|separate|adjacent|exact)\s+security[-_\s]?sensitive\s+(?:refs?|issues?|prs?|items?|targets?)\b/gi,
+      "separate security context",
+    )
+    .replace(
       /\b(?:validator|preflight|worker|plan|reviewer)?\s*(?:output\s+)?(?:did\s+not|does\s+not|didn't|is\s+not|was\s+not|not)\s+(?:mark|classify|flag|treat|identify|detect)[^.]{0,120}\bsecurity[-_\s]?sensitive(?:\s+target|\s+ref|\s+item)?\b/gi,
       "non-security classification",
     )

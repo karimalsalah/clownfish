@@ -127,6 +127,47 @@ test("review-results ignores false security_sensitive field echoes", () => {
   assert.match(result.stdout, /"status": "passed"/);
 });
 
+test("review-results ignores separately routed security refs for non-security targets", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#39476",
+          action: "keep_canonical",
+          status: "planned",
+          idempotency_key: "cluster-test:keep-canonical:39476",
+          classification: "canonical",
+          target_kind: "issue",
+          target_updated_at: "2026-06-15T10:00:00Z",
+          evidence: ["#91161 was routed as a linked security-sensitive ref."],
+          reason:
+            "#39476 remains canonical; any security-sensitive linked implementation path is quarantined separately.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#39476",
+            kind: "issue",
+            state: "open",
+            title: "A2A sessions_send causes duplicate messages",
+            labels: ["bug"],
+            updated_at: "2026-06-15T10:00:00Z",
+            security_sensitive: false,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  assert.match(result.stdout, /"status": "passed"/);
+});
+
 test("review-results allows unavailable security route when hydration was rate limited", () => {
   const dir = makeResultDir(
     {
