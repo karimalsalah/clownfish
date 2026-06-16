@@ -2,60 +2,60 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-156917-autonomous-smoke"
 mode: "autonomous"
-run_id: "27584189396"
-workflow_run_id: "27584189396"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27584189396"
-head_sha: "3eaef20c39c95c760c2eeb4e61adf6ea57afc054"
+run_id: "27589624395"
+workflow_run_id: "27589624395"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27589624395"
+head_sha: "6a654d1757156670f15b7d53c36c840c3e903935"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:59:12.388Z"
+result_status: "needs_human"
+published_at: "2026-06-16T02:22:55.584Z"
 canonical: "https://github.com/openclaw/openclaw/issues/67777"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/67777"
 canonical_pr: null
-actions_total: 9
+actions_total: 8
 fix_executed: 0
 fix_failed: 0
-fix_blocked: 1
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 1
 ---
 
 # ghcrawl-156917-autonomous-smoke
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27584189396](https://github.com/openclaw/clownfish/actions/runs/27584189396)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27589624395](https://github.com/openclaw/clownfish/actions/runs/27589624395)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: https://github.com/openclaw/openclaw/issues/67777
 
 ## Summary
 
-Canonical shifted from closed #65000 to open #67777. The hydrated artifact and current main show the direct-delivery loss window has partial fixes, but the restore/resume orphan-prune path can still remove a pending completion delivery before replay. #68464 and #85716 are security-routed, and #85770 is related but distinct heartbeat replay work.
+Hydrated state shows the original representative #65000 is already closed and #67777 is the best live canonical issue for the remaining durable subagent completion delivery gap. No close or merge is safe: #67777 is intentionally open for maintainer/product review, #68464 and #85716 are security-routed for central handling, and #85770 is a related narrower heartbeat replay PR that is not merge-ready.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 9 |
+| Worker actions | 8 |
 | Fix executed | 0 |
 | Fix failed | 0 |
-| Fix blocked | 1 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| execute_fix | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -67,16 +67,15 @@ Canonical shifted from closed #65000 to open #67777. The hydrated artifact and c
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #65000 | keep_closed | skipped | superseded | Closed historical context only; keep closed as superseded by #67777. |
-| #66683 | keep_closed | skipped | fixed_by_candidate | Closed implemented context; no mutation planned. |
-| #67777 | keep_canonical | planned | canonical | Best live canonical issue for the remaining durable subagent completion redelivery bug. |
-| #68464 | route_security | planned | security_sensitive | Security-sensitive linked PR must be routed to central OpenClaw security handling, not mutated or closed by Clownfish backlog automation. |
-| #75462 | keep_closed | skipped | superseded | Closed superseded PR with landed credited main commit; historical evidence only. |
-| #85716 | route_security | planned | security_sensitive | Security-sensitive linked PR must be routed to central OpenClaw security handling, not mutated by Clownfish backlog automation. |
-| #85770 | keep_related | planned | related | Related but independent follow-up PR; do not close or merge in this cluster. |
-| cluster:ghcrawl-156917-autonomous-smoke | fix_needed | planned |  | A narrow new fix is needed for the remaining #67777 restore/orphan-prune delivery preservation gap. |
-| cluster:ghcrawl-156917-autonomous-smoke | build_fix_artifact | planned |  | Fix artifact is allowed by job frontmatter and keeps the repair narrow enough for autonomous execution. |
+| #65000 | keep_closed | skipped | superseded | Already closed and superseded by the live canonical issue #67777. |
+| #66683 | keep_closed | skipped | fixed_by_candidate | Already closed; no mutation is valid for this target. |
+| #67777 | keep_canonical | planned | canonical | Best live canonical planning issue; it should remain open for maintainer/product review. |
+| #68464 | route_security | planned | security_sensitive | Security-sensitive linked PR must be routed to central OpenClaw security handling and must not be mutated by Clownfish. |
+| #75462 | keep_closed | skipped | superseded | Already closed as superseded by a landed main commit; no worker mutation is valid. |
+| #85716 | route_security | planned | security_sensitive | Security-sensitive linked PR must be routed to central OpenClaw security handling and must not be mutated by Clownfish. |
+| #85770 | keep_related | planned | related | Related narrower pending-final replay work, not a duplicate of #67777 and not merge-ready in this cluster. |
+| cluster:ghcrawl-156917-autonomous-smoke | needs_human | blocked | needs_human | Maintainer decision required on whether to keep #67777 as a planning thread until product review/live repro, or authorize a narrow Clownfish fix despite the no-new-fix-pr and product-decision labels. |
 
 ## Needs Human
 
-- none
+- Decide whether #67777 should remain a planning/product-review issue with no Clownfish fix PR, or whether maintainers want to override the no-new-fix-pr/product-decision labels and authorize a narrow fix lane for the restore/resume orphan-prune pending-delivery gap.
