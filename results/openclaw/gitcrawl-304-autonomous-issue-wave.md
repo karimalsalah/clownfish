@@ -2,15 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-304-autonomous-issue-wave"
 mode: "autonomous"
-run_id: "27566385031"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27566385031"
-head_sha: "92dd1476bea37dce223a72feeab1de2dc6693ecf"
+run_id: "27602625542"
+workflow_run_id: "27602625542"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27602625542"
+head_sha: "afbdfdc7126291469fb3fcbd914aee82604f3476"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T18:11:51.514Z"
-canonical: "https://github.com/openclaw/openclaw/issues/87312"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/87312"
-canonical_pr: "https://github.com/openclaw/openclaw/pull/87344"
+published_at: "2026-06-16T07:56:33.343Z"
+canonical: null
+canonical_issue: null
+canonical_pr: null
 actions_total: 3
 fix_executed: 0
 fix_failed: 0
@@ -18,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 1
 ---
 
 # gitcrawl-304-autonomous-issue-wave
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27566385031](https://github.com/openclaw/clownfish/actions/runs/27566385031)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27602625542](https://github.com/openclaw/clownfish/actions/runs/27602625542)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/issues/87312
+Canonical: unknown
 
 ## Summary
 
-Classified the open canonical issue and linked repairable PR from the hydrated preflight artifact. No GitHub mutations are planned directly by this worker. The issue remains the canonical user report, and PR #87344 is the best repairable contributor fix path but is not merge-ready because real Windows behavior proof is still missing and check state could not be hydrated due a GitHub rate-limit error in the artifact.
+Deterministic validation identified #87312 and #87344 as security-sensitive, so both exact hydrated refs are quarantined with route_security. Because the planned repair work depends on the quarantined issue/PR decision, the prior executable fix lane is downgraded to a cluster-scoped needs_human action and no fix artifact is emitted.
 
 ## Impact
 
@@ -48,7 +49,7 @@ Classified the open canonical issue and linked repairable PR from the hydrated p
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -66,10 +67,10 @@ Classified the open canonical issue and linked repairable PR from the hydrated p
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #87312 | keep_canonical | planned | canonical | Keep the reporter issue open as the canonical tracking thread until a repaired or replacement fix path lands and validates the Windows doctor behavior. |
-| #87344 | fix_needed | planned | canonical | Repair the contributor branch rather than open an unrelated new fix first, because the PR is narrow, editable by maintainers, and already carries the contributor's implementation for the canonical issue. |
-| cluster:gitcrawl-304-autonomous-issue-wave | build_fix_artifact | planned |  | Create an auditable repair plan for the editable contributor PR so Clownfish can carry the existing credit forward and satisfy the missing validation gates before merge. |
+| #87312 | route_security | planned | security_sensitive | Route the exact issue ref to central OpenClaw security handling and do not mutate it through ProjectClownfish automation. |
+| #87344 | route_security | planned | security_sensitive | Route the exact PR ref to central OpenClaw security handling and do not mutate, repair, merge, or close it through ProjectClownfish automation. |
+| cluster:gitcrawl-304-autonomous-issue-wave | needs_human | blocked | needs_human | The executable fix decision now depends on central security triage for the quarantined issue and PR, so ProjectClownfish should stop before repair work. |
 
 ## Needs Human
 
-- none
+- Central OpenClaw security triage must decide whether #87312/#87344 may return to ordinary ProjectClownfish repair handling.
