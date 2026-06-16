@@ -2,54 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-13587-dedupe-only-20260429-remote"
 mode: "autonomous"
-run_id: "27585128483"
-workflow_run_id: "27585128483"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27585128483"
-head_sha: "029567b88e02d3fb42050a9ee72b98ee92930545"
+run_id: "27595845814"
+workflow_run_id: "27595845814"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27595845814"
+head_sha: "7a8b7ab269d4c8246a3837f1013f6d9715d17c5e"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-16T00:21:46.992Z"
-canonical: "#59118"
+result_status: "needs_human"
+published_at: "2026-06-16T05:21:58.136Z"
+canonical: "https://github.com/openclaw/openclaw/pull/59118"
 canonical_issue: null
-canonical_pr: "#59118"
-actions_total: 23
+canonical_pr: "https://github.com/openclaw/openclaw/pull/59118"
+actions_total: 12
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 4
 ---
 
 # gitcrawl-13587-dedupe-only-20260429-remote
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27585128483](https://github.com/openclaw/clownfish/actions/runs/27585128483)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27595845814](https://github.com/openclaw/clownfish/actions/runs/27595845814)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
-Canonical: #59118
+Canonical: https://github.com/openclaw/openclaw/pull/59118
 
 ## Summary
 
-Autonomous plan from the hydrated cluster artifact, repaired after deterministic validation. Canonical #59118 is already merged and closed. No close, merge, fix, or label mutation is planned: most candidates are already closed, #49550 has unavailable live state, and security-sensitive refs are routed only to central security handling.
+Hydrated preflight shows the hinted canonical #59118 is already merged on main as the narrow raw JSON parse leak fix. No close actions are planned: the remaining live non-security issues are related or independent follow-up/product decisions, one candidate ref is unavailable, and security-sensitive refs are routed only to central security handling.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 23 |
+| Worker actions | 12 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 4 |
 
 ## Fix Execution Actions
 
@@ -67,30 +67,22 @@ Autonomous plan from the hydrated cluster artifact, repaired after deterministic
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #59118 | keep_canonical | planned | canonical | The representative is no longer open, but it remains the best canonical landed fix for this cluster family. |
-| #40873 | keep_closed | skipped | superseded | Already-closed targets must not receive closure actions. |
-| #41172 | keep_closed | skipped | related | Already-closed targets must not receive closure actions. |
-| #41803 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #44581 | keep_closed | skipped | related | Already-closed targets must not receive closure actions. |
-| #45016 | keep_closed | skipped | superseded | Already-closed targets must not receive closure actions. |
-| #45216 | keep_closed | skipped | related | Already-closed targets must not receive closure actions. |
-| #45393 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #46373 | keep_closed | skipped | related | Already-closed targets must not receive closure actions. |
-| #49550 | needs_human | blocked | needs_human | Live state is unavailable, so no close, keep, or route decision can be safely planned. |
-| #50425 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #50802 | keep_closed | skipped | related | Already-closed targets must not receive closure actions. |
-| #55923 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #57499 | keep_closed | skipped | superseded | Already-closed targets must not receive closure actions. |
-| #59517 | keep_closed | skipped | related | Already-closed targets must not receive closure actions. |
-| #61151 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #62201 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #62206 | keep_closed | skipped | related | Already-closed targets must not receive closure actions. |
-| #63786 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #68152 | keep_closed | skipped | independent | Already-closed targets must not receive closure actions. |
-| #68565 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling. |
-| #69664 | keep_closed | skipped | independent | Already-closed targets must not receive closure actions. |
-| #11207 | route_security | planned | security_sensitive | Quarantine this exact linked security item for central OpenClaw security handling. |
+| #59118 | keep_canonical | planned | canonical | Canonical path is already-merged PR #59118; this run is dedupe/closure-only and should not create a fix PR or merge anything. |
+| #11207 | route_security | planned | security_sensitive | Security-sensitive open issue; route only this ref to central security triage. |
+| #41803 | route_security | planned | security_sensitive | Security-sensitive PR; route exact ref to central security handling and do not mutate it. |
+| #45393 | route_security | planned | security_sensitive | Security-sensitive PR; route exact ref to central security handling and do not mutate it. |
+| #50425 | route_security | planned | security_sensitive | Security-sensitive PR; route exact ref to central security handling and do not mutate it. |
+| #55923 | route_security | planned | security_sensitive | Security-sensitive PR; route exact ref to central security handling and do not mutate it. |
+| #62201 | route_security | planned | security_sensitive | Security-sensitive PR; route exact ref to central security handling and do not mutate it. |
+| #63786 | route_security | planned | security_sensitive | Security-sensitive PR; route exact ref to central security handling and do not mutate it. |
+| #44910 | keep_related | planned | related | Keep open as related; not a true duplicate of #59118 and no fix PR is allowed in this job. |
+| #45385 | keep_related | planned | related | Keep open as related; not a true duplicate and no fix PR is allowed in this job. |
+| #54496 | keep_independent | planned | independent | Keep independent; it is a broader product/API feature request, not a duplicate closeout candidate. |
+| #49550 | needs_human | blocked | needs_human | Live GitHub state is unavailable; do not classify, close, or route without a refreshed hydrated target. |
 
 ## Needs Human
 
-- #49550 has unavailable live state from GitHub hydration: gh: Not Found (HTTP 404).
+- #49550: live state is unavailable (HTTP 404), so this candidate cannot be classified safely.
+- #44910: maintainer decision remains on whether to land a narrow top-level detail parser repair or rely on generic suppression for unconfigured-provider errors.
+- #45385: maintainer decision remains on mismatch-specific user messaging/retry behavior after current generic suppression and repair mitigations.
+- #54496: maintainer product/API design is needed for durable transcript semantics before implementation.

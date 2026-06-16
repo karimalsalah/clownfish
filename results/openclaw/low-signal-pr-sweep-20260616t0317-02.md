@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "low-signal-pr-sweep-20260616T0317-02"
 mode: "autonomous"
-run_id: "27591735640"
-workflow_run_id: "27591735640"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27591735640"
-head_sha: "cb391b33d028b8e8bd266678781b1a60f65dfad2"
+run_id: "27595882530"
+workflow_run_id: "27595882530"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27595882530"
+head_sha: "d9b9bfb6cf45a4e1ff3cbc2c7635601fa862d87f"
 workflow_conclusion: "success"
 result_status: "needs_human"
-published_at: "2026-06-16T03:21:34.300Z"
+published_at: "2026-06-16T05:21:58.229Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27591735640](https://github.com/openclaw/clownfish/actions/runs/27591735640)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27595882530](https://github.com/openclaw/clownfish/actions/runs/27595882530)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Low-signal closure is not planned for #89932. The hydrated PR is open and docs-only, but it is a focused Skill Workshop documentation fix tied to #87570, has supplied behavior proof, green checks, and a current ClawSweeper review saying it is ready for maintainer review while still needing refresh against current main. That falls under the job's human-review exclusions for green checks, focused fix, and technical correctness judgment rather than boringly clear low-signal cleanup.
+Low-signal closure is not safe for #89932. The PR is open and docs-only, but it is a focused Skill Workshop documentation update tied to #87570, has supplied behavior proof, green relevant checks, and a ClawSweeper review that asks for maintainer review rather than low-signal closure. The remaining decision is maintainer/product judgment about whether to keep, refresh, or close the overlapping docs work.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Low-signal closure is not planned for #89932. The hydrated PR is open and docs-o
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89932 | needs_human | planned | needs_human | #89932 is not a boringly clear low-signal PR. Closing it would require maintainer judgment about whether the remaining docs alignment is still desired after the overlapping main fix. |
+| #89932 | needs_human | blocked | needs_human | Blocked from close_low_signal by green checks, focused linked documentation work, supplied proof, and ClawSweeper's maintainer-review signal. The remaining decision is whether maintainers want this overlapping docs PR refreshed, closed manually, or split. |
 
 ## Needs Human
 
-- #89932 requires maintainer judgment: it is an open, green, focused docs PR with proof and ClawSweeper review activity, but it overlaps current main and needs a refresh/narrowing decision.
+- #89932: decide whether the overlapping Skill Workshop docs PR should be kept for maintainer review/refresh or manually closed despite green proof and focused linked work.

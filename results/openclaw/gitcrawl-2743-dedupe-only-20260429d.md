@@ -2,53 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-2743-dedupe-only-20260429d"
 mode: "autonomous"
-run_id: "25142231539"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25142231539"
-head_sha: "79624272e7089bff13256606fdef7d9745e0c6b4"
+run_id: "27595853441"
+workflow_run_id: "27595853441"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27595853441"
+head_sha: "7a8b7ab269d4c8246a3837f1013f6d9715d17c5e"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T04:05:51.323Z"
-canonical: "https://github.com/openclaw/openclaw/issues/40982"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/40982"
-canonical_pr: "https://github.com/openclaw/openclaw/pull/41022"
-actions_total: 4
+result_status: "planned"
+published_at: "2026-06-16T05:21:58.197Z"
+canonical: null
+canonical_issue: null
+canonical_pr: null
+actions_total: 3
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-2743-dedupe-only-20260429d
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25142231539](https://github.com/openclaw/clownfish/actions/runs/25142231539)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27595853441](https://github.com/openclaw/clownfish/actions/runs/27595853441)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/issues/40982
+Canonical: unknown
 
 ## Summary
 
-Canonical issue #40982 is still the live watchdog-cap report, and #41022 is the active narrow implementation PR linked to it. No close/comment/label mutation is planned: instant close is disabled, #40982 remains unresolved on main per the hydrated ClawSweeper review, #41022 needs maintainer judgment before merge, and linked #71803 is a related but distinct Monitor-aware idle bug.
+Routed the validator-identified security-sensitive live refs #40982 and #79997 to central OpenClaw security handling as exact-ref route_security actions. #41022 is already closed and remains historical evidence only, with no close mutation planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 4 |
+| Worker actions | 3 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,11 +67,10 @@ Canonical issue #40982 is still the live watchdog-cap report, and #41022 is the 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #40982 | keep_canonical | planned | canonical | #40982 remains the best live canonical issue for the shared CLI watchdog cap. Keep it open until #41022 or a successor lands and validation can be owned there. |
-| #41022 | needs_human | blocked | needs_human | #41022 is the active candidate PR for #40982, but merge readiness depends on maintainer approval of the default values and requested regression coverage. Keep the PR open; do not replace or close it in this dedupe-only job. |
-| #71803 | keep_related | planned | related | Same watchdog symptom family, different root cause and remaining work. Keep #71803 open as a related follow-up outside this dedupe closeout. |
-| #14257 | keep_closed | skipped | related | Already closed historical context; no mutation is valid or needed. |
+| #40982 | route_security | planned | security_sensitive | Security-sensitive refs are outside ProjectClownfish dedupe cleanup and must be routed to central OpenClaw security handling. |
+| #41022 | keep_closed | skipped | superseded | Already-closed refs must not receive close actions. The closed PR remains historical evidence only. |
+| #79997 | route_security | planned | security_sensitive | Security-sensitive refs are outside ProjectClownfish dedupe cleanup and must be routed to central OpenClaw security handling. |
 
 ## Needs Human
 
-- #41022 needs maintainer approval on the shipped watchdog default values and requested regression coverage before any merge path; the hydrated ClawSweeper review says not to replace it with an autonomous fix PR.
+- none

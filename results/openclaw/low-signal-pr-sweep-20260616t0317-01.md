@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "low-signal-pr-sweep-20260616T0317-01"
 mode: "autonomous"
-run_id: "27591735622"
-workflow_run_id: "27591735622"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27591735622"
-head_sha: "cb391b33d028b8e8bd266678781b1a60f65dfad2"
+run_id: "27595882300"
+workflow_run_id: "27595882300"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27595882300"
+head_sha: "d9b9bfb6cf45a4e1ff3cbc2c7635601fa862d87f"
 workflow_conclusion: "success"
 result_status: "needs_human"
-published_at: "2026-06-16T03:22:39.607Z"
+published_at: "2026-06-16T05:21:58.225Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,14 +19,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 3
+needs_human_count: 1
 ---
 
 # low-signal-pr-sweep-20260616T0317-01
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27591735622](https://github.com/openclaw/clownfish/actions/runs/27591735622)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27595882300](https://github.com/openclaw/clownfish/actions/runs/27595882300)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Reviewed the four listed open PRs under the opt-in low-signal policy using the hydrated preflight artifact. No PR is safely closeable as low-signal: #76631 is security-sensitive and must route to central security handling; #81503 and #88738 are focused linked docs fixes; #85727 has maintainer signal and needs human judgment before any closeout.
+Reviewed the four listed low-signal PR candidates against the hydrated preflight artifact and low-signal policy. No low-signal closures are planned: #76631 is security-sensitive and must be routed to central security handling, #81503 and #88738 are focused linked docs fixes that should stay open, and #85727 needs human review because maintainer signal and technical correctness concerns block automated low-signal closure.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Reviewed the four listed open PRs under the opt-in low-signal policy using the h
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 3 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -67,13 +67,11 @@ Reviewed the four listed open PRs under the opt-in low-signal policy using the h
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #76631 | route_security | planned | security_sensitive | Security-sensitive PRs are not low-signal cleanup targets. |
-| #81503 | needs_human | planned | needs_human | Focused linked docs fix with green proof is outside boring low-signal closure; maintainer decision is needed. |
-| #85727 | needs_human | planned | needs_human | Low-signal closure is blocked by maintainer signal and technical correctness judgment. |
-| #88738 | needs_human | planned | needs_human | Focused linked docs fix requires maintainer/proof judgment rather than low-signal closeout. |
+| #76631 | route_security | planned | security_sensitive | Security-sensitive PRs are outside low-signal cleanup scope; route only this exact ref and do not close, merge, label, or comment through Clownfish. |
+| #81503 | keep_related | planned | related | This is a focused linked docs fix with supplied proof, not boring low-signal cleanup. Keep it open for the normal #81310 review path. |
+| #85727 | needs_human | planned | needs_human | Automated low-signal closure is blocked by maintainer signal and technical correctness judgment. A maintainer should decide whether to request fixes, close manually, or leave it in the docs review queue. |
+| #88738 | keep_related | planned | related | This is a focused linked docs fix for #88737 with a proof gap, not a boring low-signal PR. Keep it open for author proof or maintainer review. |
 
 ## Needs Human
 
-- #81503: decide whether to keep reviewing the focused draft docs fix for #81310 once the draft state is resolved.
-- #85727: maintainer signal and actionable review findings block automated low-signal closure.
-- #88738: focused linked fix for #88737 needs maintainer/proof judgment, not low-signal cleanup.
+- #85727 needs maintainer review because hydrated maintainer signal and technical doc-correctness concerns block automated low-signal closure.

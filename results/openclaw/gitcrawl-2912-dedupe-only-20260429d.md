@@ -2,15 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-2912-dedupe-only-20260429d"
 mode: "autonomous"
-run_id: "25142245877"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25142245877"
-head_sha: "4685439e0115b00b3c3895ee6c31b79d8ae00252"
+run_id: "27595875567"
+workflow_run_id: "27595875567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27595875567"
+head_sha: "d9b9bfb6cf45a4e1ff3cbc2c7635601fa862d87f"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T04:05:51.324Z"
-canonical: "https://github.com/openclaw/openclaw/issues/45314"
+result_status: "planned"
+published_at: "2026-06-16T05:21:58.204Z"
+canonical: "https://github.com/openclaw/openclaw/pull/45315"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/45314"
-canonical_pr: null
+canonical_pr: "https://github.com/openclaw/openclaw/pull/45315"
 actions_total: 3
 fix_executed: 0
 fix_failed: 0
@@ -18,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-2912-dedupe-only-20260429d
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25142245877](https://github.com/openclaw/clownfish/actions/runs/25142245877)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27595875567](https://github.com/openclaw/clownfish/actions/runs/27595875567)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/issues/45314
+Canonical: https://github.com/openclaw/openclaw/pull/45315
 
 ## Summary
 
-Hydrated state keeps #45314 as the live canonical issue for the early-abort responsePrefix template bug. The two open PRs are competing useful fixes: #45315 is narrower and non-draft but has unresolved bot review findings, while #45454 is draft, broader, and has multiple failing checks. No close, merge, label, comment, or fix action is safe from this job.
+Classified the hydrated cluster without GitHub mutations. Validator preflight requires quarantining #45315 as security-sensitive, so the open canonical PR is routed to central OpenClaw security handling instead of being treated as a normal dedupe canonical. #45454 is already closed and should stay closed; linked issue #45314 remains open and related to the same abort responsePrefix interpolation report, but no fix, merge, or close action is allowed in this dedupe-only job.
 
 ## Impact
 
@@ -48,7 +49,7 @@ Hydrated state keeps #45314 as the live canonical issue for the early-abort resp
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,10 +67,10 @@ Hydrated state keeps #45314 as the live canonical issue for the early-abort resp
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #45314 | keep_canonical | planned | canonical | The issue is the stable canonical tracking thread while the implementation PR choice remains unresolved. |
-| #45315 | needs_human | blocked | needs_human | Maintainers need to decide whether #45315 is the canonical implementation despite the unresolved override/catalog gaps, or whether it should be revised or replaced by the broader session-aware approach. |
-| #45454 | needs_human | blocked | needs_human | This is a useful competing implementation candidate, not a low-signal or safely superseded PR; choosing or closing it requires maintainer judgment. |
+| #45314 | keep_related | planned | related | #45314 is the source issue tied to the canonical PR, not a duplicate close target in this PR-dedupe-only job. |
+| #45315 | route_security | planned | security_sensitive | Security-sensitive PR targets must be quarantined to central OpenClaw security handling before any normal dedupe or merge path. |
+| #45454 | keep_closed | skipped | superseded | Already-closed historical PR; retain as superseded evidence only. |
 
 ## Needs Human
 
-- Choose the canonical implementation path for #45314: #45315 is the smaller non-draft PR but leaves catalog/session/channel override concerns unresolved, while #45454 is a broader draft session-aware implementation with failing checks.
+- none
