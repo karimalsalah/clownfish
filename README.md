@@ -41,44 +41,46 @@ The default workflow is proposal-first. It does not comment or close unless a jo
 
 ## Dashboard
 
-Last dashboard update: Jun 16, 2026, 02:04 UTC
+Last dashboard update: Jun 16, 2026, 02:12 UTC
 
 <!-- projectclownfish-dashboard:start -->
 State: Failed clusters need inspection
 
-Scope: 3669 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
+Scope: 3674 active latest cluster reports. 4 policy-archived cluster(s) are excluded from health stats; run attempts are tracked as audit history only.
 
 | Metric | Count | Rate |
 | --- | ---: | ---: |
-| Latest clusters reviewed | 3669 | 100% |
+| Latest clusters reviewed | 3674 | 100% |
 | Policy-archived clusters | 4 | audit |
-| Clean completed clusters | 2361 | 64.3% |
-| Needs-human clusters | 1047 | 28.5% |
-| Latest successful clusters | 3509 | 95.6% |
+| Clean completed clusters | 2365 | 64.4% |
+| Needs-human clusters | 1048 | 28.5% |
+| Latest successful clusters | 3514 | 95.6% |
 | Latest failed clusters | 103 | 2.8% |
 | Latest cancelled clusters | 3 | 0.1% |
-| Run attempts archived | 4687 | audit |
+| Run attempts archived | 4692 | audit |
 | Fix action attempts | 270 | audit |
 | Fix actions executed | 1 | 0.4% |
 | Fix actions failed | 64 | 23.7% |
 | Fix actions blocked | 91 | 33.7% |
 | Latest clusters with fix failures | 77 | 2.1% |
 | Distinct PRs touched | 6690 | 100% |
-| Open PRs tracked | 2955 | 44.2% |
-| Closed unmerged PRs tracked | 2994 | 44.8% |
-| Completed close actions | 63 | 14.5% |
+| Open PRs tracked | 2953 | 44.1% |
+| Closed unmerged PRs tracked | 2996 | 44.8% |
+| Completed close actions | 65 | 14.9% |
 | Completed merge actions | 26 | 6.0% |
-| Duplicate closes | 24 | 38.1% |
-| Superseded closes | 20 | 31.7% |
-| Fixed-by-candidate closes | 9 | 14.3% |
+| Duplicate closes | 24 | 36.9% |
+| Superseded closes | 21 | 32.3% |
+| Fixed-by-candidate closes | 10 | 15.4% |
 | Low-signal PR closes | 0 | 0.0% |
-| Blocked mutation attempts | 193 | 44.5% |
-| Skipped mutation attempts | 152 | 35.0% |
+| Blocked mutation attempts | 193 | 44.3% |
+| Skipped mutation attempts | 152 | 34.9% |
 
 ### Clusters Needing Inspection
 
 | Cluster | State | Source job | Reason | Report | Run |
 | --- | --- | --- | --- | --- | --- |
+| [pr-close-canary-92491-20260616-bulk](results/openclaw/pr-close-canary-92491-20260616-bulk.md) | needs human | jobs/openclaw/inbox/pr-close-canary-92491-20260616-bulk.md | #92484 and #92491 were routed to central security handling after deterministic validation classified both PR targets as security-sensitiv... | [report](results/openclaw/pr-close-canary-92491-20260616-bulk.md) | [27589215072](https://github.com/openclaw/clownfish/actions/runs/27589215072) |
+| [pr-inventory-mixed-20260616T015330-019](results/openclaw/pr-inventory-mixed-20260616t015330-019.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-019.md | #93354 requires central security review because it appears to alter privileged Discord guild-admin authorization across provider identities. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-019.md) | [27588775193](https://github.com/openclaw/clownfish/actions/runs/27588775193) |
 | [pr-inventory-mixed-20260616T015330-024](results/openclaw/pr-inventory-mixed-20260616t015330-024.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-024.md | #77736 and #88684: choose whether the broader explicit-provider routing PR, the smaller runtime-provider PR, or a combined follow-up shou... | [report](results/openclaw/pr-inventory-mixed-20260616t015330-024.md) | [27588776267](https://github.com/openclaw/clownfish/actions/runs/27588776267) |
 | [pr-inventory-mixed-20260616T015330-031](results/openclaw/pr-inventory-mixed-20260616t015330-031.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-031.md | #92287: maintainer/technical correctness decision on Telegram typing proof because Real behavior proof passed but Run agentic native Tele... | [report](results/openclaw/pr-inventory-mixed-20260616t015330-031.md) | [27588776240](https://github.com/openclaw/clownfish/actions/runs/27588776240) |
 | [pr-inventory-mixed-20260616T015330-046](results/openclaw/pr-inventory-mixed-20260616t015330-046.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-046.md | #70907 maintainer-owned draft docs PR requires maintainer/product correctness judgment after ClawSweeper review findings. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-046.md) | [27588776220](https://github.com/openclaw/clownfish/actions/runs/27588776220) |
@@ -90,7 +92,6 @@ Scope: 3669 active latest cluster reports. 4 policy-archived cluster(s) are excl
 | [pr-inventory-mixed-20260616T015330-013](results/openclaw/pr-inventory-mixed-20260616t015330-013.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-013.md | #84975 requires rehydration because the compacted artifact lacks live target_updated_at and PR details. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-013.md) | [27588775585](https://github.com/openclaw/clownfish/actions/runs/27588775585) |
 | [pr-inventory-mixed-20260616T015330-026](results/openclaw/pr-inventory-mixed-20260616t015330-026.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-026.md | #73606 requires maintainer/product judgment on the provider-agnostic call SDK RFD scope after author follow-up. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-026.md) | [27588775349](https://github.com/openclaw/clownfish/actions/runs/27588775349) |
 | [pr-inventory-mixed-20260616T015330-020](results/openclaw/pr-inventory-mixed-20260616t015330-020.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-020.md | #91519 requires maintainer judgment for broad maintainer-owned QA-lab automation work with failing checks. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-020.md) | [27588775337](https://github.com/openclaw/clownfish/actions/runs/27588775337) |
-| [pr-inventory-mixed-20260616T015330-019](results/openclaw/pr-inventory-mixed-20260616t015330-019.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-019.md | #93354 requires central security review because it appears to alter privileged Discord guild-admin authorization across provider identities. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-019.md) | [27588775193](https://github.com/openclaw/clownfish/actions/runs/27588775193) |
 | [pr-inventory-mixed-20260616T015330-006](results/openclaw/pr-inventory-mixed-20260616t015330-006.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-006.md | #93387 requires maintainer/product judgment because the broad watch action-surface PR has unresolved review-bot findings and a failing ch... | [report](results/openclaw/pr-inventory-mixed-20260616t015330-006.md) | [27588774493](https://github.com/openclaw/clownfish/actions/runs/27588774493) |
 | [pr-inventory-mixed-20260616T015330-039](results/openclaw/pr-inventory-mixed-20260616t015330-039.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-039.md | #91728 requires maintainer/provider policy review before merge. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-039.md) | [27588776621](https://github.com/openclaw/clownfish/actions/runs/27588776621) |
 | [pr-inventory-mixed-20260616T015330-030](results/openclaw/pr-inventory-mixed-20260616t015330-030.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T015330-030.md | #92342 requires maintainer/product decision on broad draft external-plugin candidate scope and proof requirements. | [report](results/openclaw/pr-inventory-mixed-20260616t015330-030.md) | [27588776440](https://github.com/openclaw/clownfish/actions/runs/27588776440) |
@@ -103,7 +104,6 @@ Scope: 3669 active latest cluster reports. 4 policy-archived cluster(s) are excl
 | [pr-inventory-mixed-20260616T013940-013](results/openclaw/pr-inventory-mixed-20260616t013940-013.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T013940-013.md | #88959 maintainer-owned draft provider-runtime behavior requires maintainer judgment. | [report](results/openclaw/pr-inventory-mixed-20260616t013940-013.md) | [27588298759](https://github.com/openclaw/clownfish/actions/runs/27588298759) |
 | [pr-inventory-mixed-20260616T013940-012](results/openclaw/pr-inventory-mixed-20260616t013940-012.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T013940-012.md | #88876 requires maintainer review/decision; it is maintainer-owned and Clownfish cannot merge or repair in this plan-only job. | [report](results/openclaw/pr-inventory-mixed-20260616t013940-012.md) | [27588298491](https://github.com/openclaw/clownfish/actions/runs/27588298491) |
 | [pr-inventory-mixed-20260616T013940-008](results/openclaw/pr-inventory-mixed-20260616t013940-008.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T013940-008.md | #88835 requires maintainer judgment because it is a maintainer-owned draft touching node approval policy writes. | [report](results/openclaw/pr-inventory-mixed-20260616t013940-008.md) | [27588298272](https://github.com/openclaw/clownfish/actions/runs/27588298272) |
-| [pr-inventory-mixed-20260616T013940-009](results/openclaw/pr-inventory-mixed-20260616t013940-009.md) | needs human | jobs/openclaw/inbox/pr-inventory-mixed-20260616T013940-009.md | #88898 has an unresolved Copilot review finding about suppressToolErrors still allowing upstream onToolResult delivery. | [report](results/openclaw/pr-inventory-mixed-20260616t013940-009.md) | [27588298781](https://github.com/openclaw/clownfish/actions/runs/27588298781) |
 
 ### Fix Failure Queue
 
@@ -165,6 +165,8 @@ Scope: 3669 active latest cluster reports. 4 policy-archived cluster(s) are excl
 
 | Target | Type | Title | Closed | Action | Cluster | Report | Run |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| [#92202](https://github.com/openclaw/openclaw/pull/92202) | pull_request | fix(embedded-runner): recheck owned-writes before session takeover (#91236) | Jun 16, 2026, 02:08 UTC | close_superseded | [pr-close-canary-92202-20260616-bulk](results/openclaw/pr-close-canary-92202-20260616-bulk.md) | [report](results/openclaw/pr-close-canary-92202-20260616-bulk.md) | [27589215007](https://github.com/openclaw/clownfish/actions/runs/27589215007) |
+| [#86551](https://github.com/openclaw/openclaw/pull/86551) | pull_request | fix(agents): add missing DeepSeek V4 proxy models to reasoning_content replay set | Jun 16, 2026, 02:07 UTC | close_fixed_by_candidate | [pr-close-canary-86551-20260616-bulk](results/openclaw/pr-close-canary-86551-20260616-bulk.md) | [report](results/openclaw/pr-close-canary-86551-20260616-bulk.md) | [27589214541](https://github.com/openclaw/clownfish/actions/runs/27589214541) |
 | [#92301](https://github.com/openclaw/openclaw/pull/92301) | pull_request | #92285: fix: reconcile orphaned managed flows when all child tasks are terminal | Jun 15, 2026, 23:44 UTC | close_superseded | [pr-close-canary-92301-close-wave-20260616a](results/openclaw/pr-close-canary-92301-close-wave-20260616a.md) | [report](results/openclaw/pr-close-canary-92301-close-wave-20260616a.md) | [27583793245](https://github.com/openclaw/clownfish/actions/runs/27583793245) |
 | [#93275](https://github.com/openclaw/openclaw/pull/93275) | pull_request | #92776: fix(agents): prevent indefinite session model pinning from polluted fallback origin | Jun 15, 2026, 23:44 UTC | close_superseded | [pr-close-canary-93275-close-wave-20260616c](results/openclaw/pr-close-canary-93275-close-wave-20260616c.md) | [report](results/openclaw/pr-close-canary-93275-close-wave-20260616c.md) | [27583793841](https://github.com/openclaw/clownfish/actions/runs/27583793841) |
 | [#92704](https://github.com/openclaw/openclaw/pull/92704) | pull_request | #92688: fix(qwen): use DashScope native image format for Qwen vision models | Jun 15, 2026, 23:44 UTC | close_superseded | [pr-close-canary-92704-close-wave-20260616a](results/openclaw/pr-close-canary-92704-close-wave-20260616a.md) | [report](results/openclaw/pr-close-canary-92704-close-wave-20260616a.md) | [27583793185](https://github.com/openclaw/clownfish/actions/runs/27583793185) |
@@ -188,8 +190,6 @@ Scope: 3669 active latest cluster reports. 4 policy-archived cluster(s) are excl
 | [#78953](https://github.com/openclaw/openclaw/issues/78953) | issue | Docs: memorySearch embedding cache default disagrees with runtime | Jun 15, 2026, 13:05 UTC | close_fixed_by_candidate | [issue-close-canary-78953-20260615-bulk-a](results/openclaw/issue-close-canary-78953-20260615-bulk-a.md) | [report](results/openclaw/issue-close-canary-78953-20260615-bulk-a.md) | [27548192047](https://github.com/openclaw/clownfish/actions/runs/27548192047) |
 | [#92759](https://github.com/openclaw/openclaw/pull/92759) | pull_request | fix(memory): guard against missing agentIds in wiki artifact clone and sort | Jun 15, 2026, 12:10 UTC | close_fixed_by_candidate | [pr-close-canary-92759-20260615-volume-a](results/openclaw/pr-close-canary-92759-20260615-volume-a.md) | [report](results/openclaw/pr-close-canary-92759-20260615-volume-a.md) | [27545122661](https://github.com/openclaw/clownfish/actions/runs/27545122661) |
 | [#85464](https://github.com/openclaw/openclaw/pull/85464) | pull_request | fix(status): show configured cost for aws-sdk models | Jun 15, 2026, 12:09 UTC | close_fixed_by_candidate | [pr-close-canary-85464-20260615-a](results/openclaw/pr-close-canary-85464-20260615-a.md) | [report](results/openclaw/pr-close-canary-85464-20260615-a.md) | [27545120115](https://github.com/openclaw/clownfish/actions/runs/27545120115) |
-| [#91036](https://github.com/openclaw/openclaw/issues/91036) | issue | [Feature]: web界面的右侧workspace里的文件显示栏 强烈建议增加按钮可以自动隐去 看着太烦了。 | Jun 15, 2026, 12:09 UTC | close_fixed_by_candidate | [issue-close-canary-91036-20260615-a](results/openclaw/issue-close-canary-91036-20260615-a.md) | [report](results/openclaw/issue-close-canary-91036-20260615-a.md) | [27545120008](https://github.com/openclaw/clownfish/actions/runs/27545120008) |
-| [#87651](https://github.com/openclaw/openclaw/issues/87651) | issue | Long-running tool results can poison persisted session context | Jun 15, 2026, 12:08 UTC | close_fixed_by_candidate | [issue-close-canary-87651-20260615-bulk-a](results/openclaw/issue-close-canary-87651-20260615-bulk-a.md) | [report](results/openclaw/issue-close-canary-87651-20260615-bulk-a.md) | [27545120278](https://github.com/openclaw/clownfish/actions/runs/27545120278) |
 <!-- projectclownfish-dashboard:end -->
 
 ## How It Works
