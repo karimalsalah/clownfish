@@ -34,6 +34,7 @@ const MUTATING_ACTIONS = new Set([
   "post_merge_close",
 ]);
 const FIX_ACTIONS = new Set(["fix_needed", "build_fix_artifact", "open_fix_pr"]);
+const NON_MUTATING_KEEP_ACTIONS = new Set(["keep_canonical", "keep_related", "keep_independent", "keep_closed"]);
 
 const args = parseArgs(process.argv.slice(2));
 const inputs = args._;
@@ -346,6 +347,9 @@ function isUnavailableSecurityRouteAction(action, item) {
 
 function isSecuritySensitiveActionContext(action, item) {
   if (item?.security_sensitive === true) return true;
+  if (NON_MUTATING_KEEP_ACTIONS.has(String(action.action ?? ""))) {
+    return hasSecuritySensitiveText(securityTextFromItem(item), action.classification);
+  }
   return hasSecuritySensitiveText(
     securityTextFromItem(item),
     action.classification,

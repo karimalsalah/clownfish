@@ -168,6 +168,66 @@ test("review-results ignores separately routed security refs for non-security ta
   assert.match(result.stdout, /"status": "passed"/);
 });
 
+test("review-results ignores sibling security routing prose for keep actions", () => {
+  const dir = makeResultDir(
+    {
+      actions: [
+        {
+          target: "#48045",
+          action: "keep_canonical",
+          status: "planned",
+          idempotency_key: "cluster-test:keep-canonical:48045",
+          classification: "canonical",
+          target_kind: "issue",
+          target_updated_at: "2026-06-15T10:00:00Z",
+          evidence: ["#89416 is quarantined through route_security."],
+          reason: "#48045 remains canonical while the linked security-signaled PR is handled through security triage.",
+        },
+        {
+          target: "#89416",
+          action: "route_security",
+          status: "planned",
+          idempotency_key: "cluster-test:route-security:89416",
+          classification: "security_sensitive",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-15T11:00:00Z",
+          evidence: ["Linked implementation has a security-sensitive auth boundary."],
+          reason: "Route the implementation PR to central security handling.",
+        },
+      ],
+    },
+    {
+      plan: {
+        items: [
+          {
+            ref: "#48045",
+            kind: "issue",
+            state: "open",
+            title: "File changes lost while switching sessions",
+            labels: ["bug", "impact:data-loss"],
+            updated_at: "2026-06-15T10:00:00Z",
+            security_sensitive: false,
+          },
+          {
+            ref: "#89416",
+            kind: "pull_request",
+            state: "open",
+            title: "fix: tighten session authorization",
+            labels: ["bug"],
+            updated_at: "2026-06-15T11:00:00Z",
+            security_sensitive: true,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  assert.match(result.stdout, /"status": "passed"/);
+});
+
 test("review-results allows skipped keep_closed for closed security-shaped context refs", () => {
   const dir = makeResultDir(
     {
