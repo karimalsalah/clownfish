@@ -13,9 +13,11 @@ import {
   resolveJobPath,
   waitForLiveWorkerCapacity,
 } from "./lib.mjs";
+import { commaSet } from "./comment-router-utils.mjs";
 
 const DEFAULT_TARGET_REPO = "openclaw/openclaw";
 const DEFAULT_HEAD_PREFIX = "clownfish/";
+const DEFAULT_CLOWNFISH_AUTHORS = ["app/openclaw-clownfish", "openclaw-clownfish", "openclaw-clownfish[bot]"];
 const PASSING_CHECK_CONCLUSIONS = new Set(["SUCCESS", "SKIPPED", "NEUTRAL"]);
 const CLEAN_MERGE_STATES = new Set(["CLEAN", "HAS_HOOKS"]);
 const DEFAULT_IGNORED_CHECKS = ["auto-response", "Labeler", "Stale"];
@@ -28,6 +30,9 @@ const repo = String(args.repo ?? process.env.CLOWNFISH_TARGET_REPO ?? DEFAULT_TA
 const clownfishRepo = String(args["clownfish-repo"] ?? process.env.CLOWNFISH_REPO ?? currentProjectRepo());
 const headPrefix = String(args["head-prefix"] ?? DEFAULT_HEAD_PREFIX);
 const label = String(args.label ?? process.env.CLOWNFISH_LABEL ?? "clownfish");
+const clownfishAuthors = commaSet(
+  args["clownfish-authors"] ?? process.env.CLOWNFISH_AUTHOR_LOGINS ?? DEFAULT_CLOWNFISH_AUTHORS.join(","),
+);
 const writeReport = Boolean(args["write-report"]);
 const execute = Boolean(args.execute);
 const dispatchRepairs = Boolean(args["dispatch-repairs"] || args.dispatch || execute);
@@ -59,6 +64,7 @@ const report = {
   clownfish_repo: clownfishRepo,
   head_prefix: headPrefix,
   label,
+  clownfish_authors: [...clownfishAuthors],
   generated_at: new Date().toISOString(),
   count: prs.length,
   summary: summarize(prs),
@@ -82,10 +88,10 @@ if (writeReport) writeReports(report);
 console.log(JSON.stringify(report, null, 2));
 
 function listOpenPullRequests(targetRepo, prefix) {
-  const fields = ["number", "title", "url", "headRefName", "updatedAt", "labels"].join(",");
+  const fields = ["number", "title", "url", "author", "headRefName", "updatedAt", "labels"].join(",");
   const pullsByNumber = new Map();
-  for (const pull of [
-    ...ghJson([
+  const queries = [
+    [
       "pr",
       "list",
       "--repo",
@@ -98,8 +104,8 @@ function listOpenPullRequests(targetRepo, prefix) {
       "200",
       "--json",
       fields,
-    ]),
-    ...ghJson([
+    ],
+    [
       "pr",
       "list",
       "--repo",
@@ -110,12 +116,33 @@ function listOpenPullRequests(targetRepo, prefix) {
       "200",
       "--json",
       fields,
-    ]),
-  ]) {
-    pullsByNumber.set(pull.number, pull);
+    ],
+  ];
+  for (const author of clownfishAuthors) {
+    queries.push([
+      "pr",
+      "list",
+      "--repo",
+      targetRepo,
+      "--state",
+      "open",
+      "--author",
+      author,
+      "--limit",
+      "200",
+      "--json",
+      fields,
+    ]);
+  }
+
+  for (const query of queries) {
+    for (const pull of ghJson(query)) pullsByNumber.set(pull.number, pull);
   }
   return [...pullsByNumber.values()].filter(
-    (pull) => String(pull.headRefName ?? "").startsWith(prefix) || hasLabel(pull.labels ?? [], label),
+    (pull) =>
+      String(pull.headRefName ?? "").startsWith(prefix) ||
+      hasLabel(pull.labels ?? [], label) ||
+      clownfishAuthors.has(String(pull.author?.login ?? "")),
   );
 }
 
