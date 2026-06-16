@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-14088-dedupe-only-20260429-remote"
 mode: "autonomous"
-run_id: "27586018310"
-workflow_run_id: "27586018310"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27586018310"
-head_sha: "e3eb8644e505a7248576d80431c73eb422cab7c4"
+run_id: "27595847469"
+workflow_run_id: "27595847469"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27595847469"
+head_sha: "7a8b7ab269d4c8246a3837f1013f6d9715d17c5e"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-16T00:44:24.691Z"
+result_status: "needs_human"
+published_at: "2026-06-16T05:19:46.837Z"
 canonical: "https://github.com/openclaw/openclaw/pull/51267"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/51267"
@@ -26,17 +26,17 @@ needs_human_count: 2
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27586018310](https://github.com/openclaw/clownfish/actions/runs/27586018310)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27595847469](https://github.com/openclaw/clownfish/actions/runs/27595847469)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: https://github.com/openclaw/openclaw/pull/51267
 
 ## Summary
 
-Hydrated live state shows the original representative #42331 and the only local-store open candidate #42361 now return 404, so no close/comment/label mutation is safe for them. The malformed text-block crash family is already canonically fixed by merged PR #51267 on current main 2365a137d88cd8ae3902159267545b9edc7cf54a. The unavailable #42361 candidate is not a duplicate of that family based on the job inventory title, but its live kind and updated_at cannot be verified, so it is blocked for human/planner follow-up instead of being emitted as a planned keep action.
+Hydrated preflight shows the obsolete representative #42331 and the only listed open candidate #42361 both return live GitHub 404/unavailable. The malformed text-block crash family has a landed canonical fix in #51267 on main at 6b38714cb9afa59f57cea85bc5b4afa1a53c269f, and closed context refs are already resolved. No close/comment/label action is safe because there is no open hydrated target with target_updated_at.
 
 ## Impact
 
@@ -67,14 +67,14 @@ Hydrated live state shows the original representative #42331 and the only local-
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #51267 | keep_closed | skipped | canonical | Merged canonical PR is historical evidence only; no mutation is allowed or needed. |
-| #39331 | keep_closed | skipped | superseded | Already closed and superseded by the merged canonical fix. |
-| #34980 | keep_closed | skipped | superseded | Already closed historical contributor PR; useful prior work is covered by the landed canonical PR. |
-| #34979 | keep_closed | skipped | fixed_by_candidate | Already closed issue fixed by the landed canonical PR. |
-| #42331 | needs_human | blocked | needs_human | The representative cannot be verified as a live issue or PR. No mutation is safe; maintainer or planner follow-up may be needed only if #42331 must be tracked outside public GitHub visibility. |
-| #42361 | needs_human | blocked | needs_human | The title evidence suggests #42361 is independent of the malformed text-block crash family, but live 404 state means its target kind and updated_at cannot be verified. No mutation is safe, and the unavailable ref needs planner or maintainer follow-up if it must remain tracked. |
+| #51267 | keep_canonical | skipped | canonical | Canonical fix is already merged and closed; no mutation is allowed or needed for this target. |
+| #39331 | keep_closed | skipped | superseded | Closed context ref only; already resolved by the merged canonical PR. |
+| #34980 | keep_closed | skipped | superseded | Closed historical contributor PR; no action target remains open. |
+| #34979 | keep_closed | skipped | fixed_by_candidate | Closed context issue; already covered by the merged canonical fix. |
+| #42331 | needs_human | blocked | needs_human | Live GitHub state is unavailable for the representative ref; maintainer or planner should drop or rehydrate the ref before any action. |
+| #42361 | needs_human | blocked | needs_human | The only open candidate could not be hydrated from live GitHub; cannot safely classify or mutate beyond reporting the blocked decision. |
 
 ## Needs Human
 
-- #42331 returned 404 despite being listed as the canonical representative; no mutation is safe against that unavailable ref. No cluster-wide human decision is needed because #51267 is the hydrated landed canonical fix.
-- #42361 returned 404 and has no hydrated target_updated_at. It appears independent from the job inventory title, but the unavailable live ref cannot be emitted as a planned keep action or used for any close/comment/label mutation.
+- #42331: representative/canonical hint is unavailable on live GitHub (HTTP 404); planner should remove or rehydrate before using it as canonical evidence.
+- #42361: only listed open candidate is unavailable on live GitHub (HTTP 404); need refreshed live state to decide whether it is independent, already closed, renamed, or inaccessible.
