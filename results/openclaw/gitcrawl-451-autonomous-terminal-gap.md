@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-451-autonomous-terminal-gap"
 mode: "autonomous"
-run_id: "27629608793"
-workflow_run_id: "27629608793"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27629608793"
-head_sha: "cd08661d53227cd006d83585a7105f6259bea85a"
+run_id: "27632673488"
+workflow_run_id: "27632673488"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27632673488"
+head_sha: "b73c2673606bcfeaa3fdb124aabeff0b688b13ae"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-16T16:02:12.267Z"
+published_at: "2026-06-16T16:53:39.733Z"
 canonical: "https://github.com/openclaw/openclaw/issues/77340"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/77340"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/86898"
-actions_total: 4
+actions_total: 9
 fix_executed: 0
 fix_failed: 1
 fix_blocked: 1
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27629608793](https://github.com/openclaw/clownfish/actions/runs/27629608793)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27632673488](https://github.com/openclaw/clownfish/actions/runs/27632673488)
 
 Workflow conclusion: success
 
@@ -36,13 +36,13 @@ Canonical: https://github.com/openclaw/openclaw/issues/77340
 
 ## Summary
 
-Issue #77340 remains the canonical live report. The open contributor PR #86898 is the best repair path, but it is not merge-ready: it is dirty against current main, has failing proof/check gates, and needs a current-main path refresh plus fresh validation and Codex review. No close or merge action is safe yet.
+Current main still contains the reported deferred turn-maintenance session-lane wait, so #77340 remains the canonical issue. The useful open fix path is #86898, but it is not merge-ready: the branch is stale against current main path layout, has failing checks, and lacks a clean current Codex review after repair. Plan repair of the contributor branch with credit preserved; do not close #77340 yet because require_fix_before_close applies.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 4 |
+| Worker actions | 9 |
 | Fix executed | 0 |
 | Fix failed | 1 |
 | Fix blocked | 1 |
@@ -56,7 +56,7 @@ Issue #77340 remains the canonical live report. The open contributor PR #86898 i
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
 | repair_contributor_branch | failed |  |  | source PR #86898 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected when rebased upstream history includes workflow files |
-| open_fix_pr | blocked |  | clownfish/gitcrawl-451-autonomous-terminal-gap | Codex /review did not pass after 2 attempt(s): Blocking finding found. Security-sensitive issues are absent in this diff, the original Codex self-deadlock review comment is addressed, and the old ClawSweeper ordering concern is mostly addressed by adding same-session read checkpoints. However, the embedded-run checkpoint is placed after acquiring the global lane, which can stall unrelated sessions and can consume the run lane timeout before the attempt starts. `pnpm check:changed` plus `git diff --check` is the right validation shape for this branch, but it does not cover this scheduling regression. |
+| open_fix_pr | blocked |  | clownfish/gitcrawl-451-autonomous-terminal-gap | Codex /review did not pass after 2 attempt(s): Merge is blocked. The main embedded Telegram path is improved, and the prior same-lane nested enqueue review comment is addressed, but the current diff leaves two same-session read paths without the required deferred-maintenance safe point. Security-sensitive changes are absent; the blockers are correctness/test-coverage issues in the changed scheduling surface. |
 
 ## Apply Actions
 
@@ -68,10 +68,15 @@ Issue #77340 remains the canonical live report. The open contributor PR #86898 i
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #77340 | keep_canonical | planned | canonical | Keep #77340 open as the canonical issue until the repair path in #86898 is rebased, validated, reviewed, and merged. |
-| #86898 | fix_needed | planned | canonical | Repair the contributor branch instead of merging now: the branch is useful and editable, but dirty and not fully validated. |
-| #86512 | keep_independent | planned | independent | Do not close or route #86512 in this cluster; it belongs to a separate provider-auth startup performance track. |
-| cluster:gitcrawl-451-autonomous-terminal-gap | build_fix_artifact | planned |  | Produce an executable repair artifact for the applicator/executor to update #86898, validate it, run /review, and only then merge or report a concrete blocker. |
+| #65233 | keep_closed | skipped | related | Already closed; no mutation valid. |
+| #72865 | keep_closed | skipped | independent | Already closed and independent of this cluster. |
+| #77340 | keep_canonical | planned | canonical | Canonical issue remains open and credible; no close until a fix lands. |
+| #82779 | keep_closed | skipped | duplicate | Already closed; no mutation valid. |
+| #85717 | keep_closed | skipped | independent | Already closed and independent of this cluster. |
+| #85941 | keep_closed | skipped | related | Already closed; no mutation valid. |
+| #86512 | keep_independent | planned | independent | Different root cause and affected surface; keep out of this cluster. |
+| #86898 | fix_needed | planned | canonical | Repair the contributor branch, rebase/path-adapt narrowly, rerun review and pnpm check:changed, then consider merge. |
+| cluster:gitcrawl-451-autonomous-terminal-gap | build_fix_artifact | planned |  | Create an executable repair artifact for #86898 instead of opening an unrelated replacement PR. |
 
 ## Needs Human
 
