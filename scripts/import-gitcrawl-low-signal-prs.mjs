@@ -16,6 +16,11 @@ const minScore = numberArg("min-score", 2);
 const maxFiles = numberArg("max-files", 120);
 const sort = String(args.sort ?? "stale");
 const skipExisting = args["skip-existing"] !== "false";
+const hydrateFilesLive = Boolean(args["hydrate-files-live"] ?? args.hydrate_files_live);
+const liveFileCandidateLimit = numberArg("live-file-candidate-limit", Math.max(limit * 10, 300));
+const requiredSignals = signalSet(args["require-signal"] ?? args.require_signal ?? "");
+const excludedSignals = signalSet(args["exclude-signal"] ?? args.exclude_signal ?? "");
+const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_GH_BIN ?? firstAvailableCommand(["ghx", "gh"]));
 const dryRun = Boolean(args["dry-run"]);
 const jsonOutput = Boolean(args.json);
 const changedFilesSourceSql = changedFilesSource();
@@ -73,14 +78,90 @@ function selectCandidates() {
       and t.closed_at_local is null
     group by t.id
   `);
+  hydrateRowsWithLiveFiles(rows);
 
   return rows
     .map((row) => scoreCandidate(row))
     .filter((candidate) => !existing.has(candidate.ref))
     .filter((candidate) => candidate.score >= minScore)
+    .filter((candidate) => requiredSignals.size === 0 || candidate.signals.some((signal) => requiredSignals.has(signal)))
+    .filter((candidate) => !candidate.signals.some((signal) => excludedSignals.has(signal)))
     .filter((candidate) => candidate.files.length <= maxFiles)
     .sort(compareCandidates)
     .slice(0, limit);
+}
+
+function hydrateRowsWithLiveFiles(rows) {
+  if (!hydrateFilesLive) return;
+  const selected = rows
+    .filter((row) => !String(row.files ?? "").trim())
+    .filter((row) => !candidateHasDeterministicBlocker(row))
+    .sort(compareRowsForHydration)
+    .slice(0, liveFileCandidateLimit);
+  if (selected.length === 0) return;
+
+  const filesByNumber = fetchLivePullRequestFiles(selected.map((row) => Number(row.number)));
+  for (const row of selected) {
+    const files = filesByNumber.get(Number(row.number));
+    if (files) row.files = files.join(",");
+  }
+}
+
+function candidateHasDeterministicBlocker(row) {
+  const raw = safeJson(row.raw_json);
+  const labels = safeJson(row.labels_json);
+  const assignees = safeJson(row.assignees_json);
+  const title = String(row.title ?? "");
+  const body = String(row.body ?? "");
+  return isMaintainerAssociated(raw.author_association) || assignees.length > 0 || hasSecuritySignalText(title, body, labels);
+}
+
+function compareRowsForHydration(left, right) {
+  const leftDate = String(left.updated_at_gh ?? left.last_pulled_at ?? "");
+  const rightDate = String(right.updated_at_gh ?? right.last_pulled_at ?? "");
+  if (sort === "recent") return rightDate.localeCompare(leftDate);
+  return leftDate.localeCompare(rightDate);
+}
+
+function fetchLivePullRequestFiles(numbers) {
+  const out = new Map();
+  const uniqueNumbers = unique(numbers.filter(Number.isInteger));
+  for (let index = 0; index < uniqueNumbers.length; index += 25) {
+    const batch = uniqueNumbers.slice(index, index + 25);
+    const payload = ghJson(["api", "graphql", "-f", `query=${renderPullRequestFilesQuery(batch)}`]);
+    const fatalErrors = (payload.errors ?? []).filter(
+      (error) => !/^Could not resolve to a PullRequest with the number of \d+\.$/.test(String(error.message ?? "")),
+    );
+    if (fatalErrors.length > 0) {
+      throw new Error(`GitHub GraphQL failed while hydrating PR files: ${fatalErrors.map((error) => error.message).join("; ")}`);
+    }
+    for (const number of batch) {
+      const node = payload.data?.repository?.[`pr${number}`];
+      if (!node) continue;
+      const files = (node.files?.nodes ?? []).map((file) => String(file.path ?? "")).filter(Boolean);
+      if (node.files?.pageInfo?.hasNextPage) files.push("__truncated__");
+      out.set(number, files);
+    }
+  }
+  return out;
+}
+
+function renderPullRequestFilesQuery(numbers) {
+  const [owner, name] = repo.split("/");
+  return `query {
+  repository(owner: ${JSON.stringify(owner)}, name: ${JSON.stringify(name)}) {
+${numbers
+  .map(
+    (number) => `    pr${number}: pullRequest(number: ${number}) {
+      files(first: 100) {
+        nodes { path }
+        pageInfo { hasNextPage }
+      }
+    }`,
+  )
+  .join("\n")}
+  }
+}`;
 }
 
 function scoreCandidate(row) {
@@ -294,6 +375,15 @@ function addSignal(signals, enabled, name) {
   if (enabled) signals.push(name);
 }
 
+function signalSet(value) {
+  return new Set(
+    String(value ?? "")
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean),
+  );
+}
+
 function sqliteJson(sql) {
   const output = execFileSync("sqlite3", ["-json", dbPath, sql], {
     cwd: repoRoot(),
@@ -310,6 +400,15 @@ function sqliteScalar(sql) {
     maxBuffer: 1024 * 1024,
   }).trim();
   return output;
+}
+
+function ghJson(argv) {
+  const output = execFileSync(ghCommand, argv, {
+    cwd: repoRoot(),
+    encoding: "utf8",
+    maxBuffer: 32 * 1024 * 1024,
+  }).trim();
+  return JSON.parse(stripAnsi(output) || "{}");
 }
 
 function changedFilesSource() {
@@ -368,4 +467,24 @@ function unique(values) {
 
 function excerpt(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim().slice(0, 240);
+}
+
+function stripAnsi(text) {
+  return String(text ?? "").replace(/\u001b\[[0-9;]*m/g, "");
+}
+
+function firstAvailableCommand(commands) {
+  for (const command of commands) {
+    try {
+      execFileSync("sh", ["-lc", `command -v ${shellQuote(command)}`], { stdio: "ignore" });
+      return command;
+    } catch {
+      // Keep looking.
+    }
+  }
+  return commands[commands.length - 1];
+}
+
+function shellQuote(value) {
+  return `'${String(value).replaceAll("'", "'\\''")}'`;
 }
