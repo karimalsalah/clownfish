@@ -1,0 +1,441 @@
+#!/usr/bin/env node
+import fs from "node:fs";
+import path from "node:path";
+import { execFileSync, spawnSync } from "node:child_process";
+import { parseArgs, parseJob, repoRoot } from "./lib.mjs";
+import { hasSecuritySensitiveText } from "./security-sensitive.mjs";
+
+const args = parseArgs(process.argv.slice(2));
+const repo = String(args.repo ?? "openclaw/openclaw");
+const [owner, name] = repo.split("/");
+const outDir = path.resolve(String(args.out ?? path.join(repoRoot(), "jobs", owner, "inbox")));
+const existingDir = path.resolve(String(args["existing-dir"] ?? args.existing_dir ?? path.join(repoRoot(), "jobs", owner)));
+const existingResultsDir = path.resolve(
+  String(args["existing-results-dir"] ?? args.existing_results_dir ?? path.join(repoRoot(), "results", owner)),
+);
+const mode = String(args.mode ?? "autonomous");
+const limit = limitArg("limit", 100);
+const batchSize = numberArg("batch-size", 5);
+const sort = String(args.sort ?? "stale");
+const bucketFilter = String(args.bucket ?? "all");
+const skipExisting = args["skip-existing"] !== "false";
+const includeSecurity = Boolean(args["include-security-candidates"]);
+const includeRefs = optionalRefsFile(args["include-refs-file"] ?? args.include_refs_file);
+const dryRun = Boolean(args["dry-run"] ?? args.dry_run);
+const jsonOutput = Boolean(args.json);
+const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_GH_BIN ?? firstAvailableCommand(["ghx", "gh"]));
+
+if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) die("--repo must be owner/repo");
+if (!["plan", "autonomous"].includes(mode)) die("--mode must be plan or autonomous");
+if (!["stale", "recent", "bucket"].includes(sort)) die("--sort must be stale, recent, or bucket");
+
+const existingRefs = skipExisting ? existingMentionedRefs([existingDir, existingResultsDir]) : new Set();
+const candidates = fetchOpenPullRequests()
+  .map(classifyCandidate)
+  .filter((candidate) => !includeRefs || includeRefs.has(candidate.ref))
+  .filter((candidate) => !skipExisting || !existingRefs.has(candidate.ref))
+  .filter((candidate) => includeSecurity || candidate.bucket !== "security_route_candidate")
+  .filter((candidate) => bucketFilter === "all" || candidate.bucket === bucketFilter)
+  .sort(compareCandidates);
+const limitedCandidates = limit === "all" ? candidates : candidates.slice(0, limit);
+
+const batches = [];
+for (let index = 0; index < limitedCandidates.length; index += batchSize) {
+  batches.push(limitedCandidates.slice(index, index + batchSize));
+}
+
+if (!dryRun) fs.mkdirSync(outDir, { recursive: true });
+const generated = batches.map((batch, index) => writeJob(batch, index + 1));
+
+const payload = sanitizeJsonValue({
+  generated,
+  candidates: limitedCandidates,
+  options: {
+    repo,
+    mode,
+    dry_run: dryRun,
+    limit,
+    batch_size: batchSize,
+    sort,
+    bucket: bucketFilter,
+    skip_existing: skipExisting,
+    include_security_candidates: includeSecurity,
+    include_refs_file: includeRefs
+      ? path.relative(repoRoot(), path.resolve(String(args["include-refs-file"] ?? args.include_refs_file)))
+      : null,
+    existing_dir: path.relative(repoRoot(), existingDir),
+    existing_results_dir: path.relative(repoRoot(), existingResultsDir),
+    gh_bin: ghCommand,
+  },
+  totals: {
+    generated: generated.length,
+    candidates: limitedCandidates.length,
+    fetched_open_prs: fetchOpenPullRequests.cache?.length ?? null,
+    include_refs: includeRefs?.size ?? null,
+    existing_refs: existingRefs.size,
+  },
+});
+
+if (jsonOutput) {
+  console.log(JSON.stringify(payload, null, 2));
+} else {
+  for (const item of generated) console.log(item.path);
+}
+
+function fetchOpenPullRequests() {
+  if (fetchOpenPullRequests.cache) return fetchOpenPullRequests.cache;
+  const query = `query($endCursor:String){
+    repository(owner:${jsonString(owner)}, name:${jsonString(name)}) {
+      pullRequests(states:OPEN, first:100, after:$endCursor, orderBy:{field:UPDATED_AT, direction:ASC}) {
+        nodes {
+          number
+          title
+          url
+          createdAt
+          updatedAt
+          isDraft
+          author { login }
+          authorAssociation
+          labels(first:30) { nodes { name } }
+          assignees(first:10) { nodes { login } }
+        }
+        pageInfo { hasNextPage endCursor }
+      }
+    }
+  }`;
+  const text = ghRaw(["api", "graphql", "--paginate", "-f", `query=${query}`]);
+  const pages = parseJsonDocuments(stripAnsi(text));
+  const pulls = pages.flatMap((page) => page?.data?.repository?.pullRequests?.nodes ?? []);
+  fetchOpenPullRequests.cache = pulls;
+  return pulls;
+}
+
+function classifyCandidate(raw) {
+  const labels = labelNames(raw.labels);
+  const assignees = assigneeNames(raw.assignees);
+  const title = asciiString(raw.title ?? "");
+  const authorAssociation = asciiString(raw.authorAssociation ?? "");
+  const bucket = chooseBucket({ raw, title, labels, assignees, authorAssociation });
+
+  return {
+    number: Number(raw.number),
+    ref: `#${raw.number}`,
+    title,
+    author: asciiString(raw.author?.login ?? ""),
+    author_association: authorAssociation || null,
+    labels,
+    assignees,
+    is_draft: Boolean(raw.isDraft),
+    created_at: nullableAscii(raw.createdAt),
+    updated_at: nullableAscii(raw.updatedAt),
+    url: asciiString(raw.url ?? ""),
+    bucket,
+  };
+}
+
+function chooseBucket({ raw, title, labels, assignees, authorAssociation }) {
+  if (hasExactSecuritySignal({ title, labels })) return "security_route_candidate";
+  if (isMaintainerAssociated(authorAssociation) || assignees.length > 0) return "maintainer_owned";
+  if (Boolean(raw.isDraft)) return "draft";
+  if (labels.some((label) => /proof:\s*sufficient|ready for maintainer look/i.test(label))) {
+    return "ready_for_maintainer";
+  }
+  if (labels.some((label) => /needs-real-behavior-proof|needs proof|mock-only-proof|waiting on author/i.test(label))) {
+    return "needs_proof";
+  }
+  if (daysSince(raw.updatedAt) >= 14) return "stale_unassigned";
+  return "recent_active";
+}
+
+function writeJob(batch, index) {
+  const now = new Date();
+  const stamp = now.toISOString().replace(/[-:.]/g, "").slice(0, 15);
+  const bucket = batch.every((item) => item.bucket === batch[0].bucket) ? batch[0].bucket : "mixed";
+  const clusterId = `live-pr-inventory-${stamp}-${String(index).padStart(3, "0")}`;
+  const filePath = path.join(outDir, `${clusterId}.md`);
+  const refs = batch.map((candidate) => candidate.ref);
+  const markdown = [
+    "---",
+    `repo: ${repo}`,
+    `cluster_id: ${clusterId}`,
+    `mode: ${mode}`,
+    "allowed_actions:",
+    "  - comment",
+    "  - label",
+    "  - close",
+    "blocked_actions:",
+    "  - force_push",
+    "  - bypass_checks",
+    "  - merge",
+    "  - fix",
+    "  - raise_pr",
+    "require_human_for:",
+    "  - security_sensitive",
+    "  - maintainer_signal",
+    "  - active_author_followup",
+    "  - green_checks",
+    "  - focused_bug_fix",
+    "  - technical_correctness_judgment",
+    "canonical: []",
+    "candidates:",
+    ...yamlList(refs),
+    "cluster_refs:",
+    ...yamlList(refs),
+    "security_policy: central_security_only",
+    "security_sensitive: false",
+    `canonical_hint: ${quoteYaml("This is a live PR inventory shard over currently untracked open PRs, not a dedupe cluster. Classify each PR independently and do not invent a shared canonical.")}`,
+    `notes: ${quoteYaml(`Generated from live GitHub open PR inventory on ${now.toISOString()}; bucket=${bucket}; only safe close/comment/label actions are allowed.`)}`,
+    "---",
+    "",
+    `# Live PR Inventory ${index}`,
+    "",
+    "This is a high-volume live inventory shard over open pull requests not already represented in Clownfish jobs or results.",
+    "",
+    "## Goal",
+    "",
+    "Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. Do not merge, fix, or raise PRs.",
+    "",
+    "## Inventory",
+    "",
+    ...batch.flatMap(candidateBlock),
+    "",
+  ].join("\n");
+
+  if (!dryRun) fs.writeFileSync(filePath, cleanGeneratedMarkdown(markdown));
+  return {
+    path: path.relative(repoRoot(), filePath),
+    cluster_id: clusterId,
+    bucket,
+    candidates: refs,
+    dry_run: dryRun,
+  };
+}
+
+function candidateBlock(candidate) {
+  return [
+    `### ${candidate.ref} ${candidate.title}`,
+    "",
+    `- bucket: ${candidate.bucket}`,
+    `- author: ${candidate.author || "unknown"}`,
+    `- author association: ${candidate.author_association || "unknown"}`,
+    `- draft: ${candidate.is_draft ? "yes" : "no"}`,
+    `- assignees: ${candidate.assignees.join(", ") || "none"}`,
+    `- labels: ${candidate.labels.join(", ") || "none"}`,
+    `- live updated: ${candidate.updated_at || "unknown"}`,
+    `- live url: ${candidate.url || "unknown"}`,
+    "",
+  ];
+}
+
+function existingMentionedRefs(roots) {
+  const refs = new Set();
+  const visited = new Set();
+  for (const root of roots) {
+    if (!fs.existsSync(root) || visited.has(root)) continue;
+    visited.add(root);
+    for (const file of markdownAndJsonFiles(root)) {
+      if (file.endsWith(".md")) addStructuredJobRefs(refs, file);
+      const text = fs.readFileSync(file, "utf8");
+      for (const match of text.matchAll(/#([1-9][0-9]{0,6})\b/g)) refs.add(`#${match[1]}`);
+    }
+  }
+  return refs;
+}
+
+function addStructuredJobRefs(refs, file) {
+  try {
+    const job = parseJob(file);
+    for (const ref of [...normalizeRefs(job.frontmatter.candidates), ...normalizeRefs(job.frontmatter.cluster_refs)]) {
+      refs.add(ref);
+    }
+  } catch {
+    // Result markdown and ad hoc reports are not necessarily job files.
+  }
+}
+
+function markdownAndJsonFiles(root) {
+  const files = [];
+  for (const entry of fs.readdirSync(root, { recursive: true })) {
+    const file = path.join(root, String(entry));
+    if (!fs.statSync(file).isFile()) continue;
+    if (file.endsWith(".md") || file.endsWith(".json")) files.push(file);
+  }
+  return files;
+}
+
+function normalizeRefs(values) {
+  if (!Array.isArray(values)) return [];
+  return values
+    .map((value) => String(value ?? "").trim())
+    .filter((value) => /^#\d+$/.test(value));
+}
+
+function optionalRefsFile(filePath) {
+  if (!filePath) return null;
+  const absolutePath = path.resolve(String(filePath));
+  const refs = new Set(
+    fs
+      .readFileSync(absolutePath, "utf8")
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("# "))
+      .map((line) => (line.match(/^#?\d+$/) ? `#${line.replace(/^#/, "")}` : line))
+      .filter((line) => /^#\d+$/.test(line)),
+  );
+  if (refs.size === 0) throw new Error(`--include-refs-file ${absolutePath} did not contain any refs`);
+  return refs;
+}
+
+function compareCandidates(left, right) {
+  if (sort === "recent") return String(right.updated_at).localeCompare(String(left.updated_at));
+  if (sort === "bucket") return left.bucket.localeCompare(right.bucket) || staleCompare(left, right);
+  return staleCompare(left, right);
+}
+
+function staleCompare(left, right) {
+  return String(left.updated_at).localeCompare(String(right.updated_at));
+}
+
+function hasExactSecuritySignal({ title, labels }) {
+  const exactSecurityLabel = labels.some((label) =>
+    /^(?:security|security[-_: ]sensitive|security[:/].+|type:\s*security|kind:\s*security|impact:\s*security|clawsweeper:needs-security-review)$/i.test(label),
+  );
+  return exactSecurityLabel || hasSecuritySensitiveText(title, "", labels);
+}
+
+function isMaintainerAssociated(value) {
+  return ["OWNER", "MEMBER", "COLLABORATOR"].includes(String(value ?? "").toUpperCase());
+}
+
+function daysSince(value) {
+  const time = Date.parse(value ?? "");
+  if (!Number.isFinite(time)) return 0;
+  return Math.floor((Date.now() - time) / (24 * 60 * 60 * 1000));
+}
+
+function labelNames(value) {
+  return (value?.nodes ?? [])
+    .map((label) => label?.name)
+    .filter(Boolean)
+    .map(asciiString);
+}
+
+function assigneeNames(value) {
+  return (value?.nodes ?? [])
+    .map((assignee) => assignee?.login)
+    .filter(Boolean)
+    .map(asciiString);
+}
+
+function numberArg(name, fallback) {
+  const value = Number(args[name] ?? fallback);
+  if (!Number.isInteger(value) || value < 1) throw new Error(`--${name} must be a positive integer`);
+  return value;
+}
+
+function limitArg(name, fallback) {
+  const raw = args[name] ?? fallback;
+  if (String(raw).toLowerCase() === "all") return "all";
+  const value = Number(raw);
+  if (!Number.isInteger(value) || value < 1) throw new Error(`--${name} must be a positive integer or all`);
+  return value;
+}
+
+function yamlList(values) {
+  if (values.length === 0) return ["  []"];
+  return values.map((value) => `  - ${quoteYaml(value)}`);
+}
+
+function quoteYaml(value) {
+  return JSON.stringify(asciiString(value));
+}
+
+function jsonString(value) {
+  return JSON.stringify(String(value));
+}
+
+function ghRaw(ghArgs) {
+  const env = { ...process.env, NO_COLOR: "1", CLICOLOR: "0" };
+  delete env.FORCE_COLOR;
+  return execFileSync(ghCommand, ghArgs, {
+    cwd: repoRoot(),
+    env,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+    maxBuffer: 128 * 1024 * 1024,
+  });
+}
+
+function parseJsonDocuments(text) {
+  const documents = [];
+  let depth = 0;
+  let start = -1;
+  let inString = false;
+  let escape = false;
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    if (inString) {
+      if (escape) escape = false;
+      else if (char === "\\") escape = true;
+      else if (char === "\"") inString = false;
+      continue;
+    }
+    if (char === "\"") {
+      inString = true;
+      continue;
+    }
+    if (char === "{") {
+      if (depth === 0) start = index;
+      depth += 1;
+    } else if (char === "}") {
+      depth -= 1;
+      if (depth === 0 && start >= 0) {
+        documents.push(JSON.parse(text.slice(start, index + 1)));
+        start = -1;
+      }
+    }
+  }
+  return documents;
+}
+
+function stripAnsi(text) {
+  return String(text ?? "").replace(/\u001b\[[0-9;]*m/g, "");
+}
+
+function cleanGeneratedMarkdown(value) {
+  return String(value).replace(/[ \t]+$/gm, "").replace(/\n+$/, "\n");
+}
+
+function nullableAscii(value) {
+  if (value == null) return null;
+  return asciiString(value);
+}
+
+function sanitizeJsonValue(value) {
+  if (typeof value === "string") return asciiString(value);
+  if (Array.isArray(value)) return value.map(sanitizeJsonValue);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [asciiString(key), sanitizeJsonValue(item)]));
+  }
+  return value;
+}
+
+function asciiString(value) {
+  return String(value ?? "")
+    .replace(/[^\x09\x0a\x0d\x20-\x7e]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function firstAvailableCommand(commands) {
+  for (const command of commands) {
+    const result = spawnSync(command, ["--version"], { cwd: repoRoot(), stdio: "ignore" });
+    if (result.status === 0) return command;
+  }
+  return commands[0];
+}
+
+function die(message) {
+  console.error(message);
+  process.exit(2);
+}
