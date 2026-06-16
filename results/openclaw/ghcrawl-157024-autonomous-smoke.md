@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "ghcrawl-157024-autonomous-smoke"
 mode: "autonomous"
-run_id: "27598132964"
-workflow_run_id: "27598132964"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27598132964"
-head_sha: "3456041b23c90140b1b609eea90480f39847d880"
+run_id: "27602174405"
+workflow_run_id: "27602174405"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27602174405"
+head_sha: "bb90f9cf4df0d1866c012593830268f375f16efa"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-16T06:57:56.995Z"
+published_at: "2026-06-16T08:06:19.258Z"
 canonical: "https://github.com/openclaw/openclaw/pull/67967"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/67967"
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27598132964](https://github.com/openclaw/clownfish/actions/runs/27598132964)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27602174405](https://github.com/openclaw/clownfish/actions/runs/27602174405)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/67967
 
 ## Summary
 
-Hydrated state shows the original issue candidates are already closed. The surviving live path is open PR #67967, which is narrow and maintainer-editable but not merge-ready: current main still keeps MiniMax Anthropic replay on strict tool-call ID sanitization, while #67967 has failing proof/check gates and no merge preflight. Plan repair of #67967 rather than merge or close anything directly.
+Hydrated state shows the original issue pair is already closed, no security-sensitive refs are present, and the surviving canonical path is open PR #67967. #67967 is narrow and maintainer-editable, but it is not merge-ready because it is dirty, lacks real-behavior proof, and has failing relevant checks, so the actionable path is to repair the contributor branch rather than merge or close anything now.
 
 ## Impact
 
@@ -55,8 +55,8 @@ Hydrated state shows the original issue candidates are already closed. The survi
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | git fetch --unshallow origin timed out after 2219720ms before fix execution deadline |
-| execute_fix | blocked |  |  | git fetch --unshallow origin timed out after 2219720ms before fix execution deadline |
+| repair_contributor_branch | failed |  |  | source PR #67967 is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected when rebased upstream history includes workflow files |
+| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests, docs [check:changed] src/agents/embedded-agent-runner/run/attempt.test.ts: core test [check:changed] src/agents/embedded-agent-runner/run/attempt.tool-call-normalization.ts: core production [check:changed] src/agents/embedded-agent-utils.test.ts: core test [check:changed] src/agents/embedded-agent-utils.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typecheck core $ node scripts/run-tsgo.mjs -p ... |
 
 ## Apply Actions
 
@@ -68,15 +68,15 @@ Hydrated state shows the original issue candidates are already closed. The survi
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41257 | keep_closed | skipped | superseded | Already closed; preserve as historical evidence and route remaining repair through #67967. |
-| #41839 | keep_closed | skipped | duplicate | Already closed duplicate context; no mutation planned. |
-| #46401 | keep_closed | skipped | superseded | Closed historical parser PR with unresolved review blockers; no mutation planned. |
-| #46405 | keep_closed | skipped | superseded | Already closed broad combined PR; no mutation planned. |
-| #51514 | keep_closed | skipped | superseded | Already closed broad parser PR; no mutation planned. |
-| #65371 | keep_closed | skipped | superseded | Already closed source PR superseded by #67967; no mutation planned. |
-| #65380 | keep_closed | skipped | fixed_by_candidate | Already closed and covered by the #67967 repair path; no mutation planned. |
-| #67967 | fix_needed | planned | canonical | Repair the contributor branch, run proof/review/validation, and only merge after all merge gates are clean. |
-| cluster:ghcrawl-157024-autonomous-smoke | build_fix_artifact | planned |  | Create an executable repair artifact for the existing contributor PR branch. |
+| #41257 | keep_closed | skipped | superseded | Closed historical issue; keep as evidence for the canonical MiniMax tool-use repair path. |
+| #41839 | keep_closed | skipped | duplicate | Already closed duplicate in the same MiniMax tool-use failure family. |
+| #46401 | keep_closed | skipped | superseded | Closed unmerged PR with useful history, but not a viable merge target. |
+| #46405 | keep_closed | skipped | superseded | Closed broad combined PR; useful only as historical context. |
+| #51514 | keep_closed | skipped | superseded | Closed broad XML-promotion PR; not a viable canonical branch for this narrow provider replay-policy fix. |
+| #65371 | keep_closed | skipped | superseded | Superseded by the current maintainer-editable implementation PR #67967. |
+| #65380 | keep_closed | skipped | fixed_by_candidate | Closed tracker for the same provider replay-policy bug; #67967 owns remaining validation. |
+| #67967 | fix_needed | planned | canonical | Repair the existing contributor branch, rebase it onto current main, produce real-behavior proof or an equivalent maintainer-accepted validation note, run Codex /review, run pnpm check:changed, then re-evaluate merge. |
+| cluster:ghcrawl-157024-autonomous-smoke | build_fix_artifact | planned |  | Create an executable repair artifact for the canonical PR branch rather than opening an unrelated replacement PR. |
 
 ## Needs Human
 
