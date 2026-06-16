@@ -171,11 +171,25 @@ if (securityBlock) {
   writeReport(report, resultPath);
   process.exit(0);
 }
+const rebaseOnlyRepair = job.frontmatter.rebase_only === true;
+const rebaseOnlyBlock = validateRebaseOnlyRepair({ job, fixArtifact });
+if (rebaseOnlyBlock) {
+  report.status = "blocked";
+  report.reason = rebaseOnlyBlock.reason;
+  report.actions.push({
+    action: "execute_fix",
+    status: "blocked",
+    repair_strategy: fixArtifact.repair_strategy,
+    reason: rebaseOnlyBlock.reason,
+    evidence: rebaseOnlyBlock.evidence,
+  });
+  writeReport(report, resultPath);
+  process.exit(0);
+}
 const scopeBlock = validateAutonomousFixScope({ job, fixArtifact });
 const deferScopeBlockForRebaseOnlyRepair =
   scopeBlock &&
-  job.frontmatter.rebase_only === true &&
-  fixArtifact.repair_strategy === "repair_contributor_branch";
+  rebaseOnlyRepair;
 if (scopeBlock && !deferScopeBlockForRebaseOnlyRepair) {
   report.status = "blocked";
   report.reason = scopeBlock.reason;
@@ -247,16 +261,26 @@ try {
         fixArtifact,
         targetDir,
         scopeBlock: deferScopeBlockForRebaseOnlyRepair ? scopeBlock : null,
+        rebaseOnly: rebaseOnlyRepair,
       });
     } catch (error) {
-      report.actions.push({
-        action: "repair_contributor_branch",
-        status: "failed",
-        reason: error.message,
-      });
-      if (!shouldFallbackToReplacementAfterRepairError(error)) throw error;
-      const fallbackTargetDir = prepareFallbackReplacementCheckout(targetDir);
-      outcome = executeReplacementBranch({ fixArtifact, targetDir: fallbackTargetDir, supersedeSources: true, fallbackReason: error.message });
+      if (rebaseOnlyRepair) {
+        outcome = {
+          action: "repair_contributor_branch",
+          status: "blocked",
+          repair_strategy: fixArtifact.repair_strategy,
+          reason: `rebase-only repair stopped: ${error.message}`,
+        };
+      } else {
+        report.actions.push({
+          action: "repair_contributor_branch",
+          status: "failed",
+          reason: error.message,
+        });
+        if (!shouldFallbackToReplacementAfterRepairError(error)) throw error;
+        const fallbackTargetDir = prepareFallbackReplacementCheckout(targetDir);
+        outcome = executeReplacementBranch({ fixArtifact, targetDir: fallbackTargetDir, supersedeSources: true, fallbackReason: error.message });
+      }
     }
   } else {
     outcome = executeReplacementBranch({
@@ -397,7 +421,7 @@ function shouldPromoteNeedsHumanReplacement(fixArtifact, workerResult) {
   return hasReplacementDecision && hasUneditableOrUnsafeSource && hasBlockedFixAction;
 }
 
-function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
+function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null, rebaseOnly = false }) {
   const baseBranch = String(process.env.CLOWNFISH_FIX_BASE_BRANCH ?? DEFAULT_BASE_BRANCH);
   const sourcePr = firstSourcePullRequest(fixArtifact);
   const pull = fetchPullRequest(sourcePr.number);
@@ -414,14 +438,15 @@ function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
   run("git", ["checkout", branch], { cwd: targetDir });
   ensureMergeBaseAvailable({ targetDir, baseBranch });
   let rebased = rebaseRecoverableReplacementBranch({ targetDir, branch, baseBranch, fixArtifact });
-  if (scopeBlock && !rebased) {
+  if (!rebased && (scopeBlock || rebaseOnly)) {
+    const reason = scopeBlock?.reason ?? "rebase-only repair found the source branch already based on current main; no source edits were attempted";
     return {
       action: "repair_contributor_branch",
       status: "blocked",
       repair_strategy: fixArtifact.repair_strategy,
       target: sourcePr.url,
-      reason: scopeBlock.reason,
-      evidence: scopeBlock.evidence,
+      reason,
+      evidence: scopeBlock?.evidence ?? [`source_head_before=${pull.head.sha}`, `base_branch=${baseBranch}`],
     };
   }
   if (!sameRepoBranch && rebased && process.env.CLOWNFISH_ALLOW_REBASED_FORK_REPAIR !== "1") {
@@ -435,7 +460,7 @@ function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
   }
   prepareTargetToolchain(targetDir);
 
-  const prep = editValidatePrepareMerge({
+  let prep = editValidatePrepareMerge({
     fixArtifact,
     targetDir,
     branch,
@@ -444,12 +469,39 @@ function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
     // A successful rebase is already a concrete branch change. Validate and review it
     // without asking Codex to manufacture an unrelated source edit.
     allowExistingChanges: rebased,
+    allowReviewFixes: !rebaseOnly,
   });
   if (refreshValidatedBranchBase({ targetDir, branch, baseBranch })) {
     rebased = true;
-    prep.commit = currentHead(targetDir);
+    if (rebaseOnly) {
+      prep = editValidatePrepareMerge({
+        fixArtifact,
+        targetDir,
+        branch,
+        mode: "repair",
+        baseBranch,
+        allowExistingChanges: true,
+        allowReviewFixes: false,
+      });
+      if (refreshValidatedBranchBase({ targetDir, branch, baseBranch })) {
+        throw new Error("base branch advanced again during rebase-only validation; requeue before pushing");
+      }
+    } else {
+      prep.commit = currentHead(targetDir);
+    }
   }
   prep.merge_preflight.target = `#${sourcePr.number}`;
+  const rebaseProof = rebaseOnly
+    ? {
+        source_head_before: pull.head.sha,
+        head_after: prep.commit,
+        base_sha: run("git", ["rev-parse", `origin/${baseBranch}`], { cwd: targetDir }).trim(),
+        base_is_ancestor: isAncestor({ targetDir, ancestor: `origin/${baseBranch}`, descendant: "HEAD" }),
+      }
+    : null;
+  if (rebaseProof && (!rebaseProof.base_is_ancestor || rebaseProof.source_head_before === rebaseProof.head_after)) {
+    throw new Error("rebase-only repair could not prove a new head based on current main");
+  }
   if (dryRun) {
     return {
       action: "repair_contributor_branch",
@@ -457,6 +509,7 @@ function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
       target: sourcePr.url,
       commit: prep.commit,
       merge_preflight: prep.merge_preflight,
+      rebase_proof: rebaseProof,
     };
   }
 
@@ -473,18 +526,26 @@ function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
     commit: prep.commit,
     recoverable_branch_pushed: true,
     merge_preflight: prep.merge_preflight,
+    rebase_proof: rebaseProof,
   });
-  const threadResolution = prepareReviewThreadsForMerge({ repo: result.repo, number: sourcePr.number, targetDir });
-  const comment = repairContributorBranchComment({
-    sourcePrUrl: sourcePr.url,
-    validationCommands: fixArtifact.validation_commands,
-    provenance: externalMessageProvenance({
-      model,
-      reasoning: codexReasoningEffort,
-      reviewedSha: prep.commit,
-    }),
-  });
-  run("gh", ["pr", "comment", String(sourcePr.number), "--repo", result.repo, "--body", comment], { cwd: targetDir, env: ghEnv() });
+  const threadResolution = rebaseOnly
+    ? { status: "skipped", reason: "rebase-only repair does not resolve review threads" }
+    : prepareReviewThreadsForMerge({ repo: result.repo, number: sourcePr.number, targetDir });
+  if (!rebaseOnly) {
+    const comment = repairContributorBranchComment({
+      sourcePrUrl: sourcePr.url,
+      validationCommands: fixArtifact.validation_commands,
+      provenance: externalMessageProvenance({
+        model,
+        reasoning: codexReasoningEffort,
+        reviewedSha: prep.commit,
+      }),
+    });
+    run("gh", ["pr", "comment", String(sourcePr.number), "--repo", result.repo, "--body", comment], {
+      cwd: targetDir,
+      env: ghEnv(),
+    });
+  }
   return {
     action: "repair_contributor_branch",
     status: "pushed",
@@ -495,6 +556,7 @@ function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
     commit: prep.commit,
     merge_preflight: prep.merge_preflight,
     review_threads: threadResolution,
+    rebase_proof: rebaseProof,
   };
 }
 
@@ -760,6 +822,7 @@ function editValidatePrepareMerge({
   baseBranch = DEFAULT_BASE_BRANCH,
   contributorCredits = [],
   allowExistingChanges = false,
+  allowReviewFixes = true,
   pushCheckpoint = null,
 }) {
   let producedChanges = allowExistingChanges;
@@ -840,6 +903,7 @@ function editValidatePrepareMerge({
     targetDir,
     mode,
     baseBranch,
+    allowReviewFixes,
     onReviewFix: (attempt, reviewFix) => {
       const checkpoint = commitCheckpointIfNeeded({
         targetDir,
@@ -1199,7 +1263,14 @@ function parseBooleanEnv(value, fallback) {
   return fallback;
 }
 
-function validateAndReviewLoop({ fixArtifact, targetDir, mode, baseBranch = DEFAULT_BASE_BRANCH, onReviewFix = null }) {
+function validateAndReviewLoop({
+  fixArtifact,
+  targetDir,
+  mode,
+  baseBranch = DEFAULT_BASE_BRANCH,
+  allowReviewFixes = true,
+  onReviewFix = null,
+}) {
   let lastReview = null;
   let validationCommands = [];
   for (let attempt = 1; attempt <= maxReviewAttempts; attempt += 1) {
@@ -1208,7 +1279,7 @@ function validateAndReviewLoop({ fixArtifact, targetDir, mode, baseBranch = DEFA
     lastReview = runCodexReview({ fixArtifact, targetDir, mode, attempt, baseBranch, validationCommands });
     lastReview.validation_commands_run = validationCommands;
     if (isCleanCodexReview(lastReview)) return lastReview;
-    if (attempt === maxReviewAttempts) break;
+    if (!allowReviewFixes || attempt === maxReviewAttempts) break;
     const reviewFix = runCodexReviewFix({ fixArtifact, targetDir, mode, review: lastReview, attempt });
     onReviewFix?.(attempt, reviewFix);
   }
@@ -1778,6 +1849,24 @@ function validateAutonomousFixScope({ job, fixArtifact }) {
       `sample_files=${likelyFiles.slice(0, 8).join(", ")}`,
     ],
   };
+}
+
+function validateRebaseOnlyRepair({ job, fixArtifact }) {
+  if (job.frontmatter.rebase_only !== true) return null;
+
+  if (fixArtifact.repair_strategy !== "repair_contributor_branch") {
+    return {
+      reason: "rebase-only jobs require repair_contributor_branch",
+      evidence: [`repair_strategy=${fixArtifact.repair_strategy}`],
+    };
+  }
+  if (!Array.isArray(fixArtifact.source_prs) || fixArtifact.source_prs.length !== 1) {
+    return {
+      reason: "rebase-only jobs require exactly one source PR",
+      evidence: [`source_pr_count=${fixArtifact.source_prs?.length ?? 0}`],
+    };
+  }
+  return null;
 }
 
 function readSiblingJson(resultPath, name) {

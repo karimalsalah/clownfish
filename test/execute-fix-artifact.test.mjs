@@ -113,15 +113,22 @@ test("execute-fix-artifact validates a successful repair rebase without speculat
 test("execute-fix-artifact defers a broad scope block only for explicit rebase-only repairs", () => {
   const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
 
-  assert.match(
-    source,
-    /job\.frontmatter\.rebase_only === true\s*&&\s*fixArtifact\.repair_strategy === "repair_contributor_branch"/,
-  );
-  assert.match(source, /function executeRepairBranch\(\{ fixArtifact, targetDir, scopeBlock = null \}\)/);
-  assert.match(
-    source,
-    /if \(scopeBlock && !rebased\) \{\s*return \{\s*action: "repair_contributor_branch",\s*status: "blocked",[\s\S]*?reason: scopeBlock\.reason,[\s\S]*?evidence: scopeBlock\.evidence,/,
-  );
+  assert.match(source, /const rebaseOnlyRepair = job\.frontmatter\.rebase_only === true;/);
+  assert.match(source, /const rebaseOnlyBlock = validateRebaseOnlyRepair\(\{ job, fixArtifact \}\);/);
+  assert.match(source, /function executeRepairBranch\(\{ fixArtifact, targetDir, scopeBlock = null, rebaseOnly = false \}\)/);
+  assert.match(source, /if \(!rebased && \(scopeBlock \|\| rebaseOnly\)\)/);
+});
+
+test("execute-fix-artifact makes rebase-only repair a no-generated-edit path", () => {
+  const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
+
+  assert.match(source, /if \(!rebased && \(scopeBlock \|\| rebaseOnly\)\)/);
+  assert.match(source, /allowReviewFixes: !rebaseOnly,/);
+  assert.match(source, /if \(!allowReviewFixes \|\| attempt === maxReviewAttempts\) break;/);
+  assert.match(source, /if \(rebaseOnlyRepair\) \{\s*outcome = \{\s*action: "repair_contributor_branch",\s*status: "blocked",/);
+  assert.match(source, /rebase-only repair does not resolve review threads/);
+  assert.match(source, /if \(!rebaseOnly\) \{\s*const comment = repairContributorBranchComment/);
+  assert.match(source, /function validateRebaseOnlyRepair\(\{ job, fixArtifact \}\)/);
 });
 
 test("execute-fix-artifact retries transient GitHub reads before branch repair", () => {
