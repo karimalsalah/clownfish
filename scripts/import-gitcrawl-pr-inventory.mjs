@@ -14,6 +14,7 @@ const existingDir = path.resolve(String(args["existing-dir"] ?? outDir));
 const existingResultsDir = path.resolve(
   String(args["existing-results-dir"] ?? args.existing_results_dir ?? path.join(repoRoot(), "results", repo.split("/")[0])),
 );
+const existingResultsActionPolicy = String(args["existing-results-action-policy"] ?? args.existing_results_action_policy ?? "all");
 const mode = String(args.mode ?? "plan");
 const limit = limitArg("limit", 500);
 const batchSize = numberArg("batch-size", 10);
@@ -33,9 +34,13 @@ if (!["stale", "recent", "bucket"].includes(sort)) {
   console.error("sort must be stale, recent, or bucket");
   process.exit(2);
 }
+if (!["all", "terminal"].includes(existingResultsActionPolicy)) {
+  console.error("existing-results-action-policy must be all or terminal");
+  process.exit(2);
+}
 
 const existingRefs = skipExisting ? existingJobRefs(existingDir) : new Set();
-const existingResultRefs = skipExisting ? existingPublishedResultRefs(existingResultsDir, repo) : new Set();
+const existingResultRefs = skipExisting ? existingPublishedResultRefs(existingResultsDir, repo, existingResultsActionPolicy) : new Set();
 const candidates = selectCandidates()
   .filter((candidate) => !includeRefs || includeRefs.has(candidate.ref))
   .filter((candidate) => !skipExisting || (!existingRefs.has(candidate.ref) && !existingResultRefs.has(candidate.ref)))
@@ -68,6 +73,7 @@ if (jsonOutput) {
       include_refs_file: includeRefs
         ? path.relative(repoRoot(), path.resolve(String(args["include-refs-file"] ?? args.include_refs_file)))
         : null,
+      existing_results_action_policy: existingResultsActionPolicy,
       existing_results_dir: path.relative(repoRoot(), existingResultsDir),
       include_security_candidates: includeSecurity,
     },
@@ -239,7 +245,7 @@ function existingJobRefs(root) {
   return refs;
 }
 
-function existingPublishedResultRefs(root, targetRepo) {
+function existingPublishedResultRefs(root, targetRepo, actionPolicy) {
   if (!fs.existsSync(root)) return new Set();
   const refs = new Set();
   for (const entry of fs.readdirSync(root, { recursive: true })) {
@@ -250,9 +256,21 @@ function existingPublishedResultRefs(root, targetRepo) {
     if (!frontmatter) continue;
     const parsed = parsePublishedResultFrontmatter(frontmatter[1]);
     if (String(parsed.repo ?? "") !== targetRepo) continue;
-    for (const ref of workerActionRefs(raw)) refs.add(ref);
+    for (const ref of publishedResultRefs(raw, actionPolicy)) refs.add(ref);
   }
   return refs;
+}
+
+function publishedResultRefs(markdown, actionPolicy) {
+  if (actionPolicy === "all") return workerActionRows(markdown).map((row) => row.target);
+  const refs = new Set();
+  for (const row of applyActionRows(markdown)) {
+    if (row.status === "executed") refs.add(row.target);
+  }
+  for (const row of workerActionRows(markdown)) {
+    if (row.action === "keep_closed" || row.action === "route_security") refs.add(row.target);
+  }
+  return [...refs];
 }
 
 function parsePublishedResultFrontmatter(text) {
@@ -265,13 +283,43 @@ function parsePublishedResultFrontmatter(text) {
   return out;
 }
 
-function workerActionRefs(markdown) {
-  const heading = markdown.match(/^## Worker Action Matrix[^\n]*\n/m);
+function applyActionRows(markdown) {
+  return actionTableRows(markdown, "Apply Actions");
+}
+
+function workerActionRows(markdown) {
+  return actionTableRows(markdown, "Worker Action Matrix");
+}
+
+function actionTableRows(markdown, headingName) {
+  const heading = markdown.match(new RegExp(`^## ${escapeRegExp(headingName)}[^\\n]*\\n`, "m"));
   if (!heading) return [];
   const rest = markdown.slice((heading.index ?? 0) + heading[0].length);
   const nextHeading = rest.search(/\n## /);
   const section = nextHeading >= 0 ? rest.slice(0, nextHeading) : rest;
-  return [...section.matchAll(/^\|\s*(#\d+)\s*\|/gm)].map((match) => match[1]);
+  return section
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("| #"))
+    .map(parseActionRow)
+    .filter(Boolean);
+}
+
+function parseActionRow(line) {
+  const cells = line
+    .split("|")
+    .slice(1, -1)
+    .map((cell) => cell.trim());
+  if (cells.length < 3) return null;
+  return {
+    target: cells[0],
+    action: cells[1],
+    status: cells[2],
+  };
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function normalizeRefs(values) {

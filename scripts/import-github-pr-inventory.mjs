@@ -13,6 +13,7 @@ const existingDir = path.resolve(String(args["existing-dir"] ?? args.existing_di
 const existingResultsDir = path.resolve(
   String(args["existing-results-dir"] ?? args.existing_results_dir ?? path.join(repoRoot(), "results", owner)),
 );
+const existingResultsActionPolicy = String(args["existing-results-action-policy"] ?? args.existing_results_action_policy ?? "all");
 const mode = String(args.mode ?? "autonomous");
 const limit = limitArg("limit", 100);
 const batchSize = numberArg("batch-size", 5);
@@ -28,8 +29,10 @@ const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_
 if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) die("--repo must be owner/repo");
 if (!["plan", "autonomous"].includes(mode)) die("--mode must be plan or autonomous");
 if (!["stale", "recent", "bucket"].includes(sort)) die("--sort must be stale, recent, or bucket");
+if (!["all", "terminal"].includes(existingResultsActionPolicy)) die("--existing-results-action-policy must be all or terminal");
 
-const existingRefs = skipExisting ? existingMentionedRefs([existingDir, existingResultsDir]) : new Set();
+const existingRefs = skipExisting ? existingMentionedRefs([existingDir]) : new Set();
+if (skipExisting) mergeRefs(existingRefs, existingPublishedResultRefs(existingResultsDir, repo, existingResultsActionPolicy));
 const candidates = fetchOpenPullRequests()
   .map(classifyCandidate)
   .filter((candidate) => !includeRefs || includeRefs.has(candidate.ref))
@@ -63,6 +66,7 @@ const payload = sanitizeJsonValue({
     include_refs_file: includeRefs
       ? path.relative(repoRoot(), path.resolve(String(args["include-refs-file"] ?? args.include_refs_file)))
       : null,
+    existing_results_action_policy: existingResultsActionPolicy,
     existing_dir: path.relative(repoRoot(), existingDir),
     existing_results_dir: path.relative(repoRoot(), existingResultsDir),
     gh_bin: ghCommand,
@@ -260,6 +264,88 @@ function addStructuredJobRefs(refs, file) {
   } catch {
     // Result markdown and ad hoc reports are not necessarily job files.
   }
+}
+
+function existingPublishedResultRefs(root, targetRepo, actionPolicy) {
+  if (!fs.existsSync(root)) return new Set();
+  const refs = new Set();
+  for (const entry of fs.readdirSync(root, { recursive: true })) {
+    const file = path.join(root, String(entry));
+    if (!file.endsWith(".md") || !fs.statSync(file).isFile()) continue;
+    const raw = fs.readFileSync(file, "utf8");
+    const frontmatter = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+    if (!frontmatter) continue;
+    const parsed = parsePublishedResultFrontmatter(frontmatter[1]);
+    if (String(parsed.repo ?? "") !== targetRepo) continue;
+    for (const ref of publishedResultRefs(raw, actionPolicy)) refs.add(ref);
+  }
+  return refs;
+}
+
+function publishedResultRefs(markdown, actionPolicy) {
+  if (actionPolicy === "all") return workerActionRows(markdown).map((row) => row.target);
+  const refs = new Set();
+  for (const row of applyActionRows(markdown)) {
+    if (row.status === "executed") refs.add(row.target);
+  }
+  for (const row of workerActionRows(markdown)) {
+    if (row.action === "keep_closed" || row.action === "route_security") refs.add(row.target);
+  }
+  return [...refs];
+}
+
+function mergeRefs(target, source) {
+  for (const ref of source) target.add(ref);
+  return target;
+}
+
+function parsePublishedResultFrontmatter(text) {
+  const out = {};
+  for (const line of text.split(/\r?\n/)) {
+    const match = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+    if (!match) continue;
+    out[match[1]] = String(match[2] ?? "").trim().replace(/^"(.*)"$/, "$1");
+  }
+  return out;
+}
+
+function applyActionRows(markdown) {
+  return actionTableRows(markdown, "Apply Actions");
+}
+
+function workerActionRows(markdown) {
+  return actionTableRows(markdown, "Worker Action Matrix");
+}
+
+function actionTableRows(markdown, headingName) {
+  const heading = markdown.match(new RegExp(`^## ${escapeRegExp(headingName)}[^\\n]*\\n`, "m"));
+  if (!heading) return [];
+  const rest = markdown.slice((heading.index ?? 0) + heading[0].length);
+  const nextHeading = rest.search(/\n## /);
+  const section = nextHeading >= 0 ? rest.slice(0, nextHeading) : rest;
+  return section
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("| #"))
+    .map(parseActionRow)
+    .filter(Boolean);
+}
+
+function parseActionRow(line) {
+  const cells = line
+    .split("|")
+    .slice(1, -1)
+    .map((cell) => cell.trim());
+  if (cells.length < 3) return null;
+  return {
+    target: cells[0],
+    action: cells[1],
+    status: cells[2],
+  };
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function markdownAndJsonFiles(root) {
