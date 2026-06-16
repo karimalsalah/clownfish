@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-052"
 mode: "plan"
-run_id: "27583353491"
-workflow_run_id: "27583353491"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353491"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.542Z"
+run_id: "27580942551-1-53"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.298Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 8
+needs_human_count: 13
 ---
 
 # pr-inventory-needs_proof-20260615T223445-052
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353491](https://github.com/openclaw/clownfish/actions/runs/27583353491)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory shard. The job is not a dedupe cluster, no shared canonical was selected, and no mutating actions are recommended. Hydrated open PRs are classified independently; refs without live kind/state/updated_at are limited to item-scoped needs_human because GitHub hydration was unavailable in the preflight artifact, except #91015 is quarantined with route_security because deterministic validation marked it security-sensitive.
+Plan-only PR inventory classification. No shared canonical was selected. Hydrated open PRs are kept independently because this shard is not a dedupe cluster and merge/fix/low-signal close paths are disabled or lack required proof. Refs with unavailable live state require rehydration before classification.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory shard. The job is not a dedupe cluster, no shared canonic
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 8 |
+| Needs human | 13 |
 
 ## Fix Execution Actions
 
@@ -67,39 +67,44 @@ Plan-only PR inventory shard. The job is not a dedupe cluster, no shared canonic
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #68685 | keep_independent | planned | independent | Open focused PR with proof still required; classify independently and leave maintainer review path open. |
-| #68785 | needs_human | planned | needs_human | Technical correctness and unresolved review-bot findings require maintainer/contributor judgment. |
-| #68801 | needs_human | planned | needs_human | Explicit maintainer update signal and unresolved correctness risk require human decision. |
-| #68833 | keep_independent | planned | independent | Focused open PR with no duplicate canonical in this shard; keep independently pending proof. |
-| #68857 | needs_human | planned | needs_human | Unresolved schema/runtime correctness findings require human or contributor follow-up. |
-| #88425 | needs_human | planned | needs_human | Failed proof plus failed checks make merge or closeout unsafe; maintainer/contributor follow-up is needed. |
-| #88529 | keep_independent | planned | independent | Open PR with insufficient proof but no dedupe/closure basis in this inventory shard. |
-| #93302 | needs_human | planned | needs_human | Promising PR, but a failing check and unavailable linked issue state require item-scoped human decision. |
-| #88915 | keep_independent | planned | independent | Independent open PR; proof is still missing and no close/merge action is allowed. |
-| #89086 | needs_human | planned | needs_human | Proof passed, but a failing check and blocked merge authority require human follow-up. |
-| #89387 | keep_independent | planned | independent | Independent PR with proof supplied; keep open for normal maintainer review. |
-| #89447 | keep_independent | planned | independent | Independent but under-proven PR; low-signal closure is disabled by this job. |
-| #89467 | keep_independent | planned | independent | Focused independent PR with proof still required. |
-| #89484 | keep_independent | planned | independent | Independent open PR pending real behavior proof; no duplicate or superseded evidence. |
-| #89687 | keep_independent | planned | independent | Independent Feishu PR; keep open pending proof/review rather than close as low signal. |
-| #90966 | keep_independent | planned | independent | Independent open PR with proof gate still failing. |
-| #90969 | needs_human | planned | needs_human | Draft candidate with skipped substantive validation needs human/contributor decision. |
-| #90990 | keep_independent | planned | independent | Independent follow-up PR; keep open pending proof and normal review. |
-| #90997 | needs_human | planned | needs_human | Live kind/state/updated_at are unavailable, so no conservative PR classification can be emitted. |
-| #91002 | needs_human | planned | needs_human | Live state is missing; item-scoped human review is required before classification. |
-| #91015 | route_security | planned | security_sensitive | Quarantine only #91015 for central OpenClaw security handling; no GitHub mutation is planned. |
-| #91050 | needs_human | planned | needs_human | Missing live kind/state/updated_at blocks conservative classification. |
-| #91140 | needs_human | planned | needs_human | Missing live state prevents required target metadata classification. |
-| #91156 | needs_human | planned | needs_human | Missing live kind/state/updated_at blocks action planning beyond item-scoped needs_human. |
-| #91157 | needs_human | planned | needs_human | Missing live PR metadata prevents conservative independent classification. |
+| #68685 | keep_independent | planned | independent | Unique config migration PR with no hydrated duplicate or superseding canonical; keep as independent needs-proof review work. |
+| #68785 | keep_independent | planned | independent | Feature/availability PR has unique scope and unresolved proof/review requirements; no close, merge, or fix path is available in this plan. |
+| #68801 | keep_independent | planned | independent | Small gateway leak fix candidate remains independent; evidence is insufficient for merge or close-style action. |
+| #68833 | keep_independent | planned | independent | Telegram behavior fix is unique and not superseded by any hydrated item; keep independently for proof review. |
+| #68857 | keep_independent | planned | independent | Unique configurable timeout feature remains independent and needs proof; no merge or closure gate is satisfied. |
+| #88425 | keep_independent | planned | independent | ACP context-engine behavior fix has distinct scope and remains a needs-proof PR. |
+| #88529 | keep_independent | planned | independent | Partial enrichment gap blocks any stronger recommendation, but live item identity is present; keep independently. |
+| #93302 | keep_independent | planned | independent | Distinct daemon availability/compatibility fix remains independent; insufficient enriched proof for merge or closure. |
+| #88915 | keep_independent | planned | independent | Distinct macOS cleanup/fix remains independent; proof and enrichment gaps prevent stronger action. |
+| #89086 | keep_independent | planned | independent | Distinct browser error-format fix remains independent; no hydrated canonical or superseding PR exists. |
+| #89387 | keep_independent | planned | independent | Session-state fix has unique scope and cannot be safely closed, merged, or superseded from this artifact. |
+| #89447 | keep_independent | planned | independent | Potential low-signal indicators are not actionable in this job; keep independently pending rehydration/manual proof review. |
+| #89467 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #89484 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #89687 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #90966 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #90969 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #90990 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #90997 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #91002 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #91015 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #91050 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #91140 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #91156 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
+| #91157 | needs_human | blocked | needs_human | Live state is unavailable; rehydrate before classifying or planning any action. |
 
 ## Needs Human
 
-- #68785 unresolved P1 review-bot findings.
-- #68801 maintainer rebase signal plus review-bot correctness concerns.
-- #68857 unresolved runtime config/schema findings.
-- #88425 failed proof and multiple failed historical checks.
-- #93302 failing checks-node-core-tooling and unavailable linked issue state.
-- #89086 proof passing but checks-node-core-runtime-infra-file-safety failing.
-- #90969 draft candidate with failed proof and substantive CI skipped.
-- #90997, #91002, #91050, #91140, #91156, and #91157 unavailable in live preflight state and need rehydration.
+- #89467 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #89484 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #89687 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #90966 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #90969 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #90990 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #90997 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #91002 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #91015 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #91050 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #91140 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #91156 live state unavailable due GitHub API rate limit; rehydrate before classification.
+- #91157 live state unavailable due GitHub API rate limit; rehydrate before classification.

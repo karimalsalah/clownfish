@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-022"
 mode: "plan"
-run_id: "27583351555"
-workflow_run_id: "27583351555"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583351555"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-23"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.432Z"
+published_at: "2026-06-16T19:01:33.211Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,16 +19,16 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 9
+needs_human_count: 0
 ---
 
 # pr-inventory-needs_proof-20260615T223445-022
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583351555](https://github.com/openclaw/clownfish/actions/runs/27583351555)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No GitHub mutations are planned because the job is a non-dedupe inventory shard, merge/fix actions are blocked, low-signal closeout is disabled, and several candidates are either already closed, unavailable from hydration, security-routed, or still need proof/review resolution.
+Plan-only PR inventory classification. No GitHub mutations planned. Open non-security PRs are kept independent for normal maintainer review/proof; already-closed non-security PRs are skipped as closed; vulnerability-shaped or security-boundary PRs are routed to central security handling.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. No GitHub mutations are planned beca
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 9 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,40 +67,32 @@ Plan-mode PR inventory classification only. No GitHub mutations are planned beca
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90550 | keep_closed | skipped | superseded | Already closed in hydrated state. |
-| #90617 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for Clownfish backlog cleanup; route exact ref to central security handling. |
-| #50250 | keep_independent | planned | independent | Independent open PR that should remain open for proof/review rather than be closed or merged in this shard. |
-| #47087 | keep_independent | planned | independent | Draft independent PR requiring proof; no closure or merge action is safe. |
-| #91414 | keep_closed | skipped | superseded | Already closed in hydrated state. |
-| #91545 | keep_closed | skipped | superseded | Already closed in hydrated state. |
-| #91596 | keep_closed | skipped | superseded | Already closed in hydrated state. |
-| #48690 | needs_human | planned | needs_human | Technical correctness judgment is required for the unresolved P1 review-bot concern before any close/merge/fix path. |
-| #44098 | route_security | planned | security_sensitive | Security-sensitive sandbox hardening PR is out of scope for Clownfish backlog cleanup; route exact ref to central OpenClaw security handling. |
-| #91655 | keep_closed | skipped | superseded | Already closed in hydrated state. |
-| #91459 | keep_closed | skipped | superseded | Already closed in hydrated state. |
-| #91812 | keep_closed | skipped | superseded | Already closed in hydrated state. |
-| #60402 | keep_independent | planned | independent | Independent open PR with addressed review discussion but missing proof; no close/merge action belongs in this inventory shard. |
-| #48278 | needs_human | planned | needs_human | Maintainer/technical judgment is needed for unresolved review-bot findings and proof gaps before deciding whether this config scaffold should continue. |
-| #87691 | keep_independent | planned | independent | Independent open PR needing proof; no dedupe or close action is supported. |
-| #87707 | keep_independent | planned | independent | Independent open message-delivery PR requiring visible proof; no closure or merge action is safe. |
-| #88270 | keep_independent | planned | independent | Independent open gateway PR with broad diff and failing checks; keep open for proof/repair outside this plan shard. |
-| #88506 | keep_independent | planned | independent | Draft broad feature PR with failing checks; keep independent for separate maintainer review rather than close/merge/fix in this shard. |
-| #88507 | needs_human | planned | needs_human | Live state is unavailable, so no reliable classification or mutation plan can be emitted. |
-| #88522 | needs_human | planned | needs_human | Live state is unavailable, so no reliable classification or mutation plan can be emitted. |
-| #88531 | needs_human | planned | needs_human | Live state is unavailable, so no reliable classification or mutation plan can be emitted. |
-| #91994 | needs_human | planned | needs_human | Live state is unavailable, so no reliable classification or mutation plan can be emitted. |
-| #88651 | needs_human | planned | needs_human | Live state is unavailable, so no reliable classification or mutation plan can be emitted. |
-| #88668 | needs_human | planned | needs_human | Live state is unavailable, so no reliable classification or mutation plan can be emitted. |
-| #88684 | needs_human | planned | needs_human | Live state is unavailable, so no reliable classification or mutation plan can be emitted. |
+| #90550 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #90617 | route_security | planned | security_sensitive | Security-boundary PRs are out of scope for ProjectClownfish cleanup and must route to central OpenClaw security handling. |
+| #50250 | keep_independent | planned | independent | Independent open PR needing normal proof/review, not duplicate cleanup. |
+| #47087 | keep_independent | planned | independent | Draft independent PR needing author/maintainer follow-up. |
+| #91414 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #91545 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #91596 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #48690 | keep_independent | planned | independent | Independent open PR needing proof and review-bot resolution. |
+| #44098 | route_security | planned | security_sensitive | The PR makes a vulnerability-shaped sandbox/availability claim, so it should be quarantined to central OpenClaw security handling. |
+| #91655 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #91459 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #91812 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #60402 | keep_independent | planned | independent | Independent open PR needing proof and review-bot resolution. |
+| #48278 | keep_independent | planned | independent | Independent config PR needing proof and review follow-up. |
+| #87691 | keep_independent | planned | independent | Independent open PR needing real behavior proof. |
+| #87707 | keep_independent | planned | independent | Independent open PR needing proof. |
+| #88270 | keep_independent | planned | independent | Independent open PR needing proof and technical review. |
+| #88506 | keep_independent | planned | independent | Draft broad feature PR needing maintainer review outside this cleanup shard. |
+| #88507 | keep_independent | planned | independent | Draft broad feature PR needing proof and technical review. |
+| #88522 | keep_independent | planned | independent | Draft channel behavior PR needing proof. |
+| #88531 | keep_independent | planned | independent | Independent open PR that may be promising but cannot be merged from this plan-only shard. |
+| #91994 | route_security | planned | security_sensitive | Security-sensitive PRs are out of scope for ProjectClownfish cleanup and must route to central OpenClaw security handling. |
+| #88651 | keep_independent | planned | independent | Independent open PR requiring normal review gates. |
+| #88668 | keep_independent | planned | independent | Draft feature PR needing proof and maintainer review. |
+| #88684 | keep_independent | planned | independent | Independent open PR that may be promising but cannot be merged from this plan-only shard. |
 
 ## Needs Human
 
-- #48690: unresolved latest Codex P1 review-bot finding about preserving caller timeout budgets before lane fallback.
-- #48278: unresolved Greptile review-bot findings plus failing proof/checks require technical/product judgment.
-- #88507: live state unavailable in preflight artifact due hydration/rate-limit failure.
-- #88522: live state unavailable in preflight artifact due hydration/rate-limit failure.
-- #88531: live state unavailable in preflight artifact due hydration/rate-limit failure.
-- #91994: live state unavailable in preflight artifact due hydration/rate-limit failure.
-- #88651: live state unavailable in preflight artifact due hydration/rate-limit failure.
-- #88668: live state unavailable in preflight artifact due hydration/rate-limit failure.
-- #88684: live state unavailable in preflight artifact due hydration/rate-limit failure.
+- none

@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T223445-015"
 mode: "plan"
-run_id: "27583279807"
-workflow_run_id: "27583279807"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583279807"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.333Z"
+run_id: "27580942551-1-14"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.166Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 13
+needs_human_count: 7
 ---
 
 # pr-inventory-maintainer_owned-20260615T223445-015
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583279807](https://github.com/openclaw/clownfish/actions/runs/27583279807)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan mode only. Classified the hydrated PR inventory shard independently; no shared canonical was inferred. Security-sensitive refs are routed item-scoped. Two open PRs have clear fixed-by-merged-candidate evidence; missing hydrated live state blocks classification for the refs absent from the compacted preflight artifact.
+Plan-only PR inventory classification. Hydrated open PRs were classified independently with no shared canonical, no closure, no merge, and no fix artifact, except #80590 and #67820 were routed to central security handling because deterministic validation marked them security-sensitive. Seven refs could not be classified because live state was unavailable in the preflight artifact after GitHub API rate limiting.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan mode only. Classified the hydrated PR inventory shard independently; no sha
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 13 |
+| Needs human | 7 |
 
 ## Fix Execution Actions
 
@@ -67,44 +67,38 @@ Plan mode only. Classified the hydrated PR inventory shard independently; no sha
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90431 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #91290 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #91293 | route_security | planned | security_sensitive | Security-sensitive ref is out of ProjectClownfish backlog-cleanup scope. |
-| #91325 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #91370 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #80590 | close_fixed_by_candidate | planned | fixed_by_candidate | Open PR is clearly fixed by merged candidate #83667 with contributor credit preserved in the close comment. |
-| #85878 | close_fixed_by_candidate | planned | fixed_by_candidate | Open maintainer copy is fixed by a merged equivalent PR, with original source PR credit preserved in the planned comment. |
-| #88977 | keep_independent | planned | independent | Useful focused PR requiring normal maintainer review, not a duplicate in this shard. |
-| #89132 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #89348 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #90262 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #90505 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #39386 | keep_independent | planned | independent | Draft PR has useful focused work but is blocked by proof/review; not suitable for closure or merge planning. |
-| #67820 | route_security | planned | security_sensitive | Security-sensitive item must be routed to central OpenClaw security handling. |
-| #68236 | keep_independent | planned | independent | Independent test coverage PR; no close or merge action is supported by the hydrated state. |
-| #87697 | keep_independent | planned | independent | Active contributor PR with maintainer correctness concerns should remain open for normal review. |
-| #88780 | keep_independent | planned | independent | Small useful PR, but draft state blocks closure or merge recommendation. |
-| #88880 | keep_independent | planned | independent | Independent provider compatibility PR requiring normal review. |
-| #88881 | keep_independent | planned | independent | Independent agent tool-surface PR requiring normal review. |
-| #89052 | keep_independent | planned | independent | Focused hardening PR should remain open for maintainer review. |
-| #89323 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #89426 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #89458 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #89463 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
-| #89529 | needs_human | blocked | needs_human | Missing hydrated live state prevents an auditable classification. |
+| #90431 | keep_independent | planned | independent | Broad maintainer-owned feature PR should remain on its own review path; plan mode and blocked merge/fix actions allow only non-mutating classification. |
+| #91290 | keep_independent | planned | independent | CI policy PR is a distinct review item and requires normal maintainer proof/review rather than inventory cleanup. |
+| #91293 | keep_independent | planned | independent | Distinct open PR with useful code and tests; keep independent pending author/maintainer review. |
+| #91325 | keep_independent | planned | independent | Small focused fix remains an independent maintainer-review PR; no merge action is allowed by the job. |
+| #91370 | keep_independent | planned | independent | Distinct message-delivery fix should stay on its own proof and maintainer review path. |
+| #80590 | route_security | planned | security_sensitive | Security-sensitive sandbox/exec-adjacent PR is out of scope for ProjectClownfish inventory cleanup and must be routed to central security handling. |
+| #85878 | keep_independent | planned | independent | Focused replacement-style PR with contributor credit should remain independent for maintainer review; merge is blocked by job policy and missing preflight. |
+| #88977 | keep_independent | planned | independent | Useful draft maintainer PR should stay open as an independent review item. |
+| #89132 | keep_independent | planned | independent | Focused draft PR with tests remains an independent maintainer review item. |
+| #89348 | keep_independent | planned | independent | Stacked memory refactor is independent and needs its own proof/review path; no canonical should be invented. |
+| #90262 | keep_independent | planned | independent | Focused draft PR remains independent pending author follow-up. |
+| #90505 | keep_independent | planned | independent | Distinct session-state fix should remain independent for maintainer review. |
+| #39386 | keep_independent | planned | independent | Draft gateway fix is an independent PR requiring proof; keep open. |
+| #67820 | route_security | planned | security_sensitive | Security-sensitive auth-provider/QR handling PR is out of scope for ProjectClownfish inventory cleanup and must be routed to central security handling. |
+| #68236 | keep_independent | planned | independent | Test-only regression coverage for active failures is independent and should not be closed as inventory cleanup. |
+| #87697 | keep_independent | planned | independent | Useful contributor PR should preserve credit and remain independent; merge is not allowed and missing merge preflight blocks any merge recommendation. |
+| #88780 | keep_independent | planned | independent | Small draft cleanup remains an independent PR; low-signal closeout is disabled by the job frontmatter. |
+| #88880 | keep_independent | planned | independent | Provider schema projection PR remains independent pending author follow-up and CI/mergeability. |
+| #88881 | needs_human | blocked | needs_human | Needs refreshed live GitHub state before classification. |
+| #89052 | needs_human | blocked | needs_human | Needs refreshed live GitHub state before classification. |
+| #89323 | needs_human | blocked | needs_human | Needs refreshed live GitHub state before classification. |
+| #89426 | needs_human | blocked | needs_human | Needs refreshed live GitHub state before classification. |
+| #89458 | needs_human | blocked | needs_human | Needs refreshed live GitHub state before classification. |
+| #89463 | needs_human | blocked | needs_human | Needs refreshed live GitHub state before classification. |
+| #89529 | needs_human | blocked | needs_human | Needs refreshed live GitHub state before classification. |
 
 ## Needs Human
 
-- #90431 missing hydrated live state in compacted preflight artifact.
-- #91290 missing hydrated live state in compacted preflight artifact.
-- #91325 missing hydrated live state in compacted preflight artifact.
-- #91370 missing hydrated live state in compacted preflight artifact.
-- #89132 missing hydrated live state in compacted preflight artifact.
-- #89348 missing hydrated live state in compacted preflight artifact.
-- #90262 missing hydrated live state in compacted preflight artifact.
-- #90505 missing hydrated live state in compacted preflight artifact.
-- #89323 missing hydrated live state in compacted preflight artifact.
-- #89426 missing hydrated live state in compacted preflight artifact.
-- #89458 missing hydrated live state in compacted preflight artifact.
-- #89463 missing hydrated live state in compacted preflight artifact.
-- #89529 missing hydrated live state in compacted preflight artifact.
+- #88881 live state unavailable in preflight artifact because GitHub API rate limit was exceeded; rehydrate before classification.
+- #89052 live state unavailable in preflight artifact because GitHub API rate limit was exceeded; rehydrate before classification.
+- #89323 live state unavailable in preflight artifact because GitHub API rate limit was exceeded; rehydrate before classification.
+- #89426 live state unavailable in preflight artifact because GitHub API rate limit was exceeded; rehydrate before classification.
+- #89458 live state unavailable in preflight artifact because GitHub API rate limit was exceeded; rehydrate before classification.
+- #89463 live state unavailable in preflight artifact because GitHub API rate limit was exceeded; rehydrate before classification.
+- #89529 live state unavailable in preflight artifact because GitHub API rate limit was exceeded; rehydrate before classification.

@@ -2,33 +2,33 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-067"
 mode: "plan"
-run_id: "27583277132"
-workflow_run_id: "27583277132"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583277132"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-67"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:40.860Z"
+published_at: "2026-06-16T19:01:33.352Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 26
+actions_total: 24
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-067
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583277132](https://github.com/openclaw/clownfish/actions/runs/27583277132)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,20 +36,20 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No shared canonical was selected. Most open PRs are useful independent maintainer-review items, several are blocked by checks or review findings, already-closed PRs are kept closed, and security-shaped refs are routed without mutating GitHub.
+Plan-mode PR inventory classification shard. No shared canonical was present or invented. Validator marked the listed open targets as security-sensitive for deterministic replay, so those exact open items are quarantined with non-mutating route_security actions. Closed refs are kept closed. No GitHub mutation is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 26 |
+| Worker actions | 24 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,33 +67,31 @@ Plan-mode PR inventory classification only. No shared canonical was selected. Mo
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89816 | keep_independent | planned | independent | Docs PR should remain open for maintainer review; no safe close action. |
-| #84794 | keep_independent | planned | independent | Useful independent fix path; keep open. |
-| #75961 | keep_independent | planned | independent | Not merge-ready, but not low-signal or superseded. |
-| #76811 | keep_independent | planned | independent | Focused useful PR, no close action warranted. |
-| #77127 | keep_independent | planned | independent | Keep open; neither duplicate nor safe to close. |
-| #77875 | route_security | planned | security_sensitive | Security-sensitive target must be quarantined for central OpenClaw security handling. |
-| #77904 | keep_independent | planned | independent | Keep open; needs review/fix before merge, not closure. |
-| #78606 | route_security | planned | security_sensitive | Security-sensitive approval-delivery target must be quarantined for central OpenClaw security handling. |
-| #78715 | keep_independent | planned | independent | Do not close in this inventory shard; keep for maintainer decision. |
-| #78741 | keep_independent | planned | independent | Keep open; failing checks block merge but not classification. |
-| #78747 | keep_independent | planned | independent | Keep open for maintainer/review follow-up. |
-| #78765 | keep_closed | skipped | independent | Already closed in live state. |
-| #78839 | keep_independent | planned | independent | Keep open; not closeable from inventory. |
-| #78852 | keep_independent | planned | independent | Keep open for normal maintainer review. |
-| #42637 | route_security | planned | security_sensitive | Security-shaped prompt injection evidence appears in hydrated PR discussion. |
-| #78884 | keep_independent | planned | independent | Keep open; low-signal closeout is disabled and this has a linked docs gap. |
-| #78931 | keep_independent | planned | independent | Keep open; test-only PR is not eligible for closeout in this job. |
-| #78964 | keep_independent | planned | independent | Keep open; broad useful PR with failing checks and review blockers. |
-| #78966 | keep_closed | skipped | superseded | Already closed as superseded/duplicate; no action. |
-| #93055 | needs_human | planned | needs_human | Specific human-review label/merge decision remains outside this plan-mode worker. |
-| #79049 | keep_independent | planned | independent | Keep open; not closeable, but failing checks block merge readiness. |
-| #90154 | route_security | planned | security_sensitive | Auth-boundary change should be quarantined from backlog-cleanup automation. |
-| #77710 | keep_independent | planned | independent | Keep open for maintainer review. |
-| #90202 | keep_independent | planned | independent | Keep open; broad feature PR needs normal maintainer review and failing-check follow-up. |
-| #77895 | keep_independent | planned | independent | Keep open; review findings and failing checks block merge but not classification. |
-| #77877 | route_security | planned | security_sensitive | Exact linked security-sensitive item from preflight artifact. |
+| #89816 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #84794 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #75961 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #76811 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #77127 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #77875 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #77904 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78606 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78715 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78741 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78747 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78765 | keep_closed | skipped | fixed_by_candidate | Already merged; no action required. |
+| #78839 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78852 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78884 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78931 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78964 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #78966 | keep_closed | skipped | low_signal | Already closed; no action required. |
+| #93055 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #79049 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #90154 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #77710 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #90202 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
+| #77895 | route_security | planned | security_sensitive | Quarantine exact validator-identified security-sensitive item for central OpenClaw security handling. |
 
 ## Needs Human
 
-- #93055 has an explicit clawsweeper:human-review label and merge is blocked in this plan-mode job.
+- none

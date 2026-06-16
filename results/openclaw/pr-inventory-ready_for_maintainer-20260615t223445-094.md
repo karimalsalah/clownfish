@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-094"
 mode: "plan"
-run_id: "27583278527"
-workflow_run_id: "27583278527"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583278527"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-94"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.149Z"
+published_at: "2026-06-16T19:01:33.572Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,16 +19,16 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 4
+needs_human_count: 5
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-094
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583278527](https://github.com/openclaw/clownfish/actions/runs/27583278527)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No GitHub mutations are planned. The shard is not a dedupe cluster, so open non-security PRs are kept independently unless the hydrated artifact shows a specific maintainer choice, security quarantine, closed state, or related stacked/overlap decision.
+Plan-only PR inventory repair. Deterministic validation marked 19 hydrated open PRs as security-sensitive, so those exact items are quarantined with non-mutating route_security actions. #89183 remains already closed. Five job candidates were not present in the compacted preflight item matrix, so those refs still need fresh hydration before classification.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. No GitHub mutations are planned. The
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 4 |
+| Needs human | 5 |
 
 ## Fix Execution Actions
 
@@ -67,35 +67,36 @@ Plan-mode PR inventory classification only. No GitHub mutations are planned. The
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #86607 | keep_independent | planned | independent |  |
-| #89183 | keep_closed | skipped |  | Already closed in hydrated state. |
-| #89334 | keep_independent | planned | independent |  |
-| #89567 | keep_independent | planned | independent |  |
-| #89618 | route_security | planned | security_sensitive | Security-sensitive dependency/provider change is out of scope for ProjectClownfish mutation. |
-| #89628 | keep_independent | planned | independent |  |
-| #89671 | keep_independent | planned | independent |  |
-| #89783 | keep_independent | planned | independent |  |
-| #90095 | needs_human | planned | needs_human | Maintainer must choose the canonical Telegram fallback PR. |
-| #90184 | needs_human | planned | needs_human | Maintainer must choose the surviving chat-session-rename path. |
-| #90206 | keep_independent | planned | independent |  |
-| #90267 | needs_human | planned | needs_human | Needs a completed review or maintainer technical decision before classification can advance. |
-| #91474 | keep_related | planned | related |  |
-| #91660 | keep_independent | planned | independent |  |
-| #91663 | keep_independent | planned | independent |  |
-| #91674 | keep_independent | planned | independent |  |
-| #62063 | keep_independent | planned | independent |  |
-| #91797 | keep_independent | planned | independent |  |
-| #91803 | keep_independent | planned | independent |  |
-| #91810 | keep_independent | planned | independent |  |
-| #91870 | keep_closed | skipped | superseded | Already closed as superseded. |
-| #91889 | needs_human | planned | needs_human | Public SDK contract naming requires maintainer product/API judgment. |
-| #91907 | keep_independent | planned | independent |  |
-| #91921 | keep_related | planned | related |  |
-| #91967 | route_security | planned | security_sensitive | Security-sensitive dependency/platform-risk item is out of scope for ProjectClownfish mutation. |
+| #86607 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #89183 | keep_closed | skipped | fixed_by_candidate | Already closed in live preflight state. |
+| #89334 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #89567 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #89618 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #89628 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #89671 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #89783 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #90095 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #90184 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #90206 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #90267 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91474 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91660 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91663 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91674 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #62063 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91797 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91803 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91810 | route_security | planned | security_sensitive | Security-sensitive item routed to central security handling. |
+| #91870 | needs_human | blocked | needs_human | Needs fresh preflight hydration. |
+| #91889 | needs_human | blocked | needs_human | Needs fresh preflight hydration. |
+| #91907 | needs_human | blocked | needs_human | Needs fresh preflight hydration. |
+| #91921 | needs_human | blocked | needs_human | Needs fresh preflight hydration. |
+| #91967 | needs_human | blocked | needs_human | Needs fresh preflight hydration. |
 
 ## Needs Human
 
-- #90095: maintainer must choose between overlapping Telegram fallback PRs #90095 and #90114.
-- #90184: maintainer must choose the surviving chat session rename path because hydrated #88479 overlaps.
-- #90267: ClawSweeper review failed before merge readiness was assessed for a migration-affecting PR.
-- #91889: maintainer/product decision required for public plugin SDK accountId hook-context field.
+- Fresh hydration required for #91870 because it is listed in the job candidates but missing from the compacted preflight artifact.
+- Fresh hydration required for #91889 because it is listed in the job candidates but missing from the compacted preflight artifact.
+- Fresh hydration required for #91907 because it is listed in the job candidates but missing from the compacted preflight artifact.
+- Fresh hydration required for #91921 because it is listed in the job candidates but missing from the compacted preflight artifact.
+- Fresh hydration required for #91967 because it is listed in the job candidates but missing from the compacted preflight artifact.

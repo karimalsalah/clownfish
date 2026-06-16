@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-056"
 mode: "plan"
-run_id: "27583353695"
-workflow_run_id: "27583353695"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353695"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.568Z"
+run_id: "27580942551-1-57"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.301Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 5
+needs_human_count: 2
 ---
 
 # pr-inventory-needs_proof-20260615T223445-056
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353695](https://github.com/openclaw/clownfish/actions/runs/27583353695)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification for 25 candidate PRs. No GitHub mutations executed. One open source PR is planned for superseded closeout because a hydrated merged replacement already carries the fix and a credit-preserving Clownfish comment is already present; one already-closed PR is kept closed; five security-sensitive or validator-quarantined PRs are routed to central security handling; the remaining open PRs are kept independent or related for ordinary review/proof handling.
+Plan-only PR inventory classification. Hydrated open PRs are kept as independent single-PR review/proof work unless security-sensitive evidence requires central routing; unavailable refs need fresh hydration before classification. #93352 is routed to central security handling because its hydrated body describes credentials/API keys/auth profile token storage, and #93368 is routed based on the job-provided security-shaped title/body.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification for 25 candidate PRs. No GitHub mutations 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 5 |
+| Needs human | 2 |
 
 ## Fix Execution Actions
 
@@ -67,36 +67,33 @@ Plan-mode PR inventory classification for 25 candidate PRs. No GitHub mutations 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90192 | keep_independent | planned | independent |  |
-| #90216 | route_security | planned | security_sensitive | Security-sensitive item quarantined by validator; no close, merge, label, comment, or fix action planned. |
-| #90252 | keep_closed | skipped | superseded | Already closed in hydrated preflight state. |
-| #90754 | keep_related | planned | related |  |
-| #65409 | close_superseded | planned | superseded |  |
-| #93335 | keep_independent | planned | independent |  |
-| #93343 | route_security | planned | security_sensitive | Security-sensitive item quarantined by validator; no close, merge, label, comment, or fix action planned. |
-| #92711 | keep_independent | planned | independent |  |
-| #93285 | keep_independent | planned | independent |  |
-| #93352 | route_security | planned | security_sensitive | Security-sensitive item quarantined; no close, merge, label, comment, or fix action planned. |
-| #92696 | keep_independent | planned | independent |  |
-| #92898 | keep_independent | planned | independent |  |
-| #92712 | keep_independent | planned | independent |  |
-| #93332 | keep_independent | planned | independent |  |
-| #92217 | keep_independent | planned | independent |  |
-| #93350 | keep_independent | planned | independent |  |
-| #70630 | keep_independent | planned | independent |  |
-| #93365 | route_security | planned | security_sensitive | Security-sensitive item quarantined by validator; no close, merge, label, comment, or fix action planned. |
-| #93368 | route_security | planned | security_sensitive | Security-sensitive item quarantined; no close, merge, label, comment, or fix action planned. |
-| #93315 | keep_independent | planned | independent |  |
-| #93268 | keep_independent | planned | independent |  |
-| #93304 | keep_independent | planned | independent |  |
-| #93372 | keep_independent | planned | independent |  |
-| #40311 | keep_independent | planned | independent |  |
-| #40877 | keep_independent | planned | independent |  |
+| #90192 | keep_independent | planned | independent | Standalone Feishu fix with proof supplied; keep for normal review/proof rather than close or merge in this plan shard. |
+| #90216 | keep_independent | planned | independent | Standalone provider capability PR needing normal proof/review; no duplicate or superseding evidence. |
+| #90252 | keep_independent | planned | independent | Standalone migration bug fix; no closeout or shared canonical is supported. |
+| #90754 | keep_independent | planned | independent | Feature PR needs maintainer/product review and proof; no inventory close action is justified. |
+| #65409 | keep_independent | planned | independent | Standalone contributor PR with unresolved proof/review evidence; keep for normal review. |
+| #93335 | keep_independent | planned | independent | Focused standalone bug fix; preserve for proof/review rather than close. |
+| #93343 | keep_independent | planned | independent | Standalone extension fix; no duplicate or closure evidence. |
+| #92711 | keep_independent | planned | independent | Session-state PR needs technical correctness review; classify as independent rather than close or merge. |
+| #93285 | keep_closed | skipped | superseded | Already closed in live preflight state; no planned mutation. |
+| #93352 | route_security | planned | security_sensitive | Credential/API-key auth profile storage and migration claims are security-sensitive under the job policy; route this item to central security handling instead of backlog inventory classification. |
+| #92696 | keep_independent | planned | independent | Standalone gateway availability fix; keep for normal proof/review. |
+| #92898 | keep_independent | planned | independent | Standalone behavior/docs consistency PR; needs proof/review rather than close. |
+| #92712 | needs_human | blocked | needs_human | Fresh hydration is required before any reliable PR classification or mutating plan. |
+| #93332 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #92217 | needs_human | blocked | needs_human | Fresh hydration is required before PR inventory classification. |
+| #93350 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #70630 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #93365 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #93368 | route_security | planned | security_sensitive | Security-shaped context-injection claim is out of scope for Clownfish backlog cleanup and should be quarantined to central security handling. |
+| #93315 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #93268 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #93304 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #93372 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #40311 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
+| #40877 | needs_human | blocked | needs_human | Fresh hydration is required before classification. |
 
 ## Needs Human
 
-- #90216 routed to central OpenClaw security handling because deterministic validation marks it security-sensitive.
-- #93343 routed to central OpenClaw security handling because deterministic validation marks it security-sensitive.
-- #93352 routed to central OpenClaw security handling because the preflight security boundary marks it security-sensitive.
-- #93365 routed to central OpenClaw security handling because deterministic validation marks it security-sensitive.
-- #93368 routed to central OpenClaw security handling because the PR body describes untrusted context-file injection outside the workspace boundary.
+- Fresh hydration required for unavailable refs: #92712, #93332, #92217, #93350, #70630, #93365, #93315, #93268, #93304, #93372, #40311, #40877.
+- Central security handling required for #93352 and #93368 before any Clownfish backlog cleanup classification.

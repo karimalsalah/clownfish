@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-084"
 mode: "plan"
-run_id: "27583277961"
-workflow_run_id: "27583277961"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583277961"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.038Z"
+run_id: "27580942551-1-84"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.487Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 5
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-084
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583277961](https://github.com/openclaw/clownfish/actions/runs/27583277961)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No shared canonical was selected because the job explicitly says this is not a dedupe cluster. No security-sensitive refs were detected in the hydrated artifact. No close, merge, label, comment, or fix action is planned as executed.
+Plan-mode PR inventory classification. No shared canonical was selected. Hydrated open PRs were kept non-mutating for maintainer review; #62682 was quarantined with route_security per validator security-sensitive routing; #89260 is already merged/closed; five listed PRs were not present in the preflight artifact and need a refreshed plan before classification.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 5 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,36 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89104 | keep_independent | planned | independent | Independent maintainer-review candidate; no closure or merge action is available in plan mode. |
-| #89110 | keep_related | planned | related | Related WhatsApp typing work, but not safely closable without full hydrated live item state and updated_at. |
-| #89126 | keep_independent | planned | independent | Independent docs PR; do not close as low-signal because that action is disabled for this job. |
-| #89152 | keep_related | planned | related | Related hook-family work, but the job forbids inventing a shared canonical for this inventory shard. |
-| #93261 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
-| #89260 | keep_closed | skipped | superseded | Already closed in live preflight state. |
-| #89038 | keep_independent | planned | independent | Independent PR with failing checks and recent re-review activity; no closure or merge recommendation. |
-| #93242 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
-| #53467 | keep_related | planned | related | Related to the Slack ignoreOtherMentions family, but not closable or mergeable from this shard. |
-| #55851 | keep_independent | planned | independent | Independent feature/fix candidate awaiting maintainer judgment; no merge action is allowed. |
-| #93243 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
-| #56145 | keep_independent | planned | independent | Independent bugfix candidate with remaining review/check blockers. |
-| #59920 | keep_independent | planned | independent | Independent contributor PR with preserved credit path; no merge action is allowed in this job. |
-| #61151 | keep_independent | planned | independent | Independent PR with remaining review state; no closure or merge action. |
-| #61775 | keep_independent | planned | independent | Independent developer-workflow PR with maintainer/rebase gate; no merge action is allowed. |
-| #62682 | keep_independent | planned | independent | Independent substantial PR requiring maintainer technical judgment; no merge action is allowed. |
-| #87333 | keep_independent | planned | independent | Independent high-priority bugfix candidate; no merge action is allowed. |
-| #89277 | keep_independent | planned | independent | Independent feature candidate; no closure or merge action. |
-| #89279 | keep_independent | planned | independent | Independent bugfix candidate; no closure or merge action. |
-| #89291 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
-| #89744 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
-| #89762 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
-| #89846 | keep_related | planned | related | Related Slack feature work; not safely closable without hydrated state and a maintainer canonical choice. |
-| #89858 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
-| #89884 | keep_independent | planned | independent | Conservative non-mutating classification because live hydrated state is unavailable in the compacted artifact. |
+| #89104 | keep_independent | planned | independent | Independent ready-for-maintainer PR; no close, merge, or fix action is available in plan mode. |
+| #89110 | keep_independent | planned | independent | Independent channel bugfix with failed proof check; keep for maintainer review. |
+| #89126 | keep_independent | planned | independent | Low-signal closure is disabled, so keep non-mutating for maintainer review. |
+| #89152 | keep_independent | planned | independent | Feature PR requiring normal maintainer review; no merge preflight is available. |
+| #93261 | needs_human | planned | needs_human | Refresh/hydrate this PR before classification or any planned mutation. |
+| #89260 | keep_closed | skipped |  | Already merged/closed; no action needed. |
+| #89038 | keep_independent | planned | independent | Independent PR with failing checks; merge/fixed-by-candidate actions are blocked. |
+| #93242 | needs_human | planned | needs_human | Refresh/hydrate this PR before classification or any planned mutation. |
+| #53467 | keep_related | planned | related | Related overlap with #89846, but no shared canonical should be invented in this inventory shard and closure is not safe. |
+| #55851 | keep_independent | planned | independent | Independent ready-for-maintainer PR; keep non-mutating. |
+| #93243 | needs_human | planned | needs_human | Refresh/hydrate this PR before classification or any planned mutation. |
+| #56145 | keep_independent | planned | independent | Independent companion fix; failed proof and waiting-on-author state block merge-style actions. |
+| #59920 | keep_independent | planned | independent | Independent ready-for-maintainer PR; merge is blocked by job mode and missing merge preflight. |
+| #61151 | keep_independent | planned | independent | Independent PR; keep for maintainer/author follow-up rather than closing or merging. |
+| #61775 | keep_independent | planned | independent | Independent tooling PR requiring maintainer product/workflow judgment; no duplicate evidence. |
+| #62682 | route_security | planned | security_sensitive | Quarantine the exact PR with a non-mutating route_security action for central OpenClaw security handling; continue classifying unrelated non-security items. |
+| #87333 | keep_independent | planned | independent | Independent ready-for-maintainer PR; merge not available in this job. |
+| #89277 | keep_independent | planned | independent | Independent feature/config PR; keep for maintainer review. |
+| #89279 | keep_independent | planned | independent | Independent candidate fix path for a linked issue; do not close or merge in this inventory plan. |
+| #89291 | keep_independent | planned | independent | Independent test/docs PR; no duplicate evidence. |
+| #89744 | keep_independent | planned | independent | Independent channel availability fix; keep for maintainer review. |
+| #89762 | keep_independent | planned | independent | Independent feature/config PR; waiting-on-author state makes closure or merge inappropriate. |
+| #89846 | keep_related | planned | related | Related overlap with #53467, but this shard should not invent a canonical or close contributor work. |
+| #89858 | needs_human | planned | needs_human | Refresh/hydrate this PR before classification or any planned mutation. |
+| #89884 | needs_human | planned | needs_human | Refresh/hydrate this PR before classification or any planned mutation. |
 
 ## Needs Human
 
-- none
+- #93261 is listed in the job but absent from the preflight artifact; refresh hydration before classification.
+- #93242 is listed in the job but absent from the preflight artifact; refresh hydration before classification.
+- #93243 is listed in the job but absent from the preflight artifact; refresh hydration before classification.
+- #89858 is listed in the job but absent from the preflight artifact; refresh hydration before classification.
+- #89884 is listed in the job but absent from the preflight artifact; refresh hydration before classification.

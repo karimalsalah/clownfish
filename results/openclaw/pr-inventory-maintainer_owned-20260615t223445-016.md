@@ -2,54 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T223445-016"
 mode: "plan"
-run_id: "27583279779"
-workflow_run_id: "27583279779"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583279779"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.322Z"
+run_id: "27580942551-1-15"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.167Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 26
+actions_total: 25
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 20
 ---
 
 # pr-inventory-maintainer_owned-20260615T223445-016
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583279779](https://github.com/openclaw/clownfish/actions/runs/27583279779)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification shard. No shared canonical was selected; hydrated open PRs were classified conservatively, already-closed or unhydrated refs were not given mutating actions, and security-sensitive refs were quarantined with route_security.
+Plan-only PR inventory classification. No GitHub mutations are planned. Six refs had usable hydrated PR state; five are kept independent and one needs maintainer judgment. Nineteen refs could not be classified because live state hydration hit GitHub installation API rate limits.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 26 |
+| Worker actions | 25 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 20 |
 
 ## Fix Execution Actions
 
@@ -67,33 +67,51 @@ Plan-mode PR inventory classification shard. No shared canonical was selected; h
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89539 | keep_related | planned | related | Open maintainer PR with useful scoped hardening work and unresolved review state; keep in backlog rather than close. |
-| #89550 | keep_related | planned | related | Keep as an active maintainer-routed PR; no close action is appropriate. |
-| #89559 | keep_related | planned | related | Useful hardening work with unresolved review state; keep open for author/maintainer follow-up. |
-| #89634 | keep_related | planned | related | Live target_updated_at is unavailable in the compacted artifact, so no mutating action is safe; classify conservatively as related backlog work. |
-| #89810 | keep_related | planned | related | Unhydrated candidate in plan mode; keep as related backlog work and avoid closure. |
-| #90708 | keep_related | planned | related | Needs proof per job labels and lacks hydrated updated_at; keep related with no mutation. |
-| #90723 | keep_related | planned | related | Feature PR is not a duplicate or low-signal closeout candidate from available evidence; keep related. |
-| #91023 | route_security | planned | security_sensitive | Quarantine this security-sensitive PR for central OpenClaw security handling; no close, merge, label, comment, or fix action is emitted. |
-| #91091 | keep_related | planned | related | Useful subsystem PR without hydrated close evidence; keep related. |
-| #93306 | keep_related | planned | related | No duplicate or supersession evidence in the hydrated artifact; keep related. |
-| #87827 | keep_related | planned | related | Large active feature PR, not a low-signal cleanup candidate; keep related. |
-| #88514 | keep_related | planned | related | Potential canonical fix path for related gateway startup issues, but this inventory job allows no merge or fix; keep related. |
-| #89571 | keep_related | planned | related | Keep active provider hardening PR for maintainer review. |
-| #89582 | keep_related | planned | related | Active author-follow-up PR; keep related rather than close. |
-| #89596 | keep_related | planned | related | Conservative non-mutating classification because the compacted artifact does not provide the required target_updated_at for closure. |
-| #89603 | keep_related | planned | related | Keep related; no mutating action without the required hydrated updated_at. |
-| #89733 | keep_related | planned | related | Keep as a scoped active PR; closure is not supported by available hydrated state. |
-| #89763 | keep_related | planned | related | Keep related; missing hydrated state blocks closure or supersession planning. |
-| #89819 | keep_related | planned | related | Keep related due to missing hydrated updated_at and no clear close evidence. |
-| #89875 | keep_related | planned | related | Keep related; no safe mutating classification without live hydrated state. |
-| #91262 | keep_related | planned | related | Keep related; no duplicate/supersession evidence in the compacted artifact. |
-| #91291 | keep_related | planned | related | Large active PR requires maintainer review; keep related. |
-| #91452 | keep_related | planned | related | Keep related; proof gap and missing hydration do not justify closure. |
-| #91502 | keep_related | planned | related | Keep related; no safe close classification with available artifact data. |
-| #91570 | keep_related | planned | related | Keep related; no merge or closure action is available in this plan job. |
-| #64199 | route_security | planned | security_sensitive | Security-sensitive linked context is out of scope for Clownfish backlog cleanup. |
+| #89539 | keep_independent | planned | independent | Independent maintainer-owned draft PR with no safe close, merge, or dedupe action in plan mode. |
+| #89550 | keep_independent | planned | independent | Independent draft PR with active author follow-up signal; no close or merge action is appropriate. |
+| #89559 | keep_independent | planned | independent | Independent maintainer-owned draft PR with no safe close, merge, or dedupe action in plan mode. |
+| #89634 | keep_independent | planned | independent | Independent maintainer-owned draft PR with no safe close, merge, or dedupe action in plan mode. |
+| #89810 | keep_independent | planned | independent | Independent maintainer-owned draft PR with no safe close, merge, or dedupe action in plan mode. |
+| #90708 | needs_human | blocked | needs_human | This PR contains an explicit maintainer acceptance point and proof gap, so technical correctness and product acceptance require human review. |
+| #87827 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #88514 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89571 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89582 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89596 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89603 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89733 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89763 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89819 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #89875 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #90723 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #91023 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #91091 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #91262 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #91291 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #91452 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #91502 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #91570 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
+| #93306 | needs_human | blocked | needs_human | Live state is unavailable, so this PR cannot be safely classified or targeted for any mutation. |
 
 ## Needs Human
 
-- none
+- #87827: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #88514: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89571: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89582: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89596: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89603: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89733: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89763: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89819: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #89875: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #90708: maintainer-visible Slack timing behavior and proof gap require explicit maintainer review.
+- #90723: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #91023: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #91091: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #91262: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #91291: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #91452: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #91502: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #91570: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.
+- #93306: live GitHub state unavailable from preflight due installation API rate limit; rehydrate before classification.

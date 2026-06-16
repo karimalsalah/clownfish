@@ -2,33 +2,33 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-076"
 mode: "plan"
-run_id: "27583277982"
-workflow_run_id: "27583277982"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583277982"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-76"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.050Z"
+published_at: "2026-06-16T19:01:33.417Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 28
+actions_total: 25
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 7
+needs_human_count: 0
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-076
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583277982](https://github.com/openclaw/clownfish/actions/runs/27583277982)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,20 +36,20 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification for openclaw/openclaw. The shard has no shared canonical; each hydrated PR is classified independently. No GitHub mutation, merge, fix, or low-signal close is planned. Open security-sensitive linked refs are routed to central security handling only.
+Plan-mode PR inventory classification. Validator preflight marks #86085 as security-sensitive, so that exact PR is routed to central security handling with no mutation; the remaining PRs are classified independently with no close, merge, label, comment, or fix action planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 28 |
+| Worker actions | 25 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 7 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,41 +67,32 @@ Plan-mode PR inventory classification for openclaw/openclaw. The shard has no sh
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #75036 | route_security | planned | security_sensitive |  |
-| #85335 | route_security | planned | security_sensitive |  |
-| #86210 | route_security | planned | security_sensitive |  |
-| #86085 | keep_independent | planned | independent |  |
-| #86088 | keep_independent | planned | independent |  |
-| #90731 | keep_closed | skipped | superseded |  |
-| #86224 | keep_independent | planned | independent |  |
-| #86233 | needs_human | planned | needs_human | Maintainer judgment needed for retention defaults and operator-facing behavior. |
-| #86608 | needs_human | planned | needs_human | Maintainer decision needed before changing default agent instructions. |
-| #86649 | keep_independent | planned | independent |  |
-| #86674 | keep_independent | planned | independent |  |
-| #86676 | keep_independent | planned | independent |  |
-| #86776 | keep_independent | planned | independent |  |
-| #86893 | keep_related | planned | related |  |
-| #86900 | needs_human | planned | needs_human | Maintainer judgment needed for compaction outage policy. |
-| #86913 | needs_human | planned | needs_human | Maintainer judgment needed for the new operator RPC contract. |
-| #87061 | keep_independent | planned | independent |  |
-| #88908 | needs_human | planned | needs_human | Maintainer judgment needed for operator-facing shutdown timeout behavior. |
-| #87121 | keep_independent | planned | independent |  |
-| #87205 | keep_related | planned | related |  |
-| #87231 | keep_independent | planned | independent |  |
-| #79568 | keep_independent | planned | independent |  |
-| #92340 | needs_human | planned | needs_human | Maintainer judgment needed for Feishu meeting-invite activation boundary. |
-| #87343 | keep_independent | planned | independent |  |
-| #89154 | needs_human | planned | needs_human | Maintainer judgment needed for new internal hook API and save-ordering contract. |
-| #90970 | keep_independent | planned | independent |  |
-| #90992 | keep_closed | skipped | independent |  |
-| #84540 | keep_independent | planned | independent |  |
+| #86085 | route_security | planned | security_sensitive | Routed to central OpenClaw security handling per validator-required security quarantine; no ProjectClownfish mutation planned. |
+| #86088 | keep_independent | planned | independent | Independent viable PR candidate; no duplicate/superseded evidence and merge is blocked by job frontmatter. |
+| #90731 | keep_independent | planned | independent | Non-mutating independent classification only; live hydrated artifact state is unavailable here, so no close/label/comment/merge action is planned. |
+| #86224 | keep_independent | planned | independent | Independent open PR; wait-on-author/merge-risk state is maintainer-review territory, not duplicate cleanup. |
+| #86233 | keep_independent | planned | independent | Independent open feature/fix PR with passing evidence; no closure or merge action allowed. |
+| #86608 | keep_independent | planned | independent | Independent PR; failing check blocks merge and no low-signal close action is allowed. |
+| #86649 | keep_independent | planned | independent | Independent PR with active maintainer/reviewer signal; not suitable for inventory closeout. |
+| #86674 | keep_independent | planned | independent | Independent open PR; failing dependency-guard and waiting-on-author status block merge/closeout. |
+| #86676 | keep_independent | planned | independent | Independent PR; no duplicate/superseded evidence and merge is not allowed. |
+| #86776 | keep_independent | planned | independent | Independent open PR awaiting maintainer/author handling; no inventory closure action is safe. |
+| #86893 | keep_independent | planned | independent | Independent PR candidate with passing evidence; no dedupe or closeout target. |
+| #86900 | keep_independent | planned | independent | Independent PR with review history and passing checks; merge/close actions are not allowed by the job. |
+| #86913 | keep_independent | planned | independent | Independent open PR needing maintainer review; no duplicate/superseded evidence. |
+| #87061 | keep_independent | planned | independent | Independent PR; skipped proof jobs block merge-style confidence but do not justify closure. |
+| #88908 | keep_independent | planned | independent | Independent substantial PR requiring maintainer review; no close/merge action planned. |
+| #87121 | keep_independent | planned | independent | Independent small PR; no duplicate or superseded relationship established in this inventory shard. |
+| #87205 | keep_independent | planned | independent | Independent open PR awaiting author/maintainer attention; no closeout allowed. |
+| #87231 | keep_independent | planned | independent | Independent PR; failing dependency-guard blocks merge-style recommendations and no closure basis exists. |
+| #79568 | keep_independent | planned | independent | Independent docs PR; low-signal close action is disabled, so keep without mutation. |
+| #92340 | keep_independent | planned | independent | Non-mutating independent classification only; live hydrated artifact state is unavailable here, so no close/label/comment/merge action is planned. |
+| #87343 | keep_independent | planned | independent | Independent broad PR; not a closure candidate and merge is blocked by job frontmatter plus unresolved bot-review preflight evidence. |
+| #89154 | keep_independent | planned | independent | Non-mutating independent classification only; live hydrated artifact state is unavailable here, and the job blocks merge/fix/raise_pr. |
+| #90970 | keep_independent | planned | independent | Independent docs/i18n PR; no close action can be planned without hydrated state and low-signal closeout is disabled. |
+| #90992 | keep_independent | planned | independent | Non-mutating independent classification only; live hydrated artifact state is unavailable here, so no close/label/comment/merge action is planned. |
+| #84540 | keep_independent | planned | independent | Independent open PR with passing evidence; no dedupe or closure action applies. |
 
 ## Needs Human
 
-- #86233: maintainer decision on Codex log-retention defaults and upstream-vs-OpenClaw ownership.
-- #86608: maintainer decision on making existing-solutions guardrails default agent instructions.
-- #86900: maintainer decision on compaction circuit-breaker outage policy threshold.
-- #86913: maintainer decision on new gateway.restart.pending operator RPC contract.
-- #88908: maintainer decision on operator-facing gateway post-shutdown exit timeout.
-- #92340: maintainer decision on Feishu VC meeting invite activation/opt-in boundary.
-- #89154: maintainer decision on new ACP transcript-save hook API and save-ordering contract.
+- none

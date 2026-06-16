@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-082"
 mode: "plan"
-run_id: "27583277888"
-workflow_run_id: "27583277888"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583277888"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-82"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.015Z"
+published_at: "2026-06-16T19:01:33.469Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,16 +19,16 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 16
+needs_human_count: 5
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-082
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583277888](https://github.com/openclaw/clownfish/actions/runs/27583277888)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was selected because the job explicitly says this is not a dedupe cluster. No GitHub mutations, merge recommendations, or fix PRs are planned because mode is plan and merge/fix/raise_pr are blocked.
+Plan-only PR inventory classification shard. No shared canonical was selected. Open hydrated non-security PRs are kept as independent maintainer-review items; already merged/closed PRs are recorded as closed; the security-sensitive Feishu webhook-path PR is routed to central security handling; refs missing hydrated live state are escalated only for that missing-state decision.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. No shared canonical was selected because 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 16 |
+| Needs human | 5 |
 
 ## Fix Execution Actions
 
@@ -67,47 +67,36 @@ Plan-only PR inventory classification. No shared canonical was selected because 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90968 | keep_independent | planned | independent | Open PR needs its own author/maintainer path; not safe for closure or merge planning in this shard. |
-| #92125 | needs_human | planned | needs_human | Maintainer dependency review is required; no automated close or merge action is appropriate. |
-| #93007 | keep_independent | planned | independent | Broad feature PR with unresolved review work; keep it out of dedupe/close automation. |
-| #91691 | keep_closed | skipped | superseded | Already closed in live preflight state. |
-| #88988 | needs_human | planned | needs_human | Requires maintainer product/UX and implementation review; no dedupe closure is clear. |
-| #78395 | needs_human | planned | needs_human | Ready-for-maintainer technical correctness decision; merge is not allowed in this job. |
-| #91685 | needs_human | planned | needs_human | High-impact cron/message-delivery change requires maintainer review; no close action applies. |
-| #87504 | needs_human | planned | needs_human | Maintainer review is needed to decide whether this PR should carry the linked bug fix. |
-| #89101 | needs_human | planned | needs_human | Requires maintainer technical review; no safe automated close or merge action. |
-| #89287 | needs_human | planned | needs_human | Large message-delivery correctness change needs maintainer review; merge planning is blocked. |
-| #92341 | keep_independent | planned | independent | Not a duplicate or close candidate; keep it on its independent author/review path. |
-| #93239 | needs_human | planned | needs_human | Maintainer should decide whether to merge the docs-only entry; low-signal closure is not allowed here. |
-| #53920 | needs_human | planned | needs_human | Ready for maintainer review; no merge action is allowed in plan mode. |
-| #54904 | route_security | planned | security_sensitive | Security-shaped webhook boundary claim should be routed to central OpenClaw security handling, without blocking unrelated PR classifications. |
-| #89172 | needs_human | planned | needs_human | Maintainer review needed for channel behavior change; no close or merge action applies. |
-| #89442 | needs_human | planned | needs_human | Availability-sensitive Codex extension fix needs maintainer technical review; no automated mutation is planned. |
-| #89482 | keep_independent | planned | independent | Not ready for maintainer close/merge automation; keep it on independent author follow-up path. |
-| #89576 | keep_independent | planned | independent | Proof failure blocks ready-for-maintainer action; no duplicate/superseded closure is established. |
-| #92863 | needs_human | planned | needs_human | Docs accuracy/wording decision remains for maintainers; merge is blocked by job frontmatter. |
-| #89584 | needs_human | planned | needs_human | Broad feature and memory-search behavior change requires maintainer product/technical judgment. |
-| #89604 | needs_human | planned | needs_human | Gateway restart/message-delivery behavior needs maintainer review; no merge is allowed in this job. |
-| #89612 | needs_human | planned | needs_human | Requires maintainer review of migration/plugin-contract behavior. |
-| #89621 | keep_closed | skipped | superseded | Already closed in live preflight state. |
-| #93245 | keep_closed | skipped | superseded | Already closed in live preflight state. |
-| #89714 | needs_human | planned | needs_human | Maintainer UI/behavior review is required; no automated close/merge action is available. |
+| #90968 | keep_independent | planned | independent | Independent contributor PR requiring maintainer review; not closable or mergeable in this plan job. |
+| #92125 | keep_independent | planned | independent | Independent dependency update; job does not allow merge. |
+| #93007 | needs_human | blocked | needs_human | Missing hydrated live state for a listed candidate. |
+| #91691 | keep_closed | skipped | fixed_by_candidate | Already merged/closed before this plan. |
+| #88988 | keep_independent | planned | independent | Independent feature PR awaiting maintainer review. |
+| #78395 | keep_independent | planned | independent | Independent bug-fix PR; not a duplicate or close candidate. |
+| #91685 | keep_independent | planned | independent | Potential maintainer-review candidate, but merge cannot be planned in this job. |
+| #87504 | keep_independent | planned | independent | Independent bug-fix PR awaiting maintainer review. |
+| #89101 | keep_independent | planned | independent | Independent session-state PR; not closable in this inventory classification. |
+| #89287 | keep_independent | planned | independent | Independent high-risk PR; keep for maintainer review. |
+| #92341 | needs_human | blocked | needs_human | Missing hydrated live state for a listed candidate. |
+| #93239 | needs_human | blocked | needs_human | Missing hydrated live state for a listed candidate. |
+| #53920 | keep_independent | planned | independent | Independent infrastructure script PR; not a duplicate or low-signal close candidate. |
+| #54904 | route_security | planned | security_sensitive | Security-sensitive webhook handling item is out of scope for ProjectClownfish backlog automation and must be routed to central OpenClaw security handling. |
+| #89172 | keep_independent | planned | independent | Independent channel bug-fix PR awaiting maintainer review. |
+| #89442 | keep_independent | planned | independent | Independent availability bug-fix PR; merge blocked by job frontmatter. |
+| #89482 | keep_independent | planned | independent | Independent PR but blocked from merge/fixed-by closeout by failing proof and waiting-on-author signal. |
+| #89576 | keep_independent | planned | independent | Independent PR with failing proof; keep for maintainer/author follow-up. |
+| #92863 | needs_human | blocked | needs_human | Missing hydrated live state for a listed candidate. |
+| #89584 | keep_independent | planned | independent | Independent broad feature PR awaiting maintainer decision. |
+| #89604 | keep_independent | planned | independent | Independent CLI/gateway bug-fix PR awaiting maintainer review. |
+| #89612 | keep_independent | planned | independent | Independent small bug-fix PR awaiting maintainer review. |
+| #89621 | keep_closed | skipped | fixed_by_candidate | Already merged/closed before this plan. |
+| #93245 | needs_human | blocked | needs_human | Missing hydrated live state for a listed candidate. |
+| #89714 | keep_independent | planned | independent | Independent UI bug-fix PR awaiting maintainer review. |
 
 ## Needs Human
 
-- #92125 dependency bump needs maintainer review before any merge decision.
-- #88988 status footer feature needs maintainer product/UX review.
-- #78395 model alias fallback behavior needs maintainer technical review.
-- #91685 cron delivery behavior needs maintainer review.
-- #87504 Skill Workshop fix needs maintainer review against linked issue #87352.
-- #89101 session resumability semantics need maintainer review.
-- #89287 message-delivery verification change needs maintainer review.
-- #93239 low-signal-docs closeout is disabled; maintainer should decide docs merge.
-- #53920 risky-infra setup-script change needs maintainer review.
-- #89172 Feishu voice duration behavior needs maintainer review.
-- #89442 availability-sensitive Codex extension fix needs maintainer review.
-- #92863 docs accuracy needs maintainer review.
-- #89584 broad memory rerank feature needs product/technical judgment.
-- #89604 gateway restart behavior needs maintainer review.
-- #89612 plugin migration contract behavior needs maintainer review.
-- #89714 Control UI composer behavior needs maintainer review.
+- #93007 missing hydrated live state in compacted preflight artifact.
+- #92341 missing hydrated live state in compacted preflight artifact.
+- #93239 missing hydrated live state in compacted preflight artifact.
+- #92863 missing hydrated live state in compacted preflight artifact.
+- #93245 missing hydrated live state in compacted preflight artifact.

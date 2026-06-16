@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-026"
 mode: "plan"
-run_id: "27583351516"
-workflow_run_id: "27583351516"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583351516"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.426Z"
+run_id: "27580942551-1-27"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.222Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 13
 ---
 
 # pr-inventory-needs_proof-20260615T223445-026
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583351516](https://github.com/openclaw/clownfish/actions/runs/27583351516)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. The job explicitly says this is not a dedupe cluster and no shared canonical should be invented. Hydrated closed PRs are kept closed, the one security-sensitive PR is routed to central security handling, hydrated open PRs are kept independent for normal PR review/proof, and refs with unavailable live state are kept independent without mutating action because the artifact lacks kind/state/updated_at due GitHub rate-limit hydration failures.
+Plan-only PR inventory shard. Hydrated evidence shows 11 listed PRs are already closed, 2 listed PRs are still open but need maintainer/CI proof before any action beyond classification, and 12 listed refs could not be hydrated because the GitHub installation rate limit was exceeded. No GitHub mutations are planned.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. The job explicitly says this is not 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 13 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,44 @@ Plan-mode PR inventory classification only. The job explicitly says this is not 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #59221 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #92999 | keep_independent | planned | independent | Open, focused PR with supplied proof; no allowed mutating merge/fix path in this job. |
-| #64805 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #54647 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #56190 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #56741 | route_security | planned | security_sensitive | Security-sensitive item must be routed, not deduped or closed by this worker. |
-| #60990 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #61112 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #61183 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #67727 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #89807 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #76495 | keep_independent | planned | independent | Open PR needs normal proof/review follow-up, not inventory closeout. |
-| #93024 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #65398 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #86554 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #92962 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #92983 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #92989 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #93028 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #60383 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #70348 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #93045 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #77653 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #54830 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
-| #92889 | keep_independent | planned | independent | Live state unavailable in artifact; no mutating action planned. |
+| #59221 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #92999 | keep_independent | planned | independent | Independent open PR with plausible proof, but this inventory shard has no canonical and cannot merge or fix. |
+| #64805 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #54647 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #56190 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #56741 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #60990 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #61112 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #61183 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #67727 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #89807 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #76495 | keep_independent | planned | independent | Independent open PR requiring normal maintainer/CI proof outside this plan-only shard. |
+| #93024 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #65398 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #86554 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #92962 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #92983 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #92989 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #93028 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #60383 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #70348 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #93045 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #77653 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #54830 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
+| #92889 | needs_human | blocked | needs_human | Live state unavailable; cannot safely classify or plan mutation. |
 
 ## Needs Human
 
-- none
+- #54830 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #60383 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #65398 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #70348 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #77653 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #86554 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #92889 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #92962 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #92983 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #92989 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #93024 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #93028 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.
+- #93045 live state unavailable from preflight artifact because GitHub installation rate limit was exceeded.

@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T223445-007"
 mode: "plan"
-run_id: "27583279389"
-workflow_run_id: "27583279389"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583279389"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.270Z"
+run_id: "27580942551-1-6"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.311Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 7
 ---
 
 # pr-inventory-maintainer_owned-20260615T223445-007
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583279389](https://github.com/openclaw/clownfish/actions/runs/27583279389)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No shared canonical was selected because the job explicitly says this is not a dedupe cluster; open hydrated PRs are kept as independent review items, already-closed hydrated PRs are skipped as closed, and unhydrated candidates are left for human/live-state refresh before any actionable decision.
+Classified the maintainer-owned PR inventory shard conservatively. There is no shared canonical by job design, no security-sensitive item in hydrated state, no merge/fix/close recommendation, and unavailable live-state refs are isolated for human rehydration.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 7 |
 
 ## Fix Execution Actions
 
@@ -69,7 +69,7 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 | --- | --- | --- | --- | --- |
 | #85235 | keep_independent | planned | independent |  |
 | #85403 | keep_independent | planned | independent |  |
-| #90908 | needs_human | planned | needs_human | Refresh live PR state before classification. |
+| #90908 | keep_independent | planned | independent |  |
 | #85404 | keep_independent | planned | independent |  |
 | #85471 | keep_closed | skipped | fixed_by_candidate |  |
 | #85478 | keep_independent | planned | independent |  |
@@ -79,20 +79,26 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 | #86285 | keep_independent | planned | independent |  |
 | #86540 | keep_independent | planned | independent |  |
 | #86541 | keep_independent | planned | independent |  |
-| #86793 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #86795 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #86796 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #86797 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #86932 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #87433 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #87437 | needs_human | planned | needs_human | Refresh live PR state before any close-style decision. |
-| #93114 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #93076 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #87774 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #87814 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #87850 | needs_human | planned | needs_human | Refresh live PR state before classification. |
-| #87895 | needs_human | planned | needs_human | Refresh live PR state before classification. |
+| #86793 | keep_independent | planned | independent |  |
+| #86795 | keep_independent | planned | independent |  |
+| #86796 | keep_independent | planned | independent |  |
+| #86797 | keep_independent | planned | independent |  |
+| #86932 | keep_independent | planned | independent |  |
+| #87433 | keep_independent | planned | independent |  |
+| #87437 | needs_human | blocked | needs_human | Live GitHub state is unavailable for this listed candidate; rehydrate before classification or mutation. |
+| #93114 | needs_human | blocked | needs_human | Live GitHub state is unavailable for this listed candidate; rehydrate before classification or mutation. |
+| #93076 | needs_human | blocked | needs_human | Live GitHub state is unavailable for this listed candidate; rehydrate before classification or mutation. |
+| #87774 | needs_human | blocked | needs_human | Live GitHub state is unavailable for this listed candidate; rehydrate before classification or mutation. |
+| #87814 | needs_human | blocked | needs_human | Live GitHub state is unavailable for this listed candidate; rehydrate before classification or mutation. |
+| #87850 | needs_human | blocked | needs_human | Live GitHub state is unavailable for this listed candidate; rehydrate before classification or mutation. |
+| #87895 | needs_human | blocked | needs_human | Live GitHub state is unavailable for this listed candidate; rehydrate before classification or mutation. |
 
 ## Needs Human
 
-- Refresh live preflight hydration for #90908, #86793, #86795, #86796, #86797, #86932, #87433, #87437, #93114, #93076, #87774, #87814, #87850, and #87895 before making per-PR classifications with target_updated_at.
+- #87437 live state unavailable from preflight artifact; rehydrate before classification.
+- #93114 live state unavailable from preflight artifact; rehydrate before classification.
+- #93076 live state unavailable from preflight artifact; rehydrate before classification.
+- #87774 live state unavailable from preflight artifact; rehydrate before classification.
+- #87814 live state unavailable from preflight artifact; rehydrate before classification.
+- #87850 live state unavailable from preflight artifact; rehydrate before classification.
+- #87895 live state unavailable from preflight artifact; rehydrate before classification.

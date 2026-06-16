@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-025"
 mode: "plan"
-run_id: "27583351582"
-workflow_run_id: "27583351582"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583351582"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.436Z"
+run_id: "27580942551-1-26"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.221Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,17 +26,17 @@ needs_human_count: 1
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583351582](https://github.com/openclaw/clownfish/actions/runs/27583351582)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory shard. No shared canonical was selected. Hydrated closed PRs are kept closed, hydrated open PRs are kept out of mutation except one security-sensitive credential-backup PR routed to central security, and unavailable refs are left non-mutating because live state was not hydrated.
+Plan-mode PR inventory shard. The preflight artifact failed to hydrate every listed ref because GitHub returned installation API rate-limit 403s, so no close, label, merge, fixed-by-candidate, or low-signal actions are safe. Because the job explicitly says this is not a dedupe cluster and no shared canonical should be invented, each item is kept independent pending a fresh hydrated run.
 
 ## Impact
 
@@ -67,32 +67,32 @@ Plan-only PR inventory shard. No shared canonical was selected. Hydrated closed 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #58805 | keep_closed | skipped | superseded | Already closed PR; no closure action is valid in plan mode. |
-| #92937 | keep_independent | planned | independent | Focused open PR with proof signal, but this inventory shard cannot merge and should not close it. |
-| #63380 | keep_closed | skipped | superseded | Already closed PR; no closure action is valid. |
-| #92948 | route_security | planned | security_sensitive | The change directly creates persistent backups of messaging session credentials, so it should be handled by central security review, not backlog automation. |
-| #66001 | keep_independent | planned | independent | Open non-security PR with unresolved review findings and failing proof/checks; keep open for its own repair path. |
-| #92959 | keep_independent | planned | independent | Focused PR with proof signal, but merge is blocked by job frontmatter and missing merge preflight. |
-| #92963 | keep_independent | planned | independent | Open PR needs proof and targeted correctness work; no close or merge action is safe. |
-| #92933 | keep_independent | planned | independent | Open PR has technical blockers and failing proof; keep it independent for contributor follow-up. |
-| #66720 | keep_closed | skipped | superseded | Already closed PR; no closure action is valid. |
-| #67420 | needs_human | planned | needs_human | Per-agent dreaming control is a feature/config policy decision with maintainer-review signal; this shard should not close or merge it. |
-| #67623 | keep_independent | planned | independent | Open non-security exec-adjacent bug fix with proof still failing; keep it open for its own review path. |
-| #68257 | keep_closed | skipped | superseded | Already closed PR; no closure action is valid. |
-| #68860 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #68927 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #92978 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #63456 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #55351 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #92986 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #64703 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #64820 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #91712 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #92764 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #92975 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #41265 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
-| #58679 | keep_independent | planned | independent | Live state unavailable; keep non-mutating and classify outside this shard after rehydration. |
+| #58805 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92937 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #63380 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92948 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #66001 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92959 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92963 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92933 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #66720 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #67420 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #67623 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #68257 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #68860 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #68927 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92978 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #63456 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #55351 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92986 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #64703 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #64820 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #91712 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92764 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #92975 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #41265 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
+| #58679 | keep_independent | planned | independent | No shared canonical or hydrated live state exists; keep non-mutating and independent. |
 
 ## Needs Human
 
-- #67420 needs maintainer product/config review for per-agent dreaming semantics before any merge or close decision.
+- Fresh GitHub hydration is required before any mutating action or proof-based PR review because every preflight item is unavailable due to GitHub installation API rate limiting.

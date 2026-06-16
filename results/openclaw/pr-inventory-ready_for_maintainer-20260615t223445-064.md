@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-064"
 mode: "plan"
-run_id: "27583277062"
-workflow_run_id: "27583277062"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583277062"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:40.829Z"
+run_id: "27580942551-1-64"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.331Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 6
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-064
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583277062](https://github.com/openclaw/clownfish/actions/runs/27583277062)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. This shard has no shared canonical, so open non-security PRs are kept independent for maintainer review; already-closed PRs are skipped with keep_closed; one auth-boundary SMS command PR is routed to central security handling.
+Plan-only PR inventory classification. This shard is not a dedupe cluster, so no canonical was selected and no close, merge, or fix action is planned. Hydrated closed PRs are kept closed. Hydrated open PRs remain independent maintainer-review candidates unless blocked by author-waiting or review state. Five job refs were not present in the compacted preflight artifact and need refreshed hydration before classification.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. This shard has no shared canonical, so op
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 6 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,37 @@ Plan-only PR inventory classification. This shard has no shared canonical, so op
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92817 | keep_closed | skipped |  | Already closed in live preflight state. |
-| #88899 | keep_independent | planned | independent | Real PR with useful code but not closable or mergeable in this plan-only inventory shard. |
-| #88919 | keep_independent | planned | independent | Independent candidate awaiting normal maintainer review. |
-| #88681 | keep_independent | planned | independent | Independent diagnostic PR; no closure or merge action is allowed here. |
-| #92877 | keep_independent | planned | independent | Independent open PR with author/maintainer follow-up still pending. |
-| #92873 | keep_independent | planned | independent | Independent test-coverage PR awaiting maintainer decision. |
-| #92819 | keep_independent | planned | independent | Independent high-risk open PR; keep for maintainer review. |
-| #50177 | keep_independent | planned | independent | Useful but blocked open PR; no low-signal or duplicate closure is justified. |
-| #51067 | keep_independent | planned | independent | Independent implementation PR with review blockers; keep open. |
-| #92613 | keep_independent | planned | independent | Independent open PR requiring maintainer technical review. |
-| #90998 | route_security | planned | security_sensitive | Scoped quarantine for an auth-boundary SMS command PR. |
-| #92399 | keep_independent | planned | independent | Independent high-risk PR; keep for maintainer review. |
-| #90846 | keep_closed | skipped |  | Already closed in live preflight state. |
-| #90864 | keep_independent | planned | independent | Independent open PR with author follow-up pending; no closure path. |
-| #90923 | keep_independent | planned | independent | Independent platform fix awaiting author/maintainer follow-up. |
-| #92957 | keep_independent | planned | independent | Independent feature PR; keep for maintainer product/API review. |
-| #92939 | keep_independent | planned | independent | Independent open PR with follow-up pending. |
-| #66985 | keep_closed | skipped |  | Already closed in live preflight state. |
-| #92947 | keep_independent | planned | independent | Independent channel fix for maintainer review. |
-| #92990 | keep_independent | planned | independent | Independent CLI/doctor fix with author follow-up pending. |
-| #89745 | keep_independent | planned | independent | Independent usage fix awaiting normal maintainer review. |
-| #89767 | keep_independent | planned | independent | Independent workspace-routing PR for maintainer review. |
-| #92996 | keep_independent | planned | independent | Independent CLI fix; no close/merge action in plan mode. |
-| #75213 | keep_closed | skipped |  | Already closed in live preflight state. |
-| #88901 | keep_closed | skipped | superseded | Already closed; no further action. |
+| #92817 | keep_closed | skipped | fixed_by_candidate | Already closed items must not receive closure actions. |
+| #88899 | keep_independent | planned | independent | Useful independent PR, not a duplicate or low-signal close candidate. |
+| #88919 | keep_independent | planned | independent | Independent focused PR requiring normal maintainer review; merge is blocked by job policy. |
+| #88681 | keep_independent | planned | independent | Independent maintainer-review candidate; no dedupe or closure evidence. |
+| #92877 | keep_independent | planned | independent | Independent PR with active author-waiting signal; do not close in inventory cleanup. |
+| #92873 | keep_independent | planned | independent | Independent test-coverage PR; no canonical or duplicate relationship in this shard. |
+| #92819 | keep_independent | planned | independent | Independent high-risk maintainer-review candidate; merge is not allowed by this plan job. |
+| #50177 | keep_independent | planned | independent | Independent PR with failing proof/checks; not eligible for close or fixed-by-candidate action. |
+| #51067 | keep_independent | planned | independent | Independent feature PR needing maintainer product/technical review; no closure evidence. |
+| #92613 | needs_human | planned | needs_human | Active maintainer change request requires human or author follow-up before any merge/close classification beyond this item. |
+| #90998 | keep_independent | planned | independent | Independent focused channel PR; no duplicate or low-signal evidence. |
+| #92399 | keep_independent | planned | independent | Independent high-risk LLM/provider PR needing maintainer review; no closure action is justified. |
+| #90846 | keep_closed | skipped | fixed_by_candidate | Already closed items must not receive closure actions. |
+| #90864 | keep_independent | planned | independent | Independent PR with author-waiting signal; no dedupe or low-signal closure evidence. |
+| #90923 | keep_independent | planned | independent | Independent platform fix with author-waiting signal; not a close candidate. |
+| #92957 | needs_human | blocked | needs_human | Cannot safely classify listed candidate without hydrated live state from the preflight artifact. |
+| #92939 | needs_human | blocked | needs_human | Cannot safely classify listed candidate without hydrated live state from the preflight artifact. |
+| #66985 | keep_closed | skipped | fixed_by_candidate | Already closed items must not receive closure actions. |
+| #92947 | needs_human | blocked | needs_human | Cannot safely classify listed candidate without hydrated live state from the preflight artifact. |
+| #92990 | needs_human | blocked | needs_human | Cannot safely classify listed candidate without hydrated live state from the preflight artifact. |
+| #89745 | keep_independent | planned | independent | Independent usage fix with author-waiting signal; not closable as duplicate or low-signal. |
+| #89767 | keep_independent | planned | independent | Independent gateway feature/fix PR needing maintainer review; no closure evidence. |
+| #92996 | needs_human | blocked | needs_human | Cannot safely classify listed candidate without hydrated live state from the preflight artifact. |
+| #75213 | keep_closed | skipped | superseded | Already closed historical PR; no closure or fix action allowed in this plan job. |
+| #88901 | keep_closed | skipped | superseded | Already closed historical PR; no closure action allowed. |
 
 ## Needs Human
 
-- none
+- #92613 has an unresolved member CHANGES_REQUESTED review that blocks maintainer-ready classification beyond needs_human.
+- #92957 is listed in the job but absent from the hydrated preflight artifact; refresh hydration before classification.
+- #92939 is listed in the job but absent from the hydrated preflight artifact; refresh hydration before classification.
+- #92947 is listed in the job but absent from the hydrated preflight artifact; refresh hydration before classification.
+- #92990 is listed in the job but absent from the hydrated preflight artifact; refresh hydration before classification.
+- #92996 is listed in the job but absent from the hydrated preflight artifact; refresh hydration before classification.

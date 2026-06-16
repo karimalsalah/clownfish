@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-024"
 mode: "plan"
-run_id: "27583351485"
-workflow_run_id: "27583351485"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583351485"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-25"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.422Z"
+published_at: "2026-06-16T19:01:33.220Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,16 +19,16 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 14
+needs_human_count: 0
 ---
 
 # pr-inventory-needs_proof-20260615T223445-024
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583351485](https://github.com/openclaw/clownfish/actions/runs/27583351485)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No GitHub mutations are planned. Hydrated open PRs are kept for independent maintainer/review handling because this shard has no shared canonical and merge/fix/low-signal closeout are disabled. Already-closed PRs are skipped as closed. Candidates with unavailable live state are escalated only for that missing hydration decision.
+Plan-only PR inventory classification. No shared canonical was selected because the job is an inventory shard, not a dedupe cluster. Open PRs are kept as independent review/proof items; already closed PRs are recorded as skipped keep_closed actions. No security-sensitive refs were identified in the hydrated artifact.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. No GitHub mutations are planned. Hydrated
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 14 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,45 +67,32 @@ Plan-only PR inventory classification. No GitHub mutations are planned. Hydrated
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92759 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #88192 | keep_independent | planned | independent | Independent PR with missing proof; no close, merge, or fix action is permitted in this plan job. |
-| #88850 | keep_independent | planned | independent | Independent channel fix candidate; keep open for normal maintainer review/proof path. |
-| #88883 | keep_independent | planned | independent | Independent small TypeScript fix with failing proof/check signals; keep open, do not close or merge. |
-| #92822 | keep_independent | planned | independent | Independent Discord PR with unhydrated linked issue and failed proof; keep open for proof/maintainer review. |
-| #48396 | keep_independent | planned | independent | Independent UI feature PR with unresolved bot findings and failed proof; no low-signal closeout is allowed. |
-| #92831 | keep_closed | skipped | superseded | Already closed in hydrated live state. |
-| #92716 | keep_independent | planned | independent | Independent proof-supplied PR; keep open for normal merge review outside this plan-only shard. |
-| #92770 | keep_independent | planned | independent | Independent provider compatibility fix; keep open for standard review/merge path. |
-| #52120 | needs_human | blocked | needs_human | Maintainer judgment is required to decide whether to keep, close as abandoned, or split a replacement path; low-signal/instant close and fix PRs are disabled. |
-| #92847 | keep_independent | planned | independent | Independent proof-supplied PR; keep open for maintainer review outside this plan-only job. |
-| #92867 | keep_independent | planned | independent | Independent proof-supplied PR; keep open for standard review/merge path. |
-| #50454 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #92893 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #92929 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #55085 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #55390 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #55742 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #55861 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #90833 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #90855 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #92936 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #54862 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #55770 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
-| #57364 | needs_human | blocked | needs_human | Hydrated live state is unavailable for this candidate. |
+| #92759 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #88192 | keep_independent | planned | independent | Distinct useful PR needing normal proof/review, not a duplicate in this inventory shard. |
+| #88850 | keep_independent | planned | independent | Distinct channel fix; no canonical duplicate or closure basis in hydrated evidence. |
+| #88883 | keep_independent | planned | independent | Independent technical correctness/CI item; not safe for merge or closeout. |
+| #92822 | keep_independent | planned | independent | Independent channel behavior fix requiring proof/review. |
+| #48396 | keep_independent | planned | independent | Independent UI enhancement; no safe low-signal closeout because that permission is disabled. |
+| #92831 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #92716 | keep_independent | planned | independent | Independent candidate for normal maintainer review, not a dedupe closeout. |
+| #92770 | keep_independent | planned | independent | Independent provider compatibility fix requiring normal merge review. |
+| #52120 | keep_independent | planned | independent | Independent channel/session-state fix; no closure or merge action is safe. |
+| #92847 | keep_independent | planned | independent | Independent extension fix requiring normal review; no dedupe action. |
+| #92867 | keep_independent | planned | independent | Independent narrow bug fix requiring normal review. |
+| #50454 | keep_independent | planned | independent | Independent session/transcript fix; keep for review/proof rather than close. |
+| #92893 | keep_independent | planned | independent | Independent channel bug fix requiring normal review. |
+| #92929 | keep_independent | planned | independent | Independent agent session-state fix; checks block merge/fixed-by closeout. |
+| #55085 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #55390 | keep_independent | planned | independent | Independent broad WIP feature; not eligible for closure/merge in this plan shard. |
+| #55742 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #55861 | keep_independent | planned | independent | Independent UI fix; failing checks block merge and fixed-by closeout. |
+| #90833 | keep_independent | planned | independent | Independent feature PR; broad UI/i18n scope needs normal maintainer review. |
+| #55770 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #57364 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #90855 | keep_independent | planned | independent | Independent large recovery PR requiring normal review. |
+| #92936 | keep_independent | planned | independent | Independent doctor behavior fix; checks block merge/fixed-by closeout. |
+| #54862 | keep_closed | skipped |  | Already closed in live preflight state. |
 
 ## Needs Human
 
-- #52120 requires maintainer judgment because the author explicitly abandoned the Mattermost patch and bot comments identify unresolved technical blockers, while close/fix actions are disabled.
-- #50454 live state unavailable from preflight artifact.
-- #92893 live state unavailable from preflight artifact.
-- #92929 live state unavailable from preflight artifact.
-- #55085 live state unavailable from preflight artifact.
-- #55390 live state unavailable from preflight artifact.
-- #55742 live state unavailable from preflight artifact.
-- #55861 live state unavailable from preflight artifact.
-- #90833 live state unavailable from preflight artifact.
-- #90855 live state unavailable from preflight artifact.
-- #92936 live state unavailable from preflight artifact.
-- #54862 live state unavailable from preflight artifact.
-- #55770 live state unavailable from preflight artifact.
-- #57364 live state unavailable from preflight artifact.
+- none

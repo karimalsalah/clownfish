@@ -2,54 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T223445-020"
 mode: "plan"
-run_id: "27583280348"
-workflow_run_id: "27583280348"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583280348"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.415Z"
+run_id: "27580942551-1-19"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.185Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 26
+actions_total: 25
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 6
+needs_human_count: 25
 ---
 
 # pr-inventory-maintainer_owned-20260615T223445-020
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583280348](https://github.com/openclaw/clownfish/actions/runs/27583280348)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was selected because the job explicitly states this is not a dedupe cluster. Open PRs are kept, routed to maintainer judgment only where the hydrated evidence shows an unresolved maintainer/product/technical decision, and already-closed PRs are recorded as skipped keep-closed actions. Security-sensitive PRs are quarantined with route_security.
+Plan-only PR inventory classification could not safely classify any listed PR because the cluster preflight artifact has unavailable live GitHub state for every target after installation API rate limiting. No canonical was provided or inferred, no security-sensitive item was hydrated, and no mutating close/comment/label action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 26 |
+| Worker actions | 25 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 6 |
+| Needs human | 25 |
 
 ## Fix Execution Actions
 
@@ -67,38 +67,56 @@ Plan-only PR inventory classification. No shared canonical was selected because 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #91786 | needs_human | planned | needs_human | Technical correctness and compatibility judgment remain maintainer-owned. |
-| #90383 | keep_related | planned | related | Related to the tool-schema hardening workstream, but not safely closable or mergeable from this shard. |
-| #91878 | needs_human | planned | needs_human | Protocol compatibility and automation gate changes require maintainer judgment. |
-| #91906 | keep_independent | planned | independent | Independent performance change with missing proof; no closure or merge recommendation. |
-| #93175 | needs_human | planned | needs_human | Maintainer review is needed for release/smoke taxonomy behavior. |
-| #73365 | keep_related | planned | related | Related candidate fix for #48003, but failing checks/proof block merge or fixed-by closeout. |
-| #77134 | keep_related | planned | related | Related to plugin-state follow-up work, but current proof/check failures block merge planning. |
-| #93156 | keep_closed | skipped |  | Already closed; no mutation should be planned. |
-| #93194 | needs_human | planned | needs_human | Session metadata correctness and upgrade behavior require maintainer technical judgment. |
-| #89124 | keep_closed | skipped |  | Already closed/merged; retain as historical context only. |
-| #89975 | needs_human | planned | needs_human | Active maintainer blocker plus author follow-up requires human review; no closure or merge action is safe. |
-| #93265 | needs_human | planned | needs_human | Broad product/default behavior changes require maintainer judgment. |
-| #14432 | keep_related | planned | related | Related to sub-agent guidance history, but not duplicate-cleanup material and not merge-ready. |
-| #84975 | keep_related | planned | related | Related candidate fix for #84217, but review remains unresolved. |
-| #72409 | keep_related | planned | related | Related plugin manifest follow-up; proof/review blockers make it non-closable and non-mergeable. |
-| #76115 | keep_independent | planned | independent | Independent experimental diagnostics work with missing proof. |
-| #76245 | keep_independent | planned | independent | Independent gateway availability fix with missing proof. |
-| #76895 | route_security | planned | security_sensitive | Security-sensitive target is out of scope for backlog-cleanup automation and must be routed to central OpenClaw security handling. |
-| #76927 | keep_independent | planned | independent | Independent subagent delivery PR with proof blocker. |
-| #89327 | keep_related | planned | related | Related hardening workstream item; keep open independently. |
-| #89329 | keep_related | planned | related | Related but distinct schema-hardening PR; not closable as duplicate. |
-| #89333 | keep_related | planned | related | Related hardening workstream item; keep open independently. |
-| #89518 | keep_related | planned | related | Related migration-stack slice under #88838; keep open, not duplicate-cleanup work. |
-| #89547 | keep_closed | skipped |  | Already closed; no mutation should be planned. |
-| #89579 | route_security | planned | security_sensitive | Security-sensitive target is out of scope for backlog-cleanup automation and must be routed to central OpenClaw security handling. |
-| #90006 | route_security | planned | security_sensitive | Security-sensitive linked ref is out of scope for backlog-cleanup automation. |
+| #91786 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #90383 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #91878 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #91906 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #93175 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #73365 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #77134 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #93156 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #93194 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89124 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89975 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #93265 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #14432 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #84975 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #72409 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #76115 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #76245 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #76895 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #76927 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89327 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89329 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89333 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89518 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89547 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
+| #89579 | needs_human | blocked | needs_human | Live kind, state, and updated_at are unavailable; conservative classification requires maintainer or rerun with fresh hydration. |
 
 ## Needs Human
 
-- #91786 requires maintainer compatibility/technical review before any merge path.
-- #91878 requires maintainer judgment on Codex app-server protocol/type compatibility automation.
-- #93175 requires maintainer judgment on QA smoke/release taxonomy behavior.
-- #93194 requires maintainer review of session metadata correctness and upgrade-sensitive behavior.
-- #89975 has an active maintainer blocking-regression comment and author re-review follow-up.
-- #93265 requires maintainer/product judgment for broad onboarding/default behavior changes.
+- #91786: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #90383: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #91878: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #91906: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #93175: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #73365: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #77134: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #93156: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #93194: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89124: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89975: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #93265: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #14432: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #84975: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #72409: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #76115: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #76245: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #76895: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #76927: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89327: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89329: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89333: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89518: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89547: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.
+- #89579: live GitHub PR state unavailable in preflight artifact after API rate limit; rerun hydration or maintainer review needed.

@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-054"
 mode: "plan"
-run_id: "27583353624"
-workflow_run_id: "27583353624"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353624"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.555Z"
+run_id: "27580942551-1-55"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.300Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,17 +26,17 @@ needs_human_count: 13
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353624](https://github.com/openclaw/clownfish/actions/runs/27583353624)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was provided or inferred. Hydrated open PRs are kept independently for normal maintainer review/proof work except #91603, which is quarantined with route_security per deterministic validation; already-closed PR #91875 is skipped; candidates without live hydrated state are scoped needs_human because target kind and updated_at are unavailable from the preflight artifact.
+Plan-mode PR inventory classification. No GitHub mutations are planned because the job disallows merge/fix/raise_pr and low-signal/instant close is disabled. Hydrated open PRs are classified independently; refs with unavailable live state are blocked for human rehydration.
 
 ## Impact
 
@@ -67,44 +67,44 @@ Plan-only PR inventory classification. No shared canonical was provided or infer
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #91511 | keep_independent | planned | independent |  |
-| #91535 | keep_independent | planned | independent |  |
-| #91544 | keep_independent | planned | independent |  |
-| #91584 | keep_independent | planned | independent |  |
-| #91603 | route_security | planned | security_sensitive | Route #91603 to central OpenClaw security handling; do not close, merge, label, comment on, or open a fix PR for this item. |
-| #91606 | keep_independent | planned | independent |  |
-| #91609 | keep_independent | planned | independent |  |
-| #91610 | keep_independent | planned | independent |  |
-| #91611 | keep_independent | planned | independent |  |
-| #91682 | keep_independent | planned | independent |  |
-| #91857 | keep_independent | planned | independent |  |
-| #91875 | keep_closed | skipped | superseded |  |
-| #91877 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #91885 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #93279 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #61335 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #64649 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #65180 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #65198 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #68127 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #68197 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #69245 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #69355 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #69413 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
-| #69426 | needs_human | blocked | needs_human | Live PR state, target_kind, and updated_at are unavailable from the preflight artifact. |
+| #91511 | keep_independent | planned | independent | Independent open PR candidate; no close, merge, or fix action is allowed or sufficiently proven in plan mode. |
+| #91535 | keep_independent | planned | independent | Independent open PR candidate; keep open for normal proof/review path. |
+| #91544 | keep_independent | planned | independent | Independent open PR candidate with unresolved review/proof gates; no closure basis. |
+| #91584 | keep_independent | planned | independent | Independent open PR candidate needing normal behavior proof and validation. |
+| #91603 | keep_independent | planned | independent | Independent open PR candidate; no dedupe or closure target is established. |
+| #91606 | keep_independent | planned | independent | Independent open PR candidate with no safe close or merge path in this job. |
+| #91609 | keep_independent | planned | independent | Independent open PR candidate; normal review/proof remains required. |
+| #91610 | keep_independent | planned | independent | Independent open CI PR candidate; merge is blocked by missing checks/review preflight and job policy. |
+| #91611 | keep_independent | planned | independent | Independent open PR candidate; no shared canonical or closure basis. |
+| #91682 | keep_independent | planned | independent | Independent open PR candidate; keep open for normal lightweight review. |
+| #91857 | keep_independent | planned | independent | Independent open PR candidate; related follow-up may exist but this cluster should not close it. |
+| #91875 | keep_independent | planned | independent | Independent provider-metadata PR candidate requiring normal proof/review. |
+| #61335 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #64649 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #65180 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #65198 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #68127 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #68197 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #69245 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #69355 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #69413 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #69426 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #91877 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #91885 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
+| #93279 | needs_human | blocked | needs_human | Live state unavailable; rehydration is required before classification or mutation. |
 
 ## Needs Human
 
-- Hydrate and classify #91877; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #91885; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #93279; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #61335; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #64649; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #65180; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #65198; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #68127; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #68197; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #69245; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #69355; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #69413; preflight artifact has unavailable live state and null updated_at.
-- Hydrate and classify #69426; preflight artifact has unavailable live state and null updated_at.
+- #61335 requires rehydration because live state is unavailable from the preflight artifact.
+- #64649 requires rehydration because live state is unavailable from the preflight artifact.
+- #65180 requires rehydration because live state is unavailable from the preflight artifact.
+- #65198 requires rehydration because live state is unavailable from the preflight artifact.
+- #68127 requires rehydration because live state is unavailable from the preflight artifact.
+- #68197 requires rehydration because live state is unavailable from the preflight artifact.
+- #69245 requires rehydration because live state is unavailable from the preflight artifact.
+- #69355 requires rehydration because live state is unavailable from the preflight artifact.
+- #69413 requires rehydration because live state is unavailable from the preflight artifact.
+- #69426 requires rehydration because live state is unavailable from the preflight artifact.
+- #91877 requires rehydration because live state is unavailable from the preflight artifact.
+- #91885 requires rehydration because live state is unavailable from the preflight artifact.
+- #93279 requires rehydration because live state is unavailable from the preflight artifact.

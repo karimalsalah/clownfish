@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-079"
 mode: "plan"
-run_id: "27583277645"
-workflow_run_id: "27583277645"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583277645"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:40.966Z"
+run_id: "27580942551-1-79"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.440Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 5
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-079
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583277645](https://github.com/openclaw/clownfish/actions/runs/27583277645)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No shared canonical was selected because the job is an inventory shard, not a dedupe cluster. #81818 is quarantined as security-sensitive from the preflight security boundary; all other listed open PRs are kept independent for maintainer/backlog handling with no close, merge, or fix action planned.
+Plan-mode PR inventory classification. The preflight artifact hydrates 20 of 25 job candidates as open pull requests with no security-sensitive signal; those are kept independent for maintainer review because this shard is not a dedupe cluster and merge/close/fix actions are blocked or unsafe without full merge preflight. Five job candidates are missing hydrated live state in the artifact and require a targeted re-hydration decision.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 5 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,36 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #81818 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for Clownfish backlog cleanup. |
-| #93087 | keep_independent | planned | independent | Distinct PR requiring normal maintainer review, not duplicate/superseded inventory cleanup. |
-| #81312 | keep_independent | planned | independent | Distinct plugin contract fix; keep for normal review. |
-| #83187 | keep_independent | planned | independent | Distinct active PR; keep independent. |
-| #80627 | keep_independent | planned | independent | Distinct PR with validation blockers; keep independent. |
-| #81382 | keep_independent | planned | independent | Distinct active heartbeat PR; keep independent. |
-| #22439 | keep_independent | planned | independent | Distinct feature PR; keep independent for normal review. |
-| #93198 | keep_independent | planned | independent | Distinct provider/runtime fix; keep independent. |
-| #44143 | keep_independent | planned | independent | Distinct draft PR with unresolved validation/review blockers; keep independent. |
-| #45315 | keep_independent | planned | independent | Distinct bug-fix PR with unresolved blockers; keep independent. |
-| #48942 | keep_independent | planned | independent | Distinct active PR; keep independent. |
-| #49488 | keep_independent | planned | independent | Distinct Android compatibility PR with unresolved review; keep independent. |
-| #51868 | keep_independent | planned | independent | Distinct contributor PR needing normal maintainer handling; keep independent. |
-| #54758 | keep_independent | planned | independent | Distinct PR blocked by rebase/check state; keep independent. |
-| #86901 | keep_independent | planned | independent | Distinct channel delivery fix; keep independent. |
-| #59414 | keep_independent | planned | independent | Distinct feature PR requiring maintainer review; keep independent. |
-| #69199 | keep_independent | planned | independent | Distinct memory-core PR; keep independent. |
-| #71863 | keep_independent | planned | independent | Distinct channel availability fix; keep independent. |
-| #72055 | keep_independent | planned | independent | Distinct plugin config PR with validation blocker; keep independent. |
-| #72984 | keep_independent | planned | independent | Distinct agent runtime PR; keep independent. |
-| #73079 | keep_independent | planned | independent | Distinct extension fix with proof blocker; keep independent. |
-| #73162 | keep_independent | planned | independent | Distinct Slack availability PR with validation blocker; keep independent. |
-| #73199 | keep_independent | planned | independent | Distinct automation PR with validation blockers; keep independent. |
-| #73338 | keep_independent | planned | independent | Distinct CLI/Gateway PR; keep independent. |
-| #73809 | keep_independent | planned | independent | Distinct heartbeat/session-state PR; keep independent. |
+| #81818 | needs_human | blocked | needs_human | Missing hydrated live state in the preflight artifact. |
+| #93087 | needs_human | blocked | needs_human | Missing hydrated live state in the preflight artifact. |
+| #81312 | keep_independent | planned | independent | Independent ready-for-maintainer PR; no closure or merge action is allowed. |
+| #83187 | needs_human | blocked | needs_human | Missing hydrated live state in the preflight artifact. |
+| #80627 | keep_independent | planned | independent | Independent PR with failing gates; keep for maintainer/author follow-up. |
+| #81382 | keep_independent | planned | independent | Independent non-security PR with failing gates. |
+| #22439 | keep_independent | planned | independent | Standalone feature PR retained for maintainer review. |
+| #93198 | needs_human | blocked | needs_human | Missing hydrated live state in the preflight artifact. |
+| #44143 | keep_independent | planned | independent | Draft independent PR with failing proof; keep open. |
+| #45315 | keep_independent | planned | independent | Independent PR with unresolved validation/review context. |
+| #48942 | keep_independent | planned | independent | Independent ready-for-maintainer PR. |
+| #49488 | keep_independent | planned | independent | Independent Android compatibility PR requiring author/maintainer follow-up. |
+| #51868 | keep_independent | planned | independent | Independent contributor PR retained for maintainer review. |
+| #54758 | keep_independent | planned | independent | Independent ready-for-maintainer PR. |
+| #86901 | needs_human | blocked | needs_human | Missing hydrated live state in the preflight artifact. |
+| #59414 | keep_independent | planned | independent | Independent feature PR retained for maintainer review. |
+| #69199 | keep_independent | planned | independent | Independent contributor PR kept open. |
+| #71863 | keep_independent | planned | independent | Independent ready-for-maintainer PR. |
+| #72055 | keep_independent | planned | independent | Independent PR with failing proof; keep for follow-up. |
+| #72984 | keep_independent | planned | independent | Independent PR retained for maintainer review. |
+| #73079 | keep_independent | planned | independent | Independent PR with failing proof. |
+| #73162 | keep_independent | planned | independent | Independent PR with failing proof and waiting-on-author label. |
+| #73199 | keep_independent | planned | independent | Independent automation PR with failing gates. |
+| #73338 | keep_independent | planned | independent | Independent ready-for-maintainer PR; merge not planned. |
+| #73809 | keep_independent | planned | independent | Independent ready-for-maintainer PR. |
 
 ## Needs Human
 
-- none
+- #81818 missing hydrated live state in cluster preflight artifact.
+- #93087 missing hydrated live state in cluster preflight artifact.
+- #83187 missing hydrated live state in cluster preflight artifact.
+- #93198 missing hydrated live state in cluster preflight artifact.
+- #86901 missing hydrated live state in cluster preflight artifact.

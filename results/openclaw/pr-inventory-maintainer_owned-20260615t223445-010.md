@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T223445-010"
 mode: "plan"
-run_id: "27583279533"
-workflow_run_id: "27583279533"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583279533"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-9"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.302Z"
+published_at: "2026-06-16T19:01:33.537Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,9 +26,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583279533](https://github.com/openclaw/clownfish/actions/runs/27583279533)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No GitHub mutations are planned. The job explicitly says this is not a dedupe cluster and not to invent a shared canonical, so open non-security PRs are kept as related or independent review items. Security-sensitive #89699 and #89756 are routed to central security handling.
+Plan-mode repair of the structured result only. The deterministic validator classified every listed target as security-sensitive and requires route_security for each target, so the prior non-mutating keep_independent actions are narrowly replaced with non-mutating route_security actions. No GitHub mutation, close, label, comment, merge, or fix action is planned.
 
 ## Impact
 
@@ -67,31 +67,31 @@ Plan-mode PR inventory classification only. No GitHub mutations are planned. The
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89437 | keep_related | planned | related | Distinct open hardening PR; keep for maintainer/author follow-up. |
-| #89451 | keep_related | planned | related | Related provider hardening work with unique scope and active review context. |
-| #89468 | keep_related | planned | related | Related hardening theme, but unique Tool Search catalog surface. |
-| #89499 | keep_related | planned | related | Related to tool-schema quarantine, but its diagnostic sanitization scope is distinct. |
-| #89504 | keep_related | planned | related | Related unreadable-metadata hardening with a distinct inventory-rendering scope. |
-| #89513 | keep_related | planned | related | Related hardening PR that should remain open for author changes. |
-| #89533 | keep_independent | planned | independent | Independent documentation review item. |
-| #89558 | keep_independent | planned | independent | Independent documentation review item. |
-| #89565 | keep_related | planned | related | Related hardening PR with distinct system-prompt reporting scope. |
-| #89583 | keep_related | planned | related | Related hardening PR with unique llm-core validation surface. |
-| #89627 | keep_related | planned | related | Related but not duplicate hardening PR. |
-| #89644 | keep_related | planned | related | Related hardening PR with distinct model-catalog scope. |
-| #89646 | keep_related | planned | related | Related model-catalog hardening with unique policy-normalization scope. |
-| #89686 | keep_related | planned | related | Related MCP/tool-schema hardening; no safe duplicate or fixed-by-candidate closeout in this shard. |
-| #89699 | route_security | planned | security_sensitive | Quarantine this item for central OpenClaw security handling. |
-| #89747 | keep_related | planned | related | Related unreadable metadata hardening with unique status inventory surface. |
-| #89756 | route_security | planned | security_sensitive | Quarantine this item for central OpenClaw security handling. |
-| #89402 | keep_related | planned | related | Related tool-schema hardening PR needing author follow-up. |
-| #88491 | keep_related | planned | related | Related test-only cleanup that should remain open for maintainer review. |
-| #89778 | keep_related | planned | related | Related narrow hardening PR with distinct media surface. |
-| #89429 | keep_related | planned | related | Related provider-tool hardening PR that is not ready for close or merge planning. |
-| #89795 | keep_related | planned | related | Related plugin metadata hardening with unique cleanup scope. |
-| #89739 | keep_independent | planned | independent | Independent feature PR with unresolved technical review, not a cleanup close candidate. |
-| #89798 | keep_related | planned | related | Related plugin metadata hardening with unique event-subscription scope. |
-| #89805 | keep_related | planned | related | Related plugin metadata hardening with distinct typed-hook scope. |
+| #89437 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89451 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89468 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89499 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89504 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89513 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89533 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89558 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89565 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89583 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89627 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89644 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89646 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89686 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89699 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89747 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89756 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #88491 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89402 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89778 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89429 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89795 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89739 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89798 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
+| #89805 | route_security | planned | security_sensitive | Validator requires security routing for this target; ProjectClownfish should not classify, close, merge, label, comment on, or fix security-sensitive items. |
 
 ## Needs Human
 

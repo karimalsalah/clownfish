@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-030"
 mode: "plan"
-run_id: "27583351834"
-workflow_run_id: "27583351834"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583351834"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.441Z"
+run_id: "27580942551-1-31"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.232Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 5
 ---
 
 # pr-inventory-needs_proof-20260615T223445-030
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583351834](https://github.com/openclaw/clownfish/actions/runs/27583351834)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory shard. Six listed PRs were hydrated and should be kept open as independent PRs needing normal proof/review flow; nineteen listed candidates had unavailable live state due GitHub API rate limiting and need rehydration before classification or mutation. No security-sensitive items were detected in the hydrated artifact.
+Plan-mode PR inventory classification shard. The validator identified #77639, #77961, #78696, and #78742 as security-sensitive, so those exact items are quarantined with non-mutating route_security actions. No shared canonical is invented; remaining hydrated open PRs are kept independent for normal maintainer review/proof, and five refs with missing hydrated live state remain scoped to needs_human.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory shard. Six listed PRs were hydrated and should be kept op
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 5 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,36 @@ Plan-only PR inventory shard. Six listed PRs were hydrated and should be kept op
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #77639 | keep_independent | planned | independent | This is not a dedupe cluster; keep the useful contributor PR open for normal proof/review handling. |
-| #77690 | keep_independent | planned | independent | Draft PR with failed proof/checks should remain open and independent, not closed by inventory cleanup. |
-| #93056 | keep_independent | planned | independent | Useful but still proof/technical-review gated; keep as independent rather than closing or planning a blocked merge. |
-| #90117 | keep_independent | planned | independent | The PR is a focused independent fix but still lacks required real behavior proof. |
-| #93064 | keep_independent | planned | independent | Promising independent PR, but this plan shard cannot merge and should not close it. |
-| #76058 | keep_independent | planned | independent | Keep open as an independent feature/fix PR awaiting proof rather than closing in this inventory shard. |
-| #76077 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #77091 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #77148 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #77550 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #77619 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #77828 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #77946 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #77961 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #78635 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #78696 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #78730 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #78742 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #78817 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #78898 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #78958 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #79044 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #79137 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #79181 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
-| #90172 | needs_human | blocked | needs_human | Rehydrate live PR state before classification. |
+| #77639 | route_security | planned | security_sensitive | Security-sensitive target must be routed to central OpenClaw security handling, with no ProjectClownfish mutation. |
+| #77690 | keep_independent | planned | independent | Draft useful PR requiring author/maintainer follow-up, not closeout. |
+| #93056 | needs_human | planned | needs_human | Cannot classify beyond the job excerpt without hydrated live state and target_updated_at. |
+| #90117 | needs_human | planned | needs_human | Hydrated live state is missing for this specific PR. |
+| #93064 | needs_human | planned | needs_human | Hydrated live state is missing for this specific PR. |
+| #76058 | keep_independent | planned | independent | Independent feature PR that should remain open for proof and review. |
+| #76077 | keep_independent | planned | independent | Independent useful bug/feature PR; keep for normal validation. |
+| #77091 | keep_independent | planned | independent | Independent PR with broad mixed changes; keep open rather than close. |
+| #77148 | keep_independent | planned | independent | Independent focused PR that should remain open for proof. |
+| #77550 | keep_independent | planned | independent | Independent useful UI PR; keep open for validation. |
+| #77619 | keep_independent | planned | independent | Independent channel bugfix PR; keep open for proof. |
+| #77828 | keep_independent | planned | independent | Independent broad PR requiring maintainer review. |
+| #77946 | keep_independent | planned | independent | Independent focused bugfix PR; keep open for proof. |
+| #77961 | route_security | planned | security_sensitive | Security-sensitive target must be routed to central OpenClaw security handling, with no ProjectClownfish mutation. |
+| #78635 | keep_independent | planned | independent | Independent focused fix PR with failing checks; keep open. |
+| #78696 | route_security | planned | security_sensitive | Security-sensitive target must be routed to central OpenClaw security handling, with no ProjectClownfish mutation. |
+| #78730 | keep_independent | planned | independent | Independent useful gateway PR; keep open. |
+| #78742 | route_security | planned | security_sensitive | Security-sensitive target must be routed to central OpenClaw security handling, with no ProjectClownfish mutation. |
+| #78817 | keep_independent | planned | independent | Independent feature PR; keep open for maintainer review. |
+| #78898 | keep_independent | planned | independent | Independent focused channel PR with failing validation; keep open. |
+| #78958 | keep_independent | planned | independent | Independent gateway/agent performance PR; keep open. |
+| #79044 | keep_independent | planned | independent | Independent docs/status PR; keep open. |
+| #79137 | keep_independent | planned | independent | Independent focused diagnostic PR; keep open. |
+| #79181 | needs_human | planned | needs_human | Hydrated live state is missing for this specific PR. |
+| #90172 | needs_human | planned | needs_human | Hydrated live state is missing for this specific PR. |
 
 ## Needs Human
 
-- Rehydrate unavailable candidate refs before classification: #76077, #77091, #77148, #77550, #77619, #77828, #77946, #77961, #78635, #78696, #78730, #78742, #78817, #78898, #78958, #79044, #79137, #79181, #90172.
+- #93056 missing hydrated live state and target_updated_at in compacted artifact.
+- #90117 missing hydrated live state and target_updated_at in compacted artifact.
+- #93064 missing hydrated live state and target_updated_at in compacted artifact.
+- #79181 missing hydrated live state and target_updated_at in compacted artifact.
+- #90172 missing hydrated live state and target_updated_at in compacted artifact.

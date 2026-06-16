@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-051"
 mode: "plan"
-run_id: "27583353211"
-workflow_run_id: "27583353211"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353211"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.507Z"
+run_id: "27580942551-1-52"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.297Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 19
 ---
 
 # pr-inventory-needs_proof-20260615T223445-051
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353211](https://github.com/openclaw/clownfish/actions/runs/27583353211)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. The hydrated artifact shows no shared canonical; open PRs are kept as independent/non-mutating inventory items unless already closed, with #68283 quarantined via route_security per deterministic validator security-sensitive finding.
+Plan-only PR inventory classification. Six PRs had hydrated open state and are kept independent for normal proof/review; nineteen refs could not be classified because live state hydration failed under GitHub API rate limits.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. The hydrated artifact shows no share
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 19 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,50 @@ Plan-mode PR inventory classification only. The hydrated artifact shows no share
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93305 | keep_independent | planned | independent | Useful but not merge/close-ready in this shard. |
-| #54652 | keep_independent | planned | independent | Not a duplicate closeout; keep as an independent open PR needing normal review/proof. |
-| #59141 | keep_independent | planned | independent | Substantial feature fix with unresolved proof/review concerns; not closable in this inventory shard. |
-| #59816 | keep_independent | planned | independent | Keep independent; it has useful scope but unresolved proof/test blockers. |
-| #61522 | keep_independent | planned | independent | Open independent PR with concrete review blockers; no close action is safe. |
-| #65058 | keep_independent | planned | independent | Keep independent; useful but not merge-ready. |
-| #65382 | keep_independent | planned | independent | Keep independent; focused UI improvement with unresolved review/proof blockers. |
-| #66213 | keep_independent | planned | independent | Keep independent; not security-routed under artifact boundary, but not close/merge-ready. |
-| #93151 | keep_independent | planned | independent | Keep independent; useful narrow fix but proof/lint concerns remain. |
-| #93307 | keep_independent | planned | independent | Keep independent; model-facing API change needs stronger proof/repair. |
-| #66735 | keep_independent | planned | independent | Keep independent; plausible useful PR, but merge is out of scope and proof/review gates remain. |
-| #67782 | keep_independent | planned | independent | Keep independent; useful open work with maintainer/proof blockers. |
-| #67788 | keep_closed | skipped |  | Already closed; record skipped keep_closed only. |
-| #67967 | keep_independent | planned | independent | Keep independent; clear open implementation, not a close/merge candidate in plan mode. |
-| #68046 | keep_independent | planned | independent | Keep independent; narrow bug fix with actionable review blockers. |
-| #68112 | keep_independent | planned | independent | Keep independent; possible merge candidate later, but not actionable in this plan-mode shard. |
-| #68146 | keep_independent | planned | independent | Keep independent; useful open implementation requiring normal maintainer review. |
-| #68196 | keep_independent | planned | independent | Keep independent; meaningful bug fix with unresolved behavior correctness concern. |
-| #68283 | route_security | planned | security_sensitive | Quarantine this exact item for central OpenClaw security handling; ProjectClownfish must not classify, close, merge, label, comment on, or fix security-sensitive work. |
-| #68306 | keep_independent | planned | independent | Keep independent; no duplicate/superseded closeout path. |
-| #68307 | keep_independent | planned | independent | Keep independent; do not close against an unhydrated replacement ref. |
-| #68338 | keep_independent | planned | independent | Keep independent; focused parser fix with review blocker. |
-| #68422 | keep_independent | planned | independent | Keep independent; UI regression fix needs visual/behavior proof before any merge path. |
-| #68455 | keep_independent | planned | independent | Keep independent; product/implementation fix is useful but currently incorrect. |
-| #68503 | keep_independent | planned | independent | Keep independent; open diagnostics PR with unresolved review/proof concerns. |
+| #93305 | keep_independent | planned | independent | Independent open PR requiring normal proof and review; no shared canonical or closeout basis in this inventory shard. |
+| #54652 | keep_independent | planned | independent | Independent open PR requiring normal proof and review; no shared canonical or closeout basis in this inventory shard. |
+| #59141 | keep_independent | planned | independent | Independent open PR requiring normal proof and review; no shared canonical or closeout basis in this inventory shard. |
+| #59816 | keep_independent | planned | independent | Independent open PR requiring normal proof and review; no shared canonical or closeout basis in this inventory shard. |
+| #61522 | keep_independent | planned | independent | Independent open PR requiring normal proof and review; no shared canonical or closeout basis in this inventory shard. |
+| #65058 | keep_independent | planned | independent | Independent open PR requiring normal proof and review; no shared canonical or closeout basis in this inventory shard. |
+| #65382 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #66213 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #66735 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #67782 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #67788 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #67967 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68046 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68112 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68146 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68196 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68283 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68306 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68307 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68338 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68422 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68455 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #68503 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #93151 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
+| #93307 | needs_human | blocked | needs_human | Rehydrate live GitHub state before classification or any mutation planning. |
 
 ## Needs Human
 
-- none
+- Rehydrate and classify #65382 after GitHub API rate-limit failure.
+- Rehydrate and classify #66213 after GitHub API rate-limit failure.
+- Rehydrate and classify #66735 after GitHub API rate-limit failure.
+- Rehydrate and classify #67782 after GitHub API rate-limit failure.
+- Rehydrate and classify #67788 after GitHub API rate-limit failure.
+- Rehydrate and classify #67967 after GitHub API rate-limit failure.
+- Rehydrate and classify #68046 after GitHub API rate-limit failure.
+- Rehydrate and classify #68112 after GitHub API rate-limit failure.
+- Rehydrate and classify #68146 after GitHub API rate-limit failure.
+- Rehydrate and classify #68196 after GitHub API rate-limit failure.
+- Rehydrate and classify #68283 after GitHub API rate-limit failure.
+- Rehydrate and classify #68306 after GitHub API rate-limit failure.
+- Rehydrate and classify #68307 after GitHub API rate-limit failure.
+- Rehydrate and classify #68338 after GitHub API rate-limit failure.
+- Rehydrate and classify #68422 after GitHub API rate-limit failure.
+- Rehydrate and classify #68455 after GitHub API rate-limit failure.
+- Rehydrate and classify #68503 after GitHub API rate-limit failure.
+- Rehydrate and classify #93151 after GitHub API rate-limit failure.
+- Rehydrate and classify #93307 after GitHub API rate-limit failure.

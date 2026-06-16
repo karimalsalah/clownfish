@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-038"
 mode: "plan"
-run_id: "27583352436"
-workflow_run_id: "27583352436"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583352436"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.471Z"
+run_id: "27580942551-1-39"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.251Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 7
+needs_human_count: 5
 ---
 
 # pr-inventory-needs_proof-20260615T223445-038
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583352436](https://github.com/openclaw/clownfish/actions/runs/27583352436)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. Hydrated open non-security PRs are kept as independent or related work; #83000 and #82490 are routed to central security handling; #84902 is already closed; seven listed candidates could not be hydrated because GitHub returned installation rate-limit errors, so those specific refs need refreshed live state before classification.
+Plan-only PR inventory classification. Deterministic validation requires #82490 and #84916 to be routed as security-sensitive, so those exact PRs are quarantined with route_security and no GitHub mutation. Hydrated non-security open PRs are kept independently for normal proof/review handling; one already-closed PR is skipped; five job refs were not hydrated in the preflight artifact and need a refreshed artifact before classification.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. Hydrated open non-security PRs are kept a
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 7 |
+| Needs human | 5 |
 
 ## Fix Execution Actions
 
@@ -67,38 +67,36 @@ Plan-only PR inventory classification. Hydrated open non-security PRs are kept a
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #82490 | route_security | planned | security_sensitive | Credential-bearing URL handling and redaction are security-sensitive enough to quarantine this PR from inventory cleanup. |
-| #82561 | keep_independent | planned | independent | Unique feature PR with proof and product-surface blockers; not a duplicate or closeout target in this shard. |
-| #83000 | route_security | planned | security_sensitive | Artifact explicitly marks this item security-sensitive; route only and do not classify for cleanup. |
-| #83043 | keep_independent | planned | independent | Focused standalone performance PR; no duplicate or superseding canonical is hydrated. |
-| #84869 | keep_independent | planned | independent | Unique small browser behavior PR; keep open as independent review work. |
-| #84902 | keep_closed | skipped | fixed_by_candidate | Already closed; no mutation should be planned. |
-| #84916 | keep_independent | planned | independent | Draft standalone ACP compatibility PR; keep as independent blocked review work. |
-| #85159 | keep_independent | planned | independent | Unique Telegram command UX PR; not closable as duplicate in this inventory shard. |
-| #85172 | keep_related | planned | related | Related to prior Matrix direct-room work but retains distinct scope; no closure without hydrated canonical state. |
-| #85225 | keep_independent | planned | independent | Standalone heartbeat behavior PR with update/proof gates; keep independent. |
-| #85241 | keep_independent | planned | independent | Unique availability fix with proof/conflict blockers; not a cleanup close target. |
-| #85293 | keep_independent | planned | independent | Standalone Codex process-leak fix candidate with proof/update blockers; keep independent. |
-| #85399 | keep_independent | planned | independent | Substantial standalone availability PR; keep independent because no hydrated superseding candidate is available and merge is blocked by job policy. |
-| #90875 | keep_independent | planned | independent | Standalone scripts fix candidate with proof/merge-state blockers; keep independent. |
-| #90905 | keep_independent | planned | independent | Unique message-delivery bugfix PR with proof/review history; keep independent. |
-| #85507 | keep_independent | planned | independent | Standalone Slack UX PR with proof/conflict blockers; keep independent. |
-| #85546 | keep_independent | planned | independent | Unique UI feature PR; not a duplicate or low-signal closeout candidate. |
-| #85561 | keep_independent | planned | independent | Docs PR should remain open or be handled by normal review; low-signal closure is not permitted by this job. |
-| #85571 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this candidate needs a refreshed preflight before classification. |
-| #85611 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this candidate needs a refreshed preflight before classification. |
-| #85671 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this candidate needs a refreshed preflight before classification. |
-| #85727 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this candidate needs a refreshed preflight before classification. |
-| #85745 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this candidate needs a refreshed preflight before classification. |
-| #85747 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this candidate needs a refreshed preflight before classification. |
-| #85758 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this candidate needs a refreshed preflight before classification. |
+| #82490 | route_security | planned | security_sensitive | Quarantine this exact PR for central OpenClaw security handling; no close, merge, label, comment, or fix action is planned. |
+| #82561 | keep_independent | planned | independent | Keep open as an independent feature PR needing proof. |
+| #83000 | keep_independent | planned | independent | Keep open as independent draft work requiring author/proof follow-up. |
+| #83043 | keep_independent | planned | independent | Independent PR with proof supplied; keep for normal maintainer review. |
+| #84869 | keep_independent | planned | independent | Independent narrow PR; keep open for proof/review rather than close. |
+| #84902 | keep_closed | skipped |  | Already closed in live preflight state. |
+| #84916 | route_security | planned | security_sensitive | Quarantine this exact PR for central OpenClaw security handling; no close, merge, label, comment, or fix action is planned. |
+| #85159 | keep_independent | planned | independent | Independent PR with distinct follow-up from closed historical v1. |
+| #85172 | keep_independent | planned | independent | Independent PR needing real behavior proof. |
+| #85225 | keep_independent | planned | independent | Independent PR with proof supplied; keep for normal review. |
+| #85241 | keep_independent | planned | independent | Independent PR needing proof before maintainer action. |
+| #85293 | keep_independent | planned | independent | Independent PR requiring normal technical review despite low proof labels. |
+| #85399 | keep_independent | planned | independent | Independent PR with proof supplied; no mutation planned. |
+| #90875 | needs_human | blocked | needs_human | Needs refreshed preflight hydration for this exact PR before classification. |
+| #90905 | needs_human | blocked | needs_human | Needs refreshed preflight hydration for this exact PR before classification. |
+| #85507 | keep_independent | planned | independent | Independent PR needing proof. |
+| #85546 | keep_independent | planned | independent | Independent feature PR; keep open. |
+| #85561 | keep_independent | planned | low_signal | Low-signal closeout is disabled, so keep as independent waiting-on-author PR. |
+| #85571 | keep_independent | planned | independent | Independent PR needing proof and technical review. |
+| #85611 | keep_independent | planned | independent | Independent docs/hardening PR; keep open for proof/review. |
+| #85671 | keep_independent | planned | independent | Independent broad PR needing proof and maintainer review. |
+| #85727 | keep_independent | planned | low_signal | Low-signal docs PR, but closeout is not permitted; keep independently. |
+| #85745 | needs_human | blocked | needs_human | Needs refreshed preflight hydration for this exact PR before classification. |
+| #85747 | needs_human | blocked | needs_human | Needs refreshed preflight hydration for this exact PR before classification. |
+| #85758 | needs_human | blocked | needs_human | Needs refreshed preflight hydration for this exact PR before classification. |
 
 ## Needs Human
 
-- #85571 live PR state unavailable in preflight due GitHub API rate limit; rerun hydration before classification.
-- #85611 live PR state unavailable in preflight due GitHub API rate limit; rerun hydration before classification.
-- #85671 live PR state unavailable in preflight due GitHub API rate limit; rerun hydration before classification.
-- #85727 live PR state unavailable in preflight due GitHub API rate limit; rerun hydration before classification.
-- #85745 live PR state unavailable in preflight due GitHub API rate limit; rerun hydration before classification.
-- #85747 live PR state unavailable in preflight due GitHub API rate limit; rerun hydration before classification.
-- #85758 live PR state unavailable in preflight due GitHub API rate limit; rerun hydration before classification.
+- #90875 missing from hydrated preflight item_matrix; refresh hydration before classifying.
+- #90905 missing from hydrated preflight item_matrix; refresh hydration before classifying.
+- #85745 missing from hydrated preflight item_matrix; refresh hydration before classifying.
+- #85747 missing from hydrated preflight item_matrix; refresh hydration before classifying.
+- #85758 missing from hydrated preflight item_matrix; refresh hydration before classifying.

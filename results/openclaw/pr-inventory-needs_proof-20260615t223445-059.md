@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-059"
 mode: "plan"
-run_id: "27583353899"
-workflow_run_id: "27583353899"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353899"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.591Z"
+run_id: "27580942551-1-60"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.312Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 3
+needs_human_count: 19
 ---
 
 # pr-inventory-needs_proof-20260615T223445-059
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353899](https://github.com/openclaw/clownfish/actions/runs/27583353899)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification. No shared canonical was selected because the job is an inventory shard, not a dedupe cluster. PR #73635 is routed to central security handling because deterministic validation classified it as security-sensitive. No close, merge, fix, or label mutations are planned; all unrelated open PRs are classified conservatively against their own hydrated state.
+Plan-only PR inventory shard. Five open non-security PRs had hydrated live state and are kept independent for later proof/review because this is not a dedupe cluster and merge/fix actions are blocked. One hydrated PR is routed to central security handling. Nineteen refs could not be hydrated due GitHub API rate limits, so each unresolved item is scoped to needs_human with no mutating action.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification. No shared canonical was selected because 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 3 |
+| Needs human | 19 |
 
 ## Fix Execution Actions
 
@@ -67,34 +67,50 @@ Plan-mode PR inventory classification. No shared canonical was selected because 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #64310 | keep_independent | planned | independent | Useful focused PR, but not merge-ready and not closable under this inventory shard. |
-| #65962 | keep_independent | planned | independent | Independent narrow fix remains viable but blocked on proof/review cleanup. |
-| #67008 | keep_independent | planned | independent | Provider catalog PR is independent and not ready for closure or merge. |
-| #68176 | keep_independent | planned | independent | Independent implementation PR should remain open for proof and validation. |
-| #73628 | keep_independent | planned | independent | Useful but broad independent PR; keep open for proof and review rather than close. |
-| #73635 | route_security | planned | security_sensitive | Quarantine this exact PR to central OpenClaw security handling; do not close, merge, label, comment, or fix it in this cluster. |
-| #75043 | keep_related | planned | related | Keep related to the TTS provider-emotion design family; no canonical close/merge action is safe in this shard. |
-| #75065 | keep_related | planned | related | Related successor to prior cron custom-id work; keep open for proof and validation. |
-| #75121 | keep_independent | planned | independent | Independent PR can continue after branch refresh; no close action is warranted. |
-| #75126 | needs_human | planned | needs_human | Maintainer judgment is needed on whether to continue this broad uneditable branch or ask for a narrower replacement. |
-| #75160 | keep_independent | planned | independent | Independent narrow PR should remain open pending proof. |
-| #75201 | keep_independent | planned | independent | Independent PR with proof supplied; keep open for normal maintainer review. |
-| #75554 | keep_independent | planned | independent | Independent feature/API PR is not a close candidate and is blocked on proof/checks. |
-| #83988 | keep_related | planned | related | Related to the TTS final-mode issue family; keep open pending check repair and maintainer review. |
-| #89039 | keep_related | planned | related | Related to the session takeover/message-loss bug family; keep open, no merge/close action. |
-| #89040 | keep_related | planned | related | Related performance/availability fix remains open for check repair and review. |
-| #90690 | keep_independent | planned | independent | Independent app fix should remain open pending proof. |
-| #91168 | keep_independent | planned | independent | Independent UI/gateway enhancement remains open for normal review. |
-| #91463 | keep_related | planned | related | Related to the hydrated browser bridge issue; keep open as a candidate fix path. |
-| #91493 | keep_independent | planned | independent | Independent contract PR remains open but blocked by proof/checks. |
-| #91515 | keep_independent | planned | independent | Independent narrow bug fix should stay open for proof and test hardening. |
-| #91668 | needs_human | planned | needs_human | Specific maintainer decision needed: choose the canonical stale subagent recovery implementation among active branches. |
-| #91680 | keep_related | planned | related | Related to web UI run-status issue; keep open pending proof/check resolution. |
-| #91698 | needs_human | planned | needs_human | Specific maintainer decision needed on proof override or sanctioned live verification for Feishu behavior. |
-| #91721 | keep_independent | planned | independent | Independent narrow PR remains open for test coverage and review; no closure action is safe. |
+| #64310 | keep_independent | planned | independent | Independent open PR requiring proof/review, not eligible for closure or merge in this plan shard. |
+| #65962 | keep_independent | planned | independent | Independent build-fix PR with unresolved proof/review gates; no close or merge action is safe. |
+| #67008 | keep_independent | planned | independent | Independent provider catalog PR needing proof; no canonical or duplicate relationship is established. |
+| #68176 | keep_independent | planned | independent | Independent CLI build metadata PR; linked issue is evidence only and no mutating action is allowed. |
+| #73628 | keep_independent | planned | independent | Broad independent agents/session-state PR requiring maintainer proof review, not closeout. |
+| #73635 | route_security | planned | security_sensitive | Security-sensitive target is out of scope for ProjectClownfish mutation and must be routed to central OpenClaw security handling. |
+| #75043 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #75065 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #75121 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #75126 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #75160 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #75201 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #75554 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #83988 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #89039 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #89040 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #90690 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91168 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91463 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91493 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91515 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91668 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91680 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91698 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
+| #91721 | needs_human | blocked | needs_human | Live PR state is unavailable, so this item cannot be classified safely. |
 
 ## Needs Human
 
-- #75126: decide whether to continue the broad uneditable strict-tool-mode branch after human review requested minimization and cleanup.
-- #91668: choose a canonical implementation among multiple active stale subagent recovery branches.
-- #91698: decide whether to accept a proof override or run sanctioned live Feishu verification.
+- #75043 live state unavailable from preflight artifact due GitHub API rate limit.
+- #75065 live state unavailable from preflight artifact due GitHub API rate limit.
+- #75121 live state unavailable from preflight artifact due GitHub API rate limit.
+- #75126 live state unavailable from preflight artifact due GitHub API rate limit.
+- #75160 live state unavailable from preflight artifact due GitHub API rate limit.
+- #75201 live state unavailable from preflight artifact due GitHub API rate limit.
+- #75554 live state unavailable from preflight artifact due GitHub API rate limit.
+- #83988 live state unavailable from preflight artifact due GitHub API rate limit.
+- #89039 live state unavailable from preflight artifact due GitHub API rate limit.
+- #89040 live state unavailable from preflight artifact due GitHub API rate limit.
+- #90690 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91168 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91463 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91493 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91515 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91668 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91680 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91698 live state unavailable from preflight artifact due GitHub API rate limit.
+- #91721 live state unavailable from preflight artifact due GitHub API rate limit.

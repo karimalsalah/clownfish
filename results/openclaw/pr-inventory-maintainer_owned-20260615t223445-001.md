@@ -2,54 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T223445-001"
 mode: "plan"
-run_id: "27583279104"
-workflow_run_id: "27583279104"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583279104"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.210Z"
+run_id: "27580942551-1-0"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.156Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 27
+actions_total: 25
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 2
+needs_human_count: 25
 ---
 
 # pr-inventory-maintainer_owned-20260615T223445-001
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583279104](https://github.com/openclaw/clownfish/actions/runs/27583279104)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No shared canonical was invented; open PRs are classified independently from the hydrated preflight artifact, with scoped security routing for security-sensitive refs and validator-identified security-sensitive targets.
+Plan-mode PR inventory shard could not be safely classified because every hydrated item has unavailable live state from GitHub API rate limiting. No close, label, comment, merge, or fix action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 27 |
+| Worker actions | 25 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 2 |
+| Needs human | 25 |
 
 ## Fix Execution Actions
 
@@ -67,35 +67,56 @@ Plan-mode PR inventory classification only. No shared canonical was invented; op
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #58367 | needs_human | planned | needs_human | Draft auth-adjacent gateway PR has failed proof plus an unresolved high-priority review-bot finding. |
-| #59705 | keep_independent | planned | independent | Standalone automation logging PR; keep in inventory rather than closing or merging. |
-| #78225 | route_security | planned | security_sensitive | Exact security-sensitive linked ref must be quarantined to central OpenClaw security handling. |
-| #85711 | route_security | planned | security_sensitive | Exact security-sensitive PR is read-only for this worker and should route to central security handling. |
-| #88487 | keep_related | planned | related | Useful focused fix candidate for a hydrated issue, but merge/fix actions are blocked in this plan job. |
-| #88497 | keep_related | planned | related | Focused fix candidate for a hydrated channel startup issue; keep related without mutation. |
-| #88639 | keep_related | planned | related | Related documentation follow-up, not a duplicate closeout target. |
-| #87695 | keep_independent | planned | independent | Standalone maintainer-owned CI/type unblocker. |
-| #88121 | keep_independent | planned | independent | Standalone logging policy PR; no close or merge action is safe in this plan. |
-| #88292 | keep_related | planned | related | Focused fix candidate for a hydrated Windows update issue; keep related. |
-| #91957 | keep_independent | planned | independent | Standalone perf PR; classify conservatively without mutation. |
-| #88533 | keep_independent | planned | independent | Parked but independent test cleanup; no closure in this inventory plan. |
-| #88621 | keep_independent | planned | independent | Standalone type/current changed-gate PR. |
-| #88649 | keep_independent | planned | independent | Independent test fixture cleanup. |
-| #88673 | keep_independent | planned | independent | Independent test alignment PR. |
-| #88713 | keep_related | planned | related | Related documentation follow-up, not a duplicate close target. |
-| #88793 | keep_related | planned | related | Related docs-family PR with distinct scope. |
-| #88835 | route_security | planned | security_sensitive | Validator-identified security-sensitive approval-policy PR must be read-only and routed to central OpenClaw security handling. |
-| #88841 | keep_independent | planned | independent | Independent contributor availability fix; keep without mutation. |
-| #88633 | keep_independent | planned | independent | Independent CI/runtime query guard PR. |
-| #88876 | keep_independent | planned | independent | Standalone CI snapshot PR; keep conservatively. |
-| #92833 | keep_related | planned | related | Likely related to a linked memory issue, but only non-mutating classification is safe. |
-| #88959 | keep_independent | planned | independent | Standalone plugin/provider robustness PR; keep without mutation. |
-| #88382 | keep_related | planned | related | Focused fix candidate for hydrated config issue; keep related. |
-| #88884 | needs_human | planned | needs_human | Active author-followup and compatibility/product-intent judgment are unresolved; no mutating action is safe. |
-| #92886 | keep_independent | planned | independent | Independent docs PR; keep because low-signal cleanup is not enabled. |
-| #88875 | route_security | planned | security_sensitive | Validator-identified security-sensitive documentation target must be read-only and routed to central OpenClaw security handling. |
+| #58367 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #59705 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88487 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88497 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88639 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #87695 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88121 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88292 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #91957 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88533 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88621 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88649 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88673 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88713 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88793 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88835 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88841 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88633 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88876 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #92833 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88959 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88382 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88884 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #92886 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
+| #88875 | needs_human | blocked | needs_human | Live PR state is unavailable, so independent inventory classification and any mutating recommendation are blocked. |
 
 ## Needs Human
 
-- #58367 unresolved high-priority review-bot/technical-correctness question on draft gateway pairing behavior.
-- #88884 active author-followup plus compatibility/product-intent judgment; visible artifact lacks hydrated live target_updated_at.
+- #58367 requires rehydration before classification.
+- #59705 requires rehydration before classification.
+- #88487 requires rehydration before classification.
+- #88497 requires rehydration before classification.
+- #88639 requires rehydration before classification.
+- #87695 requires rehydration before classification.
+- #88121 requires rehydration before classification.
+- #88292 requires rehydration before classification.
+- #91957 requires rehydration before classification.
+- #88533 requires rehydration before classification.
+- #88621 requires rehydration before classification.
+- #88649 requires rehydration before classification.
+- #88673 requires rehydration before classification.
+- #88713 requires rehydration before classification.
+- #88793 requires rehydration before classification.
+- #88835 requires rehydration before classification.
+- #88841 requires rehydration before classification.
+- #88633 requires rehydration before classification.
+- #88876 requires rehydration before classification.
+- #92833 requires rehydration before classification.
+- #88959 requires rehydration before classification.
+- #88382 requires rehydration before classification.
+- #88884 requires rehydration before classification.
+- #92886 requires rehydration before classification.
+- #88875 requires rehydration before classification.

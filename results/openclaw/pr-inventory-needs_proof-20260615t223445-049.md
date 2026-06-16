@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-049"
 mode: "plan"
-run_id: "27583353360"
-workflow_run_id: "27583353360"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353360"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-50"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.520Z"
+published_at: "2026-06-16T19:01:33.295Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,16 +19,16 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 4
+needs_human_count: 3
 ---
 
 # pr-inventory-needs_proof-20260615T223445-049
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353360](https://github.com/openclaw/clownfish/actions/runs/27583353360)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: needs_human
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification for 25 open PRs. No GitHub mutations were performed. Most PRs should stay open on their independent proof/review paths; #93275 is a planned superseded close by hydrated canonical #92819; #92253, #92680, #90248, and #91332 need specific maintainer judgment.
+Plan-mode PR inventory classification could not safely classify or plan mutations because every candidate item in the cluster preflight artifact has unavailable live state from GitHub API rate limiting. No canonical was provided or inferred, and no close, merge, label, comment, fix, or security-route action is planned.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification for 25 open PRs. No GitHub mutations were 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 4 |
+| Needs human | 3 |
 
 ## Fix Execution Actions
 
@@ -67,35 +67,34 @@ Plan-mode PR inventory classification for 25 open PRs. No GitHub mutations were 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89965 | keep_independent | planned | independent | Independent candidate with proof gate still failing; keep open for its own validation path. |
-| #89982 | keep_independent | planned | independent | Independent small logging candidate, not duplicate or superseded; proof and final review remain its own blockers. |
-| #89987 | keep_independent | planned | independent | Independent candidate with passing proof signal; keep open for normal maintainer review or label correction outside this cleanup shard. |
-| #89989 | keep_independent | planned | independent | Independent active contributor PR; keep open, with proof and review still blocking merge. |
-| #93275 | close_superseded | planned | superseded | Clear hydrated supersession by an open canonical PR; close plan preserves contributor credit. |
-| #93110 | keep_independent | planned | independent | Independent active fix candidate; keep open for proof and maintainer review. |
-| #92680 | needs_human | planned | needs_human | Needs maintainer decision on the new dependency and compatibility surface before this can move beyond inventory classification. |
-| #59285 | keep_independent | planned | independent | Keep open as an independent non-merge-ready PR; do not close low-signal in this job. |
-| #62157 | keep_independent | planned | independent | Independent candidate for a real message-delivery bug, but unresolved bot review and failing checks require it to stay open. |
-| #93267 | keep_independent | planned | independent | Independent session-memory fix candidate; no duplicate or supersession evidence supports closure. |
-| #92253 | needs_human | planned | needs_human | Needs maintainer/product decision on whether omitted Active Memory agent config should default to configured agents. |
-| #92946 | keep_independent | planned | independent | Independent Telegram compatibility candidate; keep open for normal proof review rather than close or merge in this shard. |
-| #62727 | keep_independent | planned | independent | Independent useful PR with unresolved correctness findings; not safe to close as duplicate or superseded. |
-| #62822 | keep_independent | planned | independent | Independent performance candidate; keep open because it is useful but not merge-ready. |
-| #63007 | keep_independent | planned | independent | Independent draft with remaining unique scope; keep open, not superseded. |
-| #63347 | keep_independent | planned | independent | Independent focused implementation path; unresolved review findings block merge but not classification. |
-| #65301 | keep_independent | planned | independent | Independent remaining poll-send fix candidate; keep open for proof/check resolution. |
-| #90038 | keep_independent | planned | independent | Independent Discord correctness candidate; keep open pending real behavior proof. |
-| #90066 | keep_independent | planned | independent | Independent active Telegram delivery candidate; keep open for proof review. |
-| #90079 | keep_independent | planned | independent | Independent draft PR with proof blocker; keep open rather than close. |
-| #90143 | keep_independent | planned | independent | Independent proof-supplied candidate; keep open for maintainer review because merge is blocked in this job. |
-| #90199 | keep_independent | planned | independent | Independent active agent-session fix; keep open pending review/check resolution. |
-| #90248 | needs_human | planned | needs_human | Needs maintainer judgment on broad PR scope and split-vs-review strategy; not a dedupe or low-signal closure target. |
-| #92945 | keep_independent | planned | independent | Independent Telegram fix candidate; keep open for proof/review reconciliation. |
-| #91332 | needs_human | planned | needs_human | Needs maintainer/technical judgment because an unresolved P1 bot finding could affect session lock correctness. |
+| #89965 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #89982 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #89987 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #89989 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #93275 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #93110 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #92680 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #59285 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #62157 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #93267 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #92253 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #92946 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #62727 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #62822 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #63007 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #63347 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #65301 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #90038 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #90066 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #90079 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #90143 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #90199 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #90248 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #92945 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
+| #91332 | needs_human | blocked | needs_human | Live state is unavailable; target kind, open/closed state, and updated_at cannot be trusted from the preflight artifact. |
 
 ## Needs Human
 
-- #92680 requires maintainer approval for adding iconv-lite and accepting the encoding compatibility surface.
-- #92253 requires product/maintainer decision on omitted Active Memory agent config default behavior.
-- #90248 requires maintainer decision on whether to review a broad XL dirty-candidate PR or split it into smaller work.
-- #91332 requires maintainer judgment on unresolved P1 reentrant session-lock review risk and proof sufficiency.
+- All 25 candidate refs require rehydration before classification because the preflight artifact has kind=unknown, state=unavailable, updated_at=null for every item after GitHub API rate limiting.
+- No close-style action is safe because live open/closed state and target_updated_at are unavailable.
+- No canonical or shared duplicate family should be invented because the job explicitly says this is an inventory shard, not a dedupe cluster.

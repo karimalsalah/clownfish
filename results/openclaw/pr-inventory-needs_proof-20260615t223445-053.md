@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-053"
 mode: "plan"
-run_id: "27583353743"
-workflow_run_id: "27583353743"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353743"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-54"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.571Z"
+published_at: "2026-06-16T19:01:33.299Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,16 +19,16 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 2
+needs_human_count: 19
 ---
 
 # pr-inventory-needs_proof-20260615T223445-053
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353743](https://github.com/openclaw/clownfish/actions/runs/27583353743)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: needs_human
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. The preflight artifact hydrated six open PRs and rate-limited the remaining listed PRs, so no mutating close/label/comment actions are planned. Hydrated PRs are kept as independent inventory items unless a specific review blocker requires maintainer/author follow-up.
+Plan-mode PR inventory classification. Six refs had hydrated open PR state and are kept independently for normal proof/review; nineteen refs were unavailable in the preflight artifact because GitHub API rate limits blocked live state, so those specific refs need rehydration before classification or any mutation.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. The preflight artifact hydrated six open 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 2 |
+| Needs human | 19 |
 
 ## Fix Execution Actions
 
@@ -67,33 +67,50 @@ Plan-only PR inventory classification. The preflight artifact hydrated six open 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #91162 | keep_independent | planned | independent | Separate open PR with failed proof gates; no close, merge, or fix action is allowed in this plan job. |
-| #91177 | keep_independent | planned | independent | Independent candidate PR; keep open for normal maintainer review/proof handling. |
-| #91206 | needs_human | blocked | needs_human | Maintainer/author follow-up is needed for the reported request-contract defect before any merge-style recommendation. |
-| #90700 | keep_independent | planned | independent | Independent open PR with failed proof/check gates; not eligible for merge or closure planning. |
-| #91132 | keep_independent | planned | independent | Independent feature PR in the inventory shard; keep open for maintainer review. |
-| #93317 | keep_independent | planned | independent | Independent open PR with a failed proof gate; no merge or close action is allowed. |
-| #67011 | needs_human | blocked | needs_human | Live PR state is unavailable, so this candidate cannot be safely classified beyond a blocked human/live-state retry. |
-| #68116 | needs_human | blocked | needs_human | Live PR state is unavailable; retry hydration or route to human inventory review. |
-| #91222 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91239 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91249 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91250 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91271 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91273 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91276 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91279 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91280 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91393 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91399 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91444 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91446 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91447 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91466 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91473 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
-| #91477 | needs_human | blocked | needs_human | Live PR state is unavailable; no safe inventory classification is possible from the artifact. |
+| #91162 | keep_independent | planned | independent | Open PR with distinct scope and no hydrated canonical relationship; keep for independent proof/review. |
+| #91177 | keep_independent | planned | independent | Open PR with distinct scope and no hydrated canonical relationship; keep for independent proof/review. |
+| #91206 | keep_independent | planned | independent | Open PR with distinct scope and no hydrated canonical relationship; keep for independent proof/review. |
+| #90700 | keep_independent | planned | independent | Open PR with distinct scope and no hydrated canonical relationship; keep for independent proof/review. |
+| #91132 | keep_independent | planned | independent | Open PR with distinct scope and no hydrated canonical relationship; keep for independent proof/review. |
+| #93317 | keep_independent | planned | independent | Open PR with distinct scope and no hydrated canonical relationship; keep for independent proof/review. |
+| #67011 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #68116 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91222 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91239 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91249 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91250 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91271 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91273 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91276 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91279 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91280 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91393 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91399 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91444 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91446 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91447 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91466 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91473 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
+| #91477 | needs_human | blocked | needs_human | Live state unavailable; rehydrate before classification or mutation. |
 
 ## Needs Human
 
-- #91206 needs maintainer/author follow-up for the ClawSweeper-reported request-contract defect before merge-style handling.
-- Live state hydration failed for #67011, #68116, #91222, #91239, #91249, #91250, #91271, #91273, #91276, #91279, #91280, #91393, #91399, #91444, #91446, #91447, #91466, #91473, and #91477 due GitHub API rate limiting; retry hydration before inventory classification or any mutation.
+- #67011 live state unavailable from preflight artifact; rehydrate before classification.
+- #68116 live state unavailable from preflight artifact; rehydrate before classification.
+- #91222 live state unavailable from preflight artifact; rehydrate before classification.
+- #91239 live state unavailable from preflight artifact; rehydrate before classification.
+- #91249 live state unavailable from preflight artifact; rehydrate before classification.
+- #91250 live state unavailable from preflight artifact; rehydrate before classification.
+- #91271 live state unavailable from preflight artifact; rehydrate before classification.
+- #91273 live state unavailable from preflight artifact; rehydrate before classification.
+- #91276 live state unavailable from preflight artifact; rehydrate before classification.
+- #91279 live state unavailable from preflight artifact; rehydrate before classification.
+- #91280 live state unavailable from preflight artifact; rehydrate before classification.
+- #91393 live state unavailable from preflight artifact; rehydrate before classification.
+- #91399 live state unavailable from preflight artifact; rehydrate before classification.
+- #91444 live state unavailable from preflight artifact; rehydrate before classification.
+- #91446 live state unavailable from preflight artifact; rehydrate before classification.
+- #91447 live state unavailable from preflight artifact; rehydrate before classification.
+- #91466 live state unavailable from preflight artifact; rehydrate before classification.
+- #91473 live state unavailable from preflight artifact; rehydrate before classification.
+- #91477 live state unavailable from preflight artifact; rehydrate before classification.

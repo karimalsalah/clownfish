@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-093"
 mode: "plan"
-run_id: "27583279001"
-workflow_run_id: "27583279001"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583279001"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-93"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.184Z"
+published_at: "2026-06-16T19:01:33.563Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 27
+actions_total: 25
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,9 +26,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583279001](https://github.com/openclaw/clownfish/actions/runs/27583279001)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,13 +36,13 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No GitHub mutations, merges, or fix PRs are planned. Ordinary open PRs are kept independently for maintainer/backlog handling; security-shaped or security-linked refs are routed to central security handling.
+Plan-mode PR inventory shard. The validator identifies fourteen targets as security-sensitive, so those exact PRs are quarantined with non-mutating route_security actions. Remaining hydrated open PRs are classified independently; no close, merge, label, comment, or fix mutation is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 27 |
+| Worker actions | 25 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -67,33 +67,31 @@ Plan-only PR inventory classification. No GitHub mutations, merges, or fix PRs a
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92445 | route_security | planned | security_sensitive | Sensitive contact-info redaction appears security/privacy-sensitive, so this exact PR should be quarantined from ProjectClownfish cleanup. |
-| #69022 | keep_independent | planned | independent | Independent contributor PR with useful work, but merge/fix are out of scope and review/proof blockers remain. |
-| #90259 | route_security | planned | security_sensitive | Because the PR depends on security-sensitive #90239, route this exact item instead of classifying it for cleanup. |
-| #92028 | keep_independent | planned | independent | Independent feature PR; no duplicate/superseded/low-signal evidence is available in the compacted artifact. |
-| #92359 | keep_independent | planned | independent | Independent narrow config PR awaiting maintainer review. |
-| #91597 | keep_independent | planned | independent | Independent plugin capability PR; no shared canonical should be invented for this inventory shard. |
-| #91656 | keep_independent | planned | independent | Independent test coverage PR; no cleanup closure evidence is present. |
-| #55901 | keep_independent | planned | independent | Substantial independent IRC feature PR with active review blockers; not a closeout candidate. |
-| #59695 | keep_independent | planned | independent | Narrow independent hardening/config fingerprinting PR awaiting maintainer decision; no merge allowed in this job. |
-| #91955 | keep_independent | planned | independent | Independent agents PR with waiting-on-author signal; no closure or fix action is allowed. |
-| #93384 | keep_independent | planned | independent | Independent status/model-selection bug PR awaiting maintainer review. |
-| #66150 | keep_independent | planned | independent | Useful independent contributor PR with review history; keep for normal maintainer/backlog handling. |
-| #73649 | keep_independent | planned | independent | Independent issue-template PR blocked on rebase/maintainer review, not a cleanup close candidate. |
-| #74131 | keep_independent | planned | independent | Independent broad agents resilience PR with unresolved review/check risk. |
-| #74136 | keep_independent | planned | independent | Independent contributor PR awaiting maintainer review; no merge action is allowed. |
-| #74185 | route_security | planned | security_sensitive | Quarantine this exact auth-provider/provider-credential-adjacent PR to central OpenClaw security handling and continue unrelated non-security classifications. |
-| #74252 | keep_independent | planned | independent | Independent logs PR with active review/re-review flow; keep for maintainer queue. |
-| #74320 | keep_independent | planned | independent | Independent parser bug PR awaiting maintainer decision; no merge action is allowed. |
-| #74369 | keep_independent | planned | independent | Independent UI PR with rebase/maintainer-review needs. |
-| #74444 | keep_independent | planned | independent | Broad independent feature/config/docs PR with review issues; keep for maintainer queue rather than cleanup. |
-| #75157 | keep_independent | planned | independent | Independent UI PR; no duplicate/superseded/low-signal evidence is available in the compacted artifact. |
-| #77736 | keep_independent | planned | independent | Independent agents/provider-routing PR; keep non-mutating. |
-| #80947 | keep_independent | planned | independent | Independent docs/doctor PR awaiting maintainer review. |
-| #83933 | keep_independent | planned | independent | Independent cron/runtime PR with no cleanup closure evidence. |
-| #84792 | keep_independent | planned | independent | Independent session-state/memory-flush PR awaiting maintainer review. |
-| #73883 | route_security | planned | security_sensitive | Quarantine exact security-sensitive linked PR and continue unrelated non-security classifications. |
-| #90239 | route_security | planned | security_sensitive | Security-sensitive linked ref should be handled by central OpenClaw security, not ProjectClownfish cleanup. |
+| #92445 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #69022 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #90259 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #92028 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #92359 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #91597 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #91656 | keep_independent | planned | independent | Independent test coverage PR; keep for maintainer review rather than plan a blocked merge. |
+| #55901 | keep_independent | planned | independent | Independent open PR with failed proof and unresolved review-bot history; non-mutating classification only. |
+| #59695 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #91955 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #93384 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #66150 | keep_independent | planned | independent | Independent PR with review-bot history and no merge authority; keep for maintainer follow-up. |
+| #73649 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #74131 | keep_independent | planned | independent | Independent open PR with a failing check and review-bot history; no merge or close action is safe in this plan. |
+| #74136 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #74185 | keep_independent | planned | independent | Independent open PR with auth-provider risk label and bot-review history; keep for maintainer follow-up. |
+| #74252 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #74320 | keep_independent | planned | independent | Independent focused bugfix PR with positive review evidence; keep for maintainer action outside this non-mutating plan. |
+| #74369 | keep_independent | planned | independent | Independent web UI PR; keep for maintainer review because merge is blocked and bot review details are not hydrated. |
+| #74444 | keep_independent | planned | independent | Independent feature/config PR requiring maintainer product and compatibility review; no mutation is authorized. |
+| #75157 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #77736 | keep_independent | planned | independent | Independent provider-routing PR; keep for maintainer review and do not plan blocked merge/fix actions. |
+| #80947 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for ProjectClownfish inventory handling and must be routed to central security handling. |
+| #83933 | keep_independent | planned | independent | Independent high-impact cron PR; non-mutating classification only. |
+| #84792 | keep_independent | planned | independent | Independent session-state PR; keep for maintainer review under plan-mode constraints. |
 
 ## Needs Human
 

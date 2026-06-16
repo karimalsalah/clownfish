@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-088"
 mode: "plan"
-run_id: "27583278209"
-workflow_run_id: "27583278209"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583278209"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.098Z"
+run_id: "27580942551-1-88"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.522Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-088
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583278209](https://github.com/openclaw/clownfish/actions/runs/27583278209)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was selected. Hydrated open PRs are kept open as independent maintainer-review inventory except #66685, which is routed to central security handling after deterministic validation identified it as security-sensitive. Unhydrated listed candidates are scoped needs_human because the compacted preflight artifact did not provide live target_updated_at values.
+Plan-only PR inventory classification repaired after deterministic validation. The validator marked 24 targets as security-sensitive, so those targets are quarantined with non-mutating route_security actions. #90672 remains keep_independent because it was not flagged by validation. No GitHub mutations are planned.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. No shared canonical was selected. Hydrate
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,32 @@ Plan-only PR inventory classification. No shared canonical was selected. Hydrate
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93295 | needs_human | blocked | needs_human | Live hydrated state is unavailable from the provided artifact, so no closure or definitive maintainer-ready classification is safe. |
-| #75223 | keep_independent | planned | independent | Keep open as an independent focused PR for maintainer review; merge is blocked by job policy and missing merge preflight. |
-| #90653 | needs_human | blocked | needs_human | The candidate PR itself lacks hydrated live state in the provided artifact. |
-| #41892 | keep_independent | planned | independent | Keep open as independent feature work; not closable, not mergeable in this plan-mode shard. |
-| #66685 | route_security | planned | security_sensitive | Quarantine this exact PR to central OpenClaw security handling; do not close, merge, label, comment, or open a fix PR for the security-sensitive item from ProjectClownfish. |
-| #67077 | keep_independent | planned | independent | Keep open as independent auth-provider availability work; not safe to close or merge from this shard. |
-| #67946 | keep_independent | planned | independent | Keep open for maintainer review; no closure or merge action is permitted in this plan-mode job. |
-| #68558 | keep_independent | planned | independent | Keep open as independent work awaiting author/maintainer follow-up; not closable or mergeable. |
-| #68677 | keep_independent | planned | independent | Keep open as the active independent image-resize-cache PR; merge remains blocked by review/preflight policy. |
-| #70046 | keep_independent | planned | independent | Keep open as the active independent cron parser PR; no closeout is warranted. |
-| #87590 | keep_independent | planned | independent | Keep open as independent memory-core work; no dedupe closure or merge action is available. |
-| #88906 | keep_independent | planned | independent | Keep open as independent provider capability work for maintainer review. |
-| #89367 | keep_independent | planned | independent | Keep open as independent focused gateway/session-state work. |
-| #89369 | keep_independent | planned | independent | Keep open as independent focused agents work for maintainer review. |
-| #89428 | keep_independent | planned | independent | Keep open for maintainer review. |
-| #93298 | needs_human | blocked | needs_human | Hydrated live state is missing from the provided artifact. |
-| #90487 | keep_independent | planned | independent | Keep open as independent compatibility hardening work. |
-| #90672 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact. |
-| #93106 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact. |
-| #90861 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact excerpt. |
-| #90975 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact. |
-| #93293 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact. |
-| #90979 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact. |
-| #90989 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact. |
-| #91000 | needs_human | blocked | needs_human | Hydrated live state is unavailable in the provided artifact. |
+| #93295 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #75223 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #90653 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #41892 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #66685 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #67077 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #67946 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #68558 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #68677 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #70046 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #87590 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #88906 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #89367 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #89369 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #89428 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #93298 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #90487 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #90672 | keep_independent | planned | independent | Distinct Telegram diagnostic PR with conflict state; keep independent. |
+| #93106 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #90861 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #90975 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #93293 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #90979 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #90989 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
+| #91000 | route_security | planned | security_sensitive | Quarantine this exact target for central OpenClaw security handling. |
 
 ## Needs Human
 
-- Hydrated live state is missing from the provided compacted preflight artifact for #93295, #90653, #93298, #90672, #93106, #90861, #90975, #93293, #90979, #90989, and #91000. Re-plan with an untruncated or per-candidate preflight artifact before any definitive classification or mutation for those refs.
+- none

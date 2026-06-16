@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-034"
 mode: "plan"
-run_id: "27583352291"
-workflow_run_id: "27583352291"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583352291"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.465Z"
+run_id: "27580942551-1-35"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.236Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 14
+needs_human_count: 25
 ---
 
 # pr-inventory-needs_proof-20260615T223445-034
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583352291](https://github.com/openclaw/clownfish/actions/runs/27583352291)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was selected. Hydrated open PRs are kept independently unless an item-specific maintainer decision is required; unavailable refs are item-scoped needs_human because the preflight artifact lacks live kind/state/updated_at due GitHub rate limiting.
+Plan-mode PR inventory classification could not safely classify any listed ref because the cluster preflight artifact has unavailable live state for every item due to GitHub API rate limiting. No mutating close/comment/label actions are planned.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. No shared canonical was selected. Hydrate
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 14 |
+| Needs human | 25 |
 
 ## Fix Execution Actions
 
@@ -67,45 +67,56 @@ Plan-only PR inventory classification. No shared canonical was selected. Hydrate
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #80685 | keep_independent | planned | independent | Independent open PR with unresolved proof, checks, mergeability, and review-bot blockers; no close, merge, or fix action is safe in plan mode. |
-| #82734 | keep_independent | planned | independent | Independent open PR still needs proof/check repair; not a duplicate or low-signal close candidate. |
-| #81176 | keep_independent | planned | independent | Useful independent feature PR; merge is blocked by job frontmatter and missing merge preflight. |
-| #81388 | needs_human | planned | needs_human | The remaining decision is a maintainer judgment about accepting proof limitations; job requires human review for maintainer_signal and technical_correctness_judgment. |
-| #82894 | keep_independent | planned | independent | Independent useful PR; no closure basis and merge is not allowed in this plan job. |
-| #82895 | keep_independent | planned | independent | Draft independent PR; keep open for author/maintainer follow-up. |
-| #82966 | keep_independent | planned | independent | Independent fix PR with a rebase/update requirement; no close or merge action is allowed by this job. |
-| #82971 | keep_independent | planned | independent | Independent automation PR with failing proof/checks; not safe to close as low-signal or merge. |
-| #82972 | keep_independent | planned | independent | Independent Discord fix PR; keep open for normal review/merge path outside this inventory shard. |
-| #83010 | keep_independent | planned | independent | Independent gateway cleanup/fix PR; no mutation should be planned in this shard. |
-| #90419 | keep_independent | planned | independent | Independent session-lock PR needing proof; do not infer duplicate/superseded status from title similarity. |
-| #90065 | keep_independent | planned | independent | Independent session-lock PR needing proof; no close-style action is justified. |
-| #90125 | needs_human | planned | needs_human | Live state required for classification is unavailable; no mutating or substantive classification should be planned. |
-| #90204 | needs_human | planned | needs_human | Live state is unavailable, so this item needs refreshed hydration before classification. |
-| #91211 | needs_human | planned | needs_human | Live state is unavailable, so this PR cannot be safely classified beyond item-scoped needs_human. |
-| #93082 | needs_human | planned | needs_human | Live state is unavailable; classification requires refreshed preflight hydration. |
-| #92966 | needs_human | planned | needs_human | Live state is unavailable; do not classify or mutate without refreshed hydration. |
-| #93091 | needs_human | planned | needs_human | Live state is unavailable; refreshed hydration is required before classification. |
-| #90582 | needs_human | planned | needs_human | Live state is unavailable; keep this as an item-scoped human/refetch need. |
-| #93086 | needs_human | planned | needs_human | Live state is unavailable; classification requires refreshed preflight hydration. |
-| #79192 | needs_human | planned | needs_human | Live state is unavailable; broad feature PR classification needs refreshed hydrated evidence. |
-| #83178 | needs_human | planned | needs_human | Live state is unavailable; no safe classification beyond item-scoped needs_human. |
-| #83203 | needs_human | planned | needs_human | Live state is unavailable; refreshed hydration is required. |
-| #83242 | needs_human | planned | needs_human | Live state is unavailable; no close or classification action should be inferred from the job excerpt alone. |
-| #83254 | needs_human | planned | needs_human | Live state is unavailable; refreshed preflight is required before classification. |
+| #80685 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #82734 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #81176 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #81388 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #82894 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #82895 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #82966 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #82971 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #82972 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #83010 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #90419 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #90065 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #90125 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #90204 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #91211 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #93082 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #92966 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #93091 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #90582 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #93086 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #79192 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #83178 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #83203 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #83242 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
+| #83254 | needs_human | blocked | needs_human | Live state is unavailable; classification or closure would require maintainer/operator rerun after hydration succeeds. |
 
 ## Needs Human
 
-- #81388 requires maintainer judgment on accepting proof limitations for the unsupported-hardlink fallback.
-- #90125 live state unavailable in preflight; refreshed hydration required.
-- #90204 live state unavailable in preflight; refreshed hydration required.
-- #91211 live state unavailable in preflight; refreshed hydration required.
-- #93082 live state unavailable in preflight; refreshed hydration required.
-- #92966 live state unavailable in preflight; refreshed hydration required.
-- #93091 live state unavailable in preflight; refreshed hydration required.
-- #90582 live state unavailable in preflight; refreshed hydration required.
-- #93086 live state unavailable in preflight; refreshed hydration required.
-- #79192 live state unavailable in preflight; refreshed hydration required.
-- #83178 live state unavailable in preflight; refreshed hydration required.
-- #83203 live state unavailable in preflight; refreshed hydration required.
-- #83242 live state unavailable in preflight; refreshed hydration required.
-- #83254 live state unavailable in preflight; refreshed hydration required.
+- #80685 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #82734 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #81176 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #81388 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #82894 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #82895 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #82966 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #82971 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #82972 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #83010 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #90419 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #90065 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #90125 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #90204 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #91211 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #93082 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #92966 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #93091 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #90582 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #93086 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #79192 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #83178 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #83203 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #83242 unavailable live state due GitHub API rate limit; rerun hydration before classification.
+- #83254 unavailable live state due GitHub API rate limit; rerun hydration before classification.

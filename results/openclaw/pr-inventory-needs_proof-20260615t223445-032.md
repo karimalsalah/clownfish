@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-032"
 mode: "plan"
-run_id: "27583351898"
-workflow_run_id: "27583351898"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583351898"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.444Z"
+run_id: "27580942551-1-33"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.234Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 2
 ---
 
 # pr-inventory-needs_proof-20260615T223445-032
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583351898](https://github.com/openclaw/clownfish/actions/runs/27583351898)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was chosen. Hydrated open non-security PRs are kept independently because this shard is not a dedupe cluster and the evidence does not support closure; unhydrated non-security candidates are also kept non-mutating because live PR details were unavailable from the preflight artifact. #80829 is quarantined with route_security because deterministic validation classified it as security-sensitive.
+Plan-only PR inventory shard could not classify the listed PRs because the cluster preflight artifact has no live GitHub state for any item. Every item is marked unavailable after GitHub API rate limiting, with null kind and updated_at, so no close, label, comment, merge, or fix action is safe to plan.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. No shared canonical was chosen. Hydrated 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 2 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,33 @@ Plan-only PR inventory classification. No shared canonical was chosen. Hydrated 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #80418 | keep_independent | planned | independent | Independent needs-proof PR; do not close or merge in this plan shard. |
-| #80523 | keep_independent | planned | independent | Independent needs-proof PR; no safe close, merge, or shared canonical action. |
-| #80529 | keep_independent | planned | independent | Independent needs-proof PR; keep open without mutation. |
-| #80604 | keep_independent | planned | independent | Independent PR with proof/check blockers; no closure evidence. |
-| #80642 | keep_independent | planned | independent | Draft needs-proof PR; no close or merge action is appropriate. |
-| #80649 | keep_independent | planned | independent | Keep as an independent PR needing normal review/narrowing outside this inventory plan. |
-| #80658 | keep_independent | planned | independent | Independent docs PR with review/rebase blockers; insufficient live PR detail for any mutating action. |
-| #80716 | keep_independent | planned | independent | Independent docs PR with unresolved review feedback; no closure action is enabled or justified. |
-| #80829 | route_security | planned | security_sensitive | Quarantine only this affected item for central OpenClaw security handling; do not close, merge, label, comment, or infer readiness from unavailable live state. |
-| #80915 | keep_independent | planned | independent | Live state is unavailable; use a conservative non-mutating classification. |
-| #80955 | keep_independent | planned | independent | Live state is unavailable; no mutating action can be planned. |
-| #80982 | keep_independent | planned | independent | Live state is unavailable; keep independently for later refreshed review. |
-| #81039 | keep_independent | planned | independent | Live state is unavailable; classify non-mutating only. |
-| #81046 | keep_independent | planned | independent | Live state is unavailable; no close or merge can be planned. |
-| #81054 | keep_independent | planned | independent | Live state is unavailable; keep non-mutating and avoid inventing a canonical. |
-| #81076 | keep_independent | planned | independent | Live state is unavailable; keep independently without mutation. |
-| #81079 | keep_independent | planned | independent | Live state is unavailable; use a conservative non-mutating classification. |
-| #81136 | keep_independent | planned | independent | Live state is unavailable; no mutating action is safe. |
-| #81154 | keep_independent | planned | independent | Live state is unavailable; keep independently for a refreshed run. |
-| #81198 | keep_independent | planned | independent | Live state is unavailable; keep non-mutating and avoid closure/canonical inference. |
-| #90257 | keep_independent | planned | independent | Live state is unavailable; conservative non-mutating classification only. |
-| #77843 | keep_independent | planned | independent | Live state is unavailable; no mutation can be planned. |
-| #77928 | keep_independent | planned | independent | Live state is unavailable; keep independently without close/merge planning. |
-| #80285 | keep_independent | planned | independent | Live state is unavailable; use non-mutating classification. |
-| #90144 | keep_independent | planned | independent | Live state is unavailable; no mutating action is safe in plan mode. |
+| #80418 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80523 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80529 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80604 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80642 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80649 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80658 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80716 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80829 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80915 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80955 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80982 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81039 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81046 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81054 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81076 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81079 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81136 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81154 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #81198 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #90257 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #77843 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #77928 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #80285 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
+| #90144 | needs_human | blocked | needs_human | Live PR state is unavailable, so the item cannot be safely classified or mutated. |
 
 ## Needs Human
 
-- none
+- Re-run preflight hydration after GitHub API rate limit clears; no listed PR has live kind, state, or updated_at in the artifact.
+- Classify each PR independently once hydrated, as the job explicitly says this is an inventory shard and not a dedupe cluster.

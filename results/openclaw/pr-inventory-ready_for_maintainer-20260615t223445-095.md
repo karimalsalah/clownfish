@@ -2,54 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-ready_for_maintainer-20260615T223445-095"
 mode: "plan"
-run_id: "27583279131"
-workflow_run_id: "27583279131"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583279131"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.220Z"
+run_id: "27580942551-1-95"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.579Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 26
+actions_total: 25
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 11
+needs_human_count: 0
 ---
 
 # pr-inventory-ready_for_maintainer-20260615T223445-095
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583279131](https://github.com/openclaw/clownfish/actions/runs/27583279131)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No GitHub mutations, merges, or fix PRs are allowed. Security-sensitive linked issue #35203 is routed to central security; open PRs are classified independently because this shard has no shared canonical.
+Plan-mode PR inventory classification only. The job explicitly says this is not a dedupe cluster and no shared canonical should be invented, so open PRs are classified independently for maintainer review; no merge, fix, or close mutations are planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 26 |
+| Worker actions | 25 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 11 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,43 +67,32 @@ Plan-only PR inventory classification. No GitHub mutations, merges, or fix PRs a
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #35203 | route_security | planned | security_sensitive | Security-sensitive linked issue must be quarantined to central OpenClaw security handling. |
-| #93388 | keep_independent | planned | independent | Non-mutating classification only; this PR needs author repair, not inventory closeout. |
-| #93266 | needs_human | planned | needs_human | Maintainer judgment is needed to choose the Feishu queue/session canonical path before any merge or close recommendation. |
-| #74235 | needs_human | planned | needs_human | Ready-for-maintainer PR in an inventory shard; merge is blocked by job frontmatter and requires maintainer review. |
-| #54724 | keep_independent | planned | independent | Keep open independently; review blockers and failing proof block merge/fixed-by-candidate closeout. |
-| #55596 | keep_independent | planned | independent | Keep open independently for author repair; no safe close or merge action in this plan. |
-| #63789 | keep_closed | skipped | superseded | Already closed; no mutation planned. |
-| #64316 | keep_independent | planned | independent | Keep open independently; author/rebase repair is needed before maintainer merge review. |
-| #65065 | needs_human | planned | needs_human | Maintainer review is the remaining decision; merge is blocked by job frontmatter. |
-| #66174 | keep_independent | planned | independent | Keep open independently; failing checks and review blockers prevent closeout or merge planning. |
-| #93308 | keep_closed | skipped | independent | Already closed; no mutation planned. |
-| #93105 | needs_human | planned | needs_human | Maintainer acceptance of the config repair behavior is required. |
-| #69346 | keep_independent | planned | independent | Keep open independently for author follow-up and proof repair. |
-| #76873 | keep_independent | planned | independent | Keep open independently; author repair needed before maintainer action. |
-| #80497 | needs_human | planned | needs_human | Maintainer API compatibility judgment is required. |
-| #82718 | keep_independent | planned | independent | Keep open independently for author repair and validation. |
-| #85249 | needs_human | planned | needs_human | Maintainer review is needed for the compatibility behavior; merge is unavailable in plan mode. |
-| #89396 | needs_human | planned | needs_human | Maintainer approval is needed for the persisted config repair semantics. |
-| #89443 | keep_independent | planned | independent | Keep open independently for author repair. |
-| #93394 | keep_independent | planned | independent | Keep open independently; review blockers and failing checks prevent closeout or merge planning. |
-| #89577 | needs_human | planned | needs_human | Maintainer product/runtime compatibility judgment is required. |
-| #92072 | keep_related | planned | related | Related/superseded evidence exists, but the replacement PR is unhydrated here; do not plan closure. |
-| #89648 | needs_human | planned | needs_human | Maintainer acceptance of default log visibility change is required. |
-| #91134 | needs_human | planned | needs_human | Maintainer CI policy judgment is required before merge. |
-| #92176 | keep_independent | planned | independent | Keep open independently for author repair and compatibility validation. |
-| #92230 | needs_human | planned | needs_human | Maintainer review is needed for the feature surface; merge is blocked by job frontmatter. |
+| #93388 | keep_independent | planned | independent | Missing hydrated artifact details, but classification as an independent inventory item is clear. |
+| #93266 | keep_independent | planned | independent | Treat as an independent PR awaiting maintainer review. |
+| #74235 | keep_independent | planned | independent | Independent broad channel-delivery PR for maintainer review; no closure basis. |
+| #54724 | keep_independent | planned | independent | Independent UI fix with failing proof gate; keep for maintainer/author follow-up. |
+| #55596 | keep_independent | planned | independent | Independent Markdown rendering fix with failed proof checks; not closable as duplicate or low-signal under this job. |
+| #63789 | keep_closed | skipped | superseded | Already closed; no action to take. |
+| #64316 | keep_independent | planned | independent | Independent candidate that may be maintainer-reviewable, but no merge action is allowed. |
+| #65065 | keep_independent | planned | independent | Independent CLI/docs feature fix; keep for maintainer review. |
+| #66174 | keep_independent | planned | independent | Independent session-state fix with failing checks; keep for author/maintainer follow-up. |
+| #93308 | keep_independent | planned | independent | Independent PR classification from job evidence only. |
+| #93105 | keep_independent | planned | independent | Independent doctor-fix PR awaiting hydrated review. |
+| #69346 | keep_independent | planned | independent | Independent diagnostic fix with current proof failures; keep for follow-up. |
+| #76873 | keep_independent | planned | independent | Independent message-delivery fix; keep for maintainer review because merge is blocked. |
+| #80497 | keep_independent | planned | independent | Independent SDK/API change requiring maintainer review. |
+| #82718 | keep_independent | planned | independent | Independent Telegram docs/doctor PR; keep for maintainer review. |
+| #85249 | keep_independent | planned | independent | Independent cron delivery fix with an affected failing check and unhydrated discussion; keep for maintainer review. |
+| #89396 | keep_independent | planned | independent | Independent doctor/cron fix; keep for maintainer review. |
+| #89443 | keep_independent | planned | independent | Independent active-memory fix; keep for maintainer/author follow-up. |
+| #93394 | keep_independent | planned | independent | Independent memory-core PR classification from job evidence only. |
+| #89577 | keep_independent | planned | independent | Independent narrow Canvas hardening/bugfix; keep for maintainer review. |
+| #92072 | keep_independent | planned | independent | Independent gateway capability fix with failed proof gate; keep for follow-up. |
+| #89648 | keep_independent | planned | independent | Independent logging fix; keep for maintainer review. |
+| #91134 | keep_independent | planned | independent | Independent CI PR; keep for maintainer review because merge is blocked. |
+| #92176 | keep_independent | planned | independent | Independent media/model capability fix; keep for maintainer review. |
+| #92230 | keep_independent | planned | independent | Independent feature PR that appears reviewable but cannot be planned for merge in this job. |
 
 ## Needs Human
 
-- #93266: choose canonical Feishu queue/session identity implementation among overlapping PRs before any merge or close action.
-- #74235: maintainer review needed for ready Google Chat thread-reply PR; merge not allowed in this job.
-- #65065: maintainer review needed for Discord channel admin CLI subcommands after noted cleanup/refresh.
-- #93105: maintainer approval needed for doctor null-workspace config repair behavior.
-- #80497: maintainer API compatibility decision needed for public Plugin SDK model diagnostic callback.
-- #85249: maintainer approval needed for cron sourceDelivery fallback compatibility behavior.
-- #89396: maintainer approval needed for legacy cron notify repair semantics.
-- #89577: maintainer acceptance needed for no-Web-Crypto fail-closed Canvas A2UI behavior.
-- #89648: maintainer acceptance needed for default info-level model-fetch logging verbosity.
-- #91134: maintainer CI policy decision needed for bundled channel config metadata check.
-- #92230: maintainer review needed for /model command picker feature.
+- none

@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-050"
 mode: "plan"
-run_id: "27583353421"
-workflow_run_id: "27583353421"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353421"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
+run_id: "27580942551-1-51"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
 result_status: "planned"
-published_at: "2026-06-15T23:55:41.526Z"
+published_at: "2026-06-16T19:01:33.296Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,16 +19,16 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 18
+needs_human_count: 13
 ---
 
 # pr-inventory-needs_proof-20260615T223445-050
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353421](https://github.com/openclaw/clownfish/actions/runs/27583353421)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. The hydrated artifact confirms this shard is not a dedupe cluster and has no shared canonical. Most hydrated PRs should remain open for proof/review/merge-preflight work; #90577 is security-sensitive and must route to central security handling. Several listed candidates were unavailable in the preflight artifact because GitHub hydration hit the installation rate limit, so those receive item-scoped needs_human actions rather than any close-style plan.
+Plan-mode PR inventory classification. No shared canonical was selected because the job explicitly says this is not a dedupe cluster. Hydrated open PRs are kept independent for normal maintainer review/proof, except #90577 is routed to central security handling because validation requires security-sensitive targets to use route_security. Refs whose live state was unavailable are scoped needs_human items due GitHub API rate-limit hydration failures.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. The hydrated artifact confirms this shard
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 18 |
+| Needs human | 13 |
 
 ## Fix Execution Actions
 
@@ -67,49 +67,44 @@ Plan-only PR inventory classification. The hydrated artifact confirms this shard
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90069 | keep_related | planned | superseded | Superseded classification is clear from hydrated comments, but the replacement PR was not hydrated, so no close action is safe in this plan. |
-| #93292 | needs_human | planned | needs_human | Maintainer/product judgment is needed before this message-delivery feature can move forward without real behavior proof. |
-| #79148 | needs_human | planned | needs_human | Specific maintainer decision is needed to capture proof or decide whether this ClawSweeper-authored replacement should remain in the queue. |
-| #89792 | keep_independent | planned | independent | This is a distinct useful PR with proof supplied; keep it open for maintainer review rather than close or merge in this plan-only shard. |
-| #93277 | keep_independent | planned | independent | Distinct proved PR; no duplicate or superseded evidence in this inventory shard. |
-| #90542 | needs_human | planned | needs_human | Maintainer decision is needed on proof for the cross-channel mention-pattern behavior change. |
-| #90577 | route_security | planned | security_sensitive | Quarantine this item for central OpenClaw security handling; continue classifying unrelated non-security PRs. |
-| #90618 | keep_independent | planned | independent | Distinct replacement PR with proof now present; keep open for maintainer review rather than close or merge in this plan-only job. |
-| #90625 | needs_human | planned | needs_human | Needs maintainer judgment on whether this docs clarification has enough source/proof; no close-style action is safe. |
-| #90626 | needs_human | planned | needs_human | Maintainer technical judgment is needed before advancing a P1 cron message-delivery behavior change with failed proof. |
-| #90636 | keep_independent | planned | independent | Distinct draft PR with proof; keep open for author/maintainer completion. |
-| #90637 | keep_independent | planned | independent | Distinct draft PR with proof; keep open for author/maintainer completion. |
-| #90641 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90661 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90740 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90770 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90779 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90817 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90827 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90828 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90887 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #93299 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90561 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90867 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
-| #90932 | needs_human | planned | needs_human | Live state is unavailable, so the worker cannot safely classify or plan mutation for this candidate. |
+| #90069 | keep_independent | planned | independent | Independent docs PR needing normal proof/review; no closure or merge action is allowed or sufficiently proven. |
+| #93292 | keep_independent | planned | independent | Feature/provider behavior change needs maintainer review and proof; not a duplicate/superseded/low-signal close candidate from available evidence. |
+| #79148 | keep_independent | planned | independent | Open PR has distinct behavior scope and insufficient merge proof; keep as independent review item. |
+| #89792 | keep_independent | planned | independent | Useful focused fix candidate, but not mergeable/closable in this plan shard without checks and hydrated linked ref state. |
+| #93277 | keep_independent | planned | independent | Distinct Discord/session-state behavior change requiring review proof; no shared canonical or safe closeout path. |
+| #90542 | keep_independent | planned | independent | Independent multi-channel compatibility fix candidate; no closure/merge proof in this plan run. |
+| #90577 | route_security | planned | security_sensitive | Security-sensitive PR is read-only and out of ProjectClownfish backlog-cleanup scope; route this exact item to central OpenClaw security handling without mutating it. |
+| #90618 | keep_independent | planned | independent | Potential canonical fix in its own cluster, but this inventory shard should not merge or close linked work; keep independent. |
+| #90625 | keep_independent | planned | independent | Independent docs PR; no low-signal closure permitted and linked issue closeout is unavailable. |
+| #90626 | keep_independent | planned | independent | Behavioral default change requires maintainer/product judgment and proof; keep independent rather than close or merge. |
+| #90636 | keep_independent | planned | independent | Draft provider fix should remain independently queued for author/maintainer review. |
+| #90637 | keep_independent | planned | independent | Draft provider fix remains an independent review item. |
+| #90641 | needs_human | blocked | needs_human | Live PR state was not hydrated, so this specific ref cannot be classified beyond a scoped maintainer/hydration retry need. |
+| #90661 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90740 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90770 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90779 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90817 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90827 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90828 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90887 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #93299 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90561 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90867 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
+| #90932 | needs_human | blocked | needs_human | Live state unavailable; retry hydration before classification. |
 
 ## Needs Human
 
-- #93292 requires maintainer/product judgment because real behavior proof failed for a Microsoft Teams message-delivery feature.
-- #79148 requires maintainer decision on proof/check failures for a ClawSweeper-authored inbound history cap replacement PR.
-- #90542 requires maintainer decision on missing/failed real behavior proof for cross-channel mention pattern allowlist behavior.
-- #90625 requires maintainer judgment on docs/source proof because the linked issue is unavailable and proof failed.
-- #90626 requires maintainer technical judgment because cron delivery behavior proof and some relevant checks failed.
-- #90641 live state unavailable from preflight artifact.
-- #90661 live state unavailable from preflight artifact.
-- #90740 live state unavailable from preflight artifact.
-- #90770 live state unavailable from preflight artifact.
-- #90779 live state unavailable from preflight artifact.
-- #90817 live state unavailable from preflight artifact.
-- #90827 live state unavailable from preflight artifact.
-- #90828 live state unavailable from preflight artifact.
-- #90887 live state unavailable from preflight artifact.
-- #93299 live state unavailable from preflight artifact.
-- #90561 live state unavailable from preflight artifact.
-- #90867 live state unavailable from preflight artifact.
-- #90932 live state unavailable from preflight artifact.
+- #90641: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90661: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90740: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90770: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90779: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90817: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90827: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90828: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90887: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #93299: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90561: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90867: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.
+- #90932: live state unavailable from preflight artifact due GitHub API rate-limit hydration failure.

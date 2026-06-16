@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-055"
 mode: "plan"
-run_id: "27583353610"
-workflow_run_id: "27583353610"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583353610"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-15T23:55:41.551Z"
+run_id: "27580942551-1-56"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "needs_human"
+published_at: "2026-06-16T19:01:33.300Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 4
+needs_human_count: 25
 ---
 
 # pr-inventory-needs_proof-20260615T223445-055
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583353610](https://github.com/openclaw/clownfish/actions/runs/27583353610)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Plan-mode PR inventory classification only. No shared canonical was selected because the job says this is not a dedupe cluster. Most open PRs are independent backlog candidates blocked by missing real behavior proof, failing checks, unresolved review-bot findings, draft state, or active follow-up. Security-sensitive PRs are quarantined to central security handling.
+Plan mode only. The preflight artifact failed to hydrate every listed ref due to GitHub API rate limits, leaving kind, state, and updated_at unavailable for all 25 candidates. No close, label, comment, merge, or fix action is safe without live hydrated state; each item is routed to a specific needs_human blocker for rehydration/replan.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 4 |
+| Needs human | 25 |
 
 ## Fix Execution Actions
 
@@ -67,35 +67,56 @@ Plan-mode PR inventory classification only. No shared canonical was selected bec
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93316 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for Clownfish backlog mutation. |
-| #69428 | keep_independent | planned | independent | Keep open as an independent PR needing proof, not duplicate closure. |
-| #69491 | keep_independent | planned | independent | Provider compatibility and unresolved review findings block any close or merge recommendation. |
-| #69495 | keep_independent | planned | independent | Keep open as independent feature work needing proof and review fixes. |
-| #69954 | keep_independent | planned | independent | Useful but not merge-ready; keep independently open for proof and review resolution. |
-| #69999 | keep_independent | planned | independent | Keep open as independent work; closure or merge would be unsafe. |
-| #70105 | keep_independent | planned | independent | Keep open; not a duplicate and not eligible for low-signal closeout. |
-| #70268 | keep_independent | planned | independent | Keep as independent linked PR; review findings and proof block stronger action. |
-| #70287 | keep_independent | planned | independent | Keep open as independent bug-fix PR needing proof and green checks. |
-| #70497 | keep_independent | planned | independent | Keep open; it is not duplicate-closeable within this inventory job. |
-| #70605 | keep_independent | planned | independent | Keep open as independent PR with unresolved proof/check/review concerns. |
-| #71062 | keep_independent | planned | independent | Keep open as independent PR awaiting real behavior proof. |
-| #71113 | keep_independent | planned | independent | Draft state and proof failure mean keep open rather than close or merge. |
-| #71503 | keep_independent | planned | independent | Keep open as independent PR needing proof and review resolution. |
-| #71563 | keep_independent | planned | independent | Keep open as independent PR; proof is still required. |
-| #72025 | keep_independent | planned | independent | Keep open as independent PR with unresolved proof, checks, and review comments. |
-| #72224 | needs_human | planned | needs_human | Artifact contains mixed proof signals plus recent author branch refresh; maintainer/review judgment is needed before any close or merge path. |
-| #72515 | keep_independent | planned | independent | Keep open as independent PR awaiting proof and green checks. |
-| #73440 | keep_independent | planned | independent | Keep open as independent PR with unresolved proof/check/review blockers. |
-| #86563 | keep_independent | planned | independent | Keep open as independent PR needing proof rather than close. |
-| #86852 | keep_independent | planned | independent | Keep open as independent PR; proof quality still needs normal review outside this closeout shard. |
-| #87169 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for Clownfish backlog mutation. |
-| #88172 | keep_independent | planned | independent | Keep open as independent PR; proof remains the blocker. |
-| #88210 | keep_independent | planned | independent | Keep open as independent PR needing proof and green checks. |
-| #93318 | route_security | planned | security_sensitive | Security-sensitive item is out of scope for Clownfish backlog mutation. |
+| #93316 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #69428 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #69491 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #69495 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #69954 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #69999 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #70105 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #70268 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #70287 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #70497 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #70605 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #71062 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #71113 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #71503 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #71563 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #72025 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #72224 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #72515 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #73440 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #86563 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #86852 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #87169 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #88172 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #88210 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
+| #93318 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated live kind, state, and updated_at. |
 
 ## Needs Human
 
-- #72224: mixed proof state plus recent forced branch refresh needs maintainer/review judgment.
-- #93316: security-sensitive and routed to central OpenClaw security handling.
-- #87169: security-sensitive and routed to central OpenClaw security handling.
-- #93318: security-sensitive and routed to central OpenClaw security handling.
+- Rehydrate #93316; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #69428; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #69491; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #69495; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #69954; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #69999; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #70105; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #70268; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #70287; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #70497; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #70605; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #71062; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #71113; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #71503; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #71563; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #72025; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #72224; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #72515; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #73440; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #86563; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #86852; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #87169; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #88172; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #88210; preflight live state unavailable, kind/state/updated_at null.
+- Rehydrate #93318; preflight live state unavailable, kind/state/updated_at null.

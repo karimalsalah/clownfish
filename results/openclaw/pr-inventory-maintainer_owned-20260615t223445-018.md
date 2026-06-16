@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-maintainer_owned-20260615T223445-018"
 mode: "plan"
-run_id: "27583280084"
-workflow_run_id: "27583280084"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583280084"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.381Z"
+run_id: "27580942551-1-17"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.178Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # pr-inventory-maintainer_owned-20260615T223445-018
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583280084](https://github.com/openclaw/clownfish/actions/runs/27583280084)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory classification. No shared canonical was selected because the job explicitly says this is not a dedupe cluster. No close, merge, fix, label, or comment mutations are recommended. Security-sensitive PRs are quarantined with route_security; one PR needs human review because ClawSweeper/Codex review did not complete.
+Plan-mode PR inventory classification only. No GitHub mutations, merges, fix PRs, or close actions are planned. Hydrated open PRs are kept as independent backlog items; security-sensitive refs are routed to central OpenClaw security handling; refs missing hydrated preflight state are classified non-mutatingly with missing live-state evidence.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory classification. No shared canonical was selected because 
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,32 +67,32 @@ Plan-only PR inventory classification. No shared canonical was selected because 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #74402 | keep_independent | planned | independent | Open maintainer-owned PR with unresolved proof/check blockers; keep it out of dedupe cleanup. |
-| #91510 | keep_related | planned | related | Related taxonomy work exists, but this shard should only classify and not close or merge. |
-| #93345 | needs_human | blocked | needs_human | A fresh maintainer or ClawSweeper review is needed before any readiness decision. |
-| #70906 | keep_independent | planned | independent | Draft docs PR with maintainer-review and rebase blockers; no dedupe or closure action is supported. |
-| #76235 | keep_independent | planned | independent | Open draft PR with proof blocker; keep as independent inventory item. |
-| #76730 | route_security | planned | security_sensitive | Security-sensitive session/context exposure work is out of ProjectClownfish cleanup scope and should be routed to central OpenClaw security handling. |
-| #77020 | keep_related | planned | related | Related to message-delivery diagnostics, but not a duplicate/close candidate in this inventory shard. |
-| #77045 | keep_independent | planned | independent | Open PR has unresolved review/check blockers and should stay on its own review path. |
-| #86627 | keep_related | planned | related | Related to the doctor structured-health stack, but this shard should not close or merge it. |
-| #89041 | route_security | planned | security_sensitive | Artifact explicitly marks this PR security-sensitive, so it is routed rather than handled by inventory cleanup. |
-| #89820 | keep_independent | planned | independent | Standalone UI PR with no cluster closeout path. |
-| #92014 | keep_related | planned | related | Related to a doctor regression report, but not eligible for closure or merge here. |
-| #92107 | keep_related | planned | related | Related to an open issue, but closure/fixed-by-candidate is blocked by proof status and job permissions. |
-| #92111 | keep_related | planned | related | Related to a live availability issue, but this plan cannot merge or close anything. |
-| #92154 | keep_independent | planned | independent | Standalone feature/config PR requiring normal maintainer review, not inventory cleanup. |
-| #92160 | keep_independent | planned | independent | Draft message-delivery PR with proof and patch-quality blockers; keep independent. |
-| #92161 | keep_independent | planned | independent | Standalone diagnostics PR with proof/review blockers and no dedupe target. |
-| #92288 | keep_independent | planned | independent | Open provider/agents bugfix PR with review follow-up; keep independent. |
-| #92356 | keep_independent | planned | independent | Standalone PR on normal maintainer review path. |
-| #75614 | keep_independent | planned | independent | Docs/automation guidance PR with proof/rebase blockers; no cleanup action applies. |
-| #93359 | keep_independent | planned | independent | Standalone channel compatibility PR with proof/check follow-up; not a dedupe or closure candidate. |
-| #93238 | keep_independent | planned | independent | Automerge/fix handling is outside this plan-only inventory job; keep it on its existing PR path. |
-| #59842 | keep_independent | planned | independent | Open gateway hardening PR with unresolved proof/check state; no inventory closeout action applies. |
-| #71497 | keep_independent | planned | independent | Draft session-state PR with review/proof blockers; keep independent. |
-| #73374 | keep_independent | planned | independent | Credited replacement PR should stay on normal validation/review path; no closure or merge action is available. |
+| #74402 | keep_independent | planned | independent | Independent maintainer-owned PR; no duplicate/superseding canonical is established in this shard. |
+| #91510 | keep_independent | planned | independent | Independent taxonomy/data PR; no close or merge action is available in plan mode under this job. |
+| #93345 | keep_independent | planned | independent | Non-mutating classification only because hydrated live state is unavailable from the artifact. |
+| #70906 | keep_independent | planned | independent | Independent docs PR; keep open for normal maintainer review. |
+| #76235 | keep_independent | planned | independent | Independent doctor completion-cache fix; keep open. |
+| #76730 | keep_independent | planned | independent | Independent channel fix; keep open for proof/review. |
+| #77020 | keep_independent | planned | independent | Independent diagnostics PR; no dedupe or closeout target. |
+| #77045 | keep_independent | planned | independent | Independent Slack PR; keep open for author/proof follow-up. |
+| #86627 | keep_independent | planned | independent | Substantial independent doctor-health PR requiring normal maintainer review. |
+| #89041 | route_security | planned | security_sensitive | Security-shaped dependency/gateway limit change is out of scope for ProjectClownfish inventory cleanup; route only this item to central security handling. |
+| #89820 | keep_independent | planned | independent | Independent web UI feature PR; keep open. |
+| #92014 | keep_independent | planned | independent | Independent doctor/plugin compatibility PR with conflicts; keep open. |
+| #92107 | keep_independent | planned | independent | Independent gateway PR; keep open pending proof/check repair. |
+| #92111 | keep_independent | planned | independent | Independent update availability PR; keep open. |
+| #92154 | keep_independent | planned | independent | Independent QQBot compatibility PR; keep open for author/maintainer follow-up. |
+| #92160 | keep_independent | planned | independent | Independent outbound message delivery PR; keep open. |
+| #92161 | keep_independent | planned | independent | Independent diagnostics feature PR; keep open. |
+| #92288 | keep_independent | planned | independent | Non-mutating classification only because hydrated live state is unavailable from the artifact. |
+| #92356 | keep_independent | planned | independent | Non-mutating classification only because hydrated live state is unavailable from the artifact. |
+| #75614 | keep_independent | planned | independent | Independent docs/process PR; keep open. |
+| #93359 | route_security | planned | security_sensitive | Security-sensitive approval-binding hardening is out of scope for ProjectClownfish inventory cleanup; route only this item to central security handling. |
+| #93238 | keep_independent | planned | independent | Non-mutating classification only because hydrated live state is unavailable from the artifact. |
+| #59842 | keep_independent | planned | independent | Independent gateway hardening PR with unresolved review/check blockers; keep open. |
+| #71497 | keep_independent | planned | independent | Independent skills snapshot PR; keep open. |
+| #73374 | keep_independent | planned | independent | Independent replacement/fix PR; keep open, with source credit already noted in PR body. |
 
 ## Needs Human
 
-- #93345: ClawSweeper/Codex review failed before assessing merge readiness or technical correctness; rerun review or have a maintainer decide before merge.
+- none

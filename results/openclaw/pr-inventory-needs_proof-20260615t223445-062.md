@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-062"
 mode: "plan"
-run_id: "27583354117"
-workflow_run_id: "27583354117"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583354117"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.610Z"
+run_id: "27580942551-1-63"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.321Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 25
+needs_human_count: 13
 ---
 
 # pr-inventory-needs_proof-20260615T223445-062
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583354117](https://github.com/openclaw/clownfish/actions/runs/27583354117)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-All 25 PR inventory refs were unavailable in the cluster preflight artifact because GitHub hydration hit installation API rate limits. No close, label, comment, merge, or fix action is safe without live kind/state/updated_at evidence.
+Plan-mode PR inventory shard. No shared canonical was selected because the job explicitly says this is not a dedupe cluster. Hydrated open PRs are classified independently; one security-shaped PR is routed to central security handling; refs with unavailable live state are scoped needs_human due missing kind/updated_at from preflight.
 
 ## Impact
 
@@ -49,7 +49,7 @@ All 25 PR inventory refs were unavailable in the cluster preflight artifact beca
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 25 |
+| Needs human | 13 |
 
 ## Fix Execution Actions
 
@@ -67,56 +67,44 @@ All 25 PR inventory refs were unavailable in the cluster preflight artifact beca
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92454 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92515 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #82572 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92517 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92528 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92529 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #93398 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92530 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #93382 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92542 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92543 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #93348 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #93249 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92571 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92602 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92643 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #93385 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92648 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #93058 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92665 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #91533 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92682 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92686 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92692 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
-| #92694 | needs_human | blocked | needs_human | Live PR state is unavailable; target_kind and target_updated_at cannot be hydrated from the artifact. |
+| #92454 | keep_independent | planned | independent | Distinct open PR with useful code and no hydrated duplicate/superseding canonical. |
+| #92515 | keep_independent | planned | independent | Distinct memory-core PR; no hydrated evidence supports closure or dedupe. |
+| #82572 | keep_independent | planned | independent | Independent broad contributor PR with useful code; not safe to close or merge from inventory evidence. |
+| #92517 | keep_independent | planned | independent | Distinct Discord PR with focused useful changes; no closure path. |
+| #92528 | route_security | planned | security_sensitive | The PR appears to address possible secret-bearing environment value exposure, so it is out of ProjectClownfish backlog cleanup scope. |
+| #92529 | keep_independent | planned | independent | Distinct auth/provider behavior PR; useful but not mergeable or closable from the hydrated evidence. |
+| #93398 | keep_independent | planned | independent | Independent PR awaiting maintainer review; no closure or merge action is available. |
+| #92530 | keep_independent | planned | independent | Conservatively keep as independent pending normal review/check hydration. |
+| #93382 | keep_independent | planned | independent | Distinct message-delivery PR; keep independent pending review. |
+| #92542 | keep_independent | planned | independent | Independent session maintenance PR; no close action is supported. |
+| #92543 | keep_independent | planned | independent | Low-signal closeout is not allowed for this job; keep independent. |
+| #93348 | keep_independent | planned | independent | Independent status behavior PR; no closure, merge, or fix action is allowed. |
+| #93249 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92571 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92602 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92643 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #93385 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92648 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #93058 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92665 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #91533 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92682 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92686 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92692 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
+| #92694 | needs_human | planned | needs_human | Live state unavailable for this specific ref. |
 
 ## Needs Human
 
-- #92454 requires refreshed live GitHub hydration before classification.
-- #92515 requires refreshed live GitHub hydration before classification.
-- #82572 requires refreshed live GitHub hydration before classification.
-- #92517 requires refreshed live GitHub hydration before classification.
-- #92528 requires refreshed live GitHub hydration before classification.
-- #92529 requires refreshed live GitHub hydration before classification.
-- #93398 requires refreshed live GitHub hydration before classification.
-- #92530 requires refreshed live GitHub hydration before classification.
-- #93382 requires refreshed live GitHub hydration before classification.
-- #92542 requires refreshed live GitHub hydration before classification.
-- #92543 requires refreshed live GitHub hydration before classification.
-- #93348 requires refreshed live GitHub hydration before classification.
-- #93249 requires refreshed live GitHub hydration before classification.
-- #92571 requires refreshed live GitHub hydration before classification.
-- #92602 requires refreshed live GitHub hydration before classification.
-- #92643 requires refreshed live GitHub hydration before classification.
-- #93385 requires refreshed live GitHub hydration before classification.
-- #92648 requires refreshed live GitHub hydration before classification.
-- #93058 requires refreshed live GitHub hydration before classification.
-- #92665 requires refreshed live GitHub hydration before classification.
-- #91533 requires refreshed live GitHub hydration before classification.
-- #92682 requires refreshed live GitHub hydration before classification.
-- #92686 requires refreshed live GitHub hydration before classification.
-- #92692 requires refreshed live GitHub hydration before classification.
-- #92694 requires refreshed live GitHub hydration before classification.
+- #93249 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92571 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92602 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92643 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #93385 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92648 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #93058 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92665 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #91533 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92682 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92686 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92692 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.
+- #92694 live state unavailable from preflight due GitHub API rate limit; rerun hydration before classification.

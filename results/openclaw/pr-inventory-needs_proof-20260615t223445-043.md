@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-inventory-needs_proof-20260615T223445-043"
 mode: "plan"
-run_id: "27583352715"
-workflow_run_id: "27583352715"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27583352715"
-head_sha: "050272f6dd49496aa91726c23dee9ecf061a902f"
-workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-06-15T23:55:41.479Z"
+run_id: "27580942551-1-44"
+workflow_run_id: "27580942551"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27580942551"
+head_sha: "11023f07de225364eeb7bd9fd8705f16da575f9c"
+workflow_conclusion: "failure"
+result_status: "planned"
+published_at: "2026-06-16T19:01:33.278Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 20
+needs_human_count: 5
 ---
 
 # pr-inventory-needs_proof-20260615T223445-043
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27583352715](https://github.com/openclaw/clownfish/actions/runs/27583352715)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27580942551](https://github.com/openclaw/clownfish/actions/runs/27580942551)
 
-Workflow conclusion: success
+Workflow conclusion: failure
 
-Worker result: needs_human
+Worker result: planned
 
 Canonical: unknown
 
 ## Summary
 
-Plan-only PR inventory shard. No shared canonical was selected. Six PRs had hydrated live state and were classified conservatively; nineteen candidate refs could not be classified because the preflight artifact hit GitHub rate limits and lacks live kind/state/updated_at.
+Plan-only PR inventory shard. No shared canonical was provided or inferred; hydrated open non-security PRs are kept as independent review/proof items, validator-identified security-sensitive PRs are routed to central security handling, and unhydrated listed refs are scoped to needs_human because the artifact lacks live state required for target_kind and target_updated_at.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-only PR inventory shard. No shared canonical was selected. Six PRs had hydr
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 20 |
+| Needs human | 5 |
 
 ## Fix Execution Actions
 
@@ -67,51 +67,36 @@ Plan-only PR inventory shard. No shared canonical was selected. Six PRs had hydr
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #72267 | keep_independent | planned | independent | Independent open PR with no duplicate/superseding canonical in this shard; proof and update gates block any merge-style recommendation. |
-| #72495 | keep_independent | planned | independent | Independent open PR with plausible useful code, no hydrated duplicate target, and failing proof gate; not safe to close or merge in plan mode. |
-| #72843 | keep_independent | planned | independent | Independent open bug-fix PR with user confirmation but failing proof/check gates; no closure or merge action is justified. |
-| #73122 | needs_human | blocked | needs_human | Maintainer review/consolidation decision is explicitly outstanding, and the referenced related PR #72590 is not hydrated. |
-| #73171 | keep_independent | planned | independent | Independent open PR with unresolved review-bot concern and failing checks; not a closure or merge candidate. |
-| #73311 | keep_independent | planned | independent | Independent open UI feature PR with unresolved review/proof evidence; keep it out of dedupe closeout. |
-| #73355 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #73746 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #73897 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #74083 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #74274 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #87968 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #74734 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #74783 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #74974 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #75009 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #75050 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #75254 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #75466 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #75545 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #75777 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #82085 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #83015 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #83235 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
-| #92782 | needs_human | blocked | needs_human | Cannot classify or plan any mutation without hydrated kind, state, and updated_at. |
+| #72267 | keep_independent | planned | independent | Small focused CLI PR needs proof/review rather than dedupe closure. |
+| #72495 | route_security | planned | security_sensitive | Security-shaped cache hardening PR must be quarantined to central OpenClaw security handling, with no ProjectClownfish mutation. |
+| #72843 | keep_independent | planned | independent | Distinct context-window cache PR with unresolved proof/check/review blockers. |
+| #73122 | keep_independent | planned | independent | Test-only Anthropic loader guardrail PR is independent and needs proof/maintainer review. |
+| #73171 | route_security | planned | security_sensitive | Auth-provider fallback PR is security-shaped under validator policy and must be routed to central OpenClaw security handling. |
+| #73311 | keep_independent | planned | independent | Feature/UI PR is not a duplicate; it needs proof and review before any mutation. |
+| #73355 | keep_independent | planned | independent | Distinct cron reliability PR with useful code but unresolved proof/check blockers. |
+| #73746 | keep_independent | planned | independent | Broad task-state PR is independent and too large/risky for inventory closeout. |
+| #73897 | keep_independent | planned | independent | Distinct Android node shell PR with failing validation; keep open for proof/repair. |
+| #74083 | keep_independent | planned | independent | Small sandbox Docker PR is independent but proof/checks are not clean. |
+| #74274 | keep_independent | planned | independent | Distinct Control UI attachment download PR with unresolved proof/parity blocker. |
+| #87968 | needs_human | blocked | needs_human | Cannot classify or plan mutation without hydrated live state. |
+| #74734 | keep_independent | planned | independent | Distinct config migration PR; keep open for proof rather than close or fixed-by-candidate action. |
+| #74783 | keep_independent | planned | independent | Broad gateway telemetry PR is independent and still needs behavior proof. |
+| #74974 | keep_independent | planned | independent | Promising independent PR with proof, but this plan-mode shard cannot merge and lacks merge preflight. |
+| #75009 | keep_independent | planned | independent | Large WhatsApp behavior PR is independent and needs proof/narrow review. |
+| #75050 | keep_independent | planned | independent | Docs-only Feishu troubleshooting PR remains an independent author/proof follow-up; low-signal closeout is disabled. |
+| #75254 | keep_independent | planned | independent | Draft PR with focused code should remain open for author/proof work. |
+| #75466 | route_security | planned | security_sensitive | UI dependency/editor PR has security-sensitive validation signals and must be routed to central OpenClaw security handling. |
+| #75545 | keep_independent | planned | independent | Distinct gateway lifecycle PR with useful code; keep open for proof and validation. |
+| #75777 | keep_independent | planned | independent | Docs/skill guidance PR is independent and should not be closed in this inventory shard. |
+| #82085 | needs_human | blocked | needs_human | Cannot classify or plan mutation without hydrated live state. |
+| #83015 | needs_human | blocked | needs_human | Cannot classify or plan mutation without hydrated live state. |
+| #83235 | needs_human | blocked | needs_human | Cannot classify or plan mutation without hydrated live state. |
+| #92782 | needs_human | blocked | needs_human | Cannot classify or plan mutation without hydrated live state. |
 
 ## Needs Human
 
-- #73122 needs maintainer review/consolidation judgment; referenced #72590 is not hydrated.
-- #73355 live state unavailable from preflight artifact due GitHub API rate limit.
-- #73746 live state unavailable from preflight artifact due GitHub API rate limit.
-- #73897 live state unavailable from preflight artifact due GitHub API rate limit.
-- #74083 live state unavailable from preflight artifact due GitHub API rate limit.
-- #74274 live state unavailable from preflight artifact due GitHub API rate limit.
-- #87968 live state unavailable from preflight artifact due GitHub API rate limit.
-- #74734 live state unavailable from preflight artifact due GitHub API rate limit.
-- #74783 live state unavailable from preflight artifact due GitHub API rate limit.
-- #74974 live state unavailable from preflight artifact due GitHub API rate limit.
-- #75009 live state unavailable from preflight artifact due GitHub API rate limit.
-- #75050 live state unavailable from preflight artifact due GitHub API rate limit.
-- #75254 live state unavailable from preflight artifact due GitHub API rate limit.
-- #75466 live state unavailable from preflight artifact due GitHub API rate limit.
-- #75545 live state unavailable from preflight artifact due GitHub API rate limit.
-- #75777 live state unavailable from preflight artifact due GitHub API rate limit.
-- #82085 live state unavailable from preflight artifact due GitHub API rate limit.
-- #83015 live state unavailable from preflight artifact due GitHub API rate limit.
-- #83235 live state unavailable from preflight artifact due GitHub API rate limit.
-- #92782 live state unavailable from preflight artifact due GitHub API rate limit.
+- #87968 missing from hydrated artifact; re-run or provide live preflight state before classification.
+- #82085 missing from hydrated artifact; re-run or provide live preflight state before classification.
+- #83015 missing from hydrated artifact; re-run or provide live preflight state before classification.
+- #83235 missing from hydrated artifact; re-run or provide live preflight state before classification.
+- #92782 missing from hydrated artifact; re-run or provide live preflight state before classification.
