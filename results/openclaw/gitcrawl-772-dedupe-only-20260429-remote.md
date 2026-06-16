@@ -2,22 +2,23 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-772-dedupe-only-20260429-remote"
 mode: "autonomous"
-run_id: "25136868754"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25136868754"
-head_sha: "c207d367ab088fb89ca96c77cc23dd9c55875cc5"
+run_id: "27590154384"
+workflow_run_id: "27590154384"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27590154384"
+head_sha: "207fe2e2134a14e5532e7b8b0d17a01bba81af38"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T04:05:51.291Z"
+published_at: "2026-06-16T02:36:05.566Z"
 canonical: "https://github.com/openclaw/openclaw/pull/65359"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/65305"
+canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/65359"
 actions_total: 3
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 1
-apply_skipped: 0
+apply_blocked: 0
+apply_skipped: 1
 needs_human_count: 0
 ---
 
@@ -25,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25136868754](https://github.com/openclaw/clownfish/actions/runs/25136868754)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27590154384](https://github.com/openclaw/clownfish/actions/runs/27590154384)
 
 Workflow conclusion: success
 
@@ -35,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/65359
 
 ## Summary
 
-Canonical path is the open bug #65305 plus the narrower open implementation PR #65359. #65359 is not merge-ready or merge-eligible in this job because merge/fix actions are blocked and relevant checks failed. #65425 is superseded by #65359 because it contains the same config fix plus unrelated memory-core search changes with unresolved review risk, so a credited closeout is planned.
+Classified #65359 as the canonical active PR for the GroupChatSchema historyLimit: 0 fix. #65305 is covered by that PR but should remain open until the PR lands because current main still rejects 0 and the candidate is not merged. #65425 is already closed as superseded by #65359 and should not receive another close action.
 
 ## Impact
 
@@ -46,8 +47,8 @@ Canonical path is the open bug #65305 plus the narrower open implementation PR #
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 1 |
-| Apply skipped | 0 |
+| Apply blocked | 0 |
+| Apply skipped | 1 |
 | Needs human | 0 |
 
 ## Fix Execution Actions
@@ -60,15 +61,15 @@ Canonical path is the open bug #65305 plus the narrower open implementation PR #
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #65425 | close_superseded | blocked | superseded | target changed since worker review |
+| #65305 | close_fixed_by_candidate | skipped | fixed_by_candidate | action status is blocked |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #65305 | keep_canonical | planned | canonical | Keep the bug issue open as the canonical issue until the candidate PR or equivalent fix lands. |
-| #65359 | keep_canonical | planned | canonical | Best live canonical PR for the config bug, but not merge-ready or merge-eligible in this run. |
-| #65425 | close_superseded | planned | superseded | Superseded by narrower canonical PR #65359; broad unrelated memory-core changes and unresolved bot review comments make #65425 unsafe as the canonical path. |
+| #65359 | keep_canonical | planned | canonical | #65359 is the best live canonical path for the exact root cause and remains open for maintainer review. |
+| #65305 | close_fixed_by_candidate | blocked | fixed_by_candidate | Closeout is blocked on the canonical fix path #65359 landing; this is a clear fixed-by-candidate relationship but not a safe instant close yet. |
+| #65425 | keep_closed | skipped | superseded | Already closed historical context; no mutation is valid for this target. |
 
 ## Needs Human
 
