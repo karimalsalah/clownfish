@@ -15,6 +15,7 @@ const batchSize = numberArg("batch-size", 5);
 const minScore = numberArg("min-score", 2);
 const maxFiles = numberArg("max-files", 120);
 const sort = String(args.sort ?? "stale");
+const suffix = optionalSlug(args.suffix ?? "");
 const skipExisting = args["skip-existing"] !== "false";
 const hydrateFilesLive = Boolean(args["hydrate-files-live"] ?? args.hydrate_files_live);
 const liveFileCandidateLimit = numberArg("live-file-candidate-limit", Math.max(limit * 10, 300));
@@ -214,7 +215,8 @@ function scoreCandidate(row) {
 function writeJob(batch, index) {
   const now = new Date();
   const stamp = now.toISOString().replace(/[-:]/g, "").slice(0, 13);
-  const clusterId = `low-signal-pr-sweep-${stamp}-${String(index).padStart(2, "0")}`;
+  const suffixPart = suffix ? `-${suffix}` : "";
+  const clusterId = `low-signal-pr-sweep-${stamp}${suffixPart}-${String(index).padStart(2, "0")}`;
   const filePath = path.join(outDir, `${clusterId}.md`);
   const markdown = [
     "---",
@@ -382,6 +384,15 @@ function signalSet(value) {
       .map((item) => item.trim())
       .filter(Boolean),
   );
+}
+
+function optionalSlug(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+  const slug = raw.toLowerCase().replace(/[^a-z0-9_.-]+/g, "-").replace(/^-+|-+$/g, "");
+  if (!slug) return "";
+  if (slug.length > 48) return slug.slice(0, 48).replace(/[-.]+$/g, "");
+  return slug;
 }
 
 function sqliteJson(sql) {
