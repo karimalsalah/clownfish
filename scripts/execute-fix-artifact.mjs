@@ -172,7 +172,11 @@ if (securityBlock) {
   process.exit(0);
 }
 const scopeBlock = validateAutonomousFixScope({ job, fixArtifact });
-if (scopeBlock) {
+const deferScopeBlockForRebaseOnlyRepair =
+  scopeBlock &&
+  job.frontmatter.rebase_only === true &&
+  fixArtifact.repair_strategy === "repair_contributor_branch";
+if (scopeBlock && !deferScopeBlockForRebaseOnlyRepair) {
   report.status = "blocked";
   report.reason = scopeBlock.reason;
   report.actions.push({
@@ -239,7 +243,11 @@ try {
 
   if (fixArtifact.repair_strategy === "repair_contributor_branch") {
     try {
-      outcome = executeRepairBranch({ fixArtifact, targetDir });
+      outcome = executeRepairBranch({
+        fixArtifact,
+        targetDir,
+        scopeBlock: deferScopeBlockForRebaseOnlyRepair ? scopeBlock : null,
+      });
     } catch (error) {
       report.actions.push({
         action: "repair_contributor_branch",
@@ -389,7 +397,7 @@ function shouldPromoteNeedsHumanReplacement(fixArtifact, workerResult) {
   return hasReplacementDecision && hasUneditableOrUnsafeSource && hasBlockedFixAction;
 }
 
-function executeRepairBranch({ fixArtifact, targetDir }) {
+function executeRepairBranch({ fixArtifact, targetDir, scopeBlock = null }) {
   const baseBranch = String(process.env.CLOWNFISH_FIX_BASE_BRANCH ?? DEFAULT_BASE_BRANCH);
   const sourcePr = firstSourcePullRequest(fixArtifact);
   const pull = fetchPullRequest(sourcePr.number);
@@ -406,6 +414,16 @@ function executeRepairBranch({ fixArtifact, targetDir }) {
   run("git", ["checkout", branch], { cwd: targetDir });
   ensureMergeBaseAvailable({ targetDir, baseBranch });
   let rebased = rebaseRecoverableReplacementBranch({ targetDir, branch, baseBranch, fixArtifact });
+  if (scopeBlock && !rebased) {
+    return {
+      action: "repair_contributor_branch",
+      status: "blocked",
+      repair_strategy: fixArtifact.repair_strategy,
+      target: sourcePr.url,
+      reason: scopeBlock.reason,
+      evidence: scopeBlock.evidence,
+    };
+  }
   if (!sameRepoBranch && rebased && process.env.CLOWNFISH_ALLOW_REBASED_FORK_REPAIR !== "1") {
     throw new Error(
       `source PR #${sourcePr.number} is a fork branch requiring rebase; use replacement branch because GitHub App pushes to contributor forks can be rejected when rebased upstream history includes workflow files`,

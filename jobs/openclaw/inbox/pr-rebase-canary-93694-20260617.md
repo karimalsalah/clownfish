@@ -28,6 +28,7 @@ allow_fix_pr: true
 allow_merge: false
 allow_post_merge_close: false
 require_fix_before_close: false
+rebase_only: true
 security_policy: central_security_only
 security_sensitive: false
 canonical_hint: "#93694 is the sole canonical PR. Rebase and validate the existing maintainer-editable branch before any separate merge finalization."

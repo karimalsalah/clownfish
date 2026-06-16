@@ -110,6 +110,20 @@ test("execute-fix-artifact validates a successful repair rebase without speculat
   );
 });
 
+test("execute-fix-artifact defers a broad scope block only for explicit rebase-only repairs", () => {
+  const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
+
+  assert.match(
+    source,
+    /job\.frontmatter\.rebase_only === true\s*&&\s*fixArtifact\.repair_strategy === "repair_contributor_branch"/,
+  );
+  assert.match(source, /function executeRepairBranch\(\{ fixArtifact, targetDir, scopeBlock = null \}\)/);
+  assert.match(
+    source,
+    /if \(scopeBlock && !rebased\) \{\s*return \{\s*action: "repair_contributor_branch",\s*status: "blocked",[\s\S]*?reason: scopeBlock\.reason,[\s\S]*?evidence: scopeBlock\.evidence,/,
+  );
+});
+
 test("execute-fix-artifact retries transient GitHub reads before branch repair", () => {
   const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
 
