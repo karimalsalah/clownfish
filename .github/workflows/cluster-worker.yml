@@ -114,7 +114,8 @@ jobs:
           import { execFileSync, spawnSync } from "node:child_process";
           import { parseJob, validateJob } from "./scripts/lib.mjs";
 
-          const payload = JSON.parse(process.env.CLIENT_PAYLOAD || "{}");
+          const parsedPayload = JSON.parse(process.env.CLIENT_PAYLOAD || "{}");
+          const payload = parsedPayload && typeof parsedPayload === "object" ? parsedPayload : {};
           const fromDispatch = process.env.EVENT_NAME === "repository_dispatch";
           const hydration = payload.hydration ?? {};
 

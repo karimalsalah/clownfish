@@ -193,6 +193,7 @@ test("cluster-worker repository dispatch guard accepts descendants", () => {
   const workflow = fs.readFileSync(path.join(repoRoot, ".github/workflows/cluster-worker.yml"), "utf8");
 
   assert.match(workflow, /required_ancestor_sha/);
+  assert.match(workflow, /parsedPayload && typeof parsedPayload === "object" \? parsedPayload : {}/);
   assert.match(workflow, /spawnSync\("git", \["merge-base", "--is-ancestor", requiredAncestor, "HEAD"\]/);
   assert.match(workflow, /repository_dispatch worker requires required_ancestor_sha or legacy head_sha/);
 });

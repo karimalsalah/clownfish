@@ -105,7 +105,8 @@ jobs:
           import fs from "node:fs";
           import { parseJob, validateJob } from "./scripts/lib.mjs";
 
-          const payload = JSON.parse(process.env.CLIENT_PAYLOAD || "{}");
+          const parsedPayload = JSON.parse(process.env.CLIENT_PAYLOAD || "{}");
+          const payload = parsedPayload && typeof parsedPayload === "object" ? parsedPayload : {};
           const fromDispatch = process.env.EVENT_NAME === "repository_dispatch";
           const jobs = fromDispatch ? payload.jobs : JSON.parse(process.env.INPUT_JOBS_JSON || "[]");
           const mode = String(fromDispatch ? payload.mode ?? "plan" : process.env.INPUT_MODE ?? "plan");
