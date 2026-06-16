@@ -211,6 +211,95 @@ test("review-results allows unavailable security route when hydration was rate l
   assert.match(result.stdout, /route_security target was not marked security_sensitive in preflight/);
 });
 
+test("review-results allows non-security fix artifact with separately routed security ref", () => {
+  const dir = makeResultDir(
+    {
+      mode: "autonomous",
+      actions: [
+        {
+          target: "#38829",
+          action: "keep_canonical",
+          status: "planned",
+          idempotency_key: "cluster-test:keep-canonical:38829",
+          classification: "canonical",
+          target_kind: "issue",
+          target_updated_at: "2026-06-15T10:00:00Z",
+          canonical: "#38829",
+          evidence: ["#38829 remains the non-security live transcript issue."],
+          reason: "Keep the canonical issue open until the separate fix PR lands.",
+        },
+        {
+          target: "#73402",
+          action: "route_security",
+          status: "planned",
+          idempotency_key: "cluster-test:route-security:73402",
+          classification: "security_sensitive",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-15T17:50:07Z",
+          evidence: ["#73402 has security-boundary review findings and is routed separately."],
+          reason: "Route this exact linked security-sensitive PR to central security handling.",
+        },
+        {
+          target: "cluster:cluster-test",
+          action: "build_fix_artifact",
+          status: "planned",
+          idempotency_key: "cluster-test:build-fix-artifact:v1",
+          classification: "canonical",
+          target_kind: null,
+          target_updated_at: null,
+          evidence: [
+            "The linked security-sensitive PR is quarantined separately; this fix artifact targets the non-security canonical issue.",
+          ],
+          reason: "Open a narrow non-security TUI live transcript replacement fix for #38829.",
+        },
+      ],
+      fix_artifact: {
+        summary: "Add a narrow live transcript subscription path for the TUI without touching the quarantined security PR.",
+        affected_surfaces: ["tui"],
+        likely_files: ["src/tui/tui.ts", "src/tui/tui-event-handlers.ts", "src/tui/tui.test.ts"],
+        linked_refs: ["#38829"],
+        validation_commands: ["pnpm check:changed"],
+        changelog_required: true,
+        credit_notes: ["Security-shaped linked PR #73402 is quarantined separately."],
+        pr_title: "fix(tui): subscribe to live session transcript updates",
+        pr_body: "## Summary\n- fix the non-security TUI live transcript update path\n\n## Test plan\n- pnpm check:changed",
+        repair_strategy: "new_fix_pr",
+        allow_no_pr: false,
+      },
+    },
+    {
+      job: fixEnabledJob(),
+      plan: {
+        items: [
+          {
+            ref: "#38829",
+            kind: "issue",
+            state: "open",
+            title: "openclaw tui terminal cannot receive real-time messages",
+            labels: ["bug", "tui"],
+            updated_at: "2026-06-15T10:00:00Z",
+            security_sensitive: false,
+          },
+          {
+            ref: "#73402",
+            kind: "pull_request",
+            state: "open",
+            title: "fix(tui): subscribe to live session transcript updates",
+            labels: ["security-review"],
+            updated_at: "2026-06-15T17:50:07Z",
+            security_sensitive: true,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  assert.match(result.stdout, /"status": "passed"/);
+});
+
 test("review-results allows unavailable non-mutating plan classifications", () => {
   const dir = makeResultDir(
     {
@@ -468,5 +557,27 @@ allow_fix_pr: false
 ---
 
 # Close-only job
+`;
+}
+
+function fixEnabledJob() {
+  return `---
+repo: openclaw/openclaw
+cluster_id: cluster-test
+mode: autonomous
+allowed_actions:
+  - comment
+  - label
+  - close
+  - fix
+  - raise_pr
+blocked_actions:
+  - force_push
+candidates:
+  - "#38829"
+allow_fix_pr: true
+---
+
+# Fix-enabled job
 `;
 }
