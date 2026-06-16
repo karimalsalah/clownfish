@@ -2,53 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1953-dedupe-only-20260429-remote"
 mode: "autonomous"
-run_id: "25131307011"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25131307011"
-head_sha: "b5784ec6f81e07c69dcfb868449f4f451549e38e"
+run_id: "27597513799"
+workflow_run_id: "27597513799"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27597513799"
+head_sha: "ea38411ccee73488f92b6963fa93366cd993f2d1"
 workflow_conclusion: "success"
-result_status: "needs_human"
-published_at: "2026-04-29T20:15:17.553Z"
-canonical: null
-canonical_issue: null
+result_status: "planned"
+published_at: "2026-06-16T06:04:13.481Z"
+canonical: "#36314"
+canonical_issue: "#36314"
 canonical_pr: null
-actions_total: 13
+actions_total: 12
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-1953-dedupe-only-20260429-remote
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25131307011](https://github.com/openclaw/clownfish/actions/runs/25131307011)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27597513799](https://github.com/openclaw/clownfish/actions/runs/27597513799)
 
 Workflow conclusion: success
 
-Worker result: needs_human
+Worker result: planned
 
-Canonical: unknown
+Canonical: #36314
 
 ## Summary
 
-Closed representative #43551 remains useful historical evidence, but the hydrated open candidates split into several non-duplicate subfamilies. No high-confidence close/comment/label mutation is planned. #12506 is the only artifact-listed security-sensitive ref and is routed to central security handling.
+Planned non-mutating classification only. The original representative #43551 is closed, so the only open non-security canonical path in this candidate set is #36314 for the Gateway resilience/self-healing family. Security-sensitive open items are quarantined individually. Already-closed candidates are kept closed with no close actions.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 13 |
+| Worker actions | 12 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -66,20 +67,19 @@ Closed representative #43551 remains useful historical evidence, but the hydrate
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #43551 | keep_closed | skipped | canonical | Historical closed representative; no open candidate is a clear same-root replacement. |
-| #8719 | keep_related | planned | related | Related security/config-safety umbrella, not a duplicate of the closed representative. |
-| #9993 | keep_related | planned | related | Same config-safety area, different API surface and unresolved scope. |
-| #12506 | route_security | planned | security_sensitive | Security-labeled trust-boundary feature; route centrally and do not close/comment/label from this worker. |
-| #13362 | keep_related | planned | related | Related doctor/config safety work with unique remaining implementation scope. |
-| #14526 | keep_related | planned | related | Related update-safety feature, not a duplicate or closable fixed item. |
-| #16351 | keep_related | planned | related | Related config CLI safety issue with unique remaining UX decision. |
-| #36314 | keep_related | planned | related | Related Gateway resilience design item; broad scope prevents duplicate closeout. |
-| #38249 | keep_related | planned | related | Related config migration feature with unique unresolved CLI workflow. |
-| #40652 | keep_related | planned | related | Related narrow config-recovery UX bug; not fixed and not a duplicate of #43551. |
-| #50561 | keep_related | planned | related | Related but product/trust-boundary-sensitive; keep open rather than close or plan a fix. |
-| #55347 | keep_related | planned | related | Related Gateway self-healing request with unique details; closure would be premature. |
-| #62455 | keep_related | planned | related | Related config-schema bug with unique reproduction; keep open. |
+| #8719 | route_security | planned | security_sensitive | Security-profile architecture is out of ProjectClownfish cleanup scope and should be routed to central OpenClaw security handling. |
+| #9993 | route_security | planned | security_sensitive | Reject-capable config mutation hooks touch sensitive write boundaries and should be quarantined to central security/product review. |
+| #12506 | route_security | planned | security_sensitive | Unified security profile work is security-sensitive architecture, not safe dedupe closure. |
+| #13362 | keep_closed | skipped | superseded | Already closed as duplicate/superseded; no mutation should be emitted. |
+| #14526 | route_security | planned | security_sensitive | Update-integrated backup/restore and rollback can handle secrets and state; route security-sensitive decision only for this item. |
+| #16351 | route_security | planned | security_sensitive | Secret-handling CLI behavior is security-sensitive and should not be deduped or closed by this worker. |
+| #36314 | keep_canonical | planned | canonical | Best surviving non-security canonical for the Gateway resilience/self-healing portion of this cluster. |
+| #38249 | keep_closed | skipped | duplicate | Already closed as duplicate of a broader scanner/security-sensitive path; keep closed only. |
+| #40652 | keep_closed | skipped | fixed_by_candidate | Already closed in live state; no further action in this cluster. |
+| #50561 | route_security | planned | security_sensitive | Unattended startup config mutation can affect auth, sandbox, channel, and plugin policy; route security-sensitive item only. |
+| #55347 | keep_closed | skipped | duplicate | Already closed and consolidated under the current non-security canonical #36314. |
+| #62455 | keep_closed | skipped | fixed_by_candidate | Already fixed and closed on main; no action needed. |
 
 ## Needs Human
 
-- No single open canonical issue or PR clearly replaces closed representative #43551. The open candidates should be split by maintainers into separate security-profile, config-mutation/doctor, safe-update, Gateway resilience, recovery-message, and Discord-routing subfamilies before any duplicate closeout is attempted.
+- none

@@ -2,22 +2,23 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-13971-dedupe-only-20260429-remote"
 mode: "autonomous"
-run_id: "25109790138"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25109790138"
-head_sha: "7ac7590296085c93e29434b3af3e919aa257e029"
+run_id: "27597513937"
+workflow_run_id: "27597513937"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27597513937"
+head_sha: "ea38411ccee73488f92b6963fa93366cd993f2d1"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T04:57:52.764Z"
-canonical: "https://github.com/openclaw/openclaw/issues/32473"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/32473"
-canonical_pr: null
-actions_total: 15
+published_at: "2026-06-16T06:04:13.490Z"
+canonical: "#7178"
+canonical_issue: null
+canonical_pr: "#7178"
+actions_total: 8
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
-apply_skipped: 2
+apply_skipped: 0
 needs_human_count: 0
 ---
 
@@ -25,29 +26,29 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25109790138](https://github.com/openclaw/clownfish/actions/runs/25109790138)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27597513937](https://github.com/openclaw/clownfish/actions/runs/27597513937)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/issues/32473
+Canonical: #7178
 
 ## Summary
 
-Closed representative #60076 is not a live canonical. The best open canonical for the secure-context Control UI/device-identity family is #32473; the remaining hydrated open refs split into related or independent subfamilies. No planned close is safe: the direct candidate fixes #56357 and #62532 are still open with relevant failing/cancelled checks or merge disabled, and #65408/#68280 are routed to central security because their hydrated evidence involves auth/token or credential-disclosure concerns.
+Classified the eight job candidates using the preflight artifact as live state. Security-shaped open refs are routed to central security handling only. Already-closed candidates are not given close actions. The only open non-security candidate lacks enough hydrated issue detail in the compacted artifact for a safe duplicate close, so it is kept related for maintainer follow-up rather than mutated.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 15 |
+| Worker actions | 8 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
-| Apply skipped | 2 |
+| Apply skipped | 0 |
 | Needs human | 0 |
 
 ## Fix Execution Actions
@@ -60,28 +61,20 @@ Closed representative #60076 is not a live canonical. The best open canonical fo
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41740 | close_fixed_by_candidate | skipped | fixed_by_candidate | Fix-first closeout is blocked on fix PR #62532 until the candidate is green or an equivalent fix path lands. |
-| #55600 | close_fixed_by_candidate | skipped | fixed_by_candidate | Closeout is blocked until the candidate fix is green or landed. |
+| _None_ |  |  |  |  |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60076 | keep_closed | skipped |  | Closed representative is obsolete for live dedupe routing. |
-| #32473 | keep_canonical | planned | canonical | Keep the secure-context/device-identity family anchored on the live open issue. |
-| #53274 | keep_related | planned | related | Related design subproblem with unique scope; not a duplicate close candidate. |
-| #56830 | keep_related | planned | related | Useful related PR, but not a canonical fix for the underlying issue. |
-| #71669 | keep_related | planned | related | Related operator UX follow-up, not a duplicate of the canonical policy issue. |
-| #12441 | keep_independent | planned | independent | Independent auth feature request; do not close in this cluster. |
-| #41740 | close_fixed_by_candidate | blocked | fixed_by_candidate | Fix-first closeout is blocked on fix PR #62532 until the candidate is green or an equivalent fix path lands. |
-| #62532 | keep_related | planned | related | Keep open as related implementation candidate; do not merge or close. |
-| #55600 | close_fixed_by_candidate | blocked | fixed_by_candidate | Closeout is blocked until the candidate fix is green or landed. |
-| #56357 | keep_related | planned | related | Keep open as the candidate fix for the logo/favicon subfamily. |
-| #63427 | keep_independent | planned | independent | Independent live bug; not a dedupe close candidate. |
-| #65408 | route_security | planned | security_sensitive | Route exact auth/token-rotation item to central OpenClaw security handling. |
-| #66279 | keep_related | planned | related | Related TLS fingerprint follow-up; not a duplicate close candidate. |
-| #66946 | keep_independent | planned | independent | Independent current Control UI base-path bug; keep open. |
-| #68280 | route_security | planned | security_sensitive | Route exact credential-disclosure/security-sensitive PR to central OpenClaw security handling. |
+| #12441 | route_security | planned | security_sensitive | Auth bootstrap and reverse-proxy bearer-token behavior is security-sensitive under the job security boundary. |
+| #32473 | route_security | planned | security_sensitive | Remote insecure-context device identity behavior concerns auth/security posture. |
+| #41740 | route_security | planned | security_sensitive | TLS fingerprint handling for exec approvals is security-sensitive enough to route this exact open issue. |
+| #55600 | keep_related | planned | related | Same Control UI logo/favicon family, but not enough hydrated details to safely plan a close. |
+| #63427 | keep_closed | skipped | fixed_by_candidate | Already closed in live state. |
+| #65408 | keep_closed | skipped | fixed_by_candidate | Already closed in live state. |
+| #66279 | keep_closed | skipped | security_sensitive | Already closed and security-sensitive; no mutation should be planned. |
+| #66946 | keep_closed | skipped | related | Already closed in live state. |
 
 ## Needs Human
 
