@@ -14,7 +14,7 @@
   "workflow_updated_at": "2026-06-16T06:20:59Z",
   "result_status": "planned",
   "source_job": "jobs/openclaw/outbox/finalized/ghcrawl-156600-autonomous-smoke.md",
-  "published_at": "2026-06-16T06:22:30.930Z",
+  "published_at": "2026-06-16T06:24:11.267Z",
   "canonical": "https://github.com/openclaw/openclaw/pull/72308",
   "canonical_issue": null,
   "canonical_pr": "https://github.com/openclaw/openclaw/pull/72308",

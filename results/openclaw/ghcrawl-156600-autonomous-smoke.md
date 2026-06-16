@@ -8,7 +8,7 @@ run_url: "https://github.com/openclaw/clownfish/actions/runs/27597848772"
 head_sha: "f28ffb87eae946384c35a92da08de8c8b8ab38e8"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-16T06:22:30.930Z"
+published_at: "2026-06-16T06:24:11.267Z"
 canonical: "https://github.com/openclaw/openclaw/pull/72308"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/72308"
