@@ -2,16 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-14058-dedupe-only-20260429d"
 mode: "autonomous"
-run_id: "25142058551"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/25142058551"
-head_sha: "a0b870a07f2988db4b233d32e6ac2590b6afdb2d"
+run_id: "27597513853"
+workflow_run_id: "27597513853"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27597513853"
+head_sha: "ea38411ccee73488f92b6963fa93366cd993f2d1"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T04:05:51.316Z"
-canonical: "https://github.com/openclaw/openclaw/issues/23926"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/23926"
+published_at: "2026-06-16T06:02:34.394Z"
+canonical: null
+canonical_issue: null
 canonical_pr: null
-actions_total: 8
+actions_total: 5
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,23 +26,23 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/25142058551](https://github.com/openclaw/clownfish/actions/runs/25142058551)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27597513853](https://github.com/openclaw/clownfish/actions/runs/27597513853)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/issues/23926
+Canonical: unknown
 
 ## Summary
 
-Representative #9256 is security-sensitive and cannot be used for dedupe cleanup. #23926 is the best live non-security canonical for the skill install lifecycle hook gap; #45031 is related but broader scanner/policy product work. Security-shaped refs #9256, #10827, #18196, #18677, and #57535 are routed to central security handling. No close, merge, or fix actions are planned.
+All listed open candidates in this cluster are security-sensitive skill-installation or skill-scanning proposals. Per the central_security_only policy, each open candidate is quarantined with a non-mutating route_security action; no close, label, comment, merge, or fix action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 8 |
+| Worker actions | 5 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,14 +67,11 @@ Representative #9256 is security-sensitive and cannot be used for dedupe cleanup
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #9256 | route_security | planned | security_sensitive | Security-shaped supply-chain threat claims are out of scope for Clownfish dedupe mutation and must be quarantined to central OpenClaw security handling. |
-| #10827 | route_security | planned | security_sensitive | The issue contains explicit security-boundary and persistent compromise claims, so only a route_security action is appropriate. |
-| #18196 | route_security | planned | security_sensitive | Open security enforcement PR with unresolved security review and failing checks belongs in central security handling, not dedupe closure or merge planning. |
-| #18677 | route_security | planned | security_sensitive | The issue asks for security blocking against explicit exploit classes, so it should be quarantined rather than deduped or closed here. |
-| #57535 | route_security | planned | security_sensitive | The report is explicitly security-sensitive and must be routed to central security handling without public dedupe mutation. |
-| #23926 | keep_canonical | planned | canonical | #23926 is the clearest live non-security canonical for the install lifecycle hook gap after the original representative #9256 was quarantined. |
-| #45031 | keep_related | planned | related | #45031 is related to #23926 but is not a true duplicate because it tracks broader built-in scanner and policy decisions. |
-| #61557 | keep_closed | skipped | related | Already closed historical context; no mutation is valid. |
+| #9256 | route_security | planned | security_sensitive | Security-sensitive skill installation threat model belongs to central OpenClaw security handling, not backlog dedupe automation. |
+| #18677 | route_security | planned | security_sensitive | The issue is explicitly about security scanning and blocking semantics for skill installation and runtime hooks. |
+| #23926 | route_security | planned | security_sensitive | The issue defines a security-sensitive public skill-install lifecycle contract requiring central security review. |
+| #45031 | route_security | planned | security_sensitive | The proposal is security-sensitive and the existing ClawSweeper review did not complete, so it should be routed to central security handling. |
+| #57535 | route_security | planned | security_sensitive | The item directly concerns security warnings and trust controls for untrusted skill sources. |
 
 ## Needs Human
 
