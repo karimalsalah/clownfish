@@ -2,20 +2,21 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-close-canary-41284-20260615-volume-a"
 mode: "execute"
-run_id: "27545120367"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27545120367"
-head_sha: "1a47711b53828d58a62d5798b80ee89f4bb84218"
-workflow_conclusion: "failure"
+run_id: "27601172439"
+workflow_run_id: "27601172439"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27601172439"
+head_sha: "bbe4babf426d0186aca08f77e82b722e588a584c"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T12:10:50.654Z"
+published_at: "2026-06-16T07:26:59.563Z"
 canonical: "#22773"
 canonical_issue: null
 canonical_pr: "#22773"
-actions_total: 1
+actions_total: 2
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
-apply_executed: 0
+apply_executed: 1
 apply_blocked: 0
 apply_skipped: 0
 needs_human_count: 0
@@ -25,9 +26,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27545120367](https://github.com/openclaw/clownfish/actions/runs/27545120367)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27601172439](https://github.com/openclaw/clownfish/actions/runs/27601172439)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -35,17 +36,17 @@ Canonical: #22773
 
 ## Summary
 
-Planned one close-only cleanup action: #41284 remains open and is superseded by the already-merged canonical PR #22773. No merge, fix, or PR creation actions are planned.
+Hydrated state shows #41284 remains open and #22773 is merged on main. Plan one close_fixed_by_candidate action for #41284, preserving @fetzig attribution and naming #22773 as the landed fix path; #22773 itself remains historical closed canonical context only.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 1 |
+| Worker actions | 2 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
-| Applied executions | 0 |
+| Applied executions | 1 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
 | Needs human | 0 |
@@ -60,13 +61,14 @@ Planned one close-only cleanup action: #41284 remains open and is superseded by 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #41284 | close_fixed_by_candidate | executed | fixed_by_candidate | already closed with matching projectclownfish comment |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41284 | close_superseded | planned | superseded | The open contributor PR is superseded by the already-merged canonical iOS team-detection fix, and the close comment preserves contributor attribution and a reopen path. |
+| #22773 | keep_closed | skipped | canonical | #22773 is the merged canonical fix and must not receive a close mutation. |
+| #41284 | close_fixed_by_candidate | planned | fixed_by_candidate | #41284 is an open contributor PR for the same iOS Xcode team identifier failure already fixed by merged #22773; the useful context is preserved through attribution rather than merging the obsolete branch. |
 
 ## Needs Human
 

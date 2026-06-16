@@ -2,16 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-close-canary-80590-20260615-bulk-a"
 mode: "execute"
-run_id: "27545119851"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27545119851"
-head_sha: "1a47711b53828d58a62d5798b80ee89f4bb84218"
-workflow_conclusion: "failure"
+run_id: "27601170104"
+workflow_run_id: "27601170104"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27601170104"
+head_sha: "bbe4babf426d0186aca08f77e82b722e588a584c"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T12:12:57.941Z"
+published_at: "2026-06-16T07:26:59.562Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 2
+actions_total: 1
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -25,9 +26,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27545119851](https://github.com/openclaw/clownfish/actions/runs/27545119851)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27601170104](https://github.com/openclaw/clownfish/actions/runs/27601170104)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -35,13 +36,13 @@ Canonical: unknown
 
 ## Summary
 
-Planned one close-only cleanup action for #80590. Hydrated preflight shows #80590 is still open and #83667 is already closed and merged as the landed fix, so #83667 is treated as a merged candidate fix rather than an open canonical target. No GitHub mutation was performed by the worker.
+#80590 is treated as security-sensitive by deterministic validation, so the prior close_fixed_by_candidate action is replaced with a non-mutating route_security action for the exact PR ref. No GitHub close/comment/label/fix action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 2 |
+| Worker actions | 1 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -66,8 +67,7 @@ Planned one close-only cleanup action for #80590. Hydrated preflight shows #8059
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #83667 | keep_closed | skipped | fixed_by_candidate | #83667 is already closed and merged, so it cannot be emitted as an open canonical action. |
-| #80590 | close_fixed_by_candidate | planned | fixed_by_candidate |  |
+| #80590 | route_security | planned | security_sensitive | Security-sensitive items are out of scope for ProjectClownfish closeout automation and must be routed to central OpenClaw security handling without mutating the PR. |
 
 ## Needs Human
 
