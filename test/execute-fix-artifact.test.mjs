@@ -101,6 +101,15 @@ test("execute-fix-artifact routes rebased fork repairs to replacement before exp
   assert.match(source, /fork branch requiring rebase/);
 });
 
+test("execute-fix-artifact validates a successful repair rebase without speculative edits", () => {
+  const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
+
+  assert.match(
+    source,
+    /mode: "repair",\s*baseBranch,\s*\/\/ A successful rebase[\s\S]*?allowExistingChanges: rebased,/,
+  );
+});
+
 test("execute-fix-artifact rejects review-fix workers that leave no diff", () => {
   const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
 

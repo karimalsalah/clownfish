@@ -416,7 +416,16 @@ function executeRepairBranch({ fixArtifact, targetDir }) {
   }
   prepareTargetToolchain(targetDir);
 
-  const prep = editValidatePrepareMerge({ fixArtifact, targetDir, branch, mode: "repair", baseBranch });
+  const prep = editValidatePrepareMerge({
+    fixArtifact,
+    targetDir,
+    branch,
+    mode: "repair",
+    baseBranch,
+    // A successful rebase is already a concrete branch change. Validate and review it
+    // without asking Codex to manufacture an unrelated source edit.
+    allowExistingChanges: rebased,
+  });
   if (refreshValidatedBranchBase({ targetDir, branch, baseBranch })) {
     rebased = true;
     prep.commit = currentHead(targetDir);
