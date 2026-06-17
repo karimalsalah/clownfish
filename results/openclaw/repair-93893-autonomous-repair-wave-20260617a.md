@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-93893-autonomous-repair-wave-20260617a"
 mode: "autonomous"
-run_id: "27678023143"
-workflow_run_id: "27678023143"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27678023143"
-head_sha: "9ae0281ece02872ec2fa63a94d05e6d59b40449b"
+run_id: "27703236995"
+workflow_run_id: "27703236995"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27703236995"
+head_sha: "3d1c6e80508f4f0169e7d61190672f06031166e6"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T09:14:39.624Z"
+published_at: "2026-06-17T16:28:43.701Z"
 canonical: "https://github.com/openclaw/openclaw/pull/93893"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/93893"
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27678023143](https://github.com/openclaw/clownfish/actions/runs/27678023143)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27703236995](https://github.com/openclaw/clownfish/actions/runs/27703236995)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/93893
 
 ## Summary
 
-Hydrated #93893 remains the canonical repair PR and is maintainer-editable, but it is not merge-ready in this job: merge is disallowed, no Codex /review proof is present, and current main still has a source-level duplicate exact Docker mount destination path when user binds overlap read-only skill mounts. The security-sensitive linked issue #93854 is routed separately without blocking the non-security contributor-branch repair lane.
+Current main at baa389ebed1a85258b2ff7f4a61d0746280edf61 still appends user Docker binds and then read-only workspace skill mounts without filtering duplicate container targets. PR #93893 is the canonical, maintainer-editable contributor branch, but it needs repair/proof before any merge lane: add focused regression coverage, ensure the effective filtered mount set is used for both Docker create args and the sandbox config hash, then run the focused test, pnpm check:changed, and Codex /review. Linked issue #93854 is security-sensitive in the preflight artifact and is routed only to central security handling.
 
 ## Impact
 
@@ -65,24 +65,21 @@ Hydrated #93893 remains the canonical repair PR and is maintainer-editable, but 
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair contributor PR #93893 in place by filtering exact duplicate read-only workspace skill mount destinations already claimed by user-provided Docker/browser binds before computing mount hash state and appending Docker -v args. Preserve sandbox validation and reserved-target policy; do not broaden user bind permissions.",
-  "pr_title": "fix(sandbox): dedupe conflicting skill mount destinations",
-  "pr_body": "## Summary\n- Repair #93893 in place so user-provided Docker/browser binds that exactly target a read-only workspace skill mount destination do not produce duplicate Docker mount points.\n- Keep sandbox reserved-target validation intact; only the already-explicit dangerous override path can reach these reserved target overlaps.\n- Preserve @xydttsw's source PR credit and keep the fix scoped to the Docker sandbox mount construction path.\n\n## Repair Notes\n- Filter exact container destination matches before both config-hash mount state formatting and Docker `-v` argument emission.\n- Use the existing bind parser and container path normalizer; do not infer parent/child overlaps or weaken host/source validation.\n- Update the shell Docker and browser sandbox regression tests that currently assert duplicate exact destinations are appended.\n\n## Verification\n- `node scripts/run-vitest.mjs src/agents/sandbox/docker.config-hash-recreate.test.ts src/agents/sandbox/browser.create.test.ts`\n- `pnpm check:changed`\n- `/review`\n\nSource PR credit: https://github.com/openclaw/openclaw/pull/93893 by @xydttsw.",
+  "summary": "Repair contributor PR #93893 so Docker sandbox creation skips internal read-only workspace skill mounts whose containerPath is already provided by user docker.binds, while keeping non-conflicting skill overlays and sandbox security validation intact.",
+  "pr_title": "fix(sandbox): skip duplicate Docker skill mount targets",
+  "pr_body": "## Summary\n- Repair #93893 by filtering only read-only workspace skill mounts whose container target is already supplied by validated user docker.binds.\n- Use the same effective filtered skill mount list for Docker create args and sandbox config hashing.\n- Add focused regression coverage for overlapping custom bind targets while preserving non-conflicting read-only skill overlays.\n\n## Credit\nBuilds on the contributor fix from @xydttsw in https://github.com/openclaw/openclaw/pull/93893.\n\n## Verification\n- pnpm test src/agents/sandbox/docker.config-hash-recreate.test.ts -- --reporter=verbose\n- pnpm check:changed\n- Codex /review clean before merge consideration",
   "likely_files": [
-    "src/agents/sandbox/workspace-mounts.ts",
     "src/agents/sandbox/docker.ts",
-    "src/agents/sandbox/browser.ts",
-    "src/agents/sandbox/docker.config-hash-recreate.test.ts",
-    "src/agents/sandbox/browser.create.test.ts"
+    "src/agents/sandbox/docker.config-hash-recreate.test.ts"
   ],
   "validation_commands": [
-    "node scripts/run-vitest.mjs src/agents/sandbox/docker.config-hash-recreate.test.ts src/agents/sandbox/browser.create.test.ts",
+    "pnpm test src/agents/sandbox/docker.config-hash-recreate.test.ts -- --reporter=verbose",
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve contributor credit for @xydttsw and source PR https://github.com/openclaw/openclaw/pull/93893.",
-    "Keep the repair on the existing maintainer-editable contributor branch when possible; do not replace unless branch update fails.",
-    "Do not add closing keywords for security-routed #93854 in the repair body or closeout path."
+    "Preserve source PR credit for @xydttsw in https://github.com/openclaw/openclaw/pull/93893.",
+    "Do not comment on or close linked security-sensitive issue #93854 from this lane.",
+    "Run Codex /review after the branch repair and address every actionable finding before merge consideration."
   ],
   "source_job": "jobs/openclaw/inbox/repair-93893-autonomous-repair-wave-20260617a.md",
   "security_sensitive": false,
@@ -99,8 +96,8 @@ Hydrated #93893 remains the canonical repair PR and is maintainer-editable, but 
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests [check:changed] src/agents/sandbox/browser.create.test.ts: core test [check:changed] src/agents/sandbox/browser.ts: core production [check:changed] src/agents/sandbox/docker.config-hash-recreate.test.ts: core test [check:changed] src/agents/sandbox/docker.ts: core production [check:changed] src/agents/sandbox/workspace-mounts.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typecheck core $ node sc... |
-| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests [check:changed] src/agents/sandbox/browser.create.test.ts: core test [check:changed] src/agents/sandbox/browser.ts: core production [check:changed] src/agents/sandbox/docker.config-hash-recreate.test.ts: core test [check:changed] src/agents/sandbox/docker.ts: core production [check:changed] src/agents/sandbox/workspace-mounts.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typecheck core $ node sc... |
+| repair_contributor_branch | failed |  |  | Codex /review did not pass after 1 attempt(s): Current diff is not merge-ready. The main Docker container path was repaired and the supplied validation is relevant for that narrow path, but the same duplicate-mount invariant is still unhandled in the browser Docker container path, and host-side sandbox filesystem policy no longer matches the filtered Docker mount set. Source PR #93893 has no live PR comments, reviews, or review threads; linked issue #93854 only has a failed ClawSweeper review comment with no actionable code finding. |
+| execute_fix | blocked |  |  | Codex /review did not pass after 1 attempt(s): Current diff is not merge-ready. The main Docker container path was repaired and the supplied validation is relevant for that narrow path, but the same duplicate-mount invariant is still unhandled in the browser Docker container path, and host-side sandbox filesystem policy no longer matches the filtered Docker mount set. Source PR #93893 has no live PR comments, reviews, or review threads; linked issue #93854 only has a failed ClawSweeper review comment with no actionable code finding. |
 
 ## Apply Actions
 
@@ -118,9 +115,9 @@ Hydrated #93893 remains the canonical repair PR and is maintainer-editable, but 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93854 | route_security | planned | security_sensitive | #93854 contains a security-shaped Docker sandbox report and is explicitly listed in security_boundary.security_sensitive_items; central OpenClaw security triage should own that issue. |
-| #93893 | fix_needed | planned | canonical | Repair #93893 in place: the branch is useful and maintainer-editable, but it needs a narrow branch update that deduplicates exact internal skill mount destinations against user-provided binds, updates focused regression tests, runs /review, and validates with repo gates before any merge decision. |
-| cluster:repair-93893-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | Build a narrow executable repair plan for the canonical contributor PR branch. |
+| #93854 | route_security | planned | security_sensitive | Security-sensitive linked issue must be quarantined to central OpenClaw security handling. |
+| #93893 | fix_needed | planned | canonical | Repair the useful contributor PR branch before merge consideration; required regression test, pnpm check:changed, and Codex /review proof are missing. |
+| cluster:repair-93893-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | Produce an executable branch-repair plan for #93893 without mutating GitHub. |
 
 ## Needs Human
 
