@@ -2,19 +2,19 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-94022-live-pr-inventory-20260617t082059-005-repair-wave-20260617"
 mode: "autonomous"
-run_id: "27718113696"
-workflow_run_id: "27718113696"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27718113696"
-head_sha: "d4eeaf0cb358d33c811f5269e4679bc189aa0b22"
+run_id: "27718703487"
+workflow_run_id: "27718703487"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27718703487"
+head_sha: "6984812bb39f4746261cb868f55fb6a9b5c5ef74"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T20:43:49.148Z"
+published_at: "2026-06-17T20:52:31.436Z"
 canonical: "https://github.com/openclaw/openclaw/pull/94022"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/93935"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/94022"
 actions_total: 11
 fix_executed: 0
-fix_failed: 1
+fix_failed: 0
 fix_blocked: 1
 apply_executed: 0
 apply_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27718113696](https://github.com/openclaw/clownfish/actions/runs/27718113696)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27718703487](https://github.com/openclaw/clownfish/actions/runs/27718703487)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/94022
 
 ## Summary
 
-#94022 remains the canonical repair lane for #93935. Current main is at 20534c57b7e88c965a08e12e00ae7eb6683ac3b3 and still has the #93810 startup-only future-repair bypass, while read RPCs, manual run preflight, finalize paths, empty-due timer maintenance, and reservation release still call maintenance recompute without preserving startup catch-up deferrals. Emit a repair-contributor-branch artifact for #94022; do not comment, close, label, merge, or open a replacement PR in this run.
+Current main still only carries startup overflow catch-up deferral ids as a transient skip set for the immediate start() maintenance pass. Other maintenance recompute callers still call without that skip, so #94022 is the canonical repair path but needs contributor-branch repair before any merge recommendation. No GitHub mutations are allowed by this job.
 
 ## Impact
 
@@ -44,7 +44,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/94022
 | --- | ---: |
 | Worker actions | 11 |
 | Fix executed | 0 |
-| Fix failed | 1 |
+| Fix failed | 0 |
 | Fix blocked | 1 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
@@ -58,8 +58,8 @@ Canonical: https://github.com/openclaw/openclaw/pull/94022
   "target": "#94022",
   "source_refs": [
     "#94022",
-    "#93810",
     "#93935",
+    "#93810",
     "#78272",
     "#81731",
     "#91248",
@@ -73,17 +73,21 @@ Canonical: https://github.com/openclaw/openclaw/pull/94022
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair #94022 on the existing editable contributor branch so startup catch-up deferral ids are stored in cron service state and reused by every maintenance recompute caller that can run before the staggered catch-up fires. Current main only disables future repair for the immediate startup maintenance pass from #93810, leaving read RPCs, finalize paths, empty-due timer maintenance, manual run preflight, and reservation release able to advance deferred catch-up runs to the next natural cron slot.",
+  "summary": "Repair #94022 on the contributor branch so startup overflow catch-up deferral ids become service state, not a one-call local skip set. All maintenance recompute callers should preserve those deferred ids until their staggered catch-up fires, is finalized, or is explicitly released/cleared.",
   "pr_title": "fix(cron): preserve startup catch-up deferrals across maintenance recomputes",
-  "pr_body": "## Summary\nFixes #93935.\n\nRepair #94022 by keeping startup catch-up deferral ids in cron service state so read RPCs, finalize paths, empty-due timer maintenance, manual run preflight, and reservation release do not advance deferred catch-up runs to the next natural schedule before the staggered catch-up fires.\n\nThis is based on source PR #94022 by @Jah-xy, with #93810 by @yetval as prior related cron deferral work.\n\n## Verification\n- node scripts/run-vitest.mjs src/cron/service.startup-overflow-clobber.test.ts src/cron/service.restart-catchup.test.ts src/cron/service/ops.test.ts src/cron/service/ops.regression.test.ts src/cron/service/timer.regression.test.ts src/cron/service/timer.test.ts src/cron/service.jobs.test.ts\n- pnpm check:changed\n- scripts/pr review-validate-artifacts 94022\n- /review clean before any merge recommendation",
+  "pr_body": "## Summary\nFixes #93935 by repairing #94022 so startup overflow catch-up deferral ids live in cron service state instead of only in the local `start()` maintenance call. This keeps read RPCs, finalize paths, empty-due timer maintenance, manual run preflight, and reservation release from advancing deferred catch-up runs to the next natural cron schedule before the staggered catch-up fires.\n\nCredit: based on #94022 by @Jah-xy. Prior related context from #93810 by @yetval.\n\n## Repair Notes\n- Add/keep a state-owned set of startup catch-up deferral job ids.\n- Have `recomputeNextRunsForMaintenance` consult that state for future cron repair skips in every caller, while preserving explicit caller options where useful.\n- Clear ids when the deferred job fires/finalizes, is released, is disabled/removed, or no longer has the deferred next-run shape.\n- Add regression coverage for read/list/status, finalize, empty-due timer maintenance, manual preflight, and reservation-release callers.\n\n## Verification\n- `node scripts/run-vitest.mjs src/cron/service.startup-overflow-clobber.test.ts src/cron/service.restart-catchup.test.ts src/cron/service/ops.test.ts src/cron/service/ops.regression.test.ts src/cron/service/timer.regression.test.ts src/cron/service/timer.test.ts src/cron/service.jobs.test.ts`\n- `pnpm check:changed`\n- `scripts/pr review-validate-artifacts 94022`",
   "likely_files": [
+    "src/cron/service/state.ts",
     "src/cron/service/jobs.ts",
     "src/cron/service/ops.ts",
-    "src/cron/service/state.ts",
     "src/cron/service/timer.ts",
     "src/cron/service.startup-overflow-clobber.test.ts",
+    "src/cron/service.restart-catchup.test.ts",
+    "src/cron/service/ops.test.ts",
+    "src/cron/service/ops.regression.test.ts",
     "src/cron/service/timer.regression.test.ts",
-    "src/cron/service/jobs.test.ts"
+    "src/cron/service/timer.test.ts",
+    "src/cron/service.jobs.test.ts"
   ],
   "validation_commands": [
     "node scripts/run-vitest.mjs src/cron/service.startup-overflow-clobber.test.ts src/cron/service.restart-catchup.test.ts src/cron/service/ops.test.ts src/cron/service/ops.regression.test.ts src/cron/service/timer.regression.test.ts src/cron/service/timer.test.ts src/cron/service.jobs.test.ts",
@@ -91,9 +95,9 @@ Canonical: https://github.com/openclaw/openclaw/pull/94022
     "scripts/pr review-validate-artifacts 94022"
   ],
   "credit_notes": [
-    "Repair the existing #94022 contributor branch; preserve @Jah-xy as the source PR author in the PR body and final commit/merge notes.",
-    "Keep #93810 by @yetval as historical context for the startup-only fix that exposed the remaining recompute-callers gap.",
-    "No CHANGELOG.md edit for this normal PR; include user-visible release-note context in the PR body and squash message."
+    "Credit @Jah-xy as the #94022 source PR author and preserve https://github.com/openclaw/openclaw/pull/94022 in the PR body/update summary.",
+    "Mention #93810 by @yetval as the earlier startup-only deferral fix and regression context, not as the replacement source branch.",
+    "The user-facing release-note context should say cron startup overflow catch-up deferrals now survive read/status/list, finalize, timer maintenance, manual preflight, and reservation-release recomputes before the staggered catch-up fires."
   ],
   "source_job": "jobs/openclaw/inbox/repair-94022-live-pr-inventory-20260617t082059-005-repair-wave-20260617.md",
   "security_sensitive": false,
@@ -108,8 +112,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/94022
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests [check:changed] src/cron/service.jobs.test.ts: core test [check:changed] src/cron/service.startup-overflow-clobber.test.ts: core test [check:changed] src/cron/service/jobs.ts: core production [check:changed] src/cron/service/ops.ts: core production [check:changed] src/cron/service/state.ts: core production [check:changed] src/cron/service/timer.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typec... |
-| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests [check:changed] src/cron/service.jobs.test.ts: core test [check:changed] src/cron/service.startup-overflow-clobber.test.ts: core test [check:changed] src/cron/service/jobs.ts: core production [check:changed] src/cron/service/ops.ts: core production [check:changed] src/cron/service/state.ts: core production [check:changed] src/cron/service/timer.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typec... |
+| execute_fix | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 |
 
 ## Apply Actions
 
@@ -127,17 +130,17 @@ Canonical: https://github.com/openclaw/openclaw/pull/94022
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #94022 | fix_needed | planned | canonical | Repair the editable contributor branch so startup catch-up deferral ids survive all maintenance recompute callers before any future merge recommendation. |
-| cluster:repair-94022-live-pr-inventory-20260617t082059-005-repair-wave-20260617 | build_fix_artifact | planned |  | Provide an executable narrow repair plan for the existing contributor PR branch. |
-| #93935 | keep_canonical | planned | canonical | Keep the issue open as the canonical report until #94022 or an equivalent fix lands. |
-| #93810 | keep_closed | skipped | related | Historical partial fix, already closed. |
-| #81731 | keep_related | planned | related | Related cron maintenance subproblem, not a duplicate of #93935/#94022. |
-| #81691 | keep_related | planned | related | Related cron stale-future repair issue with a distinct root cause. |
-| #93835 | keep_independent | planned | independent | Different subsystem and root cause. |
-| #94017 | keep_independent | planned | independent | Independent open PR in another subsystem. |
-| #78272 | keep_closed | skipped | related | Closed historical context only. |
-| #90315 | keep_closed | skipped | independent | Closed unrelated provider/catalog issue. |
-| #91248 | keep_closed | skipped | independent | Closed unrelated provider/catalog PR. |
+| #94022 | fix_needed | planned | canonical | Repair the editable contributor branch before any merge recommendation. |
+| cluster:repair-94022-live-pr-inventory-20260617t082059-005-repair-wave-20260617 | build_fix_artifact | planned |  | Executable repair artifact for the allowed fix lane. |
+| #93935 | keep_canonical | planned | canonical | Keep the canonical issue open until the repaired PR lands. |
+| #93810 | keep_closed | skipped | related | Closed historical related PR; evidence only. |
+| #81731 | keep_related | planned | related | Related cron future-slot repair work, not a duplicate of the startup deferral state bug. |
+| #81691 | keep_related | planned | related | Related but independent root cause. |
+| #94017 | keep_independent | planned | independent | Separate provider/think issue cluster. |
+| #93835 | keep_independent | planned | independent | Separate provider/think issue cluster. |
+| #78272 | keep_closed | skipped | related | Closed historical related PR; evidence only. |
+| #90315 | keep_closed | skipped | independent | Closed independent provider issue; evidence only. |
+| #91248 | keep_closed | skipped | independent | Closed independent provider PR; evidence only. |
 
 ## Needs Human
 
