@@ -2,22 +2,22 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-rebase-canary-81312-20260617"
 mode: "autonomous"
-run_id: "27703239276"
-workflow_run_id: "27703239276"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27703239276"
-head_sha: "3d1c6e80508f4f0169e7d61190672f06031166e6"
-workflow_conclusion: "failure"
+run_id: "27704139565"
+workflow_run_id: "27704139565"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27704139565"
+head_sha: "18d605565c7b3b3b587ef63b4cdc59a29eeaf6fd"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T16:26:12.625Z"
+published_at: "2026-06-17T16:48:31.355Z"
 canonical: "https://github.com/openclaw/openclaw/pull/81312"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/77982"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/81312"
 actions_total: 3
 fix_executed: 0
-fix_failed: 1
+fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,9 +26,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27703239276](https://github.com/openclaw/clownfish/actions/runs/27703239276)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27704139565](https://github.com/openclaw/clownfish/actions/runs/27704139565)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/81312
 
 ## Summary
 
-Canonical PR #81312 is a maintainer-editable contributor branch that still owns the linked #77982 fix, but it is stale against current main. I locally replayed the two contributor commits onto main baa389ebed without conflicts, preserved author credit, ran focused Vitest proof, and ran Codex autoreview clean. No GitHub comments, labels, branch pushes, closes, PR creation, or merges were performed.
+PR #81312 remains the sole canonical repair path. It is maintainer-editable and narrow by intended PR surface, but it is not merge-ready because the branch is stale against current main and the latest ClawSweeper/Codex review did not complete; plan a rebase-only contributor-branch repair, validation, and fresh Codex /review. No close, merge, label, or replacement PR action is planned.
 
 ## Impact
 
@@ -44,10 +44,10 @@ Canonical PR #81312 is a maintainer-editable contributor branch that still owns 
 | --- | ---: |
 | Worker actions | 3 |
 | Fix executed | 0 |
-| Fix failed | 1 |
+| Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -65,31 +65,29 @@ Canonical PR #81312 is a maintainer-editable contributor branch that still owns 
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair PR #81312 by rebasing the maintainer-editable contributor branch yfge/openclaw:fix/issue-77982 onto current main baa389ebed1a85258b2ff7f4a61d0746280edf61, preserving the two contributor commits and credit, then push the existing branch and rerun validation plus Codex review. Do not broaden the PR, merge it, close anything, label anything, or open a replacement PR.",
+  "summary": "Rebase and repair PR #81312 on the existing maintainer-editable contributor branch so bundled capability plugin records preserve manifest contracts and contract-backed capability provider ids, without broadening beyond the current plugin runtime/tests surface.",
   "pr_title": "fix(plugins): preserve bundled capability manifest contracts",
-  "pr_body": "## Summary\n- rebase the existing maintainer-editable #81312 branch onto current main\n- keep manifest contracts on bundled capability plugin records\n- keep focused regression coverage for bundled capability runtime and loader records\n\n## Verification\n- pnpm check:changed\n- node scripts/run-vitest.mjs src/plugins/bundled-capability-runtime.test.ts src/plugins/loader-records.test.ts\n- pnpm build\n- .agents/skills/autoreview/scripts/autoreview --mode branch --base origin/main\n\n## Credit\nThis repairs and carries forward @yfge's source PR https://github.com/openclaw/openclaw/pull/81312 for the bug reported in #77982 by @pangxianyu-pixel.",
+  "pr_body": "Rebase-only repair plan for #81312:\n\nSummary:\n- Rebase/refresh @yfge's existing maintainer-editable branch onto current main.\n- Preserve the narrow fix that carries manifest.contracts into bundled capability plugin records.\n- Keep contract-backed provider id lists initialized from manifest contracts and deduped when runtime registration reports the same ids.\n- Keep focused regression coverage for bundled capability runtime contract preservation and loader record provider ids.\n\nValidation:\n- node scripts/run-vitest.mjs src/plugins/bundled-capability-runtime.test.ts src/plugins/loader-records.test.ts\n- pnpm check:changed\n- Run Codex /review after the rebase and address every actionable finding before any later merge finalization.\n\nCredit:\n- Source PR: https://github.com/openclaw/openclaw/pull/81312 by @yfge.\n- Linked issue: https://github.com/openclaw/openclaw/issues/77982 by @pangxianyu-pixel.",
   "likely_files": [
     "src/plugins/bundled-capability-runtime.ts",
     "src/plugins/bundled-capability-runtime.test.ts",
     "src/plugins/loader-records.test.ts"
   ],
   "validation_commands": [
-    "pnpm check:changed",
     "node scripts/run-vitest.mjs src/plugins/bundled-capability-runtime.test.ts src/plugins/loader-records.test.ts",
-    "pnpm build",
-    ".agents/skills/autoreview/scripts/autoreview --mode branch --base origin/main"
+    "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve @yfge as the PR author and commit author when rebasing/pushing the existing branch.",
-    "Keep #81312 as the source PR for contributor credit: https://github.com/openclaw/openclaw/pull/81312.",
-    "Credit issue reporter @pangxianyu-pixel for #77982 when release-note context is written."
+    "Repair the existing contributor PR #81312 by @yfge; preserve @yfge as the PR author and source of the fix.",
+    "Carry the issue context from #77982, reported by @pangxianyu-pixel, in the PR body or merge/release note context when finalized.",
+    "Do not create a replacement PR for this canary; contributor branch repair is the calibrated path."
   ],
   "source_job": "jobs/openclaw/inbox/pr-rebase-canary-81312-20260617.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -97,27 +95,27 @@ Canonical PR #81312 is a maintainer-editable contributor branch that still owns 
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| execute_fix | failed |  |  | unsupported validation command: .agents/skills/autoreview/scripts/autoreview --mode branch --base origin/main |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/81312 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #81312 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #81312 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #81312 | fix_needed | planned | canonical | Repair the existing maintainer-editable contributor branch by rebasing onto current main, then push the repaired branch and run the required broad changed gate before any later merge finalization. |
-| #77982 | keep_related | planned | fixed_by_candidate | Linked issue remains covered by canonical PR #81312 but should not be closed in this rebase-only job. |
-| cluster:pr-rebase-canary-81312-20260617 | build_fix_artifact | planned |  | Build a repair artifact for the applicator/executor to rebase and push the existing contributor branch, then run broad changed validation. |
+| #81312 | fix_needed | planned | canonical | Canonical PR is useful and maintainer-editable, but it needs a rebase-only repair plus fresh validation/review before any separate merge decision. |
+| #77982 | keep_related | planned | fixed_by_candidate | Keep the linked issue open while #81312 is repaired and validated; no close action is allowed in this rebase-only job. |
+| cluster:pr-rebase-canary-81312-20260617 | build_fix_artifact | planned |  | Executor should rebase/refresh the existing contributor branch, preserve the narrow three-file surface, run validation, and run Codex /review. |
 
 ## Needs Human
 
