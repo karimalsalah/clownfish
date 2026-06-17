@@ -2,20 +2,20 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-94015-autonomous-repair-wave-20260617a"
 mode: "autonomous"
-run_id: "27677687196"
-workflow_run_id: "27677687196"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27677687196"
-head_sha: "4206f12b202e5d803e74afa0f7dc3c4ff2839a04"
-workflow_conclusion: "cancelled"
+run_id: "27678020816"
+workflow_run_id: "27678020816"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27678020816"
+head_sha: "9ae0281ece02872ec2fa63a94d05e6d59b40449b"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T09:05:03.870Z"
+published_at: "2026-06-17T09:13:43.545Z"
 canonical: "https://github.com/openclaw/openclaw/pull/94015"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/79521"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/94015"
 actions_total: 3
 fix_executed: 0
-fix_failed: 0
-fix_blocked: 0
+fix_failed: 1
+fix_blocked: 1
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
@@ -26,9 +26,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27677687196](https://github.com/openclaw/clownfish/actions/runs/27677687196)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27678020816](https://github.com/openclaw/clownfish/actions/runs/27678020816)
 
-Workflow conclusion: cancelled
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/94015
 
 ## Summary
 
-PR #94015 is the canonical repair path for linked issue #79521, but it is not merge-ready in this job: merge is disallowed, Codex /review proof is missing, and the hydrated PR checks include failures in checks-node-core-fast and check-test-types. Because the PR branch is maintainer-editable and the diff is narrow, the executable path is to repair the contributor branch, preserve xialonglee's credit, run focused voice-call regression proof plus pnpm check:changed, then rerun /review.
+Current main at 5372c7146bb2b6014fc3a25139cf4c63a6087d45 still has voice-call await the completed embedded-agent run and read only terminal result.payloads, while the embedded-agent contract already supports onBlockReply/blockReplyBreak for pre-terminal block delivery. PR #94015 is the canonical useful contributor repair and maintainer_can_modify is true, but it is not merge-ready because preflight shows mergeability unknown, failed checks, and no Codex /review proof. Emit a repair-contributor-branch fix artifact; no GitHub mutations are planned.
 
 ## Impact
 
@@ -44,8 +44,8 @@ PR #94015 is the canonical repair path for linked issue #79521, but it is not me
 | --- | ---: |
 | Worker actions | 3 |
 | Fix executed | 0 |
-| Fix failed | 0 |
-| Fix blocked | 0 |
+| Fix failed | 1 |
+| Fix blocked | 1 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
@@ -65,20 +65,20 @@ PR #94015 is the canonical repair path for linked issue #79521, but it is not me
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair PR #94015 on the contributor branch so voice-call TTS consumes pre-compaction onBlockReply payloads instead of waiting for or trusting stale post-compaction result.payloads. Keep the change limited to voice-call response generation and its regression test.",
-  "pr_title": "fix(voice-call): speak pre-compaction embedded replies",
-  "pr_body": "## Summary\n- Repair the existing contributor PR #94015 so voice-call response generation captures embedded-agent `onBlockReply` payloads before post-turn compaction can delay or stale the aggregate result.\n- Keep TTS policy, compaction policy, and voice-call configuration unchanged.\n- Add or tighten the focused regression proving voice-call can extract the spoken response from pre-compaction payloads even when the completed embedded-agent result is empty or stale.\n\n## Credit\nThis carries forward the source PR and implementation credit from xialonglee in https://github.com/openclaw/openclaw/pull/94015.\n\n## Verification\n- `pnpm test extensions/voice-call/src/response-generator.test.ts`\n- `pnpm check:changed`\n- Codex `/review` clean after repair\n\nFixes https://github.com/openclaw/openclaw/issues/79521.",
+  "summary": "Repair PR #94015 on the contributor branch so voice-call TTS extracts spoken text from early embedded-agent block replies when terminal result.payloads are empty or stale after post-turn compaction.",
+  "pr_title": "fix(voice-call): use early embedded replies for TTS",
+  "pr_body": "## Summary\n- Repairs #94015 on the existing contributor branch so voice-call collects embedded-agent block replies before post-turn compaction can leave terminal payloads empty or stale.\n- Prefers captured non-error, non-reasoning block replies for spoken extraction, falling back to result.payloads when no early payloads were captured.\n- Adds a focused voice-call regression for early block replies with stale/empty terminal payloads.\n\n## Credit\nBased on #94015 by @xialonglee. Clownfish is carrying the same narrow fix path forward on the contributor branch so attribution stays with the source PR.\n\n## Verification\n- node scripts/run-vitest.mjs extensions/voice-call/src/response-generator.test.ts\n- pnpm check:changed\n- Fresh Codex /review before merge consideration\n\n## Not Changed\n- No TTS policy changes.\n- No compaction policy changes.\n- No voice-call configuration changes.",
   "likely_files": [
     "extensions/voice-call/src/response-generator.ts",
     "extensions/voice-call/src/response-generator.test.ts"
   ],
   "validation_commands": [
-    "pnpm test extensions/voice-call/src/response-generator.test.ts",
+    "node scripts/run-vitest.mjs extensions/voice-call/src/response-generator.test.ts",
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve source PR credit for https://github.com/openclaw/openclaw/pull/94015 by xialonglee.",
-    "PR body and any later release-note context should credit the original contributor fix path from #94015."
+    "Preserve source PR credit for @xialonglee via https://github.com/openclaw/openclaw/pull/94015.",
+    "Keep #79521 reporter context from @donkeykong91 in the PR body or release-note context if the repair changes user-visible voice-call latency."
   ],
   "source_job": "jobs/openclaw/inbox/repair-94015-autonomous-repair-wave-20260617a.md",
   "security_sensitive": false,
@@ -93,7 +93,8 @@ PR #94015 is the canonical repair path for linked issue #79521, but it is not me
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | failed |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=extensions, extensionTests [check:changed] extensions/voice-call/src/response-generator.test.ts: extension test [check:changed] extensions/voice-call/src/response-generator.ts: extension production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typecheck extensions $ node scripts/run-tsgo.mjs -p tsconfig.extensions.json --incremental --tsBuildInfoFile .artifacts/tsgo-cache/extensions.tsbuildinfo [check:changed] summary 266ms ok con... |
+| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=extensions, extensionTests [check:changed] extensions/voice-call/src/response-generator.test.ts: extension test [check:changed] extensions/voice-call/src/response-generator.ts: extension production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typecheck extensions $ node scripts/run-tsgo.mjs -p tsconfig.extensions.json --incremental --tsBuildInfoFile .artifacts/tsgo-cache/extensions.tsbuildinfo [check:changed] summary 266ms ok con... |
 
 ## Apply Actions
 
@@ -101,13 +102,19 @@ PR #94015 is the canonical repair path for linked issue #79521, but it is not me
 | --- | --- | --- | --- | --- |
 | _None_ |  |  |  |  |
 
+## Apply Audit
+
+| Attempt | Source | Target | Action | Status | Reason |
+| --- | --- | --- | --- | --- |
+| _None_ |  |  |  |  |  |
+
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #94015 | fix_needed | planned | canonical | Canonical contributor PR exists and is maintainer-editable, but it needs repair/validation before it can be considered landable. |
-| #79521 | keep_related | planned | fixed_by_candidate | Issue is covered by the canonical repair PR, but closure is blocked until a fix lands. |
-| cluster:repair-94015-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | Build a cluster-scoped executable repair plan for the maintainer-editable contributor PR. |
+| #94015 | fix_needed | planned | canonical | Repair the existing contributor branch rather than replacing it: the diff is narrow, the branch is editable, and the source defect is still present on current main. |
+| #79521 | keep_related | planned | fixed_by_candidate | The issue is covered by the canonical repair path but must remain open until the fix lands. |
+| cluster:repair-94015-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | A complete executable repair path exists and the job allows fix/raise_pr while forbidding direct merge/comment/close actions. |
 
 ## Needs Human
 
