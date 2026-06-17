@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-69954-autonomous-repair-wave-20260617a"
 mode: "autonomous"
-run_id: "27677689442"
-workflow_run_id: "27677689442"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27677689442"
-head_sha: "4206f12b202e5d803e74afa0f7dc3c4ff2839a04"
+run_id: "27682626530"
+workflow_run_id: "27682626530"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27682626530"
+head_sha: "325e4f7668eca868a58e712a276dd80219bbc097"
 workflow_conclusion: "success"
-result_status: "blocked"
-published_at: "2026-06-17T09:01:46.807Z"
-canonical: "https://github.com/openclaw/openclaw/pull/69954"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/50248"
-canonical_pr: "https://github.com/openclaw/openclaw/pull/69954"
+result_status: "planned"
+published_at: "2026-06-17T10:34:25.976Z"
+canonical: "#69954"
+canonical_issue: "#50248"
+canonical_pr: "#69954"
 actions_total: 5
 fix_executed: 0
 fix_failed: 0
@@ -19,24 +19,24 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # repair-69954-autonomous-repair-wave-20260617a
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27677689442](https://github.com/openclaw/clownfish/actions/runs/27677689442)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27682626530](https://github.com/openclaw/clownfish/actions/runs/27682626530)
 
 Workflow conclusion: success
 
-Worker result: blocked
+Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/69954
+Canonical: #69954
 
 ## Summary
 
-Preflight shows #69954 is the canonical repair PR for #50248 and is editable, narrow, and directly targets the stale sessionFile cleanup bug. It is not merge-ready because it is dirty against main, Real behavior proof is failing, and an actionable Codex/Greptile accounting finding remains. Local checkout inspection was blocked by sandbox command failure, so implementation is blocked rather than pretending the live source was reverified in this worker.
+Plan repair of contributor PR #69954. The hydrated preflight shows the PR is the narrow canonical fix path for the stale sessionFile cleanup bug, but it still has an actionable Codex review finding and failing real-behavior-proof check, so merge/close actions are blocked and the executable path is a contributor-branch repair artifact with source PR credit preserved.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Preflight shows #69954 is the canonical repair PR for #50248 and is editable, na
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Repair Candidate
 
@@ -59,33 +59,34 @@ Preflight shows #69954 is the canonical repair PR for #50248 and is editable, na
   "source_refs": [
     "#69954",
     "#50248",
-    "#63897",
-    "#92542"
+    "#92542",
+    "#63897"
   ],
   "repair_strategy": "repair_contributor_branch",
-  "planned_actions": [],
-  "summary": "Repair contributor PR #69954 by rebasing/updating the existing editable branch, preserving its canonical transcript fallback/metadata repair behavior, and fixing cleanup mutation accounting so repaired sessionFile paths are reported as mutations in dry-run/apply summaries.",
-  "pr_title": "fix: repair stale session transcript cleanup fallback",
-  "pr_body": "## Summary\n- Repairs #69954 on its contributor branch.\n- Keeps sessions cleanup from pruning entries when the persisted sessionFile path is stale but the canonical <sessionId>.jsonl transcript exists.\n- Reports stale-path metadata repairs as cleanup mutations so dry-run/json output does not look like a no-op.\n\n## Credit\nThis carries forward the fix from @Blahdude in https://github.com/openclaw/openclaw/pull/69954.\n\n## Validation\n- pnpm test src/commands/sessions-cleanup.test.ts\n- pnpm check:changed\n- /review",
+  "planned_actions": [
+    "fix_needed",
+    "build_fix_artifact"
+  ],
+  "summary": "Repair contributor PR #69954 so sessions cleanup treats a stale persisted sessionFile as recoverable when the canonical <sessionId>.jsonl transcript exists, and make repair-only runs report mutation accurately instead of appearing as no-ops.",
+  "pr_title": "fix: repair session cleanup transcript fallback accounting",
+  "pr_body": "## Summary\n- Repairs the contributor fix from #69954 for the stale sessionFile cleanup bug tracked by #50248.\n- Keeps cleanup from pruning an entry when the canonical `<sessionId>.jsonl` transcript exists even if persisted `sessionFile` is stale.\n- Makes repair-only cleanup runs report mutation accurately so dry-run/JSON output does not look like a no-op when metadata would be repaired.\n\n## Credit\nSource PR: https://github.com/openclaw/openclaw/pull/69954\nThanks @Blahdude for the original focused fix; this repair carries that attribution forward.\n\n## Validation\n- `pnpm -s vitest run src/commands/sessions-cleanup.test.ts`\n- `pnpm check:changed`\n- `/review`",
   "likely_files": [
     "src/commands/sessions-cleanup.ts",
     "src/commands/sessions-cleanup.test.ts"
   ],
   "validation_commands": [
-    "pnpm test src/commands/sessions-cleanup.test.ts",
-    "pnpm check:changed"
+    "pnpm -s vitest run src/commands/sessions-cleanup.test.ts",
+    "pnpm check:changed",
+    "/review"
   ],
   "credit_notes": [
-    "Preserve contributor credit for @Blahdude and source PR https://github.com/openclaw/openclaw/pull/69954.",
-    "PR body or repair commit should state that the fix repairs #69954 rather than replacing the contributor's work.",
-    "#92542 remains related but broader because it changes periodic maintenance/config behavior and should not be folded into this narrow repair."
+    "Preserve source PR credit for https://github.com/openclaw/openclaw/pull/69954 by Blahdude.",
+    "If Clownfish opens or updates a repair PR, include source PR attribution and contributor credit in the PR body and changelog note."
   ],
   "source_job": "jobs/openclaw/inbox/repair-69954-autonomous-repair-wave-20260617a.md",
   "security_sensitive": false,
   "security_routed_refs": [],
-  "needs_human": [
-    "Local checkout/source confirmation and any branch repair are blocked by sandbox command failure: bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted."
-  ],
+  "needs_human": [],
   "repair_status": null,
   "terminal": null
 }
@@ -95,7 +96,7 @@ Preflight shows #69954 is the canonical repair PR for #50248 and is editable, na
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| execute_fix | skipped |  |  | worker result status blocked is not executable |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -103,16 +104,22 @@ Preflight shows #69954 is the canonical repair PR for #50248 and is editable, na
 | --- | --- | --- | --- | --- |
 | _None_ |  |  |  |  |
 
+## Apply Audit
+
+| Attempt | Source | Target | Action | Status | Reason |
+| --- | --- | --- | --- | --- |
+| _None_ |  |  |  |  |  |
+
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #69954 | fix_needed | blocked | canonical | Repair contributor branch is the right path, but this worker could not inspect or edit the read-only checkout due sandbox command failure. |
-| cluster:repair-69954-autonomous-repair-wave-20260617a | build_fix_artifact | blocked |  | Executable repair plan is known, but source-level confirmation and patching are blocked in this environment. |
-| #50248 | keep_canonical | planned | canonical | Keep the issue open as the canonical user-facing report until the repaired PR lands. |
-| #63897 | keep_closed | skipped | duplicate | Historical duplicate evidence only; no mutation needed or allowed. |
-| #92542 | keep_related | planned | related | Related follow-up, not the canonical narrow repair for this cluster. |
+| #50248 | keep_canonical | planned | canonical | Keep the canonical issue open while the repair PR is prepared and validated. |
+| #63897 | keep_closed | skipped | duplicate | Already-closed refs are historical evidence only and must not receive a close action. |
+| #69954 | fix_needed | planned | canonical | Repair the contributor branch by addressing repair accounting and proving the behavior with focused tests. |
+| #69954 | build_fix_artifact | planned | canonical | Create an executable repair artifact for Clownfish scripts to repair #69954 without direct GitHub mutation by the worker. |
+| #92542 | keep_related | planned | related | Keep as related follow-up work outside this repair job; it is broader than the live-session detection repair requested for #69954. |
 
 ## Needs Human
 
-- Local checkout/source confirmation and any branch repair are blocked by sandbox command failure: bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted.
+- none

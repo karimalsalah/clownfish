@@ -2,20 +2,20 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-93964-autonomous-repair-wave-20260617a"
 mode: "autonomous"
-run_id: "27678021027"
-workflow_run_id: "27678021027"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27678021027"
-head_sha: "9ae0281ece02872ec2fa63a94d05e6d59b40449b"
+run_id: "27682640481"
+workflow_run_id: "27682640481"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27682640481"
+head_sha: "325e4f7668eca868a58e712a276dd80219bbc097"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T09:13:43.550Z"
-canonical: "https://github.com/openclaw/openclaw/issues/93917"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/93917"
-canonical_pr: "https://github.com/openclaw/openclaw/pull/93964"
+published_at: "2026-06-17T10:34:25.998Z"
+canonical: "#93964"
+canonical_issue: "#93917"
+canonical_pr: "#93964"
 actions_total: 3
 fix_executed: 0
-fix_failed: 1
-fix_blocked: 1
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27678021027](https://github.com/openclaw/clownfish/actions/runs/27678021027)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27682640481](https://github.com/openclaw/clownfish/actions/runs/27682640481)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/issues/93917
+Canonical: #93964
 
 ## Summary
 
-Current main still has the reported failed-exec loop-detection defect, and PR #93964 is a narrow, maintainer-editable contributor branch that should be repaired rather than replaced. The repair must keep stable failed-exec discriminators while removing volatile failed output from the no-progress hash.
+Plan repair for useful contributor PR #93964. The hydrated preflight shows #93964 is open, maintainer-editable, small, and directly targets linked issue #93917, but it is not merge-ready because review found stable failed-exec metadata was dropped and CI has failing checks. No close, comment, label, merge, force-push, or bypass action is planned.
 
 ## Impact
 
@@ -44,8 +44,8 @@ Current main still has the reported failed-exec loop-detection defect, and PR #9
 | --- | ---: |
 | Worker actions | 3 |
 | Fix executed | 0 |
-| Fix failed | 1 |
-| Fix blocked | 1 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
@@ -65,21 +65,21 @@ Current main still has the reported failed-exec loop-detection defect, and PR #9
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair PR #93964 so failed exec loop detection ignores volatile output/text while preserving stable failure metadata. Current main hashes failed exec `aggregated`/text into the no-progress result hash, so repeated identical failed exec calls with varying output do not accumulate the critical/global no-progress streak.",
-  "pr_title": "fix(agents): stabilize failed exec loop hashes",
-  "pr_body": "## Summary\n- Repair #93964 so failed exec outcomes exclude volatile output/text from loop-detection result hashing.\n- Preserve stable failed-exec discriminators: `status`, `exitCode`, `timedOut`, `failureKind`, and `exitSignal`.\n- Keep completed exec hashing unchanged so changing successful output still counts as progress.\n\nFixes #93917.\n\nCredit: based on @hugenshen's source PR #93964 and @zj0001's report in #93917.\n\n## Verification\n- `node scripts/run-vitest.mjs src/agents/tool-loop-detection.test.ts`\n- `pnpm check:changed`\n- Codex `/review` before merge.",
+  "summary": "Repair PR #93964 so failed exec loop-detection hashing excludes volatile output while retaining stable failed-exec discriminators such as failureKind and exitSignal. Keep the patch limited to tool-loop detection normalization and focused regression coverage.",
+  "pr_title": "fix(agents): stabilize failed exec loop detection hashing",
+  "pr_body": "## Summary\n- Repairs source PR #93964 by @hugenshen for linked bug #93917.\n- Excludes volatile failed exec output from loop-detection result hashing so repeated failed exec calls can accumulate no-progress streaks.\n- Retains stable failed-exec discriminators such as failureKind and exitSignal so distinct failure modes do not collapse into the same loop hash.\n- Keeps completed exec hashing unchanged and limits test coverage to focused loop-detection regressions.\n\n## Validation\n- pnpm check:changed\n- pnpm -s vitest run src/agents/tool-loop-detection.test.ts\n- /review\n\n## Credit\nSource PR: https://github.com/openclaw/openclaw/pull/93964 by @hugenshen. Linked report: #93917 by @zj0001.",
   "likely_files": [
     "src/agents/tool-loop-detection.ts",
     "src/agents/tool-loop-detection.test.ts"
   ],
   "validation_commands": [
-    "node scripts/run-vitest.mjs src/agents/tool-loop-detection.test.ts",
-    "pnpm check:changed"
+    "pnpm check:changed",
+    "pnpm -s vitest run src/agents/tool-loop-detection.test.ts",
+    "/review"
   ],
   "credit_notes": [
-    "Preserve source PR credit for @hugenshen via https://github.com/openclaw/openclaw/pull/93964.",
-    "Credit @zj0001 for the canonical report in https://github.com/openclaw/openclaw/issues/93917.",
-    "Do not close or comment on #93917/#93964 in this job; comments and closure are blocked."
+    "Preserve source PR credit for @hugenshen and https://github.com/openclaw/openclaw/pull/93964.",
+    "Mention linked bug report #93917 by @zj0001 in the repaired PR body or follow-up metadata where appropriate."
   ],
   "source_job": "jobs/openclaw/inbox/repair-93964-autonomous-repair-wave-20260617a.md",
   "security_sensitive": false,
@@ -94,8 +94,7 @@ Current main still has the reported failed-exec loop-detection defect, and PR #9
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests [check:changed] src/agents/bash-tools.exec-foreground-failures.test.ts: core test [check:changed] src/agents/bash-tools.exec-runtime.ts: core production [check:changed] src/agents/bash-tools.exec-types.ts: core production [check:changed] src/agents/bash-tools.exec.ts: core production [check:changed] src/agents/tool-loop-detection.test.ts: core test [check:changed] src/agents/tool-loop-detection.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-direc... |
-| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests [check:changed] src/agents/bash-tools.exec-foreground-failures.test.ts: core test [check:changed] src/agents/bash-tools.exec-runtime.ts: core production [check:changed] src/agents/bash-tools.exec-types.ts: core production [check:changed] src/agents/bash-tools.exec.ts: core production [check:changed] src/agents/tool-loop-detection.test.ts: core test [check:changed] src/agents/tool-loop-detection.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-direc... |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -113,9 +112,9 @@ Current main still has the reported failed-exec loop-detection defect, and PR #9
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93917 | keep_canonical | planned | canonical | Canonical report remains open for the root cause; no closure/comment is allowed by this job. |
-| #93964 | fix_needed | planned | canonical | PR is useful but not merge-ready because an actionable bot finding remains unresolved; emit a repair artifact for the existing maintainer-editable branch. |
-| cluster:repair-93964-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | Build an executable repair plan for the existing contributor PR branch. |
+| #93917 | keep_related | planned | related | Keep the issue open as related canonical bug context until the repaired PR lands and post-merge closeout is explicitly allowed. |
+| #93964 | fix_needed | planned | canonical | Repair the contributor branch instead of replacing it: the PR is focused, useful, maintainer-editable, and only needs a narrow metadata-preserving hash fix plus validation. |
+| #93964 | build_fix_artifact | planned | canonical | Emit an executable repair artifact for the Clownfish fix executor to update the maintainer-editable contributor PR branch, preserve credit, and rerun validation. |
 
 ## Needs Human
 

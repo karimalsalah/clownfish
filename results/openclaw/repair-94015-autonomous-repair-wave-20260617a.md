@@ -2,20 +2,20 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-94015-autonomous-repair-wave-20260617a"
 mode: "autonomous"
-run_id: "27678020816"
-workflow_run_id: "27678020816"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27678020816"
-head_sha: "9ae0281ece02872ec2fa63a94d05e6d59b40449b"
+run_id: "27682643827"
+workflow_run_id: "27682643827"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27682643827"
+head_sha: "325e4f7668eca868a58e712a276dd80219bbc097"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T09:13:43.545Z"
-canonical: "https://github.com/openclaw/openclaw/pull/94015"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/79521"
-canonical_pr: "https://github.com/openclaw/openclaw/pull/94015"
+published_at: "2026-06-17T10:34:26.000Z"
+canonical: "#94015"
+canonical_issue: "#79521"
+canonical_pr: "#94015"
 actions_total: 3
 fix_executed: 0
-fix_failed: 1
-fix_blocked: 1
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27678020816](https://github.com/openclaw/clownfish/actions/runs/27678020816)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27682643827](https://github.com/openclaw/clownfish/actions/runs/27682643827)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/94015
+Canonical: #94015
 
 ## Summary
 
-Current main at 5372c7146bb2b6014fc3a25139cf4c63a6087d45 still has voice-call await the completed embedded-agent run and read only terminal result.payloads, while the embedded-agent contract already supports onBlockReply/blockReplyBreak for pre-terminal block delivery. PR #94015 is the canonical useful contributor repair and maintainer_can_modify is true, but it is not merge-ready because preflight shows mergeability unknown, failed checks, and no Codex /review proof. Emit a repair-contributor-branch fix artifact; no GitHub mutations are planned.
+Plan a guarded repair of contributor PR #94015. The hydrated preflight shows a narrow non-security voice-call fix with maintainer_can_modify=true, but merge/close/comment are blocked by job policy and merge is additionally blocked by failing checks and missing /review proof. Emit a repair_contributor_branch fix artifact preserving xialonglee credit and requiring latest-main verification before repair.
 
 ## Impact
 
@@ -44,8 +44,8 @@ Current main at 5372c7146bb2b6014fc3a25139cf4c63a6087d45 still has voice-call aw
 | --- | ---: |
 | Worker actions | 3 |
 | Fix executed | 0 |
-| Fix failed | 1 |
-| Fix blocked | 1 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
@@ -65,20 +65,22 @@ Current main at 5372c7146bb2b6014fc3a25139cf4c63a6087d45 still has voice-call aw
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair PR #94015 on the contributor branch so voice-call TTS extracts spoken text from early embedded-agent block replies when terminal result.payloads are empty or stale after post-turn compaction.",
+  "summary": "Repair contributor PR #94015 so voice-call TTS consumes the embedded agent's pre-compaction block reply payloads instead of relying only on possibly stale post-compaction result.payloads. Keep the change limited to response generation and the focused regression test.",
   "pr_title": "fix(voice-call): use early embedded replies for TTS",
-  "pr_body": "## Summary\n- Repairs #94015 on the existing contributor branch so voice-call collects embedded-agent block replies before post-turn compaction can leave terminal payloads empty or stale.\n- Prefers captured non-error, non-reasoning block replies for spoken extraction, falling back to result.payloads when no early payloads were captured.\n- Adds a focused voice-call regression for early block replies with stale/empty terminal payloads.\n\n## Credit\nBased on #94015 by @xialonglee. Clownfish is carrying the same narrow fix path forward on the contributor branch so attribution stays with the source PR.\n\n## Verification\n- node scripts/run-vitest.mjs extensions/voice-call/src/response-generator.test.ts\n- pnpm check:changed\n- Fresh Codex /review before merge consideration\n\n## Not Changed\n- No TTS policy changes.\n- No compaction policy changes.\n- No voice-call configuration changes.",
+  "pr_body": "## Summary\n- Repair source PR #94015 from @xialonglee for the #79521 voice-call stale post-compaction payload bug.\n- Keep voice-call TTS on the early embedded-agent block reply path when available, falling back to result.payloads only when needed.\n- Add or preserve a focused regression proving the spoken response can be extracted before delayed compaction finishes.\n\n## Credit\nSource PR: https://github.com/openclaw/openclaw/pull/94015 by @xialonglee. This Clownfish repair preserves that attribution.\n\n## Validation\n- pnpm check:changed\n- pnpm -s vitest run extensions/voice-call/src/response-generator.test.ts\n- /review",
   "likely_files": [
     "extensions/voice-call/src/response-generator.ts",
     "extensions/voice-call/src/response-generator.test.ts"
   ],
   "validation_commands": [
-    "node scripts/run-vitest.mjs extensions/voice-call/src/response-generator.test.ts",
-    "pnpm check:changed"
+    "pnpm check:changed",
+    "pnpm -s vitest run extensions/voice-call/src/response-generator.test.ts",
+    "/review"
   ],
   "credit_notes": [
-    "Preserve source PR credit for @xialonglee via https://github.com/openclaw/openclaw/pull/94015.",
-    "Keep #79521 reporter context from @donkeykong91 in the PR body or release-note context if the repair changes user-visible voice-call latency."
+    "Preserve source PR credit for https://github.com/openclaw/openclaw/pull/94015 by xialonglee.",
+    "Replacement or repair PR body should include attribution to xialonglee and reference source PR #94015.",
+    "If a changelog entry is added, include source PR attribution."
   ],
   "source_job": "jobs/openclaw/inbox/repair-94015-autonomous-repair-wave-20260617a.md",
   "security_sensitive": false,
@@ -93,8 +95,7 @@ Current main at 5372c7146bb2b6014fc3a25139cf4c63a6087d45 still has voice-call aw
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=extensions, extensionTests [check:changed] extensions/voice-call/src/response-generator.test.ts: extension test [check:changed] extensions/voice-call/src/response-generator.ts: extension production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typecheck extensions $ node scripts/run-tsgo.mjs -p tsconfig.extensions.json --incremental --tsBuildInfoFile .artifacts/tsgo-cache/extensions.tsbuildinfo [check:changed] summary 266ms ok con... |
-| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=extensions, extensionTests [check:changed] extensions/voice-call/src/response-generator.test.ts: extension test [check:changed] extensions/voice-call/src/response-generator.ts: extension production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typecheck extensions $ node scripts/run-tsgo.mjs -p tsconfig.extensions.json --incremental --tsBuildInfoFile .artifacts/tsgo-cache/extensions.tsbuildinfo [check:changed] summary 266ms ok con... |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -112,9 +113,9 @@ Current main at 5372c7146bb2b6014fc3a25139cf4c63a6087d45 still has voice-call aw
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #94015 | fix_needed | planned | canonical | Repair the existing contributor branch rather than replacing it: the diff is narrow, the branch is editable, and the source defect is still present on current main. |
-| #79521 | keep_related | planned | fixed_by_candidate | The issue is covered by the canonical repair path but must remain open until the fix lands. |
-| cluster:repair-94015-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | A complete executable repair path exists and the job allows fix/raise_pr while forbidding direct merge/comment/close actions. |
+| #79521 | keep_related | planned | related | Issue #79521 is the linked source bug for #94015, but fixed-by-candidate closeout is not allowed before a validated fix lands. |
+| #94015 | fix_needed | planned | canonical | The useful contributor branch should be repaired and validated rather than merged or closed in this worker result. |
+| cluster:repair-94015-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | Emit an executable repair artifact for Clownfish scripts to fetch latest main/PR head, prove the stale-payload path, repair the contributor branch, run validation, and preserve attribution. |
 
 ## Needs Human
 
