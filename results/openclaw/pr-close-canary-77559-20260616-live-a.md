@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-close-canary-77559-20260616-live-a"
 mode: "execute"
-run_id: "27628420203"
-workflow_run_id: "27628420203"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27628420203"
-head_sha: "ea631b7857b8c9728803a5d2e1cb1b601fb6d147"
+run_id: "27665545313"
+workflow_run_id: "27665545313"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665545313"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-16T15:28:10.476Z"
+published_at: "2026-06-17T04:22:49.715Z"
 canonical: "#77502"
 canonical_issue: null
 canonical_pr: "#77502"
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27628420203](https://github.com/openclaw/clownfish/actions/runs/27628420203)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665545313](https://github.com/openclaw/clownfish/actions/runs/27665545313)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #77502
 
 ## Summary
 
-Hydrated preflight shows #77559 remains open and non-security-sensitive, while #77502 is a hydrated merged PR covering the same missing externalized channel plugin diagnostic path. Emit one planned close_fixed_by_candidate action for #77559 and do not mutate #77502 or any already-closed context refs.
+#77559 remains open and is covered by merged #77502. Plan one close_fixed_by_candidate action for #77559; no action for already-merged #77502.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Hydrated preflight shows #77559 remains open and non-security-sensitive, while #
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #77559 | close_fixed_by_candidate | planned | fixed_by_candidate | #77559 is an open overlapping PR whose intended behavior is covered by hydrated merged PR #77502; close-only canary permits this fixed-by-candidate close action. |
+| #77559 | close_fixed_by_candidate | planned | fixed_by_candidate | The job explicitly asks for a close-only canary: close #77559 if it remains open and #77502 remains merged, using candidate_fix because #77502 is already merged/closed. |
 
 ## Needs Human
 

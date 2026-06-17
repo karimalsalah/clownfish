@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-92165-memory-dreaming"
 mode: "autonomous"
-run_id: "27663603280"
-workflow_run_id: "27663603280"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27663603280"
-head_sha: "fdc46af466d4400143efe540f7008cdd72c936d6"
+run_id: "27664725226"
+workflow_run_id: "27664725226"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27664725226"
+head_sha: "5089ba94952e798b9e899fc708e8109b10246b8e"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T03:31:06.534Z"
+published_at: "2026-06-17T04:22:49.711Z"
 canonical: "https://github.com/openclaw/openclaw/pull/92165"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/87637"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/92165"
-actions_total: 6
+actions_total: 3
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27663603280](https://github.com/openclaw/clownfish/actions/runs/27663603280)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27664725226](https://github.com/openclaw/clownfish/actions/runs/27664725226)
 
 Workflow conclusion: success
 
@@ -36,13 +36,13 @@ Canonical: https://github.com/openclaw/openclaw/pull/92165
 
 ## Summary
 
-Canonical path is open PR #92165 repairing issue #87637. The remaining executable work is a narrow contributor-branch repair: preserve the literal storageMode type in src/commands/doctor-memory-search.test.ts fixtures, then run the targeted doctor memory-search test and pnpm check:changed. No close, comment, label, or merge action is planned.
+Canonical path is open contributor PR #92165, which directly repairs linked issue #87637 but still needs a narrow branch repair before any close or merge. No security-sensitive signal was present. Because comments, labels, close, and merge are blocked, the safe autonomous output is a repair_contributor_branch fix artifact for the existing editable PR branch.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 6 |
+| Worker actions | 3 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -67,12 +67,9 @@ Canonical path is open PR #92165 repairing issue #87637. The remaining executabl
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92165 | fix_needed | planned | canonical | Repair the safely editable contributor PR branch instead of opening a replacement PR; do not merge because allow_merge=false and require_human_for includes merge. |
-| cluster:repair-92165-memory-dreaming | build_fix_artifact | planned |  | Emit an executable repair artifact for the deterministic fix executor to update PR #92165's contributor branch. |
-| #87637 | keep_related | planned | fixed_by_candidate | Keep the issue open while #92165 is repaired and validated; closeout is blocked until a fix lands. |
-| #87630 | keep_closed | skipped | related | Already closed related context; no mutation planned. |
-| #87634 | keep_closed | skipped | independent | Already closed independent context; no mutation planned. |
-| #89160 | keep_closed | skipped | independent | Already merged independent context; no mutation planned. |
+| #92165 | fix_needed | planned | canonical | Repair the editable contributor branch in place; do not merge because allow_merge=false and merge is blocked by job frontmatter. |
+| #87637 | keep_related | planned | fixed_by_candidate | Issue is covered by the canonical PR path but must not be closed in this run. |
+| cluster:repair-92165-memory-dreaming | build_fix_artifact | planned |  | Build an executable repair artifact for the existing canonical contributor PR branch. |
 
 ## Needs Human
 
