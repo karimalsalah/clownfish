@@ -2,15 +2,15 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-312-autonomous-terminal-gap"
 mode: "autonomous"
-run_id: "27666808114"
-workflow_run_id: "27666808114"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27666808114"
-head_sha: "1cfa357bb6e2e0dc9f37fd20ef7f7b69b41271f5"
+run_id: "27670693177"
+workflow_run_id: "27670693177"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27670693177"
+head_sha: "c47a0caae1154b30bef4dac4212640474b3c595e"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T05:02:17.706Z"
+published_at: "2026-06-17T06:42:15.161Z"
 canonical: "https://github.com/openclaw/openclaw/pull/86503"
-canonical_issue: "https://github.com/openclaw/openclaw/issues/84821"
+canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/86503"
 actions_total: 5
 fix_executed: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27666808114](https://github.com/openclaw/clownfish/actions/runs/27666808114)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27670693177](https://github.com/openclaw/clownfish/actions/runs/27670693177)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/86503
 
 ## Summary
 
-Classified the cluster from the hydrated preflight artifact. #84821 is high-confidence fixed by merged PR #86503 on current main and can be closed with credit preserved. #84850 remains related but not duplicate-cleanup: it carries a distinct residual CPU/throttled exec-update/product-decision thread and should stay open. #84823 is existing-overlap context only for this job, so no mutation is planned for it.
+Hydrated state shows #84821's original websocket tool-event mirror amplification is already fixed on main by merged PR #86503. #84850 is related but not a true duplicate because it still tracks broader CPU saturation and residual exec-update/product-decision scope. Existing-overlap PR #84823 and closed linked refs are context only.
 
 ## Impact
 
@@ -61,17 +61,17 @@ Classified the cluster from the hydrated preflight artifact. #84821 is high-conf
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #84821 | close_fixed_by_candidate | blocked | fixed_by_candidate | candidate fix is not listed in job refs |
+| #84821 | close_fixed_by_candidate | blocked | fixed_by_candidate | target author association is MEMBER |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #84821 | close_fixed_by_candidate | planned | fixed_by_candidate | #84821 describes duplicate run-scoped agent tool events plus session-scoped session.tool mirrors. #86503 already shipped the dedupe and tests for that same root cause, so fixed-by-candidate closeout is high confidence. |
-| #84850 | keep_related | planned | related | #84850 is related to the same gateway performance/event fanout family, but it is not fully covered by #86503 or #84821 because it preserves a distinct residual CPU/throttled exec-update question. |
-| #84823 | keep_related | skipped | superseded | Existing-overlap context only; do not mutate #84823 in this cluster. |
-| #86503 | keep_closed | skipped | fixed_by_candidate | Already-merged candidate fix retained as evidence only. |
-| #90463 | keep_closed | skipped | independent | Closed independent context; no cluster mutation. |
+| #84821 | close_fixed_by_candidate | planned | fixed_by_candidate | The original duplicate websocket-frame root cause is covered by hydrated merged PR #86503 and verified as present on current main; #84821 has no unique remaining work after that fix. |
+| #84850 | keep_related | planned | related | Keep open as related follow-up; it is not a true duplicate of #84821/#86503 because it tracks broader CPU/event-loop and residual exec-update behavior. |
+| #84823 | keep_related | skipped | superseded | Context only for this job; no close or merge action is planned against the excluded overlap PR, although its narrow fix is superseded by merged #86503. |
+| #86503 | keep_closed | skipped | canonical | Merged PR #86503 is the canonical fixed-by-candidate path for #84821; no mutation is valid for an already-closed ref. |
+| #90463 | keep_closed | skipped | independent | Closed linked context only; it is independent of the #84821 fixed-by-candidate closeout and not an actionable target. |
 
 ## Needs Human
 
