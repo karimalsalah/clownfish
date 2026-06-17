@@ -14,7 +14,7 @@
   "workflow_updated_at": "2026-06-15T16:27:26Z",
   "result_status": "planned",
   "source_job": "jobs/openclaw/inbox/pr-inventory-recent_active-20260615T154534-121.md",
-  "published_at": "2026-06-17T04:34:46.764Z",
+  "published_at": "2026-06-17T07:42:57.699Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
@@ -261,6 +261,7 @@
     "#92040 requires maintainer choice between generalized provider/API-family thinking routing and the unhydrated competing #92053 approach mentioned in review evidence.",
     "#91889 requires maintainer decision on whether accountId is the canonical public plugin SDK hook-context field name."
   ],
+  "repair_candidate": null,
   "fix_actions": [],
   "apply_actions": []
 }

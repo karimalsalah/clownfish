@@ -14,7 +14,7 @@
   "workflow_updated_at": "2026-06-15T17:21:44Z",
   "result_status": "planned",
   "source_job": "jobs/openclaw/inbox/pr-inventory-mixed-20260615T170526-175.md",
-  "published_at": "2026-06-17T04:34:46.832Z",
+  "published_at": "2026-06-17T07:42:57.790Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
@@ -178,6 +178,7 @@
   "needs_human": [
     "#84972 has an active maintainer CHANGES_REQUESTED review requiring technical correctness judgment before any close or merge path."
   ],
+  "repair_candidate": null,
   "fix_actions": [],
   "apply_actions": []
 }

@@ -14,7 +14,7 @@
   "workflow_updated_at": "2026-06-15T16:27:26Z",
   "result_status": "planned",
   "source_job": "jobs/openclaw/inbox/low-signal-pr-sweep-20260615T1534-01.md",
-  "published_at": "2026-06-17T04:34:46.762Z",
+  "published_at": "2026-06-17T07:42:57.697Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
@@ -69,6 +69,7 @@
   "needs_human": [
     "#55766 needs maintainer judgment: it is a plausible focused ACP behavior fix, but Real behavior proof failed, manual verification is unchecked, and bot-review details were not hydrated."
   ],
+  "repair_candidate": null,
   "fix_actions": [],
   "apply_actions": []
 }

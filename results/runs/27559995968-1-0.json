@@ -14,7 +14,7 @@
   "workflow_updated_at": "2026-06-15T16:16:27Z",
   "result_status": "needs_human",
   "source_job": "jobs/openclaw/inbox/low-signal-pr-sweep-20260615T1534-01.md",
-  "published_at": "2026-06-17T04:34:46.750Z",
+  "published_at": "2026-06-17T07:42:57.681Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
@@ -71,6 +71,7 @@
     "#93222 requires maintainer review because it is a focused green Discord config/runtime change.",
     "#92946 requires maintainer review because it is a focused green Telegram message-delivery compatibility change with explicit merge-risk labels."
   ],
+  "repair_candidate": null,
   "fix_actions": [],
   "apply_actions": []
 }

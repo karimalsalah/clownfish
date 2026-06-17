@@ -14,7 +14,7 @@
   "workflow_updated_at": "2026-06-15T16:16:27Z",
   "result_status": "planned",
   "source_job": "jobs/openclaw/inbox/pr-inventory-maintainer_owned-20260615T154534-002.md",
-  "published_at": "2026-06-17T04:34:46.760Z",
+  "published_at": "2026-06-17T07:42:57.694Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
@@ -263,6 +263,7 @@
     "#91519: QA-lab Slack approval automation needs proof/review-bot judgment.",
     "#91570: broad draft installer/plugin QA assertion change needs maintainer review."
   ],
+  "repair_candidate": null,
   "fix_actions": [],
   "apply_actions": []
 }
