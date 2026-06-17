@@ -2,22 +2,22 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-77539-steered-task-redispatch"
 mode: "autonomous"
-run_id: "27705470982"
-workflow_run_id: "27705470982"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27705470982"
-head_sha: "11055a7e49bd4d7a4f5c6d331788c99e8595d963"
+run_id: "27703239502"
+workflow_run_id: "27703239502"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27703239502"
+head_sha: "3d1c6e80508f4f0169e7d61190672f06031166e6"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T16:55:15.255Z"
-canonical: "#77539"
+published_at: "2026-06-17T16:56:26.427Z"
+canonical: "https://github.com/openclaw/openclaw/pull/77539"
 canonical_issue: null
-canonical_pr: "#77539"
-actions_total: 2
+canonical_pr: "https://github.com/openclaw/openclaw/pull/77539"
+actions_total: 3
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,28 +26,28 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27705470982](https://github.com/openclaw/clownfish/actions/runs/27705470982)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27703239502](https://github.com/openclaw/clownfish/actions/runs/27703239502)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #77539
+Canonical: https://github.com/openclaw/openclaw/pull/77539
 
 ## Summary
 
-Planned a narrow contributor-branch repair for open PR #77539. No close/comment/label/merge actions are planned because the job blocks them; the only executable path is a fix artifact to repair the existing maintainer-modifiable contributor branch and preserve author credit.
+#77539 remains the canonical repair path. Live read-only GitHub API shows the PR is open, non-draft, maintainer-editable, mergeable clean, and still at head 50eefdf243a1a216cd375abc1c4e15554dc54d8b. Current main baa389ebed1a85258b2ff7f4a61d0746280edf61 still has the bug shape: replacement subagent runs preserve source.task while orphan recovery later redispatches from runRecord.task. No GitHub mutations were performed.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 2 |
+| Worker actions | 3 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -61,41 +61,44 @@ Planned a narrow contributor-branch repair for open PR #77539. No close/comment/
   ],
   "repair_strategy": "repair_contributor_branch",
   "planned_actions": [
+    "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair contributor PR #77539 so steered or follow-up subagent task text is persisted through replacement runs and replayed correctly by restart/orphan redispatch, while addressing the concrete review-bot comment-reference findings and preserving @amittell's contribution.",
+  "summary": "Repair the existing #77539 contributor branch so replacement subagent runs persist the dispatched task text for steer, descendant wake, orphan recovery, and completed-session follow-up reactivation. Preserve @amittell's branch and credit; do not broaden beyond the restart/redispatch behavior and directly related tests.",
   "pr_title": "fix(subagent): preserve steered task text on restart redispatch",
-  "pr_body": "## Summary\nRepair source PR #77539 by @amittell so restart/orphan redispatch preserves the task text actually dispatched after steer, wake, or completed-session follow-up replacement. Keep the patch confined to subagent restart/redispatch behavior and directly related tests.\n\n## Repair scope\n- Address the concrete review-bot findings about stale `redispatchSubagentRunAfterRestart` comment references.\n- Preserve the task override through replacement run records where the caller supplied steered or follow-up text.\n- Keep omitted-task callers backward-compatible by preserving the prior task.\n\n## Validation\n- `pnpm -s vitest run src/agents/subagent-registry.steer-restart.test.ts src/gateway/session-subagent-reactivation.test.ts src/agents/subagent-announce.format.e2e.test.ts src/gateway/server-methods/agent.test.ts src/gateway/server-methods/sessions.send-followup-status.test.ts`\n- `pnpm check:changed`\n- `git diff --check`\n- Codex `/review`\n\nSource PR: https://github.com/openclaw/openclaw/pull/77539\nCredit: Thanks @amittell for the original fix and runtime proof.",
+  "pr_body": "Summary:\n- Repair the existing #77539 contributor branch, preserving @amittell's authorship and source PR credit.\n- Keep the implementation scoped to persisting the dispatched task text through subagent steer, descendant wake, orphan recovery, and completed-session reactivation replacement runs.\n- Address only concrete review findings; the known Copilot stale-symbol comments appear fixed in the current diff and should stay fixed after any rebase.\n\nVerification before handoff:\n- pnpm test src/agents/subagent-registry.steer-restart.test.ts src/agents/subagent-orphan-recovery.test.ts src/agents/subagent-control.test.ts src/gateway/session-subagent-reactivation.test.ts src/gateway/server-methods/agent.test.ts src/gateway/server-methods/sessions.send-followup-status.test.ts\n- pnpm check:changed\n- Codex /review clean\n- git diff --check\n\nRefs:\n- Source PR: https://github.com/openclaw/openclaw/pull/77539\n- Current main checked: baa389ebed1a85258b2ff7f4a61d0746280edf61\n- Contributor head checked: 50eefdf243a1a216cd375abc1c4e15554dc54d8b",
   "likely_files": [
     "src/agents/subagent-registry-run-manager.ts",
-    "src/agents/subagent-registry.steer-restart.test.ts",
-    "src/agents/subagent-announce.ts",
-    "src/agents/subagent-control.ts",
-    "src/agents/subagent-orphan-recovery.ts",
-    "src/agents/subagent-registry-steer-runtime.ts",
     "src/agents/subagent-registry.ts",
+    "src/agents/subagent-registry-steer-runtime.ts",
+    "src/agents/subagent-control.ts",
+    "src/agents/subagent-announce.ts",
+    "src/agents/subagent-orphan-recovery.ts",
+    "src/agents/subagent-registry.steer-restart.test.ts",
+    "src/agents/subagent-announce.format.e2e.test.ts",
     "src/gateway/session-subagent-reactivation.ts",
     "src/gateway/session-subagent-reactivation.test.ts",
     "src/gateway/server-methods/agent.ts",
+    "src/gateway/server-methods/agent.test.ts",
     "src/gateway/server-methods/sessions.ts",
+    "src/gateway/server-methods/sessions.send-followup-status.test.ts",
     "src/gateway/server-methods/subagent-followup.test-helpers.ts"
   ],
   "validation_commands": [
-    "pnpm -s vitest run src/agents/subagent-registry.steer-restart.test.ts src/gateway/session-subagent-reactivation.test.ts src/agents/subagent-announce.format.e2e.test.ts src/gateway/server-methods/agent.test.ts src/gateway/server-methods/sessions.send-followup-status.test.ts",
+    "pnpm test src/agents/subagent-registry.steer-restart.test.ts src/agents/subagent-orphan-recovery.test.ts src/agents/subagent-control.test.ts src/gateway/session-subagent-reactivation.test.ts src/gateway/server-methods/agent.test.ts src/gateway/server-methods/sessions.send-followup-status.test.ts",
     "pnpm check:changed",
-    "git diff --check",
-    "/review"
+    "git diff --check"
   ],
   "credit_notes": [
-    "Preserve contributor credit for @amittell as the author of source PR https://github.com/openclaw/openclaw/pull/77539.",
-    "If a replacement PR is opened instead of updating the contributor branch, the PR body must name #77539 as the source PR and credit @amittell."
+    "Preserve contributor credit for @amittell as the author of https://github.com/openclaw/openclaw/pull/77539.",
+    "If a separate Clownfish repair PR becomes necessary, its body must explicitly say it carries forward @amittell's #77539 implementation and credit."
   ],
   "source_job": "jobs/openclaw/inbox/repair-77539-steered-task-redispatch.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -103,26 +106,27 @@ Planned a narrow contributor-branch repair for open PR #77539. No close/comment/
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/77539 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #77539 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #77539 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #77539 | keep_canonical | planned | canonical | #77539 is the only hydrated canonical candidate and is the contributor PR to repair, not close or replace. |
-| repair-77539-steered-task-redispatch | build_fix_artifact | planned |  | The safe autonomous path is to repair the existing maintainer-modifiable contributor branch, address concrete review findings, and validate before any PR update. |
+| #77539 | keep_canonical | planned | canonical |  |
+| cluster:repair-77539-steered-task-redispatch | fix_needed | planned |  |  |
+| cluster:repair-77539-steered-task-redispatch | build_fix_artifact | planned |  |  |
 
 ## Needs Human
 

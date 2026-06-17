@@ -2,20 +2,20 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-93893-autonomous-repair-wave-20260617a"
 mode: "autonomous"
-run_id: "27703236995"
-workflow_run_id: "27703236995"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27703236995"
-head_sha: "3d1c6e80508f4f0169e7d61190672f06031166e6"
+run_id: "27705473184"
+workflow_run_id: "27705473184"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27705473184"
+head_sha: "11055a7e49bd4d7a4f5c6d331788c99e8595d963"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T16:28:43.701Z"
-canonical: "https://github.com/openclaw/openclaw/pull/93893"
+published_at: "2026-06-17T16:56:26.466Z"
+canonical: "#93893"
 canonical_issue: null
-canonical_pr: "https://github.com/openclaw/openclaw/pull/93893"
+canonical_pr: "#93893"
 actions_total: 3
 fix_executed: 0
-fix_failed: 1
-fix_blocked: 1
+fix_failed: 0
+fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27703236995](https://github.com/openclaw/clownfish/actions/runs/27703236995)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27705473184](https://github.com/openclaw/clownfish/actions/runs/27705473184)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: https://github.com/openclaw/openclaw/pull/93893
+Canonical: #93893
 
 ## Summary
 
-Current main at baa389ebed1a85258b2ff7f4a61d0746280edf61 still appends user Docker binds and then read-only workspace skill mounts without filtering duplicate container targets. PR #93893 is the canonical, maintainer-editable contributor branch, but it needs repair/proof before any merge lane: add focused regression coverage, ensure the effective filtered mount set is used for both Docker create args and the sandbox config hash, then run the focused test, pnpm check:changed, and Codex /review. Linked issue #93854 is security-sensitive in the preflight artifact and is routed only to central security handling.
+Planned a scoped repair path for contributor PR #93893 and quarantined the linked security-sensitive issue #93854. No GitHub mutation is planned directly by the worker; the fix artifact gives the guarded executor a repair_contributor_branch path with source PR credit preserved.
 
 ## Impact
 
@@ -44,8 +44,8 @@ Current main at baa389ebed1a85258b2ff7f4a61d0746280edf61 still appends user Dock
 | --- | ---: |
 | Worker actions | 3 |
 | Fix executed | 0 |
-| Fix failed | 1 |
-| Fix blocked | 1 |
+| Fix failed | 0 |
+| Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
@@ -65,21 +65,22 @@ Current main at baa389ebed1a85258b2ff7f4a61d0746280edf61 still appends user Dock
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair contributor PR #93893 so Docker sandbox creation skips internal read-only workspace skill mounts whose containerPath is already provided by user docker.binds, while keeping non-conflicting skill overlays and sandbox security validation intact.",
-  "pr_title": "fix(sandbox): skip duplicate Docker skill mount targets",
-  "pr_body": "## Summary\n- Repair #93893 by filtering only read-only workspace skill mounts whose container target is already supplied by validated user docker.binds.\n- Use the same effective filtered skill mount list for Docker create args and sandbox config hashing.\n- Add focused regression coverage for overlapping custom bind targets while preserving non-conflicting read-only skill overlays.\n\n## Credit\nBuilds on the contributor fix from @xydttsw in https://github.com/openclaw/openclaw/pull/93893.\n\n## Verification\n- pnpm test src/agents/sandbox/docker.config-hash-recreate.test.ts -- --reporter=verbose\n- pnpm check:changed\n- Codex /review clean before merge consideration",
+  "summary": "Repair contributor PR #93893 by first confirming on current main that overlapping user Docker binds and internal read-only workspace skill mounts can produce duplicate Docker mount targets, then narrowly deduplicate only those overlapping internal skill mounts before container creation.",
+  "pr_title": "fix(sandbox): avoid duplicate Docker skill mounts",
+  "pr_body": "## Summary\n- repairs contributor PR #93893 by xydttsw\n- confirms the duplicate Docker mount behavior on current main before changing code\n- deduplicates only internal read-only workspace skill mounts that overlap user-provided Docker bind targets\n\n## Credit\nSource PR: https://github.com/openclaw/openclaw/pull/93893 by xydttsw. Clownfish preserves attribution for the original report and implementation direction.\n\n## Validation\n- pnpm check:changed\n- pnpm -s vitest run <focused sandbox Docker mount regression selected from checkout>\n- /review\n\n## Security handling\nLinked issue #93854 is security-sensitive in the cluster artifact and is routed separately to central OpenClaw security handling. This repair must stay limited to the proven duplicate mount bug and must not redefine sandbox, auth, approval, allowlist, or trust boundaries.",
   "likely_files": [
     "src/agents/sandbox/docker.ts",
-    "src/agents/sandbox/docker.config-hash-recreate.test.ts"
+    "focused sandbox Docker mount regression test selected from the checkout"
   ],
   "validation_commands": [
-    "pnpm test src/agents/sandbox/docker.config-hash-recreate.test.ts -- --reporter=verbose",
-    "pnpm check:changed"
+    "pnpm check:changed",
+    "pnpm -s vitest run <focused sandbox Docker mount regression selected from checkout>",
+    "/review"
   ],
   "credit_notes": [
-    "Preserve source PR credit for @xydttsw in https://github.com/openclaw/openclaw/pull/93893.",
-    "Do not comment on or close linked security-sensitive issue #93854 from this lane.",
-    "Run Codex /review after the branch repair and address every actionable finding before merge consideration."
+    "Preserve source PR credit for https://github.com/openclaw/openclaw/pull/93893 by xydttsw.",
+    "If the executor must replace the contributor branch instead of repairing it, the replacement PR body should explicitly credit xydttsw and cite #93893 as the source PR.",
+    "Do not claim or close #93854 in the fix PR; #93854 is routed to central security handling."
   ],
   "source_job": "jobs/openclaw/inbox/repair-93893-autonomous-repair-wave-20260617a.md",
   "security_sensitive": false,
@@ -96,8 +97,7 @@ Current main at baa389ebed1a85258b2ff7f4a61d0746280edf61 still appends user Dock
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| repair_contributor_branch | failed |  |  | Codex /review did not pass after 1 attempt(s): Current diff is not merge-ready. The main Docker container path was repaired and the supplied validation is relevant for that narrow path, but the same duplicate-mount invariant is still unhandled in the browser Docker container path, and host-side sandbox filesystem policy no longer matches the filtered Docker mount set. Source PR #93893 has no live PR comments, reviews, or review threads; linked issue #93854 only has a failed ClawSweeper review comment with no actionable code finding. |
-| execute_fix | blocked |  |  | Codex /review did not pass after 1 attempt(s): Current diff is not merge-ready. The main Docker container path was repaired and the supplied validation is relevant for that narrow path, but the same duplicate-mount invariant is still unhandled in the browser Docker container path, and host-side sandbox filesystem policy no longer matches the filtered Docker mount set. Source PR #93893 has no live PR comments, reviews, or review threads; linked issue #93854 only has a failed ClawSweeper review comment with no actionable code finding. |
+| _None_ |  |  |  |  |
 
 ## Apply Actions
 
@@ -115,9 +115,9 @@ Current main at baa389ebed1a85258b2ff7f4a61d0746280edf61 still appends user Dock
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93854 | route_security | planned | security_sensitive | Security-sensitive linked issue must be quarantined to central OpenClaw security handling. |
-| #93893 | fix_needed | planned | canonical | Repair the useful contributor PR branch before merge consideration; required regression test, pnpm check:changed, and Codex /review proof are missing. |
-| cluster:repair-93893-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | Produce an executable branch-repair plan for #93893 without mutating GitHub. |
+| #93854 | route_security | planned | security_sensitive | #93854 is the exact security-sensitive linked issue and must be routed to central OpenClaw security handling without comment, close, label, merge, or fix mutation by Clownfish. |
+| #93893 | fix_needed | planned | canonical | The contributor PR is the canonical useful branch, but the calibrated job requires executor-side repair/validation before any PR action. Emit an executable fix artifact instead of merge or close planning. |
+| cluster:repair-93893-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | A guarded fix artifact is the allowed autonomous output for repairing #93893 while preserving contributor credit and avoiding blocked direct GitHub mutations. |
 
 ## Needs Human
 
