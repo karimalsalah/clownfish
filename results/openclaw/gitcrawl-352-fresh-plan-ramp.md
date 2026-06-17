@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-352-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-25"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-1"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.000Z"
+published_at: "2026-06-17T04:32:41.156Z"
 canonical: "#45469"
 canonical_issue: "#45469"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #45469
 
 ## Summary
 
-Plan mode classification only. Hydrated live state shows #45469 is open, non-security-sensitive, and remains the only actionable open candidate and canonical issue for the reconnect retry-limit report. Existing-overlap #77961 is excluded context and was not hydrated as an actionable item, so no close, merge, or fixed-by-candidate action is planned.
+Plan-only classification: #45469 is the only hydrated open candidate and remains the canonical issue for the infinite scheduleReconnect retry-loop report. No close, merge, or fix PR action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan mode classification only. Hydrated live state shows #45469 is open, non-sec
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #45469 | keep_canonical | planned | canonical | #45469 is the only hydrated open candidate and remains the canonical issue for this cluster. No duplicate, close, merge, or fix action is allowed or supported by the hydrated plan-mode state. |
+| #45469 | keep_canonical | planned | canonical | #45469 is the only hydrated open candidate and is still the best live canonical item for this cluster; closure and fix actions are disabled or unnecessary in plan mode. |
 
 ## Needs Human
 

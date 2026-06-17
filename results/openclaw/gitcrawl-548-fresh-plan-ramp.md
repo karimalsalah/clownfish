@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-548-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-52"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-27"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.014Z"
+published_at: "2026-06-17T04:32:41.164Z"
 canonical: "#55512"
 canonical_issue: "#55512"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #55512
 
 ## Summary
 
-Plan-mode classification keeps #55512 as the live canonical issue for the CJK markdown table alignment problem. No duplicate, closure, merge, or fix action is planned because the only hydrated actionable candidate is the open canonical issue and fix PR creation/merge are blocked by job frontmatter.
+Plan-only classification: #55512 is open, hydrated, non-security-sensitive, and remains the live canonical issue for the CJK markdown table alignment report. No duplicate, closure, merge, or fix actions are available in this job.
 
 ## Impact
 

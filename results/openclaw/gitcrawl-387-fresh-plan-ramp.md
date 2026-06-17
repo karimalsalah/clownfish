@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-387-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-28"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-4"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.001Z"
+published_at: "2026-06-17T04:32:41.166Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Read-only plan result: the only hydrated actionable ref, #41750, is already closed in the preflight artifact, so no close/comment/label action is available. No alternate open hydrated item is available to promote as canonical; excluded overlap ref #89168 remains context only.
+The hydrated representative #41750 is already closed, so no close/comment/label action is planned. No other actionable open candidate was hydrated for this cluster; excluded overlap ref #89168 remains context only and is not promoted as canonical from this run.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Read-only plan result: the only hydrated actionable ref, #41750, is already clos
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41750 | keep_closed | skipped | canonical | Already closed in live preflight state; no mutation should be planned. |
+| #41750 | keep_closed | skipped | canonical | Already closed in live preflight state; no mutation is valid in plan mode. |
 
 ## Needs Human
 

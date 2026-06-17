@@ -2,15 +2,15 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-416-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-31"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-7"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.003Z"
-canonical: null
-canonical_issue: null
+published_at: "2026-06-17T04:32:41.167Z"
+canonical: "#38762"
+canonical_issue: "#38762"
 canonical_pr: null
 actions_total: 1
 fix_executed: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: #38762
 
 ## Summary
 
-Plan mode only. The sole hydrated candidate #38762 is already closed in the preflight artifact, so no close/comment/label mutation is planned. No other hydrated open item is available to promote as the live canonical; excluded overlap #81076 remains context only.
+Plan mode classification only. The sole hydrated candidate #38762 is already closed in the preflight artifact, so no closure, label, comment, merge, or fix action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan mode only. The sole hydrated candidate #38762 is already closed in the pref
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #38762 | keep_closed | skipped | canonical | Already closed in live preflight state; no action is available or needed for this cluster-scoped plan. |
+| #38762 | keep_closed | skipped | canonical | The only actionable candidate is already closed in live preflight state. There is no other hydrated open item in scope to promote as canonical, and excluded overlap ref #81076 is context only under the job overlap policy. |
 
 ## Needs Human
 

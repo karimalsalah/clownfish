@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-495-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-45"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-20"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.010Z"
+published_at: "2026-06-17T04:32:41.161Z"
 canonical: "#47586"
 canonical_issue: "#47586"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #47586
 
 ## Summary
 
-Read-only plan keeps #47586 as the live canonical issue. The only hydrated open candidate is the representative issue; no hydrated duplicate, PR, merge, close, or fix action is available in this plan-mode job.
+Plan mode classification only. The hydrated preflight artifact contains one actionable open candidate, #47586, which is open, non-security-sensitive, and the only hydrated canonical candidate. Excluded overlap #47589 is context only and was not emitted as an action target.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Read-only plan keeps #47586 as the live canonical issue. The only hydrated open 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #47586 | keep_canonical | planned | canonical | #47586 is the only hydrated open actionable item and remains the best live canonical for the reminder-guard false-positive report. |
+| #47586 | keep_canonical | planned | canonical | #47586 is the only hydrated open candidate and remains the best live canonical for this cluster. No close, merge, or fix action is allowed or needed in this plan-only job. |
 
 ## Needs Human
 

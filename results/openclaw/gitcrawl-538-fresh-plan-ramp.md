@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-538-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-49"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-24"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.012Z"
+published_at: "2026-06-17T04:32:41.162Z"
 canonical: "#91744"
 canonical_issue: "#91744"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #91744
 
 ## Summary
 
-Plan mode classification keeps #91744 as the live canonical issue. The only hydrated open candidate is the representative issue, and no close, merge, fix, or security-routing action is planned for it.
+Plan-mode classification keeps #91744 as the live canonical issue. It is open, hydrated, non-security-sensitive, and is the only actionable open candidate in this job. Existing-overlap ref #91803 was excluded from actionable refs and is not treated as a hydrated candidate for mutation planning.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan mode classification keeps #91744 as the live canonical issue. The only hydr
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #91744 | keep_canonical | planned | canonical | #91744 is the only hydrated open candidate and remains the best live canonical for the reported remote iMessage attachment path staging failure. |
+| #91744 | keep_canonical | planned | canonical | #91744 remains the best live canonical for this root cause. There are no other hydrated open candidates to close, merge, or split in this plan. |
 
 ## Needs Human
 

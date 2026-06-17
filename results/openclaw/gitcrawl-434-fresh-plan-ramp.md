@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-434-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-33"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-9"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.004Z"
+published_at: "2026-06-17T04:32:41.169Z"
 canonical: "#38076"
 canonical_issue: "#38076"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #38076
 
 ## Summary
 
-The artifact has one hydrated open issue, #38076. It remains the live canonical for the case-insensitive skill-creator resources parsing request; the linked PR #38073 and overlap PR #92126 are not hydrated primary items, so they are evidence/context only and no close, merge, or fix action is planned.
+Plan-mode classification only. Hydrated live state shows #38076 is open, non-security-sensitive, and remains the sole actionable open candidate and best canonical issue for the skill-creator --resources case-insensitive parsing request. Existing-overlap PR #92126 is context only and was not hydrated as an actionable candidate.
 
 ## Impact
 
@@ -67,7 +67,7 @@ The artifact has one hydrated open issue, #38076. It remains the live canonical 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #38076 | keep_canonical | planned | canonical | #38076 is the only hydrated open candidate and remains the best live canonical issue for this cluster. |
+| #38076 | keep_canonical | planned | canonical | The representative remains open and is the only hydrated actionable candidate; no duplicate, superseded, merge, close, or fix action is permitted or supported by the current plan-mode artifact. |
 
 ## Needs Human
 

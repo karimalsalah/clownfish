@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-389-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-29"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-5"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.002Z"
+published_at: "2026-06-17T04:32:41.166Z"
 canonical: "#40644"
 canonical_issue: "#40644"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #40644
 
 ## Summary
 
-Plan-only classification complete. #40644 is open, hydrated as the only actionable candidate, and remains the live canonical issue for the cron jobs calendar/timeline Control UI feature request. Excluded overlap ref #41892 was not hydrated as an actionable item, so no action is emitted for it.
+Plan-mode classification only. Hydrated live state shows #40644 is open, non-security-sensitive, and remains the only actionable candidate and best canonical item for this cluster. No close, merge, or fix action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification complete. #40644 is open, hydrated as the only actionab
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #40644 | keep_canonical | planned | canonical | #40644 is the only hydrated open candidate and remains the best live canonical for this feature request. No mutating action is planned. |
+| #40644 | keep_canonical | planned | canonical | #40644 is the only hydrated open candidate and remains the clear canonical issue for this broad product/UI feature request. |
 
 ## Needs Human
 

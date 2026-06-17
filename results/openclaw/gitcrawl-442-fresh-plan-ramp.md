@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-442-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-34"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-10"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.005Z"
+published_at: "2026-06-17T04:32:41.156Z"
 canonical: "#92494"
 canonical_issue: "#92494"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92494
 
 ## Summary
 
-Plan-mode classification only: #92494 is open, hydrated, non-security-sensitive, and remains the canonical issue for the ARM dreaming narrative timeout report. The existing-overlap PR #92623 was excluded from actionable refs and was not hydrated, so it is evidence/context only for this run and cannot be used as a candidate_fix or closeout basis.
+Read-only plan: #92494 is open, hydrated, non-security-sensitive, and remains the live canonical issue for the ARM dreaming narrative timeout report. No duplicate, closure, merge, or fix PR action is planned because the only actionable hydrated item is the canonical issue and #92623 is excluded overlap context, not a hydrated candidate.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-mode classification only: #92494 is open, hydrated, non-security-sensitive,
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92494 | keep_canonical | planned | canonical | #92494 is the only hydrated open candidate and best surviving canonical for this cluster; no closure, merge, or fix action is allowed or supported by hydrated actionable state. |
+| #92494 | keep_canonical | planned | canonical | #92494 is the only hydrated open candidate and best surviving canonical for this root cause; keep it open for validation and any future fix path. |
 
 ## Needs Human
 

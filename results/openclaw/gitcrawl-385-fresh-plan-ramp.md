@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-385-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-27"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-3"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.001Z"
+published_at: "2026-06-17T04:32:41.165Z"
 canonical: "#41256"
 canonical_issue: "#41256"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #41256
 
 ## Summary
 
-Plan-mode classification keeps #41256 as the live canonical issue for the Discord media upload content-type and animated image frame-loss bug. No closures, labels, comments, merges, or fix PRs are planned because the cluster has only one hydrated open candidate and fix/merge actions are blocked by the job frontmatter.
+Plan-mode classification keeps #41256 as the live canonical issue. The only hydrated actionable item is open, current, non-security-sensitive, and matches the cluster's Discord media upload content-type/WebP animation root cause. Excluded overlap ref #41265 is context only and is not hydrated as an actionable target.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-mode classification keeps #41256 as the live canonical issue for the Discor
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41256 | keep_canonical | planned | canonical | #41256 is the only hydrated open candidate and remains the best live canonical for this cluster. |
+| #41256 | keep_canonical | planned | canonical | #41256 is the only hydrated open candidate and remains the best surviving canonical thread for the reported Discord media upload behavior bug. |
 
 ## Needs Human
 

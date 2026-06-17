@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-550-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-55"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-29"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.015Z"
+published_at: "2026-06-17T04:32:41.165Z"
 canonical: "#55600"
 canonical_issue: "#55600"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #55600
 
 ## Summary
 
-Read-only plan keeps #55600 as the live canonical issue for the Control UI header logo/favicon regression. No duplicate, merge, close, or fix action is planned because the only hydrated actionable item is the open canonical issue, fix PR creation is disabled, and the existing-overlap PR #56357 is context-only and not a hydrated actionable ref.
+Kept #55600 as the live canonical issue. The only hydrated open candidate is the representative issue, it is open and non-security-sensitive, and no hydrated candidate PR is available for merge, closure, or fixed-by-candidate planning.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Read-only plan keeps #55600 as the live canonical issue for the Control UI heade
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #55600 | keep_canonical | planned | canonical | #55600 is open, hydrated, non-security, and remains the best live canonical for this single actionable issue cluster. |
+| #55600 | keep_canonical | planned | canonical | #55600 is the only hydrated open candidate and remains the canonical issue for this cluster; plan mode and job permissions do not allow fix PR, merge, or post-merge closeout actions. |
 
 ## Needs Human
 

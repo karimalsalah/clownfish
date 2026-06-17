@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-478-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-40"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-15"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.008Z"
+published_at: "2026-06-17T04:32:41.158Z"
 canonical: "#92224"
 canonical_issue: "#92224"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92224
 
 ## Summary
 
-Read-only plan: #92224 is the only hydrated open candidate and remains the live canonical issue for the Ollama local model availability display bug. Existing-overlap ref #92363 was excluded by the job and is not hydrated/actionable in this cluster plan.
+Plan mode classification only. Hydrated state contains one actionable open issue, #92224, and it remains the live canonical for the Ollama local-model availability display bug. No close, merge, label, comment, or fix action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Read-only plan: #92224 is the only hydrated open candidate and remains the live 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92224 | keep_canonical | planned | canonical | Best live canonical is clear from the hydrated artifact; no duplicate, close, merge, or fix action is allowed or needed in this read-only plan. |
+| #92224 | keep_canonical | planned | canonical | #92224 is the only hydrated open candidate and best surviving canonical issue for this cluster; there are no hydrated duplicate or fix-candidate refs to close against. |
 
 ## Needs Human
 

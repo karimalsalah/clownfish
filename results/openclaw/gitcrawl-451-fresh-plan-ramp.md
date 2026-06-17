@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-451-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-35"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-11"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.005Z"
+published_at: "2026-06-17T04:32:41.156Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-The only hydrated candidate, #77340, is already closed in the preflight state. No open hydrated issue or PR remains in this cluster to promote as the live canonical, and the excluded overlap ref #86898 is context-only and not actionable in this run.
+Read-only plan: hydrated representative #77340 is already closed, so no closure, label, comment, merge, or fix action is planned. No other open hydrated candidate is available in this job to promote as the live canonical; excluded overlap #86898 remains context only.
 
 ## Impact
 
@@ -67,7 +67,7 @@ The only hydrated candidate, #77340, is already closed in the preflight state. N
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #77340 | keep_closed | skipped | canonical | Already-closed refs must not receive close actions. With no other open hydrated candidate in scope, there is no live canonical replacement to select in this cluster. |
+| #77340 | keep_closed | skipped | canonical | #77340 is already closed in the live preflight artifact, and closed refs must not receive closure actions. No open hydrated candidate remains in scope for canonical promotion. |
 
 ## Needs Human
 

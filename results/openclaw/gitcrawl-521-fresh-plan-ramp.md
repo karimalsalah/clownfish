@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-521-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-47"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-22"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.011Z"
+published_at: "2026-06-17T04:32:41.162Z"
 canonical: "#58570"
 canonical_issue: "#58570"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #58570
 
 ## Summary
 
-Plan-only classification complete. Hydrated live state contains one open issue, #58570, which remains the canonical item for the observability request. No closure, merge, or fix action is planned; #58640 is excluded overlap context and was not hydrated as an actionable candidate.
+Plan mode classification only. #58570 remains the live canonical issue for the allow:false dropped-message warning request. No close, label, merge, or fix action is planned because the only actionable hydrated item is the open canonical issue and the linked/overlap PRs were not hydrated as actionable candidates in this job.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification complete. Hydrated live state contains one open issue, 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #58570 | keep_canonical | planned | canonical | #58570 is the only hydrated open candidate and remains the best live canonical for the cluster root cause. |
+| #58570 | keep_canonical | planned | canonical | #58570 is the only open hydrated actionable item and remains the best live canonical thread for the reported root cause. |
 
 ## Needs Human
 

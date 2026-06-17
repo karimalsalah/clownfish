@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-488-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-43"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-18"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.009Z"
+published_at: "2026-06-17T04:32:41.159Z"
 canonical: "#92100"
 canonical_issue: "#92100"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92100
 
 ## Summary
 
-Plan-only classification complete. The hydrated representative #92100 is still open and remains the canonical issue for this cluster; no duplicate, merge, close, fix, or security-routing action is available from the hydrated refs.
+Plan-only classification completed from the hydrated preflight artifact. #92100 is open, non-security-sensitive, and remains the canonical issue for the Feishu no-visible fallback after delegated turns. No close, merge, or fix action is planned because the job is read-only plan mode and the only linked PR, #92172, is excluded existing-overlap context rather than a hydrated actionable candidate.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification complete. The hydrated representative #92100 is still o
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92100 | keep_canonical | planned | canonical | The representative is still open and is the only hydrated actionable item, so it remains the live canonical issue. |
+| #92100 | keep_canonical | planned | canonical | #92100 is the only hydrated open candidate and remains the best live canonical for this root-cause family. |
 
 ## Needs Human
 

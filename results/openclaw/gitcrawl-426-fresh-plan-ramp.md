@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-426-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-32"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-8"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.004Z"
+published_at: "2026-06-17T04:32:41.168Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-The only hydrated actionable ref, #92536, is already closed as of 2026-06-16T15:02:18Z. No closure, label, merge, or fix action is available in plan mode, and no other hydrated open item is available to promote as live canonical.
+The only hydrated actionable item, #92536, is already closed in the preflight artifact. No open hydrated candidate remains in this cluster, so there is no live canonical to carry forward and no closure, label, comment, merge, or fix action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ The only hydrated actionable ref, #92536, is already closed as of 2026-06-16T15:
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92536 | keep_closed | skipped |  | The representative/canonical hint is already closed, and the run has no hydrated open candidate to classify as a replacement canonical. |
+| #92536 | keep_closed | skipped | canonical | Already closed; keep as historical closed canonical context and do not choose an unhydrated or excluded overlap ref as live canonical. |
 
 ## Needs Human
 

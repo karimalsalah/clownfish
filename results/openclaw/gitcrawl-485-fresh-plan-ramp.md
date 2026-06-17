@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-485-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-42"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-17"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.009Z"
+published_at: "2026-06-17T04:32:41.159Z"
 canonical: "#92134"
 canonical_issue: "#92134"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92134
 
 ## Summary
 
-Plan-mode classification only. Hydrated live state shows #92134 is open, non-security-sensitive, and the only actionable open candidate, so it remains the canonical issue. Existing-overlap #92375 was excluded by the job and was not classified as an actionable target.
+Read-only plan classification complete. Hydrated live preflight state has #92134 open, non-security-sensitive, and still the only actionable open candidate and best canonical issue for the wiki_status path-mismatch report. Existing-overlap #92375 is context only and was not hydrated as an actionable item, so no close, merge, or fix action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-mode classification only. Hydrated live state shows #92134 is open, non-sec
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92134 | keep_canonical | planned | canonical | #92134 is the only hydrated open actionable item and remains the best live canonical for this cluster. |
+| #92134 | keep_canonical | planned | canonical | #92134 remains open and is the only hydrated actionable candidate, so it should remain the canonical issue for this cluster. |
 
 ## Needs Human
 

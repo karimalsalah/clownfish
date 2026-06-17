@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-465-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-38"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-13"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.006Z"
+published_at: "2026-06-17T04:32:41.157Z"
 canonical: "#57858"
 canonical_issue: "#57858"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #57858
 
 ## Summary
 
-Plan-mode classification only. The single hydrated open item #57858 remains the best canonical issue for this cluster. No close, merge, or fix actions are planned because there are no hydrated duplicate candidates and fix/merge/raise_pr are blocked by the job frontmatter.
+Plan-only classification: #57858 is open, hydrated, non-security-sensitive, and remains the best canonical issue for the Claude Code nesting environment variable dispatch failure. No close, merge, fix, or label mutations are planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-mode classification only. The single hydrated open item #57858 remains the 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #57858 | keep_canonical | planned | canonical | Only one hydrated open candidate exists, and it is the job-provided canonical representative. No duplicate or replacement action is available from the hydrated artifact. |
+| #57858 | keep_canonical | planned | canonical | The representative is still open and hydrated, and no other in-scope open candidate displaces it as canonical. |
 
 ## Needs Human
 

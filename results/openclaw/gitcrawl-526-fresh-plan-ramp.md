@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-526-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-48"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-23"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.011Z"
+published_at: "2026-06-17T04:32:41.162Z"
 canonical: "#58737"
 canonical_issue: "#58737"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #58737
 
 ## Summary
 
-Plan-mode classification only. The hydrated open issue #58737 remains the live canonical for the Slack edited-message display-name/avatar regression. Existing-overlap PR #58800 was excluded by the job and was not an actionable hydrated item.
+Plan-mode classification only. Hydrated preflight shows #58737 is open, non-security-sensitive, and remains the best live canonical for the Slack edited-message identity regression. No closure, merge, or fix PR action is planned because the only actionable ref is the canonical issue and #58800 is excluded existing-overlap context rather than a hydrated actionable candidate.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-mode classification only. The hydrated open issue #58737 remains the live c
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #58737 | keep_canonical | planned | canonical | #58737 is the only hydrated open candidate and remains the best live canonical. No closure, merge, label, or fix action is planned in read-only plan mode. |
+| #58737 | keep_canonical | planned | canonical |  |
 
 ## Needs Human
 

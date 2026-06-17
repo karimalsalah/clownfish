@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-470-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-39"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-14"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.007Z"
+published_at: "2026-06-17T04:32:41.158Z"
 canonical: "#92241"
 canonical_issue: "#92241"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92241
 
 ## Summary
 
-Plan-only classification keeps #92241 as the live canonical issue for the stale gateway module import path rollback/update regression. No duplicate, close, merge, security, or fix action is planned.
+Read-only plan keeps #92241 as the live canonical issue. The preflight artifact hydrates only one actionable open candidate, shows it is open and non-security-sensitive, and the excluded overlap ref #92351 remains context only.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification keeps #92241 as the live canonical issue for the stale 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92241 | keep_canonical | planned | canonical | #92241 is the only hydrated actionable open candidate and remains the best live canonical for the cluster root cause. |
+| #92241 | keep_canonical | planned | canonical | #92241 is the only hydrated open candidate and remains the best live canonical for this cluster; no duplicate, merge, close, fix, or security routing action is available or appropriate in plan mode. |
 
 ## Needs Human
 

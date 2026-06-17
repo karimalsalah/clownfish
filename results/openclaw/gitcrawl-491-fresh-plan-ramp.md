@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-491-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-44"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-19"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.010Z"
+published_at: "2026-06-17T04:32:41.160Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -19,14 +19,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-491-fresh-plan-ramp
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode classification only. The sole hydrated open item, #60381, is marked security-sensitive by the preflight artifact and should be quarantined to central OpenClaw security handling. No close, label, merge, or fix action is planned.
+Plan mode classified the only hydrated open candidate #60381 as security-sensitive and out of ProjectClownfish mutation scope. No duplicate, close, merge, or fix action is planned for this cluster.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Plan-mode classification only. The sole hydrated open item, #60381, is marked se
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -67,8 +67,8 @@ Plan-mode classification only. The sole hydrated open item, #60381, is marked se
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60381 | route_security | planned | security_sensitive | Security-sensitive refs are out of scope for Clownfish mutation and must be routed to central OpenClaw security handling. |
+| #60381 | route_security | planned | security_sensitive | #60381 is the only hydrated candidate and is explicitly marked security_sensitive by the preflight artifact, so ProjectClownfish should route only this item to central OpenClaw security handling. |
 
 ## Needs Human
 
-- #60381 requires central OpenClaw security handling; Clownfish should not close, label, merge, or repair this item.
+- none

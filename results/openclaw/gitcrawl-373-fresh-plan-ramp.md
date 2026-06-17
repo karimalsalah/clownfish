@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-373-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-26"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-2"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.000Z"
+published_at: "2026-06-17T04:32:41.160Z"
 canonical: "#42099"
 canonical_issue: "#42099"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #42099
 
 ## Summary
 
-#42099 is the only hydrated open candidate and remains the live canonical issue for the duplicate plugin ID warning on gateway start. No closure, merge, or fix PR action is planned in this read-only plan job.
+Read-only plan: #42099 is open, hydrated, non-security-sensitive, and remains the best live canonical issue for the duplicate plugin ID warning on gateway start. No close, merge, fix, or label action is planned; existing-overlap ref #72409 was excluded by the job and is not a hydrated actionable item.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Canonical: #42099
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #42099 | keep_canonical | planned | canonical | Keep #42099 as the canonical tracking issue; there are no hydrated duplicate candidates to close and fix/raise_pr/merge actions are blocked by job frontmatter. |
+| #42099 | keep_canonical | planned | canonical | #42099 is the only hydrated open candidate and remains the canonical tracking issue; no duplicate or replacement target is available for an action in this plan-mode cluster. |
 
 ## Needs Human
 

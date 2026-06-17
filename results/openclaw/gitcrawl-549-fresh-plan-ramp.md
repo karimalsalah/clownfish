@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-549-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-53"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-28"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.014Z"
+published_at: "2026-06-17T04:32:41.164Z"
 canonical: "#55563"
 canonical_issue: "#55563"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #55563
 
 ## Summary
 
-Plan-only classification: #55563 is the only hydrated open candidate and should remain the live canonical for the in-scope cluster refs. No closure, merge, or fix PR action is planned.
+Plan mode classification only. The only hydrated open candidate, #55563, should remain open as the live canonical for the actionable cluster scope. The excluded existing-overlap ref #54669 is context only and is not hydrated as a primary item, so it is not used as a closure canonical. No security-sensitive signal was detected and no GitHub mutations are planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification: #55563 is the only hydrated open candidate and should 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #55563 | keep_canonical | planned | canonical | With only #55563 hydrated as an open actionable item, and with the prior representative #54669 excluded as overlap context, #55563 is the best live canonical for the remaining in-scope refs. Its body also contains unique regression details, so it should not be closed as a duplicate of the excluded context ref. |
+| #55563 | keep_canonical | planned | canonical | #55563 is the only hydrated open candidate in scope and contains unique actionable regression details, so it should stay open as the canonical issue for this cluster rather than be closed or routed elsewhere. |
 
 ## Needs Human
 

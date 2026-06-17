@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-339-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-24"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665768870-1-0"
+workflow_run_id: "27665768870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665768870"
+head_sha: "d466fe497979466b437abc1eb897b262ab7d8e97"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.000Z"
+published_at: "2026-06-17T04:32:41.155Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665768870](https://github.com/openclaw/clownfish/actions/runs/27665768870)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-The only hydrated actionable item, #92816, is already closed in the preflight artifact. No open hydrated candidate remains to promote as a live canonical; excluded overlap #92831 is context only and was not hydrated as an actionable item.
+No mutations planned. The only hydrated actionable ref, #92816, is already closed, so it must not receive a close/comment/label action. No other hydrated open item is available to become the live canonical; excluded overlap #92831 remains context only.
 
 ## Impact
 
@@ -67,7 +67,7 @@ The only hydrated actionable item, #92816, is already closed in the preflight ar
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92816 | keep_closed | skipped | canonical | Already closed items must not receive closure actions. There is no open hydrated item in this job to become the live canonical. |
+| #92816 | keep_closed | skipped | canonical | Already-closed refs must not receive closure actions. With no hydrated open actionable items remaining, there is no live canonical to select in this cluster plan. |
 
 ## Needs Human
 
