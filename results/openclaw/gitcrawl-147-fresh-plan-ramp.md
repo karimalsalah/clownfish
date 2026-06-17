@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-147-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-4"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-10"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.007Z"
+published_at: "2026-06-17T04:27:39.686Z"
 canonical: "#90982"
 canonical_issue: "#90982"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #90982
 
 ## Summary
 
-Plan-only classification keeps #90982 as the live canonical issue. The preflight artifact hydrates only #90982 as an open, non-security issue; excluded overlap refs #62956, #91002, and #91701 are context only and are not actionable in this cluster run.
+Plan mode classification only. Hydrated live state contains one open non-security issue, #90982, and it remains the best canonical for this cluster. Existing-overlap refs are context only and were not hydrated as actionable items, so no close, merge, or fixed-by-candidate action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification keeps #90982 as the live canonical issue. The preflight
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90982 | keep_canonical | planned | canonical | #90982 is the only hydrated open candidate and remains the best live canonical for this cluster. No duplicate, superseded, fixed-by-candidate, merge, close, or fix action is allowed or supported by the hydrated plan artifact. |
+| #90982 | keep_canonical | planned | canonical | Keep #90982 open as the canonical issue; there are no hydrated duplicate candidates to close and no hydrated candidate fix eligible for fixed-by-candidate closeout. |
 
 ## Needs Human
 

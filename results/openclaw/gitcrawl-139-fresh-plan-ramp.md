@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-139-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-3"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-9"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.002Z"
+published_at: "2026-06-17T04:27:39.696Z"
 canonical: "#89606"
 canonical_issue: "#89606"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #89606
 
 ## Summary
 
-Read-only plan: #89606 is the best live canonical issue among the hydrated actionable refs. #87730 is already closed and remains historical related context only. No security-sensitive item was detected, and no close, merge, or fix action is planned.
+Plan-mode classification only. The representative #87828 is excluded by overlap policy and not a hydrated actionable item. Among hydrated refs, #89606 is the only open live candidate and should become the live canonical issue for this non-security plugin registry refresh family. #87730 is already closed and should remain historical context only.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Read-only plan: #89606 is the best live canonical issue among the hydrated actio
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #89606 | keep_canonical | planned | canonical | Only one hydrated actionable open ref remains in the cluster, and its body describes a concrete plugin registry refresh failure with unique policy-changed/path/npm-origin scope. |
-| #87730 | keep_closed | skipped | related | Already closed in hydrated live state; no mutation is valid or needed. |
+| #89606 | keep_canonical | planned | canonical | Only hydrated open candidate in scope; it has a concrete non-security reproduction and should own future validation for this cluster. |
+| #87730 | keep_closed | skipped | related | Already closed; retain as related historical context without any mutation. |
 
 ## Needs Human
 

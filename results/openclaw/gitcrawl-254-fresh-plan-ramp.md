@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-254-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-17"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-23"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.995Z"
+published_at: "2026-06-17T04:27:39.691Z"
 canonical: "#90548"
 canonical_issue: "#90548"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #90548
 
 ## Summary
 
-Plan-only classification: #90548 remains the live canonical for the macOS per-port lsof polling / launchservicesd saturation report. #75767 is related but should not be closed as a duplicate because it carries a distinct SMB-mounted-volume lsof stat timeout / gateway restart hang reproduction path.
+Read-only plan: keep #90548 as the live canonical issue. Keep #75767 related rather than closing it because it shares the macOS lsof/port-health area but has a distinct SMB-mounted-volume stat timeout/restart-hang reproduction path.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Plan-only classification: #90548 remains the live canonical for the macOS per-po
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90548 | keep_canonical | planned | canonical | #90548 is open and is the clearest canonical issue for the cluster's displayed root cause: macOS per-port lsof health polling causing launchservicesd saturation and watchdog reboot. |
-| #75767 | keep_related | planned | related | #75767 shares the macOS lsof port-inspection area with #90548, but its SMB-mounted-volume stat timeout and gateway restart hang details are meaningfully distinct from #90548's launchservicesd saturation / watchdog reboot report. |
+| #90548 | keep_canonical | planned | canonical | Best live canonical for the lsof port-health polling saturation report. |
+| #75767 | keep_related | planned | related | Related same subsystem and likely fix family, but not a true duplicate because the reported trigger and user-visible failure mode are meaningfully different. |
 
 ## Needs Human
 

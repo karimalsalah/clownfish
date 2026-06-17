@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-274-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-18"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-24"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.996Z"
+published_at: "2026-06-17T04:27:39.691Z"
 canonical: "#80432"
 canonical_issue: "#80432"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #80432
 
 ## Summary
 
-Plan-mode classification only. #80432 is the single hydrated open candidate, remains the live canonical issue for this Matrix sibling-account mention-rendering bug, and no close, merge, or fix action is planned.
+Plan-mode classification only. Hydrated live state shows #80432 is open, non-security-sensitive, and the only actionable candidate in this cluster, so it remains the canonical issue. No close, merge, label, or fix action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-mode classification only. #80432 is the single hydrated open candidate, rem
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #80432 | keep_canonical | planned | canonical | #80432 is the only live hydrated candidate and best surviving canonical thread for the cluster. The job is read-only plan mode with fix and merge blocked, so no executable fix, close, or merge action is appropriate. |
+| #80432 | keep_canonical | planned | canonical |  |
 
 ## Needs Human
 

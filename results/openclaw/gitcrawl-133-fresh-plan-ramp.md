@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-133-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-2"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-8"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.997Z"
+published_at: "2026-06-17T04:27:39.695Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Using hydrated preflight state as the live read, the only actionable candidate #90418 is already closed. No canonical can be selected from remaining hydrated open refs because there are no remaining open hydrated refs in this job scope, and no mutating close/comment/label action is appropriate in plan mode.
+The only actionable job ref, #90418, is already closed in the hydrated preflight state. No open candidate remains in this cluster, and the excluded overlap refs are context only, so no canonical promotion or closure action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Using hydrated preflight state as the live read, the only actionable candidate #
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90418 | keep_closed | skipped |  | Already closed in live hydrated state; no action required and no mutation is valid. |
+| #90418 | keep_closed | skipped |  | Already-closed refs must not receive closure actions; the correct plan-mode outcome is a skipped keep_closed record. |
 
 ## Needs Human
 

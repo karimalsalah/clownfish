@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-336-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-23"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-29"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.999Z"
+published_at: "2026-06-17T04:27:39.693Z"
 canonical: "#48045"
 canonical_issue: "#48045"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #48045
 
 ## Summary
 
-Plan-only classification keeps #48045 as the live canonical issue. The only hydrated open candidate is an open non-security issue with the canonical hint; no duplicate, closure, merge, or fix action is available in this job.
+#48045 is the only hydrated open candidate and remains the canonical issue for the CDP download-discard/browser navigation failure. No close, merge, label, or fix action is planned in read-only plan mode; excluded overlap ref #89416 is context only and was not hydrated as an actionable cluster item.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification keeps #48045 as the live canonical issue. The only hydr
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #48045 | keep_canonical | planned | canonical | #48045 is the sole hydrated open candidate and remains the best live canonical for this cluster; there are no hydrated duplicate or replacement candidates to close, merge, or route. |
+| #48045 | keep_canonical | planned | canonical | #48045 is live, hydrated, open, and has the clearest canonical evidence for the cluster's single actionable root-cause family. |
 
 ## Needs Human
 

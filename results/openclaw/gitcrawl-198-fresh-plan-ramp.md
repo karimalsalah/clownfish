@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-198-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-13"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-19"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.994Z"
+published_at: "2026-06-17T04:27:39.689Z"
 canonical: "#92267"
 canonical_issue: "#92267"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92267
 
 ## Summary
 
-Plan mode classification only. The only hydrated actionable ref is open issue #92267, with excluded overlap refs #85678 and #92287 available as context only, so #92267 should be kept as the live canonical for the remaining actionable cluster scope. No close, merge, label, comment, or fix PR action is planned.
+Plan-mode classification only. #92267 is the only hydrated open actionable ref, is non-security, and should remain the live canonical issue for the remaining in-scope refs. No close, merge, or fix PR action is planned because the linked PR #92287 is excluded as existing-overlap context and is not a hydrated actionable item in this run.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan mode classification only. The only hydrated actionable ref is open issue #9
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92267 | keep_canonical | planned | canonical | Only hydrated actionable open ref remains in this cluster after overlap exclusion; no hydrated canonical PR or duplicate target is available for a closure or fixed-by-candidate plan. |
+| #92267 | keep_canonical | planned | canonical | Only one hydrated open non-security actionable item remains after overlap exclusion, so #92267 is the clearest canonical issue for this cluster slice. |
 
 ## Needs Human
 

@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-60-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-66"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-2"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.021Z"
+published_at: "2026-06-17T04:27:39.689Z"
 canonical: "#90866"
 canonical_issue: "#90866"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #90866
 
 ## Summary
 
-Plan mode classification only. #90866 remains the best live canonical for the Discord speculative placeholder and typing-heartbeat parity request. #84276, #87665, and #90017 are related but not true duplicates because each preserves a distinct root cause, channel scope, or implementation question.
+Plan-mode classification only. #90866 remains the best open canonical for Discord speculative placeholder plus typing heartbeat parity. #84276, #87665, and #90017 are related but track distinct root causes or channel scope, so no duplicate closeout is recommended from this hydrated artifact.
 
 ## Impact
 
@@ -67,10 +67,10 @@ Plan mode classification only. #90866 remains the best live canonical for the Di
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90866 | keep_canonical | planned | canonical | Keep #90866 as the canonical Discord parity issue because it covers the broad Discord placeholder and heartbeat feature request and is open/current in the hydrated artifact. |
-| #84276 | keep_related | planned | related | Related Discord typing-controller behavior, but #84276 has a distinct post-delivery cleanup root cause and should not be closed as a duplicate of the broader #90866 feature/parity request. |
-| #87665 | keep_related | planned | related | Related perceived-progress problem in Discord, but #87665 concerns task notification policy for subagent workflows and preserves a different root cause and implementation scope. |
-| #90017 | keep_related | planned | related | #90017 is the Slack-side companion/canonical for the placeholder concept, while #90866 is the Discord parity request. Keep it related rather than folding it into the Discord canonical. |
+| #90866 | keep_canonical | planned | canonical | Best surviving canonical for the cluster's Discord parity and typing-heartbeat feature request. |
+| #84276 | keep_related | planned | related | Related Discord typing UX issue with a distinct post-delivery cleanup root cause; not a true duplicate of #90866. |
+| #87665 | keep_related | planned | related | Related Discord perceived-latency/progress issue with a distinct task notification policy root cause. |
+| #90017 | keep_related | planned | related | Related parity/source issue, but Slack-specific scope should remain separate from the Discord canonical. |
 
 ## Needs Human
 

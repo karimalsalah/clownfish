@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-247-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-15"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-21"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.994Z"
+published_at: "2026-06-17T04:27:39.690Z"
 canonical: "#90941"
 canonical_issue: "#90941"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #90941
 
 ## Summary
 
-Plan-mode classification only. #90941 remains the live canonical issue for the symlinked launcher sandbox setup script lookup failure. #90951 is related but not a duplicate because it tracks the separate published-package packaging/product decision where setup scripts are not shipped.
+Classified #90941 as the live canonical issue for the symlinked launcher sandbox setup lookup failure. Classified #90951 as related but not a duplicate because it reports a separate published-package packaging/product gap after the symlink fix path, so no closure is recommended in this plan.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Plan-mode classification only. #90941 remains the live canonical issue for the s
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90941 | keep_canonical | planned | canonical | Best surviving hydrated canonical for the symlinked launcher root cause. |
-| #90951 | keep_related | planned | related | Same doctor sandbox-image symptom family, but different root cause and product/package scope from #90941; do not close as duplicate. |
+| #90941 | keep_canonical | planned | canonical | #90941 remains the best canonical for the symlinked launcher root cause. |
+| #90951 | keep_related | planned | related | #90951 is in the same doctor sandbox-image symptom family, but its root cause is package contents and product behavior for published installs, not symlink resolution. |
 
 ## Needs Human
 

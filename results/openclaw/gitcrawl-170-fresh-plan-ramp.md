@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-170-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-10"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-16"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.992Z"
+published_at: "2026-06-17T04:27:39.688Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-The only hydrated candidate, #92141, is already closed in the preflight artifact. No open hydrated candidate remains in this cluster, and the excluded overlap refs are context only, so no close, label, comment, merge, or fix action is planned.
+The only actionable candidate, #92141, is already closed in the hydrated preflight artifact. No closure, label, comment, merge, or fix action is planned. No live canonical is available within the actionable refs; excluded overlap refs remain context for their existing jobs only.
 
 ## Impact
 
@@ -67,7 +67,7 @@ The only hydrated candidate, #92141, is already closed in the preflight artifact
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92141 | keep_closed | skipped |  | Already-closed refs must not receive close actions; with no open hydrated candidate remaining, this cluster has no actionable mutation plan. |
+| #92141 | keep_closed | skipped |  | Already-closed refs must not receive close actions; with no remaining open actionable refs, there is no cluster-local canonical to choose. |
 
 ## Needs Human
 

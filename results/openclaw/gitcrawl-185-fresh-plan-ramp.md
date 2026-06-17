@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-185-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-12"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-18"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.993Z"
+published_at: "2026-06-17T04:27:39.689Z"
 canonical: "#90008"
 canonical_issue: "#90008"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #90008
 
 ## Summary
 
-Selected #90008 as the best live canonical issue among hydrated open refs because it states the same curl-pipe corruption root cause as #73814 and includes the narrow affected installer surfaces. #73814 is an open duplicate candidate with the same user-visible failure. Existing-overlap #87799 remains context only and is not used as canonical because it was excluded from actionable refs.
+Read-only plan: #90008 is the best live canonical issue among hydrated actionable refs for the installer stdin pipe-corruption root cause. #73814 is already closed and should receive no closure action.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Selected #90008 as the best live canonical issue among hydrated open refs becaus
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90008 | keep_canonical | planned | canonical | Best remaining live canonical: it captures the root cause and fix surface more precisely than #73814, while #87799 is excluded as existing-overlap context. |
-| #73814 | close_duplicate | planned | duplicate | Same root cause and user-visible failure as #90008; #90008 should own validation and follow-up. |
+| #90008 | keep_canonical | planned | canonical | Best surviving hydrated open issue for this cluster's root cause; no mutating action planned in plan mode. |
+| #73814 | keep_closed | skipped | duplicate | Already closed in live preflight state; do not emit a closure action. |
 
 ## Needs Human
 

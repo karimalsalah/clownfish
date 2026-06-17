@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-166-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-8"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-14"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.028Z"
+published_at: "2026-06-17T04:27:39.687Z"
 canonical: "#85268"
 canonical_issue: "#85268"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #85268
 
 ## Summary
 
-Plan-only classification completed for the single hydrated open candidate. #85268 is the only actionable, hydrated open ref in this cluster after existing-overlap refs were excluded, so it should be kept as the scoped canonical issue rather than closed or routed elsewhere.
+Plan-only classification: #85268 is the only hydrated open actionable ref and should be kept as the live canonical issue for this job's remaining scope. No close, merge, or fix action is planned because the overlapping refs are excluded context and fix/merge actions are blocked by the job frontmatter.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification completed for the single hydrated open candidate. #8526
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #85268 | keep_canonical | planned | canonical | Keep #85268 as the scoped canonical issue for the non-overlap remainder of gitcrawl cluster 166. No duplicate closeout is safe because the only other related refs are excluded context, not hydrated actionable canonical targets in this run. |
+| #85268 | keep_canonical | planned | canonical | #85268 is the only live hydrated candidate in this plan-mode job after existing-overlap refs were excluded, so it should be retained as the canonical issue for this cluster slice rather than closed or escalated. |
 
 ## Needs Human
 

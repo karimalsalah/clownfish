@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-117-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-0"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-6"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.991Z"
+published_at: "2026-06-17T04:27:39.695Z"
 canonical: "#66360"
 canonical_issue: "#66360"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #66360
 
 ## Summary
 
-Plan-only classification completed for the single hydrated open candidate. #66360 should become the live canonical within this scoped job because it is the only hydrated remaining open ref; excluded overlap refs are context only and cannot be used as hydrated canonical targets for closeout.
+Plan-mode classification only. The only hydrated open actionable ref is #66360, and it is not a duplicate of the excluded overlap context refs based on the available artifact. Treat #66360 as the live canonical for its own transcript-size-cap root cause; no close, merge, fix, or security action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-only classification completed for the single hydrated open candidate. #6636
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #66360 | keep_canonical | planned | canonical | #66360 is the sole hydrated open candidate and should be retained as the canonical issue for this job rather than closed or tied to excluded unhydrated overlap refs. |
+| #66360 | keep_canonical | planned | canonical | Only open hydrated candidate; distinct actionable root cause and no hydrated duplicate or candidate fix available. |
 
 ## Needs Human
 

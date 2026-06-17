@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-85-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-79"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-5"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.027Z"
+published_at: "2026-06-17T04:27:39.694Z"
 canonical: "#79182"
 canonical_issue: "#79182"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #79182
 
 ## Summary
 
-Read-only plan: choose #79182 as the live canonical for the remaining --message-file feature family. Keep #42820 open as related but distinct because it reports a Feishu message tool poll-schema guard bug, not the CLI message-file shell-interpolation feature request. No close, merge, or fix actions are allowed or recommended.
+Plan-only classification: #79182 is the best live canonical among the hydrated open refs for the message-file feature family. #42820 is related message/file-send work but has a distinct Feishu poll-schema guard root cause, so it should stay open as related rather than be folded into the --message-file canonical.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Read-only plan: choose #79182 as the live canonical for the remaining --message-
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #79182 | keep_canonical | planned | canonical | #79182 is the only hydrated remaining open ref that directly matches the cluster display title and representative --message-file feature family. |
-| #42820 | keep_related | planned | related | Related message/file-send area, but #42820 should remain a separate bug track from the #79182 CLI message-file feature request. |
+| #79182 | keep_canonical | planned | canonical | Best hydrated live canonical for the remaining actionable --message-file feature refs. |
+| #42820 | keep_related | planned | related | Related message/file-send family, but not a true duplicate of the --message-file feature request because #42820 centers on Feishu poll schema validation breaking attachments. |
 
 ## Needs Human
 

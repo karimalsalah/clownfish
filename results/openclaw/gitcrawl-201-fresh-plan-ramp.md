@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-201-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-14"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-20"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.994Z"
+published_at: "2026-06-17T04:27:39.690Z"
 canonical: "#92474"
 canonical_issue: "#92474"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92474
 
 ## Summary
 
-Plan-mode classification keeps #92474 as the live canonical issue. No closure, merge, or fix actions are planned because the only hydrated actionable ref is the open canonical issue and excluded overlap PRs #92484 and #92491 were context only, not hydrated actionable items.
+Plan keeps #92474 as the live canonical issue. The only hydrated open candidate is #92474; excluded overlap refs #92484 and #92491 are context only and cannot be used as hydrated candidate fixes or closure targets in this run.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan-mode classification keeps #92474 as the live canonical issue. No closure, m
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92474 | keep_canonical | planned | canonical | #92474 is the only hydrated open candidate and remains the best live canonical for this cluster. |
+| #92474 | keep_canonical | planned | canonical | #92474 is the only hydrated open candidate and remains the best canonical thread for this root cause in plan mode. |
 
 ## Needs Human
 

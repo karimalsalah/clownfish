@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-79-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-78"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-4"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.027Z"
+published_at: "2026-06-17T04:27:39.694Z"
 canonical: "#69242"
 canonical_issue: "#69242"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #69242
 
 ## Summary
 
-Plan-mode classification only. #69242 remains the best live canonical for the Linux broad find/grep SIGKILL report. #72240 is related but should not be closed as a duplicate because it reports macOS/Darwin behavior with a distinct environment and potentially different supervisor or platform cause. Excluded overlap refs were treated as context only, and no hydrated actionable item was security-sensitive.
+Read-only plan: keep #69242 as the live canonical Linux SIGKILL issue and keep #72240 related rather than closing it, because the hydrated artifact shows a similar exec/SIGKILL symptom on a distinct macOS environment with potentially different supervisor/platform causes. No GitHub mutations are planned.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Plan-mode classification only. #69242 remains the best live canonical for the Li
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #69242 | keep_canonical | planned | canonical | Open canonical issue remains live and matches the representative root cause/symptom family. |
-| #72240 | keep_related | planned | related | Related symptom family, but platform and likely root-cause scope differ enough that duplicate closure would be unsafe in this plan. |
+| #69242 | keep_canonical | planned | canonical | Best surviving hydrated canonical for the Linux exec SIGKILL root-cause family. |
+| #72240 | keep_related | planned | related | Related exec/SIGKILL diagnostic gap, but not a proven duplicate of the Linux-specific canonical issue. |
 
 ## Needs Human
 

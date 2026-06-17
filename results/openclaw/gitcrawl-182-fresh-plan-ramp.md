@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-182-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-11"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-17"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.993Z"
+published_at: "2026-06-17T04:27:39.688Z"
 canonical: "#88330"
 canonical_issue: "#88330"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #88330
 
 ## Summary
 
-Plan mode classification only. The only hydrated open candidate is #88330, and the overlap refs #88841 and #89041 are excluded context rather than hydrated actionable items, so #88330 should remain the live canonical issue for this cluster. No close, merge, label, comment, or fix action is planned.
+Plan mode classification complete. #88330 is the only hydrated open actionable item in this cluster, so it should remain the live canonical issue for this job scope. Excluded overlap refs #88841 and #89041 are context only and were not used for closure or fix actions.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Plan mode classification only. The only hydrated open candidate is #88330, and t
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #88330 | keep_canonical | planned | canonical | With the existing-overlap refs excluded and no other hydrated open candidate available, #88330 is the best live canonical for the remaining actionable cluster scope. |
+| #88330 | keep_canonical | planned | canonical | #88330 is the only hydrated open actionable ref. Keep it as the canonical issue for this cluster scope; do not close, label, merge, or raise a fix PR in plan mode. |
 
 ## Needs Human
 

@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-290-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-20"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-26"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:01.997Z"
+published_at: "2026-06-17T04:27:39.692Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: unknown
 
 ## Summary
 
-Plan-mode classification only. The hinted representative #77344 is already closed, so it must not receive any closure action and should not remain the live open canonical. The only open candidate, #77574, is related to the clawdock-dashboard area but describes a different failure mode from #77344 and should stay open as its own issue rather than being closed into the closed representative.
+Plan-only classification: #77344 is already closed and should receive no close action. #77574 is related to the clawdock-dashboard area but describes a different root cause, so it should remain open and should not replace #77344 as the live canonical for the published-port bug.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Plan-mode classification only. The hinted representative #77344 is already close
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #77344 | keep_closed | skipped | canonical | Already closed in hydrated live state; closure actions are invalid for closed refs. It remains historical canonical evidence for the published-port bug but is not a live open canonical. |
-| #77574 | keep_related | planned | related | Same clawdock-dashboard surface, different failure mode and reproduction scope. Keep #77574 open for its own validation/fix path rather than promoting it as canonical for #77344 or closing it as a duplicate. |
+| #77344 | keep_closed | skipped | canonical | Already closed in hydrated live state; keep as historical canonical evidence only. |
+| #77574 | keep_related | planned | related | Same clawdock-dashboard area, but not the same root cause or duplicate family; do not promote it as the live canonical for #77344's published-port bug. |
 
 ## Needs Human
 

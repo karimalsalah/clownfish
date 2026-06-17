@@ -2,15 +2,15 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-167-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-9"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-15"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.040Z"
-canonical: null
-canonical_issue: null
+published_at: "2026-06-17T04:27:39.688Z"
+canonical: "#91383"
+canonical_issue: "#91383"
 canonical_pr: null
 actions_total: 2
 fix_executed: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: #91383
 
 ## Summary
 
-Plan-mode classification only. The closed attachment-loss candidate #77702 should stay closed. The only remaining open hydrated item, #91383, should be kept as an independent Telegram message-loss report rather than promoted as canonical for the excluded attachment-loss family, because its reported failure is Markdown-link text truncation rather than dropped MEDIA attachments.
+Plan-only classification from the hydrated preflight artifact. #77702 is already closed and must not receive a close action. #91383 should be treated as the best live canonical for the remaining open Markdown-link Telegram text-loss subfamily, not as a duplicate of the closed MEDIA attachment issue.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Plan-mode classification only. The closed attachment-loss candidate #77702 shoul
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #77702 | keep_closed | skipped | superseded | Already closed in live preflight state, so no closure mutation is valid. |
-| #91383 | keep_independent | planned | independent | The issue is in the same Telegram/message-loss area but has a different user-visible failure and likely root cause from the attachment-loss family, so it should not be closed or forced under the excluded canonical. |
+| #77702 | keep_closed | skipped |  | Already closed in hydrated live state. |
+| #91383 | keep_canonical | planned | canonical | Best live canonical among the remaining open hydrated refs for the Markdown-link Telegram text-loss subfamily. |
 
 ## Needs Human
 

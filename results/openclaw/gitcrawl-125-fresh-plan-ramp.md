@@ -2,54 +2,54 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-125-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-1"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-7"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
-result_status: "planned"
-published_at: "2026-06-17T02:07:01.992Z"
+result_status: "needs_human"
+published_at: "2026-06-17T04:27:39.695Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 1
+actions_total: 2
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 1
 ---
 
 # gitcrawl-125-fresh-plan-ramp
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
-Worker result: planned
+Worker result: needs_human
 
 Canonical: unknown
 
 ## Summary
 
-Read-only plan: the only hydrated actionable ref, #92688, is already closed as of 2026-06-16T13:43:01Z, so no close/comment/label action is available. No other open hydrated item exists in this job to promote as the live canonical; excluded overlap refs #92704, #92770, and #92782 remain context only and should not be selected without a refreshed job that hydrates them.
+The only hydrated actionable ref, #92688, is already closed in live preflight state, so no closure/comment/label action is valid. No other open hydrated item is available to promote as canonical; excluded overlap refs #92704, #92770, and #92782 are context-only and cannot be selected without a refreshed hydrated plan.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 1 |
+| Worker actions | 2 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 1 |
 
 ## Fix Execution Actions
 
@@ -67,8 +67,9 @@ Read-only plan: the only hydrated actionable ref, #92688, is already closed as o
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92688 | keep_closed | skipped | canonical | Already closed refs must not receive closure actions; no hydrated open candidate is available in this cluster plan. |
+| #92688 | keep_closed | skipped | canonical | Already closed in hydrated live state; no action should be applied. |
+| cluster:gitcrawl-125-fresh-plan-ramp | needs_human | planned | needs_human | A refreshed hydrated plan is needed before selecting any replacement live canonical from excluded overlap/context refs. |
 
 ## Needs Human
 
-- none
+- Refresh/hydrate a new plan that includes any intended replacement canonical candidates, especially excluded overlap refs #92704, #92770, and #92782, before choosing a live canonical.

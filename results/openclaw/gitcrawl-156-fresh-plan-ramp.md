@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-156-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-5"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-11"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.012Z"
+published_at: "2026-06-17T04:27:39.686Z"
 canonical: "#81751"
 canonical_issue: "#81751"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #81751
 
 ## Summary
 
-Read-only plan result: #81751 remains the best hydrated canonical for the status-check false report. #87199 is related macOS LaunchAgent/gateway command work but has distinct crash-loop, generated plist, env-wrapper, and external-home-volume behavior, so it should not be closed as a duplicate of #81751 from the available artifact.
+Read-only plan: keep #81751 as the live canonical for the gateway status false-positive. Keep #87199 related, not duplicate, because it reports a distinct LaunchAgent generation/runtime failure involving missing `gateway run`, env-wrapper, EX_CONFIG, and external-home-volume permission behavior.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Read-only plan result: #81751 remains the best hydrated canonical for the status
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #81751 | keep_canonical | planned | canonical | #81751 is open, hydrated, non-security-sensitive, and is the clearest canonical for the cluster's status-reporting symptom. |
-| #87199 | keep_related | planned | related | #87199 has overlapping LaunchAgent/gateway command context but unique runtime failure and environment details, so closing it as a duplicate of #81751 would risk losing distinct repro and validation scope. |
+| #81751 | keep_canonical | planned | canonical |  |
+| #87199 | keep_related | planned | related | Same macOS LaunchAgent/gateway family, but different root cause and user-visible failure, so no duplicate closure is planned. |
 
 ## Needs Human
 

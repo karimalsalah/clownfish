@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-46-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-37"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-0"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.006Z"
+published_at: "2026-06-17T04:27:39.685Z"
 canonical: "#87322"
 canonical_issue: "#87322"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #87322
 
 ## Summary
 
-Plan-mode classification only. The best live canonical among the hydrated open refs is #87322 for the Mattermost block-streaming/message-loss behavior. #71569 should stay open as related but not duplicate because it combines separate config/documentation and notification UX concerns that are broader than #87322.
+Read-only plan: choose #87322 as the best live canonical among the hydrated open refs for the Mattermost block-streaming/message-loss behavior. Keep #71569 related but separate because it includes unique config/schema and notification UX sub-scopes that should not be closed into #87322.
 
 ## Impact
 
@@ -67,8 +67,8 @@ Plan-mode classification only. The best live canonical among the hydrated open r
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #87322 | keep_canonical | planned | canonical | Best live canonical from the hydrated open refs for the block-streaming overwrite/message-loss behavior. |
-| #71569 | keep_related | planned | related | Related Mattermost streaming/message-loss area, but with distinct config and notification UX scope requiring separate product/repro handling. |
+| #87322 | keep_canonical | planned | canonical | #87322 is the clearest hydrated open issue for the actionable Mattermost block-streaming overwrite/message-loss root cause in this scoped cluster. |
+| #71569 | keep_related | planned | related | #71569 overlaps the Mattermost streaming/message-loss area, but it is not a true duplicate of #87322 because it carries distinct config implementation and notification UX work. |
 
 ## Needs Human
 

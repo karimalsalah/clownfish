@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-164-fresh-plan-ramp"
 mode: "plan"
-run_id: "27659257780-1-7"
-workflow_run_id: "27659257780"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27659257780"
-head_sha: "d478a8869dca49e522a4036503c0f850a3b41509"
+run_id: "27665577567-1-13"
+workflow_run_id: "27665577567"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27665577567"
+head_sha: "4c098bd9122cabae12add972ef61ec0d2f47df96"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T02:07:02.022Z"
+published_at: "2026-06-17T04:27:39.687Z"
 canonical: "#87352"
 canonical_issue: "#87352"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27659257780](https://github.com/openclaw/clownfish/actions/runs/27659257780)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27665577567](https://github.com/openclaw/clownfish/actions/runs/27665577567)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #87352
 
 ## Summary
 
-Read-only plan result: #87352 remains the live canonical issue for this cluster. No duplicate, merge, fix, close, or security-routing action is recommended because the only hydrated actionable ref is the open canonical issue and the job blocks fix, raise_pr, and merge actions.
+Plan-mode classification only. The hydrated preflight artifact contains one actionable open candidate, #87352, and it remains the best live canonical issue for the Skill Workshop autoCapture agent_end timeout report. No close, merge, label, comment, or fix-PR action is planned.
 
 ## Impact
 
@@ -67,7 +67,7 @@ Read-only plan result: #87352 remains the live canonical issue for this cluster.
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #87352 | keep_canonical | planned | canonical | #87352 is the only hydrated open actionable item and remains the best surviving canonical thread for this cluster. |
+| #87352 | keep_canonical | planned | canonical | #87352 is open, hydrated, non-security-sensitive, and is the only actionable live item. It should remain the canonical issue for this cluster; excluded overlap refs are context only and should not receive actions in this plan. |
 
 ## Needs Human
 
