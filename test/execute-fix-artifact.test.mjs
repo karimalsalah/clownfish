@@ -195,6 +195,13 @@ test("execute-fix-artifact defers a broad scope block only for explicit rebase-o
   assert.match(source, /if \(!rebased && \(scopeBlock \|\| rebaseOnly\)\)/);
 });
 
+test("execute-fix-artifact permits narrow config-and-test repairs", () => {
+  const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
+
+  assert.match(source, /const mixedFeatureScope = likelyFiles\.length > 4 && crossSurfaceCount >= 3;/);
+  assert.match(source, /!tooManyFiles && !tooManySurfaces && !mixedFeatureScope/);
+});
+
 test("execute-fix-artifact makes rebase-only repair a no-generated-edit path", () => {
   const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
 

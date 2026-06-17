@@ -1976,8 +1976,9 @@ function validateAutonomousFixScope({ job, fixArtifact }) {
   const crossSurfaceCount = [crossesDocs, crossesConfig, crossesTests, crossesCore].filter(Boolean).length;
   const tooManyFiles = likelyFiles.length > maxAutonomousFixFiles;
   const tooManySurfaces = affectedSurfaces.length > maxAutonomousFixSurfaces;
+  const mixedFeatureScope = likelyFiles.length > 4 && crossSurfaceCount >= 3;
 
-  if (!featureSignal || (!tooManyFiles && !tooManySurfaces && crossSurfaceCount < 3)) return null;
+  if (!featureSignal || (!tooManyFiles && !tooManySurfaces && !mixedFeatureScope)) return null;
 
   return {
     reason:
@@ -1987,6 +1988,7 @@ function validateAutonomousFixScope({ job, fixArtifact }) {
       `likely_files=${likelyFiles.length}/${maxAutonomousFixFiles}`,
       `affected_surfaces=${affectedSurfaces.length}/${maxAutonomousFixSurfaces}`,
       `cross_surface_count=${crossSurfaceCount}`,
+      `mixed_feature_scope=${mixedFeatureScope}`,
       `sample_files=${likelyFiles.slice(0, 8).join(", ")}`,
     ],
   };
