@@ -1,7 +1,7 @@
 ---
 repo: "openclaw/openclaw"
 cluster_id: "repair-81157-fresh-plan-20260618"
-mode: plan
+mode: execute
 allowed_actions:
   - fix
   - raise_pr
@@ -37,7 +37,7 @@ source_run_id: "27786731118"
 repair_strategy: "repair_contributor_branch"
 ---
 
-# Fresh Repair Plan #81157
+# Fresh Repair Execute #81157
 
 Re-hydrate open contributor PR #81157 and its parent issue #69582 from current
 GitHub state. The PR is a two-file `process.action` boundary guard:

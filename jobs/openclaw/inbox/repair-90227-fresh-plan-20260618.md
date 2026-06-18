@@ -1,7 +1,7 @@
 ---
 repo: "openclaw/openclaw"
 cluster_id: "repair-90227-fresh-plan-20260618"
-mode: plan
+mode: execute
 allowed_actions:
   - fix
   - raise_pr
@@ -36,7 +36,7 @@ source_run_id: "27786731118"
 repair_strategy: "repair_contributor_branch"
 ---
 
-# Fresh Repair Plan #90227
+# Fresh Repair Execute #90227
 
 Re-hydrate open contributor PR #90227 from current GitHub state. It is a
 one-file Windows compatibility repair in
