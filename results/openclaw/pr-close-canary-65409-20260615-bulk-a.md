@@ -2,20 +2,21 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-close-canary-65409-20260615-bulk-a"
 mode: "execute"
-run_id: "27545119922"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27545119922"
-head_sha: "1a47711b53828d58a62d5798b80ee89f4bb84218"
-workflow_conclusion: "failure"
+run_id: "27750820101"
+workflow_run_id: "27750820101"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27750820101"
+head_sha: "00f43433fcdc1ab72f38d7f5b19813115b25890d"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T12:12:57.942Z"
-canonical: null
+published_at: "2026-06-18T09:45:14.303Z"
+canonical: "#83828"
 canonical_issue: null
-canonical_pr: null
-actions_total: 2
+canonical_pr: "#83828"
+actions_total: 1
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
-apply_executed: 0
+apply_executed: 1
 apply_blocked: 0
 apply_skipped: 0
 needs_human_count: 0
@@ -25,27 +26,27 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27545119922](https://github.com/openclaw/clownfish/actions/runs/27545119922)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27750820101](https://github.com/openclaw/clownfish/actions/runs/27750820101)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: #83828
 
 ## Summary
 
-Planned a single close-only cleanup action: #65409 is still open and is fixed by the hydrated, merged replacement #83828. #83828 is already merged/closed, so it is retained only as non-mutating evidence and is not treated as an open canonical target.
+#65409 remains open and #83828 is still merged, so #65409 is safe to close as covered by the merged replacement path. No security-sensitive hydrated item is present, and no merge/fix action is allowed or proposed.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 2 |
+| Worker actions | 1 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
-| Applied executions | 0 |
+| Applied executions | 1 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
 | Needs human | 0 |
@@ -60,14 +61,20 @@ Planned a single close-only cleanup action: #65409 is still open and is fixed by
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #65409 | close_fixed_by_candidate | executed | fixed_by_candidate | covered by the candidate fix |
+
+## Apply Audit
+
+| Attempt | Source | Target | Action | Status | Reason |
+| --- | --- | --- | --- | --- |
+| 1 | apply | #65409 | close_fixed_by_candidate | executed | covered by the candidate fix |
+| 2 | apply | #65409 | close_fixed_by_candidate | executed | already closed with matching projectclownfish comment |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #65409 | close_fixed_by_candidate | planned | fixed_by_candidate |  |
-| #83828 | keep_closed | skipped | fixed_by_candidate | Already-closed refs must not receive close or keep_canonical actions. |
+| #65409 | close_fixed_by_candidate | planned | fixed_by_candidate | The job explicitly requested a close-only canary when #65409 remains open and #83828 remains merged; both live preflight conditions are satisfied. |
 
 ## Needs Human
 
