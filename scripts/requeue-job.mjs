@@ -210,6 +210,8 @@ function dispatchJob(jobPath, mode) {
       `execution_runner=${executionRunner}`,
       "-f",
       `model=${model}`,
+      "-f",
+      "dry_run=false",
     ],
     { cwd: repoRoot(), encoding: "utf8", env: ghEnv(), stdio: "pipe" },
   );

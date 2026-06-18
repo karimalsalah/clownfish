@@ -12,7 +12,7 @@ test("requeue waits for the cluster job that captures execute gates", () => {
   const bin = path.join(fixture, "bin");
   const state = path.join(fixture, "state.json");
   fs.mkdirSync(bin);
-  fs.writeFileSync(state, JSON.stringify({ viewCalls: 0 }));
+  fs.writeFileSync(state, JSON.stringify({ viewCalls: 0, workflowArgs: [] }));
   fs.writeFileSync(
     path.join(bin, "gh"),
     `#!/usr/bin/env node
@@ -40,6 +40,8 @@ if (args[0] === "variable" && args[1] === "list") {
     },
   ]);
 } else if (args[0] === "workflow" && args[1] === "run") {
+  state.workflowArgs = args;
+  fs.writeFileSync(statePath, JSON.stringify(state));
   process.stdout.write("");
 } else if (args[0] === "run" && args[1] === "view") {
   state.viewCalls += 1;
@@ -101,5 +103,7 @@ if (args[0] === "variable" && args[1] === "list") {
   assert.equal(result.status, 0, result.stderr || result.stdout);
   const report = JSON.parse(result.stdout.match(/\{[\s\S]*\}/)?.[0] ?? "");
   assert.equal(report.gate_capture_runs[0].worker_job_status, "in_progress");
-  assert.equal(JSON.parse(fs.readFileSync(state, "utf8")).viewCalls, 2);
+  const finalState = JSON.parse(fs.readFileSync(state, "utf8"));
+  assert.equal(finalState.viewCalls, 2);
+  assert.ok(finalState.workflowArgs.includes("dry_run=false"));
 });
