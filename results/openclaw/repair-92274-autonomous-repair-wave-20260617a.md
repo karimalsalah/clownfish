@@ -2,22 +2,22 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-92274-autonomous-repair-wave-20260617a"
 mode: "autonomous"
-run_id: "27682632917"
-workflow_run_id: "27682632917"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27682632917"
-head_sha: "325e4f7668eca868a58e712a276dd80219bbc097"
+run_id: "27744912870"
+workflow_run_id: "27744912870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27744912870"
+head_sha: "5e4579520d2c0f67afd482b6e40b12f7d4a3caa3"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-17T10:34:25.986Z"
-canonical: "#92274"
-canonical_issue: "#91527"
-canonical_pr: "#92274"
+published_at: "2026-06-18T08:24:21.212Z"
+canonical: "https://github.com/openclaw/openclaw/pull/92274"
+canonical_issue: "https://github.com/openclaw/openclaw/issues/91527"
+canonical_pr: "https://github.com/openclaw/openclaw/pull/92274"
 actions_total: 6
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27682632917](https://github.com/openclaw/clownfish/actions/runs/27682632917)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27744912870](https://github.com/openclaw/clownfish/actions/runs/27744912870)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #92274
+Canonical: https://github.com/openclaw/openclaw/pull/92274
 
 ## Summary
 
-Plan a guarded repair for contributor PR #92274. The hydrated preflight shows no security-sensitive items, #92274 is open and maintainer-modifiable, but it is not merge-ready: the latest ClawSweeper review says the send-evidence lock-change path still returns a non-terminal delivery result and lifecycle only credits delivery.delivered, and the native Telegram proof check failed. No comments, labels, closes, or merges are planned because those actions are blocked by the job.
+Current main still has a narrow subagent announce duplicate-delivery repair path: the direct announce-agent path catches prompt-lock/transcript failures as non-delivered errors, while dispatch and lifecycle only stop retry/fallback when the result is delivered or terminal. PR #92274 is the active contributor branch and is repairable because maintainer_can_modify is true, but it is not merge-ready due the ClawSweeper/Codex review blocker and failed native Telegram proof.
 
 ## Impact
 
@@ -47,7 +47,7 @@ Plan a guarded repair for contributor PR #92274. The hydrated preflight shows no
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -68,29 +68,28 @@ Plan a guarded repair for contributor PR #92274. The hydrated preflight shows no
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair contributor PR #92274 so the embedded prompt-lock race in subagent announce delivery is terminal only after confirmed visible send evidence, preventing lifecycle/fallback retry from producing duplicate outbound announcements without changing unrelated prompt locking or retry policy.",
-  "pr_title": "fix(agents): stop duplicate subagent announce after prompt lock send",
-  "pr_body": "## Summary\n- repairs contributor PR #92274 for the subagent announce prompt-lock duplicate-send path\n- treats embedded prompt-lock send evidence as terminal after confirmed visible delivery so lifecycle/fallback retry does not resend the same announcement\n- keeps the change scoped to `src/agents/subagent-announce-delivery.ts` plus focused regression coverage\n\n## Credit\nSource PR: https://github.com/openclaw/openclaw/pull/92274\nThanks @fsdwen for the active contributor branch and send-evidence direction. Clownfish preserves that attribution in this repair.\n\n## Linked refs\n- Canonical repair PR: #92274\n- User report: #91527\n- Earlier closed related PR: #91641\n- Prior outbound/deliver fix outside this path: #89812\n\n## Validation\n- `pnpm -s vitest run --config test/vitest/vitest.unit.config.ts src/agents/subagent-announce-delivery.test.ts`\n- `pnpm check:changed`\n- `/review`",
+  "summary": "Repair PR #92274 so subagent announce direct delivery treats visible-send/partial-send prompt-lock failures as terminal, preventing fallback steering or lifecycle retry from producing duplicate outbound messages after the user-visible send already happened.",
+  "pr_title": "fix(agents): stop duplicate subagent announces after visible send races prompt lock",
+  "pr_body": "## Summary\n- repairs #92274 so a prompt-lock/transcript failure after visible announce delivery is terminal for completion dispatch\n- prevents fallback steering or lifecycle retry from sending duplicate subagent completion announcements\n- keeps the patch scoped to `src/agents/subagent-announce-delivery.ts` plus focused regression coverage\n\n## Credit\nThis repairs the existing contributor PR from @fsdwen: https://github.com/openclaw/openclaw/pull/92274.\n\n## Verification\n- `pnpm test src/agents/subagent-announce-delivery.test.ts -- --reporter=verbose`\n- `pnpm check:changed`\n- `/review`\n\n## Notes\nCurrent main baseline proof: `node scripts/run-vitest.mjs src/agents/subagent-announce-delivery.test.ts` passed 100 tests after dependency hydration. The repair still needs a new regression for the visible-send prompt-lock terminal path and a clean review before merge.",
   "likely_files": [
     "src/agents/subagent-announce-delivery.ts",
     "src/agents/subagent-announce-delivery.test.ts"
   ],
   "validation_commands": [
-    "pnpm -s vitest run --config test/vitest/vitest.unit.config.ts src/agents/subagent-announce-delivery.test.ts",
-    "pnpm check:changed",
-    "/review"
+    "pnpm test src/agents/subagent-announce-delivery.test.ts -- --reporter=verbose",
+    "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve source PR credit for https://github.com/openclaw/openclaw/pull/92274 by @fsdwen.",
-    "Mention that #92274 supplied the active contributor branch and focused send-evidence approach.",
-    "Historical related work: #91641 by @zenglingbiao was the earlier closed regex-only attempt, and #89812 was the merged outbound/deliver fix that did not cover this subagent path."
+    "Preserve source PR credit for @fsdwen via https://github.com/openclaw/openclaw/pull/92274.",
+    "PR body/update should say Clownfish repaired the existing contributor branch and kept @fsdwen's original fix path and attribution.",
+    "Mention #91641 only as the earlier closed attempt; do not credit it as the source branch for this repair unless the final patch borrows code from that PR."
   ],
   "source_job": "jobs/openclaw/inbox/repair-92274-autonomous-repair-wave-20260617a.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -98,30 +97,30 @@ Plan a guarded repair for contributor PR #92274. The hydrated preflight shows no
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/92274 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #92274 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #92274 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92274 | fix_needed | planned | canonical | Repair the contributor branch narrowly rather than merge or close anything. |
-| repair-92274-autonomous-repair-wave-20260617a | build_fix_artifact | planned | canonical | Create an executable repair artifact for the deterministic fix executor; no direct GitHub mutation is planned by the worker. |
-| #91527 | keep_related | planned | related | Same root-cause family as #92274, but closure is blocked by job policy and by the incomplete/unmerged PR. |
-| #92076 | keep_related | planned | related | Related subagent delivery area, but distinct scope; keep it out of this narrow #92274 repair. |
-| #89812 | keep_closed | skipped | related | Already closed historical context; no closure action is valid. |
-| #91641 | keep_closed | skipped | superseded | Already closed superseded context; no mutation is valid. |
+| #92274 | fix_needed | planned | canonical | Repair the contributor branch rather than replace it: the PR is focused, open, editable by maintainers, and already carries the relevant regression work, but must propagate visible-send/partial-send evidence as terminal through the direct announce result and focused regression. |
+| cluster:repair-92274-autonomous-repair-wave-20260617a | build_fix_artifact | planned |  | Executor should repair the existing contributor branch, rerun focused and changed gates, run /review, and leave merge/close decisions to later permitted workflows. |
+| #91527 | keep_canonical | planned | canonical | Canonical user tracker for the duplicate-send bug; #92274 is the active repair candidate. |
+| #92076 | keep_related | planned | related | Related delivery family, different root cause/scope; do not close or route through this narrow repair. |
+| #89812 | keep_closed | skipped | related | Historical related fix, already closed. |
+| #91641 | keep_closed | skipped | superseded | Closed superseded PR; no mutation allowed or needed. |
 
 ## Needs Human
 
