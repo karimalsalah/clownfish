@@ -1,23 +1,23 @@
 ---
 repo: "openclaw/openclaw"
 cluster_id: "repair-90885-fresh-plan-20260618b"
-mode: "plan"
-run_id: "27788599490"
-workflow_run_id: "27788599490"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27788599490"
-head_sha: "7f41b2e7f526831f314ee6eca2a9d0ce587bfca7"
+mode: "execute"
+run_id: "27788993437"
+workflow_run_id: "27788993437"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27788993437"
+head_sha: "c1079a640cc2830eaf6c48a4dd5192d883c4fb63"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-18T20:55:32.409Z"
+published_at: "2026-06-18T21:13:55.223Z"
 canonical: "#90885"
 canonical_issue: "#90340"
 canonical_pr: "#90885"
-actions_total: 5
+actions_total: 4
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27788599490](https://github.com/openclaw/clownfish/actions/runs/27788599490)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27788993437](https://github.com/openclaw/clownfish/actions/runs/27788993437)
 
 Workflow conclusion: success
 
@@ -36,18 +36,18 @@ Canonical: #90885
 
 ## Summary
 
-Plan-mode result: keep #90885 as the canonical contributor PR and route execution to a narrow contributor-branch repair because the latest hydrated ClawSweeper review still marks it needs-changes despite passing checks. Keep linked issue #90340 open as related/canonical issue context until the PR lands.
+Open PR #90885 remains the canonical contributor repair path for issue #90340. Latest head b133cb4 already contains the narrow two-file shared-resolver/collision-test shape, but the branch is stale against current main bfb47a03 and the durable ClawSweeper review still records an old needs-changes verdict against earlier sha 2ba0cf. Plan a contributor-branch refresh/repair with Pick-cat credit preserved, then focused validation and fresh review.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 5 |
+| Worker actions | 4 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -66,27 +66,27 @@ Plan-mode result: keep #90885 as the canonical contributor PR and route executio
     "build_fix_artifact",
     "open_fix_pr"
   ],
-  "summary": "Repair the editable contributor PR #90885 on its existing narrow two-file surface so compaction model overrides resolve configured model ids before alias lookup, resolve bare aliases to canonical model refs through the shared model-selection helper behavior, preserve cross-provider auth-profile clearing, and preserve unmatched bare literal fallback under the active session provider.",
-  "pr_title": "fix(agent): resolve compaction model alias via shared resolver",
-  "pr_body": "## Summary\n- Repair Pick-cat's #90885 contributor branch for #90340 while preserving source credit.\n- Keep the fix scoped to compaction runtime-context alias resolution and focused tests.\n- Ensure configured literal model ids win before alias lookup, bare aliases resolve to canonical model refs, cross-provider alias resolution clears auth profile, and unmatched bare values remain literal under the active session provider.\n\n## Validation\n- pnpm vitest run src/agents/embedded-agent-runner/compaction-runtime-context.test.ts\n- pnpm check:changed\n\nSource PR: https://github.com/openclaw/openclaw/pull/90885\nLinked issue: https://github.com/openclaw/openclaw/issues/90340\nCredit: Thanks @Pick-cat for the original fix and proof.",
+  "summary": "Repair open contributor PR #90885 by refreshing Pick-cat's two-file compaction-model alias resolution patch onto current main, preserving literal bare-model precedence, resolving only non-colliding aliases through shared model-selection helpers, and keeping focused regression coverage.",
+  "pr_title": "fix(agent): resolve compaction model aliases before dispatch",
+  "pr_body": "## Summary\n- Refreshes the #90885 contributor repair onto current main while preserving @Pick-cat's source PR credit.\n- Keeps shipped bare `agents.defaults.compaction.model` literals on the current provider when the value is already a configured model id.\n- Resolves non-colliding compaction model aliases through the shared model-selection alias index/ref resolver so compaction does not dispatch `openai/<alias>` for configured aliases.\n- Covers same-provider alias, cross-provider alias auth drop, unmatched literal fallback, and alias/model-id collision precedence.\n\nRefs #90340\nSource PR: #90885 by @Pick-cat\n\n## Verification\n- `node scripts/run-vitest.mjs src/agents/embedded-agent-runner/compaction-runtime-context.test.ts`\n- `pnpm check:changed`\n\n## Notes\nClownfish is preserving attribution from the source PR rather than replacing useful contributor work.",
   "likely_files": [
     "src/agents/embedded-agent-runner/compaction-runtime-context.ts",
     "src/agents/embedded-agent-runner/compaction-runtime-context.test.ts"
   ],
   "validation_commands": [
-    "pnpm vitest run src/agents/embedded-agent-runner/compaction-runtime-context.test.ts",
+    "node scripts/run-vitest.mjs src/agents/embedded-agent-runner/compaction-runtime-context.test.ts",
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve Pick-cat's authorship and attribution from source PR https://github.com/openclaw/openclaw/pull/90885.",
-    "Mention in the PR body that Clownfish repaired Pick-cat's contributor branch for #90340 rather than replacing the contribution."
+    "Preserve source PR credit for @Pick-cat from https://github.com/openclaw/openclaw/pull/90885.",
+    "Carry reporter credit for #90340 by @toruvieI in the PR body or squash/release-note context if user-facing release notes are generated."
   ],
   "source_job": "jobs/openclaw/inbox/repair-90885-fresh-plan-20260618b.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -94,29 +94,28 @@ Plan-mode result: keep #90885 as the canonical contributor PR and route executio
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/90885 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #90885 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #90885 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90885 | keep_canonical | planned | canonical | #90885 remains the canonical useful contributor branch, but it is not merge-ready under the job because the live hydrated bot review still records a concrete patch-quality blocker. |
-| #90885 | fix_needed | planned | related | A narrow contributor-branch repair is executable and safer than a replacement PR because maintainer_can_modify is true and the PR already contains the useful credited work. |
-| #90885 | build_fix_artifact | planned | canonical | The applicator needs a complete fix artifact to repair the contributor branch without widening scope. |
-| #90885 | open_fix_pr | planned | canonical | The job requires open_fix_pr when a concrete narrow blocker exists and fix PRs are allowed. |
-| #90340 | keep_related | planned | related | The issue remains useful canonical problem context while the credited contributor PR is repaired and validated. |
+| #90885 | fix_needed | planned | canonical | Concrete narrow blocker: contributor branch is stale versus current main and has stale bot-review state; repair is limited to refreshing #90885 and preserving the two-file alias resolution patch. |
+| #90340 | keep_related | planned | related |  |
+| cluster:repair-90885-fresh-plan-20260618b | build_fix_artifact | planned |  |  |
+| cluster:repair-90885-fresh-plan-20260618b | open_fix_pr | planned | canonical |  |
 
 ## Needs Human
 
