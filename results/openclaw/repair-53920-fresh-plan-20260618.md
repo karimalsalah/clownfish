@@ -1,14 +1,14 @@
 ---
 repo: "openclaw/openclaw"
 cluster_id: "repair-53920-fresh-plan-20260618"
-mode: "plan"
-run_id: "27785153155"
-workflow_run_id: "27785153155"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27785153155"
-head_sha: "a1dd050300cec933fcba0ede135d05316a7ace1d"
+mode: "execute"
+run_id: "27785381579"
+workflow_run_id: "27785381579"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27785381579"
+head_sha: "8d83e975ccdbb0a3d84443d48fd697499e6b421c"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-18T19:50:16.474Z"
+published_at: "2026-06-18T20:02:11.960Z"
 canonical: "#53920"
 canonical_issue: null
 canonical_pr: "#53920"
@@ -17,7 +17,7 @@ fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27785153155](https://github.com/openclaw/clownfish/actions/runs/27785153155)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27785381579](https://github.com/openclaw/clownfish/actions/runs/27785381579)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #53920
 
 ## Summary
 
-Plan-only result for open PR #53920. The hydrated artifact keeps #53920 as the canonical contributor PR: it is open, non-security, maintainer-editable, and limited to scripts/setup-auth-system.sh. Merge and close are blocked by job policy, and merge readiness is also blocked by the current checks-node-core-tooling failure. A focused repair artifact is planned for the executor to inspect and narrowly repair the contributor branch, preserving JackWuGlobal credit.
+PR #53920 is still open and remains the canonical repair lane. Live GitHub API shows the head at 06967980b2c44b1386185199839cad25be40e2ca, maintainer_can_modify=true, one changed file, and mergeable_state=unstable. The only failing check is checks-node-core-tooling, with annotations in src/scripts/test-projects.test.ts; the PR diff changes only scripts/setup-auth-system.sh, so the failure is a stale-branch/tooling-lane mismatch, not an auth-monitor script defect. Emit a repair artifact to refresh the contributor branch without expanding the script scope, then rerun the focused tooling test and pnpm check:changed.
 
 ## Impact
 
@@ -47,7 +47,7 @@ Plan-only result for open PR #53920. The hydrated artifact keeps #53920 as the c
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -64,27 +64,27 @@ Plan-only result for open PR #53920. The hydrated artifact keeps #53920 as the c
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Narrowly repair canonical contributor PR #53920 if the current checks-node-core-tooling failure is attributable to the one-file scripts/setup-auth-system.sh change. Preserve the contributor branch and JackWuGlobal credit; do not broaden into unrelated auth-monitor or service-management work.",
-  "pr_title": "fix(scripts): repair auth-monitor setup rendering",
-  "pr_body": "Repair canonical contributor PR #53920 on the existing maintainer-editable branch, keeping scope limited to scripts/setup-auth-system.sh.\n\nSource PR: https://github.com/openclaw/openclaw/pull/53920\nCredited contributor: @JackWuGlobal\nCluster: repair-53920-fresh-plan-20260618\n\nExecutor notes:\n- Inspect the current checks-node-core-tooling failure and only patch it if it is attributable to this setup-script change.\n- Preserve the existing materialize-before-install behavior and addressed review findings.\n- Do not force-push, bypass checks, or broaden into unrelated auth-monitor/service-management work.\n\nValidation:\n- bash -n scripts/setup-auth-system.sh\n- pnpm check:changed",
+  "summary": "Refresh PR #53920 on the contributor branch so the stale checks-node-core-tooling failure from src/scripts/test-projects.test.ts is re-evaluated against current main. Do not broaden the auth-monitor script change; only resolve rebase/update conflicts if they touch the existing PR surface.",
+  "pr_title": "fix(scripts): avoid mutating tracked auth-monitor template during setup",
+  "pr_body": "## Summary\n- refresh the existing #53920 repair lane against current main\n- keep the auth-monitor setup-script fix scoped to scripts/setup-auth-system.sh\n- preserve JackWuGlobal attribution for the original contribution\n\n## Repair reason\nThe remaining red check is checks-node-core-tooling, but its current annotation is in src/scripts/test-projects.test.ts rather than the changed setup script. The PR diff is still one file: scripts/setup-auth-system.sh. This should be repaired as a branch freshness/tooling-lane update, not by expanding the auth-monitor patch.\n\n## Validation\n- node scripts/run-vitest.mjs src/scripts/test-projects.test.ts\n- pnpm check:changed\n\nSource PR: https://github.com/openclaw/openclaw/pull/53920\nCredit: Thanks @JackWuGlobal; this repair keeps attribution anchored to the source PR.",
   "likely_files": [
     "scripts/setup-auth-system.sh"
   ],
   "validation_commands": [
-    "bash -n scripts/setup-auth-system.sh",
+    "node scripts/run-vitest.mjs src/scripts/test-projects.test.ts",
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Source PR: https://github.com/openclaw/openclaw/pull/53920",
-    "Contributor credit stays with JackWuGlobal; Clownfish repair should be described as carrying the existing PR forward, not replacing authorship.",
-    "Maintainer comment already states credit stays anchored to #53920."
+    "Preserve source PR credit for JackWuGlobal.",
+    "Source PR: https://github.com/openclaw/openclaw/pull/53920.",
+    "Existing Clownfish repair commit already states credit stays anchored to #53920; keep that attribution in any replacement or refreshed PR body."
   ],
   "source_job": "jobs/openclaw/inbox/repair-53920-fresh-plan-20260618.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -92,26 +92,26 @@ Plan-only result for open PR #53920. The hydrated artifact keeps #53920 as the c
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/53920 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #53920 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #53920 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #53920 | fix_needed | planned | canonical | Keep #53920 as canonical but require focused repair before any merge path because the current checks-node-core-tooling failure blocks merge readiness and the job allows fix/raise_pr while forbidding merge, close, comments, labels, force_push, and bypass_checks. |
-| cluster:repair-53920-fresh-plan-20260618 | build_fix_artifact | planned |  | Build a narrow executable repair artifact so the executor can repair the maintainer-editable contributor branch without expanding into unrelated auth-monitor or service-management work. |
+| #53920 | fix_needed | planned | canonical | The remaining red check is attributable to branch freshness/tooling expectations, not to the changed auth-monitor setup script. Repair should refresh the contributor branch and validate, not rewrite unrelated tooling code. |
+| cluster:repair-53920-fresh-plan-20260618 | build_fix_artifact | planned |  | Build an executable repair plan for the existing contributor PR lane while preserving JackWuGlobal credit. |
 
 ## Needs Human
 
