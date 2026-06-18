@@ -32,6 +32,7 @@ const suffix = optionalSlug(args.suffix ?? "");
 const skipExisting = args["skip-existing"] !== "false";
 const hydrateFilesLive = Boolean(args["hydrate-files-live"] ?? args.hydrate_files_live);
 const liveFileCandidateLimit = numberArg("live-file-candidate-limit", Math.max(limit * 10, 300));
+const liveFileQueryBatchSize = numberArg("live-file-query-batch-size", 5);
 const requiredSignals = signalSet(argValues(rawArgv, ["require-signal", "require_signal"], args["require-signal"] ?? args.require_signal ?? ""));
 const excludedSignals = signalSet(argValues(rawArgv, ["exclude-signal", "exclude_signal"], args["exclude-signal"] ?? args.exclude_signal ?? ""));
 const requiredLabels = labelSet(argValues(rawArgv, ["require-label", "require_label"], args["require-label"] ?? args.require_label ?? ""));
@@ -73,6 +74,7 @@ if (jsonOutput) {
           batch_size: batchSize,
           min_score: minScore,
           max_files: maxFiles,
+          live_file_query_batch_size: liveFileQueryBatchSize,
           sort,
           required_signals: [...requiredSignals],
           excluded_signals: [...excludedSignals],
@@ -170,8 +172,8 @@ function compareRowsForHydration(left, right) {
 function fetchLivePullRequestFiles(numbers) {
   const out = new Map();
   const uniqueNumbers = unique(numbers.filter(Number.isInteger));
-  for (let index = 0; index < uniqueNumbers.length; index += 25) {
-    const batch = uniqueNumbers.slice(index, index + 25);
+  for (let index = 0; index < uniqueNumbers.length; index += liveFileQueryBatchSize) {
+    const batch = uniqueNumbers.slice(index, index + liveFileQueryBatchSize);
     const payload = ghJson(["api", "graphql", "-f", `query=${renderPullRequestFilesQuery(batch)}`]);
     const fatalErrors = (payload.errors ?? []).filter(
       (error) => !/^Could not resolve to a PullRequest with the number of \d+\.$/.test(String(error.message ?? "")),

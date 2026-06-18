@@ -22,6 +22,7 @@ test("low-signal import blocks PRs with proof, ready, waiting, and risk labels",
   );
   assert.deepEqual(payload.options.required_signals, ["docs_only"]);
   assert.deepEqual(payload.options.required_labels, ["triage: low-signal-docs"]);
+  assert.equal(payload.options.live_file_query_batch_size, 5);
 });
 
 test("low-signal import preserves repeated exclude-signal flags", { skip: hasSqlite ? false : "sqlite3 missing" }, () => {
