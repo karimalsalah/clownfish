@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-79655-codex-replay"
 mode: "autonomous"
-run_id: "27745999776"
-workflow_run_id: "27745999776"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27745999776"
-head_sha: "e182f75656497e4b5d6d045040c445f71ff99857"
-workflow_conclusion: "success"
+run_id: "27746217759"
+workflow_run_id: "27746217759"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27746217759"
+head_sha: "6b23fe7fc28d99bdad13dc0ea95bd07b132dfa05"
+workflow_conclusion: "cancelled"
 result_status: "planned"
-published_at: "2026-06-18T08:14:01.951Z"
-canonical: "#79655"
+published_at: "2026-06-18T08:44:04.678Z"
+canonical: "https://github.com/openclaw/openclaw/pull/79655"
 canonical_issue: null
-canonical_pr: "#79655"
+canonical_pr: "https://github.com/openclaw/openclaw/pull/79655"
 actions_total: 4
 fix_executed: 0
 fix_failed: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27745999776](https://github.com/openclaw/clownfish/actions/runs/27745999776)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27746217759](https://github.com/openclaw/clownfish/actions/runs/27746217759)
 
-Workflow conclusion: success
+Workflow conclusion: cancelled
 
 Worker result: planned
 
-Canonical: #79655
+Canonical: https://github.com/openclaw/openclaw/pull/79655
 
 ## Summary
 
-Plan repair for open canonical PR #79655. Do not merge or close; build a narrow Clownfish repair PR/branch that preserves the contributor's replay-pruning intent and credit while addressing the current review and CI blockers.
+#79655 is the open canonical repair target. It is useful and maintainer-editable, but not merge-ready: the hydrated ClawSweeper review still reports changed-surface CI/type/replay blockers, and merge is blocked by job policy. Plan a narrow repair of the contributor PR branch with focused Codex Responses replay pruning proof; keep #60264 and #76832 as already-closed historical context only.
 
 ## Impact
 
@@ -66,23 +66,22 @@ Plan repair for open canonical PR #79655. Do not merge or close; build a narrow 
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair PR #79655 with the narrowest patch for completed native Codex Responses tool replay pruning. Keep active tail function_call_output continuation behavior intact, prune only completed historical replay state, and address the current ClawSweeper/CI blockers before opening or updating the Clownfish repair PR.",
-  "pr_title": "fix(openai-codex): prune completed Responses tool replay",
-  "pr_body": "## Summary\n- Repairs source PR #79655 by preserving its completed native Codex Responses tool replay pruning behavior while addressing current review and CI blockers.\n- Keeps active tail function-call output continuation behavior intact.\n- Limits changes to the OpenAI transport replay surface, focused tests, and any required transcript-hygiene wording.\n\n## Credit\nSource PR: https://github.com/openclaw/openclaw/pull/79655\nThanks @fanfanliu964-web for the original fix and proof. This Clownfish repair carries that contribution forward with attribution.\n\n## Validation\n- pnpm -s vitest run src/agents/openai-transport-stream.responses-tool-replay.test.ts src/agents/openai-transport-stream.test.ts extensions/openai/transport-policy.test.ts\n- pnpm check:changed\n- git diff --check\n\n## Guardrails\n- Do not merge from this worker result.\n- Do not close #79655 until a fix PR is opened, landed, or explicitly proven unnecessary by the deterministic applicator/post-flight flow.",
+  "summary": "Repair #79655 by pruning completed native Codex Responses tool-call replay after the later assistant/user turn has consumed the tool output, while preserving active tail function_call/function_call_output pairs needed for an in-progress continuation.",
+  "pr_title": "fix(openai): prune completed Codex Responses tool replay",
+  "pr_body": "## Summary\n- repair #79655 by pruning completed native Codex Responses tool-call replay after a later turn has consumed the tool output\n- preserve active tail function-call outputs so same-turn continuation still works\n- keep custom/proxy Codex-compatible replay behavior unchanged\n\n## Credit\nThis carries forward the narrow fix from #79655 by @fanfanliu964-web. Related prior native Codex replay work landed in #76832 by @MkDev11.\n\n## Verification\n- `node scripts/run-vitest.mjs src/agents/openai-transport-stream.responses-tool-replay.test.ts src/agents/openai-transport-stream.test.ts`\n- `pnpm check:changed`\n- Codex contract source checked: `../codex/codex-rs/protocol/src/models.rs`, `../codex/codex-rs/core/tests/common/responses.rs`, `../codex/codex-rs/tools/src/response_history.rs`",
   "likely_files": [
     "src/agents/openai-transport-stream.ts",
     "src/agents/openai-transport-stream.responses-tool-replay.test.ts",
     "docs/reference/transcript-hygiene.md"
   ],
   "validation_commands": [
-    "pnpm -s vitest run src/agents/openai-transport-stream.responses-tool-replay.test.ts src/agents/openai-transport-stream.test.ts extensions/openai/transport-policy.test.ts",
-    "pnpm check:changed",
-    "git diff --check"
+    "node scripts/run-vitest.mjs src/agents/openai-transport-stream.responses-tool-replay.test.ts src/agents/openai-transport-stream.test.ts",
+    "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve contributor credit for #79655 by naming @fanfanliu964-web as the source PR author in the repair PR body.",
-    "Mention source PR https://github.com/openclaw/openclaw/pull/79655 in the repair PR body.",
-    "If a changelog entry is touched or added, include attribution for the source PR/contributor."
+    "Preserve #79655 as the source PR and credit @fanfanliu964-web in the repair PR body or branch update note.",
+    "Mention that #76832 by @MkDev11 is prior landed related Codex replay work, not the source PR for this repair unless code is reused.",
+    "Do not edit CHANGELOG.md; release-note context belongs in the PR body/commit message for normal fixes."
   ],
   "source_job": "jobs/openclaw/inbox/repair-79655-codex-replay.md",
   "security_sensitive": false,
@@ -115,10 +114,10 @@ Plan repair for open canonical PR #79655. Do not merge or close; build a narrow 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #60264 | keep_closed | skipped | fixed_by_candidate | Already closed historical context only. |
-| #76832 | keep_closed | skipped | fixed_by_candidate | Already closed related predecessor; no mutation planned. |
-| #79655 | fix_needed | planned | canonical | Canonical PR has useful contributor work and proof, but current review/CI blockers require a narrow repair before any merge or closeout path. |
-| repair-79655-codex-replay | build_fix_artifact | planned |  | Create or update the cluster-scoped repair branch/PR instead of merging or closing. |
+| #79655 | fix_needed | planned | canonical | Repair #79655 rather than replace it: it is the canonical open PR, the branch is maintainer-editable, the scope is narrow, and the remaining work is concrete review/CI repair. |
+| cluster:repair-79655-codex-replay | build_fix_artifact | planned |  | Build a narrow repair plan for the applicator to update the existing contributor PR branch and preserve attribution. |
+| #60264 | keep_closed | skipped | related | Already-closed merged context PR. |
+| #76832 | keep_closed | skipped | related | Already-closed merged related Codex replay fix. |
 
 ## Needs Human
 
