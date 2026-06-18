@@ -148,6 +148,35 @@ test("apply-result treats closed target with matching marker as idempotently exe
   assert.equal(report.actions[0].live_state, "closed");
 });
 
+test("apply-result blocks MEMBER-owned close targets before close-comment handling", () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-apply-"));
+  const binDir = path.join(tmp, "bin");
+  const callLogPath = path.join(tmp, "gh-calls.jsonl");
+  fs.mkdirSync(binDir, { recursive: true });
+  fs.writeFileSync(callLogPath, "");
+  writeGhStub(binDir, { authorAssociation: "MEMBER" });
+
+  const jobPath = path.join(tmp, "job.md");
+  const resultPath = path.join(tmp, "result.json");
+  const reportPath = path.join(tmp, "apply-report.json");
+  fs.writeFileSync(jobPath, jobMarkdown({ allowUnmergedFixClose: true }));
+  fs.writeFileSync(resultPath, `${JSON.stringify(resultJson(), null, 2)}\n`);
+
+  const result = apply(jobPath, resultPath, reportPath, binDir, { dryRun: false, callLogPath });
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+  assert.equal(report.actions[0].status, "blocked");
+  assert.equal(report.actions[0].reason, "target author association is MEMBER");
+  const ghCalls = fs
+    .readFileSync(callLogPath, "utf8")
+    .trim()
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line));
+  assert.equal(ghCalls.some((args) => args[1].includes("/comments")), false);
+});
+
 test("apply-result retains prior reports as apply attempts", () => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-apply-"));
   const binDir = path.join(tmp, "bin");
@@ -229,23 +258,30 @@ test("apply-result blocks a merge when the PR base is behind current main", () =
   assert.equal(report.actions[0].current_main_sha, "current-main");
 });
 
-function apply(jobPath, resultPath, reportPath, binDir) {
+function apply(jobPath, resultPath, reportPath, binDir, { dryRun = true, callLogPath } = {}) {
+  const args = ["scripts/apply-result.mjs", jobPath, resultPath];
+  if (dryRun) args.push("--dry-run");
+  args.push("--report", reportPath);
   return spawnSync(
     process.execPath,
-    ["scripts/apply-result.mjs", jobPath, resultPath, "--dry-run", "--report", reportPath],
+    args,
     {
       cwd: repoRoot,
       env: {
         ...process.env,
         PATH: `${binDir}${path.delimiter}${process.env.PATH}`,
         CLOWNFISH_ALLOW_EXECUTE: "1",
+        ...(callLogPath ? { GH_CALL_LOG: callLogPath } : {}),
       },
       encoding: "utf8",
     },
   );
 }
 
-function writeGhStub(binDir, { issueState = "open", includeExistingMarker = false } = {}) {
+function writeGhStub(
+  binDir,
+  { issueState = "open", includeExistingMarker = false, authorAssociation = "NONE" } = {},
+) {
   const ghPath = path.join(binDir, "gh");
   const existingCommentBody = includeExistingMarker
     ? `<!-- projectclownfish:close:ghcrawl-199237-agentic-merge:#60063:${resultJson().actions[0].idempotency_key} -->`
@@ -253,7 +289,9 @@ function writeGhStub(binDir, { issueState = "open", includeExistingMarker = fals
   fs.writeFileSync(
     ghPath,
     `#!/usr/bin/env node
+const fs = require("node:fs");
 const args = process.argv.slice(2);
+if (process.env.GH_CALL_LOG) fs.appendFileSync(process.env.GH_CALL_LOG, JSON.stringify(args) + "\\n");
 function write(value) {
   process.stdout.write(JSON.stringify(value));
 }
@@ -264,7 +302,7 @@ if (args[0] === "api" && args[1] === "repos/openclaw/openclaw/issues/60063") {
     title: "streaming fix",
     updated_at: ${JSON.stringify(issueState === "open" ? "2026-06-11T05:07:30Z" : "2026-06-11T12:38:26Z")},
     labels: [],
-    author_association: "NONE",
+    author_association: ${JSON.stringify(authorAssociation)},
     pull_request: { url: "https://api.github.com/repos/openclaw/openclaw/pulls/60063" }
   });
 } else if (args[0] === "api" && args[1].startsWith("repos/openclaw/openclaw/issues/60063/comments")) {

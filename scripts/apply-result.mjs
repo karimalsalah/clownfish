@@ -307,19 +307,19 @@ function applyCloseAction({
   const live = fetchIssue(result.repo, target);
   const kind = live.pull_request ? "pull_request" : "issue";
   const authorAssociation = normalizeAuthorAssociation(live.author_association);
-  if (hasSecuritySignal(live)) {
-    return {
-      ...base,
-      status: "blocked",
-      reason: "security-sensitive target requires central security triage",
-      live_state: live.state,
-    };
-  }
   if (MAINTAINER_AUTHOR_ASSOCIATIONS.has(authorAssociation) && !maintainerCloseRefs.has(target)) {
     return {
       ...base,
       status: "blocked",
       reason: `target author association is ${authorAssociation}`,
+      live_state: live.state,
+    };
+  }
+  if (hasSecuritySignal(live)) {
+    return {
+      ...base,
+      status: "blocked",
+      reason: "security-sensitive target requires central security triage",
       live_state: live.state,
     };
   }
