@@ -616,6 +616,12 @@ function isRetryableContributorFetchError(error) {
 
 function shouldFallbackToReplacementAfterRepairError(error) {
   const message = String(error?.message ?? error);
+  const unsafeContributorDiff =
+    /Codex \/review did not pass/i.test(message) &&
+    /\b(?:unrelated|unsafe|too broad|not a narrow ProjectClownfish|actual (?:current|merge) diff includes|split or remove the unrelated changes)\b/i.test(
+      message,
+    );
+  if (unsafeContributorDiff) return true;
   if (/validation command failed|Codex |no merge base/i.test(message)) return false;
   return /maintainer_can_modify=false|missing head repo\/ref|source PR #\d+ is (?:closed|merged)|fork branch requiring rebase|permission denied|permission to [^\s]+ denied|remote rejected|could not push|repository not found|not found/i.test(
     message,

@@ -210,6 +210,16 @@ test("execute-fix-artifact routes rebased fork repairs to replacement before exp
   assert.match(source, /fork branch requiring rebase/);
 });
 
+test("execute-fix-artifact falls back to replacement when review proves a contributor diff is unsafe", () => {
+  const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
+  const fallback = source.match(/function shouldFallbackToReplacementAfterRepairError\(error\) \{[\s\S]*?\n\}/)?.[0] ?? "";
+
+  assert.match(fallback, /const unsafeContributorDiff =/);
+  assert.ok(fallback.includes("Codex \\/review did not pass"));
+  assert.match(fallback, /unrelated\|unsafe\|too broad/);
+  assert.match(fallback, /if \(unsafeContributorDiff\) return true;/);
+});
+
 test("execute-fix-artifact resumes contributor checkpoint branches without a duplicate edit", () => {
   const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
 
