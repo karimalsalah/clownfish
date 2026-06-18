@@ -2320,17 +2320,26 @@ function validateFixSecurityScope({ job, resultPath, fixArtifact, plannedFixActi
     }
   }
 
-  for (const source of fixArtifact.source_prs ?? []) {
-    const sourceRef = normalizeLocalRef(source);
+  for (const sourceRef of mutableFixSourceRefs(fixArtifact)) {
     if (sourceRef && securityRefs.has(sourceRef)) {
       return {
-        reason: `fix artifact source PR ${sourceRef} is security-sensitive`,
+        reason: `fix artifact mutates security-sensitive source PR ${sourceRef}`,
         evidence: [`${sourceRef} appears in cluster-plan.security_boundary.security_sensitive_items`],
       };
     }
   }
 
   return null;
+}
+
+function mutableFixSourceRefs(fixArtifact) {
+  if (fixArtifact.repair_strategy === "repair_contributor_branch") {
+    return [normalizeLocalRef(firstSourcePullRequest(fixArtifact)?.url)].filter(Boolean);
+  }
+  if (fixArtifact.repair_strategy === "replace_uneditable_branch") {
+    return uniqueStrings(supersededReplacementSources(fixArtifact).map(normalizeLocalRef).filter(Boolean));
+  }
+  return [];
 }
 
 function validateAutonomousFixScope({ job, fixArtifact }) {

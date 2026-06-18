@@ -127,6 +127,75 @@ process.exit(99);
   ]);
 });
 
+test("execute-fix-artifact ignores security-routed lineage that is not a mutable repair source", () => {
+  const fixture = makeFixture();
+  const resultPath = path.join(fixture.runDir, "result.json");
+  const reportPath = path.join(fixture.runDir, "fix-execution-report.json");
+  const result = resultFile("security-lineage-cluster");
+
+  fs.writeFileSync(fixture.jobPath, jobFile("security-lineage-cluster"));
+  result.actions = [
+    { action: "fix_needed", status: "planned", target: "#1" },
+    { action: "build_fix_artifact", status: "planned", target: "cluster:security-lineage-cluster" },
+  ];
+  result.fix_artifact = {
+    ...result.fix_artifact,
+    pr_title: "feat: intentionally broad fixture",
+    affected_surfaces: ["src", "tests", "docs", "config", "scripts"],
+    likely_files: ["src/app.js", "src/feature.js", "test/app.test.js", "docs/feature.md", "config/feature.json"],
+    source_prs: [
+      "https://github.com/openclaw/openclaw/pull/1",
+      "https://github.com/openclaw/openclaw/pull/2",
+    ],
+    repair_strategy: "repair_contributor_branch",
+  };
+  fs.writeFileSync(resultPath, `${JSON.stringify(result, null, 2)}\n`);
+  fs.writeFileSync(
+    path.join(fixture.runDir, "cluster-plan.json"),
+    `${JSON.stringify(
+      {
+        security_boundary: {
+          security_sensitive_items: ["#2"],
+        },
+      },
+      null,
+      2,
+    )}\n`,
+  );
+
+  const child = spawnSync(
+    process.execPath,
+    [
+      "scripts/execute-fix-artifact.mjs",
+      fixture.jobPath,
+      resultPath,
+      "--target-dir",
+      fixture.targetDir,
+      "--work-dir",
+      fixture.workDir,
+      "--report",
+      reportPath,
+    ],
+    {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        PATH: `${fixture.binDir}${path.delimiter}${process.env.PATH}`,
+        CLOWNFISH_ALLOWED_OWNER: "openclaw",
+        CLOWNFISH_ALLOW_EXECUTE: "1",
+        CLOWNFISH_ALLOW_FIX_PR: "1",
+      },
+    },
+  );
+
+  assert.equal(child.status, 0, child.stderr || child.stdout);
+  const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+  assert.equal(report.status, "blocked");
+  assert.match(report.reason, /too broad for autonomous execution/);
+  assert.doesNotMatch(report.reason, /security-sensitive/);
+});
+
 test("execute-fix-artifact preserves recoverable replacement branch when review deadline blocks", () => {
   const fixture = makeFixture();
   const resultPath = path.join(fixture.runDir, "result.json");
