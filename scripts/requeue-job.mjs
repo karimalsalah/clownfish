@@ -110,14 +110,15 @@ try {
   }));
   if (openExecuteWindow && ["execute", "autonomous"].includes(mode)) {
     const gateCaptureRuns = waitForRunsAtGateCapture(observedRuns.map((run) => run.databaseId));
-    summary.gate_capture_runs = gateCaptureRuns.map(({ run, workerJob }) => ({
+    summary.gate_capture_runs = gateCaptureRuns.map(({ run, gateCaptureJob }) => ({
       run_id: String(run.databaseId),
       status: run.status,
       conclusion: run.conclusion ?? null,
       created_at: run.createdAt,
       url: run.url,
-      worker_job_status: workerJob.status,
-      worker_job_started_at: workerJob.startedAt,
+      gate_capture_job: gateCaptureJob.name,
+      gate_capture_job_status: gateCaptureJob.status,
+      gate_capture_job_started_at: gateCaptureJob.startedAt,
     }));
   }
   console.log(JSON.stringify(summary, null, 2));
@@ -254,17 +255,16 @@ function waitForRunsAtGateCapture(runIds) {
   while (Date.now() < deadline) {
     latest = [...wanted].map((runId) => {
       const run = readClusterRun(runId);
-      const workerJob = (run.jobs ?? []).find((job) => job.name === "Plan and review cluster");
-      return { run, workerJob };
+      const gateCaptureJob = (run.jobs ?? []).find((job) => job.name === "Prepare worker inputs");
+      return { run, gateCaptureJob };
     });
     if (
       latest.length === wanted.size &&
       latest.every(
-        ({ workerJob }) =>
-          workerJob &&
-          workerJob.status !== "queued" &&
-          workerJob.startedAt &&
-          workerJob.startedAt !== "0001-01-01T00:00:00Z",
+        ({ gateCaptureJob }) =>
+          gateCaptureJob &&
+          gateCaptureJob.status === "completed" &&
+          gateCaptureJob.conclusion === "success",
       )
     ) {
       return latest;
@@ -272,7 +272,7 @@ function waitForRunsAtGateCapture(runIds) {
     sleepMs(5_000);
   }
   throw new Error(
-    `timed out waiting for dispatched run(s) to reach Plan and review cluster before restoring execute window: ${[...wanted].join(", ")}`,
+    `timed out waiting for dispatched run(s) to capture execute gates during Prepare worker inputs: ${[...wanted].join(", ")}`,
   );
 }
 

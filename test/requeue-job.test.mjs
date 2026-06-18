@@ -7,7 +7,7 @@ import test from "node:test";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
 
-test("requeue waits for the cluster job that captures execute gates", () => {
+test("requeue waits for preparation to capture execute gates", () => {
   const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-requeue-"));
   const bin = path.join(fixture, "bin");
   const state = path.join(fixture, "state.json");
@@ -59,6 +59,7 @@ if (args[0] === "variable" && args[1] === "list") {
       {
         name: "Prepare worker inputs",
         status: "completed",
+        conclusion: "success",
         startedAt: "2026-01-01T00:00:00Z",
         completedAt: "2026-01-01T00:00:01Z",
       },
@@ -103,9 +104,10 @@ if (args[0] === "variable" && args[1] === "list") {
 
   assert.equal(result.status, 0, result.stderr || result.stdout);
   const report = JSON.parse(result.stdout.match(/\{[\s\S]*\}/)?.[0] ?? "");
-  assert.equal(report.gate_capture_runs[0].worker_job_status, "in_progress");
+  assert.equal(report.gate_capture_runs[0].gate_capture_job, "Prepare worker inputs");
+  assert.equal(report.gate_capture_runs[0].gate_capture_job_status, "completed");
   const finalState = JSON.parse(fs.readFileSync(state, "utf8"));
-  assert.equal(finalState.viewCalls, 2);
+  assert.equal(finalState.viewCalls, 1);
   assert.deepEqual(finalState.dispatchArgs.slice(0, 5), ["api", "--method", "POST", "repos/openclaw/clownfish/dispatches", "--input"]);
   assert.equal(finalState.dispatchPayload.event_type, "projectclownfish_worker");
   assert.equal(finalState.dispatchPayload.client_payload.dry_run, false);

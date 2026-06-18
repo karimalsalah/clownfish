@@ -311,6 +311,17 @@ test("cluster-worker respects per-job label permissions before tagging targets",
   );
 });
 
+test("cluster-worker snapshots write gates before the queued worker starts", () => {
+  const workflow = fs.readFileSync(path.join(repoRoot, ".github/workflows/cluster-worker.yml"), "utf8");
+
+  assert.match(workflow, /INPUT_ALLOW_EXECUTE: \$\{\{ vars\.CLOWNFISH_ALLOW_EXECUTE \|\| '0' \}\}/);
+  assert.match(workflow, /const allowExecute = writeMode && process\.env\.INPUT_ALLOW_EXECUTE === "1" \? "1" : "0";/);
+  assert.match(workflow, /allow_execute=\$\{allowExecute\}/);
+  assert.match(workflow, /CLOWNFISH_ALLOW_EXECUTE: \$\{\{ needs\.prepare\.outputs\.allow_execute \}\}/);
+  assert.match(workflow, /CLOWNFISH_ALLOW_FIX_PR: \$\{\{ needs\.prepare\.outputs\.allow_fix_pr \}\}/);
+  assert.match(workflow, /CLOWNFISH_ALLOW_MERGE: \$\{\{ needs\.prepare\.outputs\.allow_merge \}\}/);
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-app-auth-"));
   const inbox = path.join(root, "inbox");

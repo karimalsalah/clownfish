@@ -87,6 +87,9 @@ jobs:
       max_comments_per_item: ${{ steps.plan.outputs.max_comments_per_item }}
       max_review_comments_per_pr: ${{ steps.plan.outputs.max_review_comments_per_pr }}
       allow_labels: ${{ steps.plan.outputs.allow_labels }}
+      allow_execute: ${{ steps.plan.outputs.allow_execute }}
+      allow_fix_pr: ${{ steps.plan.outputs.allow_fix_pr }}
+      allow_merge: ${{ steps.plan.outputs.allow_merge }}
     steps:
       - uses: actions/checkout@v5
 
@@ -109,6 +112,9 @@ jobs:
           INPUT_MAX_LINKED_REFS: ${{ github.event.inputs.max_linked_refs || '' }}
           INPUT_MAX_COMMENTS_PER_ITEM: ${{ github.event.inputs.max_comments_per_item || '' }}
           INPUT_MAX_REVIEW_COMMENTS_PER_PR: ${{ github.event.inputs.max_review_comments_per_pr || '' }}
+          INPUT_ALLOW_EXECUTE: ${{ vars.CLOWNFISH_ALLOW_EXECUTE || '0' }}
+          INPUT_ALLOW_FIX_PR: ${{ vars.CLOWNFISH_ALLOW_FIX_PR || '0' }}
+          INPUT_ALLOW_MERGE: ${{ vars.CLOWNFISH_ALLOW_MERGE || '0' }}
         run: |
           node --input-type=module <<'NODE'
           import fs from "node:fs";
@@ -215,6 +221,10 @@ jobs:
           const allowedActions = new Set(job.frontmatter.allowed_actions ?? []);
           const blockedActions = new Set(job.frontmatter.blocked_actions ?? []);
           const allowLabels = allowedActions.has("label") && !blockedActions.has("label");
+          const writeMode = ["execute", "autonomous"].includes(mode) && dryRun !== "true";
+          const allowExecute = writeMode && process.env.INPUT_ALLOW_EXECUTE === "1" ? "1" : "0";
+          const allowFixPr = writeMode && process.env.INPUT_ALLOW_FIX_PR === "1" ? "1" : "0";
+          const allowMerge = writeMode && process.env.INPUT_ALLOW_MERGE === "1" ? "1" : "0";
 
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `job=${job.relativePath}\n`);
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `mode=${mode}\n`);
@@ -227,6 +237,9 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_comments_per_item=${maxCommentsPerItem}\n`);
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `max_review_comments_per_pr=${maxReviewCommentsPerPr}\n`);
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `allow_labels=${allowLabels ? "1" : "0"}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `allow_execute=${allowExecute}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `allow_fix_pr=${allowFixPr}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `allow_merge=${allowMerge}\n`);
           NODE
 
   cluster:
@@ -242,9 +255,9 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       CODEX_API_KEY: ${{ secrets.CODEX_API_KEY || secrets.OPENAI_API_KEY }}
       CLOWNFISH_ALLOWED_OWNER: ${{ vars.CLOWNFISH_ALLOWED_OWNER || 'openclaw' }}
-      CLOWNFISH_ALLOW_EXECUTE: ${{ (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && vars.CLOWNFISH_ALLOW_EXECUTE == '1' && '1' || '0' }}
-      CLOWNFISH_ALLOW_FIX_PR: ${{ (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && vars.CLOWNFISH_ALLOW_FIX_PR == '1' && '1' || '0' }}
-      CLOWNFISH_ALLOW_MERGE: ${{ (needs.prepare.outputs.mode == 'execute' || needs.prepare.outputs.mode == 'autonomous') && (vars.CLOWNFISH_ALLOW_MERGE || '0') || '0' }}
+      CLOWNFISH_ALLOW_EXECUTE: ${{ needs.prepare.outputs.allow_execute }}
+      CLOWNFISH_ALLOW_FIX_PR: ${{ needs.prepare.outputs.allow_fix_pr }}
+      CLOWNFISH_ALLOW_MERGE: ${{ needs.prepare.outputs.allow_merge }}
       CLOWNFISH_HYDRATE_CLUSTER_REFS: ${{ vars.CLOWNFISH_HYDRATE_CLUSTER_REFS || '1' }}
       CLOWNFISH_HYDRATE_COMMENTS: ${{ needs.prepare.outputs.hydrate_comments != '' && needs.prepare.outputs.hydrate_comments || vars.CLOWNFISH_HYDRATE_COMMENTS || '1' }}
       CLOWNFISH_MAX_COMMENTS_PER_ITEM: ${{ needs.prepare.outputs.max_comments_per_item != '' && needs.prepare.outputs.max_comments_per_item || vars.CLOWNFISH_MAX_COMMENTS_PER_ITEM || '30' }}
