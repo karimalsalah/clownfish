@@ -1,14 +1,14 @@
 ---
 repo: "openclaw/openclaw"
 cluster_id: "repair-87681-fresh-plan-20260618b"
-mode: "plan"
-run_id: "27788595308"
-workflow_run_id: "27788595308"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27788595308"
-head_sha: "7f41b2e7f526831f314ee6eca2a9d0ce587bfca7"
+mode: "execute"
+run_id: "27789022674"
+workflow_run_id: "27789022674"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27789022674"
+head_sha: "c1079a640cc2830eaf6c48a4dd5192d883c4fb63"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-18T20:56:21.521Z"
+published_at: "2026-06-18T21:11:34.658Z"
 canonical: "#87681"
 canonical_issue: "#69242"
 canonical_pr: "#87681"
@@ -17,7 +17,7 @@ fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27788595308](https://github.com/openclaw/clownfish/actions/runs/27788595308)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27789022674](https://github.com/openclaw/clownfish/actions/runs/27789022674)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #87681
 
 ## Summary
 
-Plan mode only. The hydrated state shows #87681 is the focused canonical contributor PR for #69242, but it has a concrete live blocker: mergeable_state is unstable and checks-node-core-tooling is failing on head 1024eb5e4b853a1335a2c71f95aa1148740bbd42. Because fix/raise_pr is allowed, merge/close/comment are blocked, and sweetcornna's branch is maintainer-modifiable, the executable path is to repair the contributor branch within the four-file exec/OOM diagnostic scope while preserving credit.
+PR #87681 is still the focused canonical repair path for #69242, but it is not merge-ready: the hydrated live state shows mergeable=true with mergeable_state=unstable and one failing check, checks-node-core-tooling. A contributor-branch repair artifact is appropriate because the PR is open, maintainer_can_modify=true, scoped to the requested four files, and the current blocker is concrete enough for the executor to fetch the failed log, rebase/repair, and validate without expanding scope.
 
 ## Impact
 
@@ -47,7 +47,7 @@ Plan mode only. The hydrated state shows #87681 is the focused canonical contrib
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -60,8 +60,8 @@ Plan mode only. The hydrated state shows #87681 is the focused canonical contrib
     "#87681",
     "#69242",
     "#70419",
-    "#70404",
-    "#89104"
+    "#89104",
+    "#70404"
   ],
   "repair_strategy": "repair_contributor_branch",
   "planned_actions": [
@@ -69,9 +69,9 @@ Plan mode only. The hydrated state shows #87681 is the focused canonical contrib
     "build_fix_artifact",
     "open_fix_pr"
   ],
-  "summary": "Repair sweetcornna's open contributor PR #87681 on the maintainer-modifiable branch so the four-file Linux exec SIGKILL/OOM diagnostic change clears the current checks-node-core-tooling failure and unstable merge state without broadening scope.",
-  "pr_title": "fix(exec): repair Linux SIGKILL OOM diagnostic hint",
-  "pr_body": "Repair path for #87681, preserving @sweetcornna's source contribution and attribution.\n\nScope stays limited to the existing four files:\n- src/agents/bash-tools.exec-runtime.ts\n- src/agents/bash-tools.exec-runtime.test.ts\n- src/process/linux-oom-score.ts\n- src/process/linux-oom-score.test.ts\n\nCurrent blockers from hydrated state:\n- checks-node-core-tooling is failing on head 1024eb5e4b853a1335a2c71f95aa1148740bbd42\n- mergeable_state is unstable\n\nValidation:\n- pnpm -s vitest run src/agents/bash-tools.exec-runtime.test.ts\n- pnpm -s vitest run src/process/linux-oom-score.test.ts\n- pnpm check:changed\n\nLinked refs: #87681, #69242. Historical context: #70419 and #70404. Related but separate diagnostic PR: #89104.",
+  "summary": "Repair the editable contributor PR #87681 so the Linux exec SIGKILL/OOM diagnostic patch is landable without expanding beyond the requested four-file surface. Preserve @sweetcornna credit and source PR attribution. Current main still emits a bare signal failure reason for SIGKILL while Linux child OOM-score wrapping is active; the open PR supplies the focused formatter/gate/test repair but is blocked by the failing checks-node-core-tooling check and unstable merge state.",
+  "pr_title": "fix(exec): explain Linux SIGKILL OOM-score diagnostics",
+  "pr_body": "## Summary\n\nRepairs the contributor branch for #87681, preserving @sweetcornna's source PR credit, so Linux exec failures killed by SIGKILL can surface the existing child oom_score_adj/cgroup-OOM diagnostic instead of only `Command aborted by signal SIGKILL`.\n\nThis stays within the four-file repair surface requested by Clownfish: `src/agents/bash-tools.exec-runtime.*` and `src/process/linux-oom-score.*`. It does not change general process execution, sandboxing, Linux memory policy, or add config/env keys.\n\nRefs #69242\nSource PR: #87681\nCredit: @sweetcornna\n\n## Repair Notes\n\n- Fetch and inspect the failed `checks-node-core-tooling` log from run 27782925458/job 82214535454 before editing.\n- If the failure is branch-caused, repair it in the existing four-file scope.\n- If the failure is unrelated CI noise, rerun/revalidate and keep the patch unchanged.\n- Keep the OOM hint gated by the same spawn-time child environment used for OOM-score wrapping.\n\n## Verification\n\n- `node scripts/run-vitest.mjs src/agents/bash-tools.exec-runtime.test.ts src/process/linux-oom-score.test.ts`\n- `pnpm check:changed`",
   "likely_files": [
     "src/agents/bash-tools.exec-runtime.ts",
     "src/agents/bash-tools.exec-runtime.test.ts",
@@ -79,21 +79,20 @@ Plan mode only. The hydrated state shows #87681 is the focused canonical contrib
     "src/process/linux-oom-score.test.ts"
   ],
   "validation_commands": [
-    "pnpm -s vitest run src/agents/bash-tools.exec-runtime.test.ts",
-    "pnpm -s vitest run src/process/linux-oom-score.test.ts",
+    "node scripts/run-vitest.mjs src/agents/bash-tools.exec-runtime.test.ts src/process/linux-oom-score.test.ts",
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve sweetcornna's authorship and source PR credit for https://github.com/openclaw/openclaw/pull/87681.",
-    "Do not replace the contributor PR unless the repair branch becomes unsafe or unrepairable; maintainer_can_modify is true in hydrated state.",
-    "If a guarded Clownfish repair PR is opened instead of updating the contributor branch, its body must include: Source PR: https://github.com/openclaw/openclaw/pull/87681 by @sweetcornna, with attribution retained."
+    "Preserve contributor credit for @sweetcornna as the author of source PR #87681.",
+    "Replacement or repaired PR body must include source PR https://github.com/openclaw/openclaw/pull/87681 and state that attribution is carried forward.",
+    "No CHANGELOG.md edit for this normal PR repair; include user-facing release-note context in the PR body if the executor opens a replacement PR."
   ],
   "source_job": "jobs/openclaw/inbox/repair-87681-fresh-plan-20260618b.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -101,31 +100,31 @@ Plan mode only. The hydrated state shows #87681 is the focused canonical contrib
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/87681 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #87681 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #87681 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #69242 | keep_related | planned | fixed_by_candidate | The issue is covered by the focused candidate PR, but fixed-by-candidate closeout is not allowed in this run and would be unsafe while #87681 has an unresolved check blocker. |
-| #70404 | keep_closed | skipped | related | Already-closed refs are historical evidence only and must not receive closure actions. |
-| #70419 | keep_closed | skipped | related | Already-merged historical PR; no mutation is valid or needed in this repair cluster. |
-| #87681 | fix_needed | planned | canonical | Repair the contributor branch to clear the live check/unstable blocker instead of replacing or closing it. |
-| #89104 | keep_related | planned | related | Same symptom family, different diagnostic scope; do not close, merge, or repair it in the #87681 branch-repair cluster. |
-| cluster:repair-87681-fresh-plan-20260618b | build_fix_artifact | planned |  | A complete contributor-branch repair artifact is safe and required by the job's Required Outcome. |
-| cluster:repair-87681-fresh-plan-20260618b | open_fix_pr | planned |  | Plan a guarded repair path for the existing contributor PR while preserving source credit. |
+| #87681 | fix_needed | planned | canonical | Repair the existing contributor branch rather than replacing it; the branch is editable by maintainers and remains narrow. |
+| cluster:repair-87681-fresh-plan-20260618b | build_fix_artifact | planned |  | Build executor-ready repair plan for the editable contributor branch. |
+| #87681 | open_fix_pr | planned | canonical | The deterministic executor can apply the repair plan; this worker emits the planned action only. |
+| #69242 | keep_related | planned | related | Keep issue open as the problem thread while #87681 is repaired. |
+| #89104 | keep_related | planned | related | Related diagnostics work, not the canonical repair path for this job. |
+| #70404 | keep_closed | skipped | related | Already closed; no mutation allowed or needed. |
+| #70419 | keep_closed | skipped | related | Already merged; no mutation allowed or needed. |
 
 ## Needs Human
 
