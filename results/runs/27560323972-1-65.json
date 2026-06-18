@@ -1,11 +1,11 @@
 {
   "repo": "openclaw/openclaw",
-  "cluster_id": "pr-inventory-maintainer_owned-20260615T154534-021",
+  "cluster_id": "pr-inventory-needs_proof-20260615T154534-062",
   "mode": "plan",
-  "run_id": "27560323972-1-21",
+  "run_id": "27560323972-1-65",
   "workflow_run_id": "27560323972",
   "run_attempt": "1",
-  "matrix_index": "21",
+  "matrix_index": "65",
   "run_url": "https://github.com/openclaw/clownfish/actions/runs/27560323972",
   "head_sha": "61d2d7a61eeb9d8fe22ed20cc15f46b2ff4a4bb2",
   "workflow_conclusion": "success",
@@ -13,253 +13,248 @@
   "workflow_created_at": "2026-06-15T16:20:33Z",
   "workflow_updated_at": "2026-06-15T16:27:26Z",
   "result_status": "planned",
-  "source_job": "jobs/openclaw/inbox/pr-inventory-maintainer_owned-20260615T154534-021.md",
-  "published_at": "2026-06-18T16:29:23.573Z",
+  "source_job": "jobs/openclaw/inbox/pr-inventory-needs_proof-20260615T154534-062.md",
+  "published_at": "2026-06-18T16:29:23.690Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
-  "summary": "Plan-mode PR inventory classification for 25 hydrated refs. No GitHub mutations planned; merge/fix/low-signal closeout were disabled by job permissions, and the preflight artifact reported no security-sensitive items.",
+  "summary": "Plan-only PR inventory classification. The preflight artifact marks all hydrated refs non-security-sensitive and this shard has no shared canonical, so each open PR is kept as an independent review/proof item with no GitHub mutation planned.",
   "actions": [
     {
-      "target": "#89627",
+      "target": "#84987",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Distinct narrow draft PR with no duplicate/supersession evidence in hydrated state."
+      "reason": "Standalone PR needing proof/review; no closure or merge action is safe in plan mode."
     },
     {
-      "target": "#89644",
+      "target": "#85833",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Distinct model-catalog fix; no closure or merge action is allowed or warranted from the inventory artifact."
+      "reason": "Standalone focused PR; keep open for maintainer review because merge/fix actions are blocked."
     },
     {
-      "target": "#89646",
+      "target": "#85932",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Separate model-catalog policy hardening PR with no duplicate or supersession evidence."
+      "reason": "Keep as an independent PR needing real behavior proof."
     },
     {
-      "target": "#89650",
+      "target": "#92751",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Open draft waiting on author; non-mutating independent classification is the conservative plan."
+      "reason": "Non-mutating classification only because hydrated live state is unavailable in the prompt artifact."
     },
     {
-      "target": "#89669",
+      "target": "#86053",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Security-shaped label is not enough to route under the provided OpenClaw security posture; keep as an independent non-security PR."
+      "reason": "Standalone PR with proof supplied; keep open because merge is not allowed in this job."
     },
     {
-      "target": "#89686",
+      "target": "#86064",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent focused agents PR; no merge or closure is available in plan permissions."
+      "reason": "Standalone implementation PR; keep open for normal review/merge process outside this plan job."
     },
     {
-      "target": "#93238",
+      "target": "#86079",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Distinct open PR in the inventory with no duplicate or low-signal closeout evidence."
+      "reason": "Keep as an independent proof-supplied PR; no route_security or merge action is supported by the artifact/job gates."
     },
     {
-      "target": "#89699",
+      "target": "#86168",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Dirty draft PR should remain open and independent; no close or merge action is justified."
+      "reason": "Keep open for proof and review-bot follow-up; no close/merge classification is justified."
     },
     {
-      "target": "#89733",
+      "target": "#86175",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Focused independent agents PR with no dedupe relation established."
+      "reason": "Standalone PR with failing checks; keep open for author/maintainer repair rather than close."
     },
     {
-      "target": "#89747",
+      "target": "#86421",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft with dirty merge state; keep open for maintainer/author follow-up."
+      "reason": "Keep as an independent feature/fix PR needing real behavior proof."
     },
     {
-      "target": "#89756",
-      "action": "needs_human",
-      "status": "planned",
-      "classification": "needs_human",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Broad exec policy migration with explicit needs-proof and automated review context without hydrated review-comment detail requires maintainer/technical correctness judgment."
-    },
-    {
-      "target": "#89759",
+      "target": "#92692",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Security-shaped label appears to mark merge risk, not a vulnerability report; keep as independent non-security PR."
+      "reason": "Non-mutating classification only; keep independent pending hydration."
     },
     {
-      "target": "#89763",
+      "target": "#86460",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft with dirty merge state and author follow-up status; no closure or merge plan."
+      "reason": "Draft broad PR should remain open as an independent work item."
     },
     {
-      "target": "#89402",
+      "target": "#86491",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Focused but still draft/waiting-on-author; classify independently without mutation."
+      "reason": "Proof-supplied standalone PR; keep independent for maintainer review."
     },
     {
-      "target": "#88491",
+      "target": "#86605",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Test-only independent PR; linked #88368 is historical evidence only and not hydrated as a primary closure target."
+      "reason": "Standalone provider feature PR; keep open for normal review because merge/fix actions are blocked."
     },
     {
-      "target": "#89778",
+      "target": "#86622",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent focused media PR; keep open for normal review path."
+      "reason": "Keep independent for proof; no closure/merge action is justified."
     },
     {
-      "target": "#89429",
+      "target": "#86681",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft with dirty merge state and no duplicate/supersession evidence."
+      "reason": "Keep independent; close-low-signal is disabled and no hydrated duplicate/superseding path exists."
     },
     {
-      "target": "#89539",
+      "target": "#86716",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft PR; keep open for author/maintainer path rather than close or merge."
+      "reason": "Standalone proof-supplied Discord PR; keep independent."
     },
     {
-      "target": "#89795",
+      "target": "#86749",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft plugin cleanup guard PR; no live evidence supports closure."
+      "reason": "Keep independent with failing dependency/proof gates."
     },
     {
-      "target": "#89739",
+      "target": "#86936",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Substantial feature PR is not duplicate or low-signal in this shard; keep independent for normal review."
+      "reason": "Keep independent; failing Windows check blocks merge/fixed-by-candidate closeout."
     },
     {
-      "target": "#89798",
+      "target": "#86955",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent plugin event subscription guard PR; no supersession or duplicate evidence in hydrated artifact."
+      "reason": "Keep independent as a broad standalone PR needing proof and technical review."
     },
     {
-      "target": "#89805",
+      "target": "#87046",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent typed hook metadata guard PR; no closure rationale established."
+      "reason": "Standalone proof-supplied PR; keep independent."
     },
     {
-      "target": "#93220",
-      "action": "keep_closed",
-      "status": "skipped",
-      "classification": "independent",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Already closed in live preflight state; no mutation should be planned."
-    },
-    {
-      "target": "#89052",
+      "target": "#88810",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Focused draft PR in the inventory; no duplicate, supersession, or closure evidence."
+      "reason": "Non-mutating classification only; keep independent pending hydration."
     },
     {
-      "target": "#89550",
+      "target": "#87083",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent dirty draft PR requiring normal author/maintainer follow-up."
+      "reason": "Standalone proof-supplied PR; keep independent."
+    },
+    {
+      "target": "#87088",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Non-mutating classification only; keep independent pending hydration."
+    },
+    {
+      "target": "#87092",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Keep independent because low-signal close is disabled and live hydration is unavailable."
     }
   ],
   "action_counts": {
-    "keep_independent": 23,
-    "needs_human": 1,
-    "keep_closed": 1
+    "keep_independent": 25
   },
   "action_status_counts": {
-    "planned": 24,
-    "skipped": 1
+    "planned": 25
   },
   "fix_counts": {},
   "apply_counts": {},
-  "needs_human": [
-    "#89756 requires maintainer/technical correctness judgment: broad XL exec policy migration, needs-proof label, and automated Codex review context without hydrated review-comment detail."
-  ],
+  "needs_human": [],
   "repair_candidate": null,
   "fix_actions": [],
   "apply_actions": [],

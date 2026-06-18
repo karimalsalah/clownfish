@@ -1,11 +1,11 @@
 {
   "repo": "openclaw/openclaw",
-  "cluster_id": "pr-inventory-maintainer_owned-20260615T154534-011",
+  "cluster_id": "pr-inventory-maintainer_owned-20260615T154534-003",
   "mode": "plan",
-  "run_id": "27560323972-1-11",
+  "run_id": "27560323972-1-3",
   "workflow_run_id": "27560323972",
   "run_attempt": "1",
-  "matrix_index": "11",
+  "matrix_index": "3",
   "run_url": "https://github.com/openclaw/clownfish/actions/runs/27560323972",
   "head_sha": "61d2d7a61eeb9d8fe22ed20cc15f46b2ff4a4bb2",
   "workflow_conclusion": "success",
@@ -13,237 +13,237 @@
   "workflow_created_at": "2026-06-15T16:20:33Z",
   "workflow_updated_at": "2026-06-15T16:27:26Z",
   "result_status": "planned",
-  "source_job": "jobs/openclaw/inbox/pr-inventory-maintainer_owned-20260615T154534-011.md",
-  "published_at": "2026-06-18T16:29:23.530Z",
+  "source_job": "jobs/openclaw/inbox/pr-inventory-maintainer_owned-20260615T154534-003.md",
+  "published_at": "2026-06-18T16:29:23.608Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
-  "summary": "Planned conservative PR-inventory classifications only. The preflight artifact says this is not a dedupe cluster, no canonical should be invented, no security-sensitive signal was detected, and close/merge/fix PR actions are disabled or unsafe in plan mode. Hydrated PRs are kept independent for maintainer review; refs absent from the compacted preflight need fresh hydration before classification.",
+  "summary": "Plan-only PR inventory classification. The hydrated preflight artifact covers 20 open PRs from the shard, all non-security-sensitive, with no shared canonical. Job permissions disable merge, fix PRs, instant close, and low-signal closeout, so every item is kept as an independent PR requiring normal maintainer review or author/proof follow-up rather than dedupe closure.",
   "actions": [
     {
-      "target": "#90102",
+      "target": "#88713",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent maintainer-owned draft fix; no closure, merge, or dedupe action is justified."
+      "reason": "Independent maintainer-review PR; no closure or merge action allowed in this plan shard."
     },
     {
-      "target": "#90105",
+      "target": "#88732",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent maintainer-owned draft fix awaiting normal review."
+      "reason": "Draft feature branch with active-author/work-in-progress signal; keep independent for maintainer/author path."
     },
     {
-      "target": "#90109",
+      "target": "#92014",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent focused draft fix; no duplicate or supersession evidence."
+      "reason": "Useful standalone maintainer-owned fix; no duplicate/superseded evidence."
     },
     {
-      "target": "#90112",
+      "target": "#88793",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft fix awaiting maintainer review."
+      "reason": "Independent documentation/comment PR for maintainer review; no close condition is met."
     },
     {
-      "target": "#90114",
+      "target": "#88835",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent contributor/member PR with conflicts and a failing proof gate; keep for normal repair/review rather than close or merge."
+      "reason": "Draft but useful focused hardening PR; keep independent rather than route or close."
     },
     {
-      "target": "#90120",
+      "target": "#91903",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft work with author-followup signal; no automated closure is allowed."
+      "reason": "Independent feature PR needing normal maintainer product/API review, not dedupe cleanup."
     },
     {
-      "target": "#90136",
+      "target": "#92119",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent maintainer PR needing normal conflict/review handling."
+      "reason": "Independent candidate fix with failing checks; no closure action because alternative/canonical state is not hydrated."
     },
     {
-      "target": "#90150",
+      "target": "#92114",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft fix awaiting maintainer look."
+      "reason": "Independent small fix requiring check repair or maintainer review; not a duplicate/superseded target."
     },
     {
-      "target": "#77542",
+      "target": "#92107",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent broad diagnostics PR with failing proof/check gates; not low-signal-close eligible because low-signal closeout is disabled."
+      "reason": "Independent focused fix; failing checks and unhydrated linked issue block fixed-by-candidate closeout."
     },
     {
-      "target": "#77672",
+      "target": "#92160",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft feature/fix PR with failing proof; keep for maintainer review and author work."
+      "reason": "Draft PR with proof failures and explicit proof-needed labels; keep independent, no closure."
     },
     {
-      "target": "#92003",
+      "target": "#92161",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Independent draft feature with proof failure; not eligible for close or merge in this shard."
+    },
+    {
+      "target": "#88841",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Independent contributor PR with useful code and sufficient proof; keep for maintainer review."
+    },
+    {
+      "target": "#92190",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Broad independent draft requiring maintainer/security-boundary design review; no route_security because preflight found no security-sensitive item."
+    },
+    {
+      "target": "#92111",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Independent high-priority availability fix for maintainer review; no fixed-by-candidate closeout without hydrated issue target."
+    },
+    {
+      "target": "#47263",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Independent broad contributor PR with failing proof/checks and bot-review history; keep for maintainer decision, no close."
+    },
+    {
+      "target": "#92288",
       "action": "needs_human",
       "status": "blocked",
       "classification": "needs_human",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Needs fresh hydration before a cluster action can be planned."
+      "reason": "Missing hydrated live state for listed candidate."
     },
     {
-      "target": "#78631",
+      "target": "#92011",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent test-only PR with failing checks and author-followup signal."
+      "reason": "Independent contributor fix; keep for maintainer correctness review."
     },
     {
-      "target": "#78789",
+      "target": "#92016",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent broad draft performance/status PR requiring maintainer review."
+      "reason": "Independent maintainer-owned candidate fix; no issue closeout without hydrated issue target and no merge allowed."
     },
     {
-      "target": "#78857",
-      "action": "keep_independent",
-      "status": "planned",
-      "classification": "independent",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Independent broad performance PR with multiple failing gates and author-followup signal."
-    },
-    {
-      "target": "#78875",
-      "action": "keep_independent",
-      "status": "planned",
-      "classification": "independent",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Independent broad maintainer PR; keep for maintainer review, not closure or merge."
-    },
-    {
-      "target": "#90135",
-      "action": "keep_independent",
-      "status": "planned",
-      "classification": "independent",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Independent draft fix with conflicts; keep for maintainer/author path."
-    },
-    {
-      "target": "#78981",
-      "action": "keep_independent",
-      "status": "planned",
-      "classification": "independent",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Independent contributor feature touching sandbox behavior; keep for maintainer review rather than route security or close."
-    },
-    {
-      "target": "#67080",
-      "action": "keep_independent",
-      "status": "planned",
-      "classification": "independent",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Independent broad maintainer PR with author-followup and failing proof gate."
-    },
-    {
-      "target": "#90153",
-      "action": "keep_independent",
-      "status": "planned",
-      "classification": "independent",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Independent maintainer draft fix awaiting review."
-    },
-    {
-      "target": "#90160",
+      "target": "#92520",
       "action": "needs_human",
       "status": "blocked",
       "classification": "needs_human",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Needs fresh hydration before classification."
+      "reason": "Missing hydrated live state for listed candidate."
     },
     {
-      "target": "#90167",
+      "target": "#92557",
       "action": "needs_human",
       "status": "blocked",
       "classification": "needs_human",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Needs fresh hydration and security-boundary-aware review before classification."
+      "reason": "Missing hydrated live state for listed candidate."
     },
     {
-      "target": "#90168",
-      "action": "needs_human",
-      "status": "blocked",
-      "classification": "needs_human",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Needs fresh hydration before classification."
-    },
-    {
-      "target": "#90194",
-      "action": "needs_human",
-      "status": "blocked",
-      "classification": "needs_human",
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Needs fresh hydration before classification or any linked issue closeout consideration."
-    },
-    {
-      "target": "#79198",
+      "target": "#88633",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent maintainer PR suitable for normal maintainer review, not inventory cleanup closure."
+      "reason": "Independent draft maintainer-owned CI fix; keep for maintainer/author path."
     },
     {
-      "target": "#89757",
+      "target": "#92667",
+      "action": "needs_human",
+      "status": "blocked",
+      "classification": "needs_human",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Missing hydrated live state for listed candidate."
+    },
+    {
+      "target": "#92681",
+      "action": "needs_human",
+      "status": "blocked",
+      "classification": "needs_human",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Missing hydrated live state for listed candidate."
+    },
+    {
+      "target": "#89991",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
       "canonical": null,
       "candidate_fix": null,
-      "reason": "Independent draft hardening fix; keep for maintainer review rather than route security or merge."
+      "reason": "Independent focused draft fix; keep for maintainer/author review."
+    },
+    {
+      "target": "#90262",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Independent draft/waiting-on-author fix; keep for author or maintainer review."
     }
   ],
   "action_counts": {
@@ -257,11 +257,11 @@
   "fix_counts": {},
   "apply_counts": {},
   "needs_human": [
-    "#92003 missing from compacted hydrated preflight artifact; fresh live hydration required.",
-    "#90160 missing from compacted hydrated preflight artifact; fresh live hydration required.",
-    "#90167 missing from compacted hydrated preflight artifact; fresh live hydration and security-boundary-aware review required.",
-    "#90168 missing from compacted hydrated preflight artifact; fresh live hydration required.",
-    "#90194 missing from compacted hydrated preflight artifact; fresh live hydration required."
+    "#92288 missing hydrated live state in compacted artifact despite being listed in job candidates.",
+    "#92520 missing hydrated live state in compacted artifact despite being listed in job candidates.",
+    "#92557 missing hydrated live state in compacted artifact despite being listed in job candidates.",
+    "#92667 missing hydrated live state in compacted artifact despite being listed in job candidates.",
+    "#92681 missing hydrated live state in compacted artifact despite being listed in job candidates."
   ],
   "repair_candidate": null,
   "fix_actions": [],

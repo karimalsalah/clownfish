@@ -1,11 +1,11 @@
 {
   "repo": "openclaw/openclaw",
-  "cluster_id": "pr-inventory-mixed-20260615T183015-019",
+  "cluster_id": "pr-inventory-mixed-20260615T183015-051",
   "mode": "plan",
-  "run_id": "27567885815-1-18",
+  "run_id": "27567885815-1-50",
   "workflow_run_id": "27567885815",
   "run_attempt": "1",
-  "matrix_index": "18",
+  "matrix_index": "50",
   "run_url": "https://github.com/openclaw/clownfish/actions/runs/27567885815",
   "head_sha": "65aabaf6f24287c47538121fa0ffce37874bdb99",
   "workflow_conclusion": "success",
@@ -13,15 +13,15 @@
   "workflow_created_at": "2026-06-15T18:34:44Z",
   "workflow_updated_at": "2026-06-15T18:40:25Z",
   "result_status": "planned",
-  "source_job": "jobs/openclaw/inbox/pr-inventory-mixed-20260615T183015-019.md",
-  "published_at": "2026-06-18T16:29:24.118Z",
+  "source_job": "jobs/openclaw/inbox/pr-inventory-mixed-20260615T183015-051.md",
+  "published_at": "2026-06-18T16:29:24.239Z",
   "canonical": null,
   "canonical_issue": null,
   "canonical_pr": null,
-  "summary": "Plan-only PR inventory classification shard. The job explicitly says this is not a dedupe cluster and provides no shared canonical; merge, fix, raise_pr, and low-signal closeout are disabled. Hydrated preflight reports no security-sensitive items, so each PR is classified independently and no mutating close/merge/fix action is planned.",
+  "summary": "Plan-mode inventory classification only. The hydrated preflight artifact marks the first 20 PRs as open, non-security-sensitive pull requests; no shared canonical is present and merge/fix/low-signal close actions are disabled, so each hydrated PR is kept independent. The remaining listed PRs were not present in the compacted hydrated item matrix, so they receive non-mutating independent classifications with null target_updated_at rather than any close-style action.",
   "actions": [
     {
-      "target": "#64649",
+      "target": "#86541",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -30,16 +30,7 @@
       "reason": null
     },
     {
-      "target": "#64805",
-      "action": "keep_closed",
-      "status": "skipped",
-      "classification": null,
-      "canonical": null,
-      "candidate_fix": null,
-      "reason": "Already closed in hydrated preflight state."
-    },
-    {
-      "target": "#70268",
+      "target": "#86561",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -48,7 +39,7 @@
       "reason": null
     },
     {
-      "target": "#70409",
+      "target": "#86605",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -57,7 +48,7 @@
       "reason": null
     },
     {
-      "target": "#70676",
+      "target": "#86608",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -66,7 +57,7 @@
       "reason": null
     },
     {
-      "target": "#71024",
+      "target": "#86622",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -75,7 +66,7 @@
       "reason": null
     },
     {
-      "target": "#71062",
+      "target": "#86649",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -84,7 +75,7 @@
       "reason": null
     },
     {
-      "target": "#71497",
+      "target": "#86670",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -93,7 +84,7 @@
       "reason": null
     },
     {
-      "target": "#71503",
+      "target": "#86674",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -102,7 +93,7 @@
       "reason": null
     },
     {
-      "target": "#71563",
+      "target": "#86676",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -111,7 +102,7 @@
       "reason": null
     },
     {
-      "target": "#72025",
+      "target": "#86681",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -120,7 +111,7 @@
       "reason": null
     },
     {
-      "target": "#72092",
+      "target": "#86716",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -129,7 +120,7 @@
       "reason": null
     },
     {
-      "target": "#72224",
+      "target": "#86749",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -138,7 +129,7 @@
       "reason": null
     },
     {
-      "target": "#72314",
+      "target": "#86776",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -147,7 +138,7 @@
       "reason": null
     },
     {
-      "target": "#72409",
+      "target": "#86793",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -156,7 +147,7 @@
       "reason": null
     },
     {
-      "target": "#72515",
+      "target": "#86795",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -165,7 +156,7 @@
       "reason": null
     },
     {
-      "target": "#72557",
+      "target": "#86796",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -174,7 +165,7 @@
       "reason": null
     },
     {
-      "target": "#73349",
+      "target": "#86797",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -183,7 +174,7 @@
       "reason": null
     },
     {
-      "target": "#73374",
+      "target": "#86893",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -192,7 +183,7 @@
       "reason": null
     },
     {
-      "target": "#73385",
+      "target": "#86900",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -201,7 +192,7 @@
       "reason": null
     },
     {
-      "target": "#73390",
+      "target": "#86913",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -210,7 +201,7 @@
       "reason": null
     },
     {
-      "target": "#73401",
+      "target": "#86932",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -219,7 +210,7 @@
       "reason": null
     },
     {
-      "target": "#73402",
+      "target": "#86936",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -228,7 +219,7 @@
       "reason": null
     },
     {
-      "target": "#73403",
+      "target": "#86955",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -237,7 +228,7 @@
       "reason": null
     },
     {
-      "target": "#73440",
+      "target": "#87046",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -246,7 +237,7 @@
       "reason": null
     },
     {
-      "target": "#73511",
+      "target": "#87061",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -255,7 +246,7 @@
       "reason": null
     },
     {
-      "target": "#73606",
+      "target": "#88908",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -264,7 +255,7 @@
       "reason": null
     },
     {
-      "target": "#73628",
+      "target": "#88810",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -273,7 +264,7 @@
       "reason": null
     },
     {
-      "target": "#92524",
+      "target": "#87083",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -282,7 +273,7 @@
       "reason": null
     },
     {
-      "target": "#73635",
+      "target": "#87088",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -291,7 +282,7 @@
       "reason": null
     },
     {
-      "target": "#73649",
+      "target": "#87092",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -300,7 +291,7 @@
       "reason": null
     },
     {
-      "target": "#89717",
+      "target": "#87100",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -309,7 +300,7 @@
       "reason": null
     },
     {
-      "target": "#89720",
+      "target": "#87119",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -318,7 +309,7 @@
       "reason": null
     },
     {
-      "target": "#89724",
+      "target": "#87121",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -327,7 +318,7 @@
       "reason": null
     },
     {
-      "target": "#89730",
+      "target": "#87122",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -336,7 +327,7 @@
       "reason": null
     },
     {
-      "target": "#89737",
+      "target": "#87164",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -345,7 +336,7 @@
       "reason": null
     },
     {
-      "target": "#89745",
+      "target": "#87205",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -354,7 +345,7 @@
       "reason": null
     },
     {
-      "target": "#89753",
+      "target": "#87206",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -363,7 +354,25 @@
       "reason": null
     },
     {
-      "target": "#89767",
+      "target": "#87231",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": null
+    },
+    {
+      "target": "#87260",
+      "action": "keep_independent",
+      "status": "planned",
+      "classification": "independent",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": null
+    },
+    {
+      "target": "#87275",
       "action": "keep_independent",
       "status": "planned",
       "classification": "independent",
@@ -373,12 +382,10 @@
     }
   ],
   "action_counts": {
-    "keep_independent": 38,
-    "keep_closed": 1
+    "keep_independent": 40
   },
   "action_status_counts": {
-    "planned": 38,
-    "skipped": 1
+    "planned": 40
   },
   "fix_counts": {},
   "apply_counts": {},
