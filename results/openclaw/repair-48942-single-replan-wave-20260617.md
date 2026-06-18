@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "repair-48942-single-replan-wave-20260617"
 mode: "autonomous"
-run_id: "27745999820"
-workflow_run_id: "27745999820"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27745999820"
-head_sha: "e182f75656497e4b5d6d045040c445f71ff99857"
-workflow_conclusion: "success"
+run_id: "27746217524"
+workflow_run_id: "27746217524"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27746217524"
+head_sha: "6b23fe7fc28d99bdad13dc0ea95bd07b132dfa05"
+workflow_conclusion: "cancelled"
 result_status: "planned"
-published_at: "2026-06-18T08:15:04.275Z"
-canonical: "#48942"
+published_at: "2026-06-18T08:44:58.861Z"
+canonical: "https://github.com/openclaw/openclaw/pull/48942"
 canonical_issue: null
-canonical_pr: "#48942"
+canonical_pr: "https://github.com/openclaw/openclaw/pull/48942"
 actions_total: 5
 fix_executed: 0
 fix_failed: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27745999820](https://github.com/openclaw/clownfish/actions/runs/27745999820)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27746217524](https://github.com/openclaw/clownfish/actions/runs/27746217524)
 
-Workflow conclusion: success
+Workflow conclusion: cancelled
 
 Worker result: planned
 
-Canonical: #48942
+Canonical: https://github.com/openclaw/openclaw/pull/48942
 
 ## Summary
 
-Plan only: keep PR #48942 as the canonical contributor repair path, emit a narrow branch-repair fix artifact for the remaining Codex review finding, and keep linked refs non-mutating because close/comment/merge are blocked for this job.
+Plan #48942 as the canonical repair path. The hydrated artifact shows the PR is open, maintainer-editable, non-security-sensitive, and already has broad green checks plus real behavior proof, but the latest ClawSweeper/Codex review still blocks merge on stored title-field guard coverage. No GitHub mutation, close, label, merge, or push is planned.
 
 ## Impact
 
@@ -67,9 +67,9 @@ Plan only: keep PR #48942 as the canonical contributor repair path, emit a narro
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair contributor PR #48942 in place by hardening deriveSessionTitle candidate handling so malformed or non-string stored title fields cannot crash title derivation, while preserving the intended precedence: displayName, subject, explicit entry.label, firstUserMessage, origin.label, then sessionId fallback.",
-  "pr_title": "fix(gateway): harden derived session title fields",
-  "pr_body": "## Summary\nRepair source PR #48942 by adding narrow guards around stored session title candidates before trimming or returning them. Preserve the existing title precedence and the compatibility re-export from session-utils.\n\n## Scope\n- Source PR: https://github.com/openclaw/openclaw/pull/48942\n- Canonical cluster PR: #48942\n- Keep the patch limited to gateway session-title derivation and focused tests.\n- Do not include Android, dependency, or broad session-list product work.\n\n## Validation\n- pnpm -s vitest run src/gateway/session-title.test.ts src/gateway/session-utils.test.ts\n- pnpm check:changed\n- git diff --check\n\n## Credit\nThis repair carries forward JFWaskin's original PR and branch history; Clownfish changes should be a narrow follow-up on that contribution.",
+  "summary": "Repair #48942 in place. Keep @JFWaskin's extracted session-title helper and explicit label precedence, add/centralize string normalization before any stored title candidate is trimmed, preserve firstUserMessage ahead of auto-populated origin.label, and add focused regressions for malformed persisted title fields. Do not expand into #39722 metadata stripping or #81781 broader title-source selection.",
+  "pr_title": "fix(gateway): harden derived session title candidates",
+  "pr_body": "## Summary\n- Repair source PR #48942 in place so the contributor branch remains the canonical path.\n- Keep explicit session labels ahead of transcript-derived heartbeat text.\n- Normalize stored title candidates before trimming so malformed persisted metadata cannot crash derived title generation.\n- Preserve transcript-derived titles ahead of auto-populated origin labels.\n\n## Credit\nSource PR: https://github.com/openclaw/openclaw/pull/48942 by @JFWaskin. This repair keeps the attribution on the existing branch and PR history.\n\n## Verification\n- pnpm test src/gateway/session-title.test.ts src/gateway/session-utils.test.ts\n- pnpm check:changed\n\n## Pre-merge follow-up\nRun a fresh Codex /review after the repair and address any new actionable findings before a future merge recommendation.",
   "likely_files": [
     "src/gateway/session-title.ts",
     "src/gateway/session-title.test.ts",
@@ -77,14 +77,13 @@ Plan only: keep PR #48942 as the canonical contributor repair path, emit a narro
     "src/gateway/session-utils.test.ts"
   ],
   "validation_commands": [
-    "pnpm -s vitest run src/gateway/session-title.test.ts src/gateway/session-utils.test.ts",
-    "pnpm check:changed",
-    "git diff --check"
+    "pnpm test src/gateway/session-title.test.ts src/gateway/session-utils.test.ts",
+    "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve JFWaskin's authorship and contribution trail on source PR #48942.",
-    "Use a normal repair commit on the existing contributor branch; do not force-push.",
-    "Keep attribution in the PR body/history if the executor must open a replacement PR."
+    "Preserve contributor credit for @JFWaskin on https://github.com/openclaw/openclaw/pull/48942.",
+    "Repair the existing maintainer-editable contributor branch instead of opening a replacement PR.",
+    "Release-note context should say derived session titles now preserve explicit session labels while guarding malformed stored title fields."
   ],
   "source_job": "jobs/openclaw/inbox/repair-48942-single-replan-wave-20260617.md",
   "security_sensitive": false,
@@ -117,11 +116,11 @@ Plan only: keep PR #48942 as the canonical contributor repair path, emit a narro
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #48942 | fix_needed | planned | canonical | The canonical PR is useful and repairable, but it still needs a narrow branch repair for the current Codex review finding before it can be considered merge-ready. |
-| cluster:repair-48942-single-replan-wave-20260617 | build_fix_artifact | planned |  | Emit an executable, cluster-scoped repair artifact so the deterministic executor can patch the contributor branch without GitHub mutations from the worker. |
-| #39722 | keep_related | planned | related | Same gateway session-title family, but the metadata stripping/displayName issue has distinct remaining work and should not be closed or repaired inside this isolated #48942 branch-repair job. |
-| #39790 | keep_closed | skipped | superseded | Already closed context ref; no mutation is valid or needed. |
-| #81781 | keep_related | planned | related | Related title-derivation area, but broader product scope and not a duplicate or repair target for this isolated PR job. |
+| #48942 | fix_needed | planned | canonical | Repair the contributor branch in place so @JFWaskin keeps credit, addressing only the remaining stored-field guard finding and focused validation gates. |
+| cluster:repair-48942-single-replan-wave-20260617 | build_fix_artifact | planned |  | Build an executable repair plan for #48942 rather than replacing or merging it. |
+| #39722 | keep_related | planned | related | Related session-title family work, but not a duplicate or closure target for this isolated #48942 repair. |
+| #39790 | keep_closed | skipped | superseded | Closed historical context only. |
+| #81781 | keep_related | planned | related | Same session-title area, different product scope; leave open outside this isolated repair. |
 
 ## Needs Human
 
