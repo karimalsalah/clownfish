@@ -1206,6 +1206,47 @@ test("review-results rejects executor-managed Codex review pseudo-commands in fi
   );
 });
 
+test("review-results rejects inline tsx validation probes", () => {
+  const dir = makeResultDir(
+    {
+      mode: "autonomous",
+      actions: [
+        {
+          target: "cluster:cluster-test",
+          action: "build_fix_artifact",
+          status: "planned",
+          idempotency_key: "projectclownfish:cluster-test:build-fix-artifact:v1",
+          evidence: ["The repair has a focused validation plan."],
+        },
+      ],
+      fix_artifact: {
+        summary: "build a narrow credited fix",
+        affected_surfaces: ["outbound"],
+        likely_files: ["src/infra/outbound/delivery-queue-recovery.ts"],
+        linked_refs: ["#1"],
+        validation_commands: [
+          "pnpm check:changed",
+          'corepack pnpm exec tsx -e "console.log(process.env.GITHUB_TOKEN)"',
+        ],
+        changelog_required: false,
+        credit_notes: ["credit source PR"],
+        pr_title: "fix(outbound): classify deterministic delivery errors",
+        pr_body: "## Summary\n- fix the issue",
+        repair_strategy: "new_fix_pr",
+      },
+    },
+    { job: fixEnabledJob() },
+  );
+
+  const result = review(dir);
+
+  assert.notEqual(result.status, 0);
+  assert.match(
+    result.stdout,
+    /fix_artifact\.validation_commands must use an executor-supported command: corepack pnpm exec tsx -e/,
+  );
+});
+
 test("review-results verifies fix artifacts with a permission snapshot after source job removal", () => {
   const dir = makeResultDir(
     {

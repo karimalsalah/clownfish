@@ -616,6 +616,9 @@ function validateFixArtifact(fixArtifact, failures) {
     if (isExecutorManagedValidationCommand(command)) {
       failures.push(`fix_artifact.validation_commands must not include executor-managed validation: ${command}`);
     }
+    if (isUnsupportedExecutorValidationCommand(command)) {
+      failures.push(`fix_artifact.validation_commands must use an executor-supported command: ${command}`);
+    }
   }
   if (typeof fixArtifact.changelog_required !== "boolean") {
     failures.push("fix_artifact.changelog_required must be boolean");
@@ -648,6 +651,10 @@ function isDisallowedPullRequestLifecycleValidationCommand(command) {
 
 function isExecutorManagedValidationCommand(command) {
   return /^codex\s+\/review\b/i.test(String(command ?? "").trim());
+}
+
+function isUnsupportedExecutorValidationCommand(command) {
+  return /^(?:corepack\s+)?pnpm\s+exec\s+tsx\s+-e\b/i.test(String(command ?? "").trim());
 }
 
 function readSiblingJson(runDir, filename) {
