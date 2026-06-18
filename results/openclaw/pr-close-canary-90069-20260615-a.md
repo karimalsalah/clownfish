@@ -2,20 +2,21 @@
 repo: "openclaw/openclaw"
 cluster_id: "pr-close-canary-90069-20260615-a"
 mode: "execute"
-run_id: "27545122296"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27545122296"
-head_sha: "1a47711b53828d58a62d5798b80ee89f4bb84218"
-workflow_conclusion: "failure"
+run_id: "27750121909"
+workflow_run_id: "27750121909"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27750121909"
+head_sha: "ea6165ebd756db2ce6fd83f91cd39ddd1d1fff54"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-15T12:10:50.655Z"
-canonical: "#92343"
-canonical_issue: "#92169"
-canonical_pr: "#92343"
+published_at: "2026-06-18T09:32:36.557Z"
+canonical: null
+canonical_issue: null
+canonical_pr: null
 actions_total: 1
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
-apply_executed: 0
+apply_executed: 1
 apply_blocked: 0
 apply_skipped: 0
 needs_human_count: 0
@@ -25,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27545122296](https://github.com/openclaw/clownfish/actions/runs/27545122296)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27750121909](https://github.com/openclaw/clownfish/actions/runs/27750121909)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #92343
+Canonical: unknown
 
 ## Summary
 
-#90069 remains open in the hydrated live state and #92343 is hydrated as merged, so the planned execute-mode action is to close #90069 as superseded by the merged behavior fix in #92343. No merge, fix, label, or post-merge close action is planned.
+Close-only canary classification: #90069 remains open and is covered by the merged candidate fix in #92343; emit one planned fixed-by-candidate close action for #90069 and no mutation for the already-merged candidate.
 
 ## Impact
 
@@ -45,7 +46,7 @@ Canonical: #92343
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
-| Applied executions | 0 |
+| Applied executions | 1 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
 | Needs human | 0 |
@@ -60,13 +61,20 @@ Canonical: #92343
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #90069 | close_fixed_by_candidate | executed | fixed_by_candidate | covered by the candidate fix |
+
+## Apply Audit
+
+| Attempt | Source | Target | Action | Status | Reason |
+| --- | --- | --- | --- | --- |
+| 1 | apply | #90069 | close_fixed_by_candidate | executed | covered by the candidate fix |
+| 2 | apply | #90069 | close_fixed_by_candidate | executed | already closed with matching projectclownfish comment |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #90069 | close_superseded | planned | superseded | The standalone docs PR is stale because its documented behavior was replaced by the merged runtime fix in #92343. |
+| #90069 | close_fixed_by_candidate | planned | fixed_by_candidate |  |
 
 ## Needs Human
 
