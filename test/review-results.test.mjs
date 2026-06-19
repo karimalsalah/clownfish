@@ -257,6 +257,53 @@ test("review-results honors plan-level no-security routing assertions", () => {
   assert.match(result.stdout, /"status": "passed"/);
 });
 
+test("review-results rejects planned merges without a reviewed PR head SHA", () => {
+  const dir = makeResultDir(
+    {
+      mode: "autonomous",
+      actions: [
+        {
+          target: "#1",
+          action: "merge_canonical",
+          status: "planned",
+          idempotency_key: "cluster-test:merge:1",
+          classification: "canonical",
+          target_kind: "pull_request",
+          target_updated_at: "2026-06-15T14:15:01Z",
+          canonical: "#1",
+          duplicate_of: null,
+          candidate_fix: null,
+          comment: null,
+          evidence: ["Fresh merge preflight completed."],
+          reason: "Canonical PR is ready to merge.",
+        },
+      ],
+      merge_preflight: [validMergePreflight("#1")],
+    },
+    {
+      job: mergeJob(),
+      plan: {
+        items: [
+          {
+            ref: "#1",
+            kind: "pull_request",
+            state: "open",
+            title: "fix: merge guard",
+            labels: ["proof: sufficient"],
+            updated_at: "2026-06-15T14:15:01Z",
+            security_sensitive: false,
+          },
+        ],
+      },
+    },
+  );
+
+  const result = review(dir);
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stdout, /merge action requires expected_head_sha as a 40-character Git SHA/);
+});
+
 test("review-results ignores empty security boundary item collections in mutating evidence", () => {
   const dir = makeResultDir(
     {
@@ -1459,6 +1506,48 @@ allow_fix_pr: false
 
 # Current-main close-only job
 `;
+}
+
+function mergeJob() {
+  return `---
+repo: openclaw/openclaw
+cluster_id: cluster-test
+mode: autonomous
+allowed_actions:
+  - merge
+blocked_actions:
+  - force_push
+allow_merge: true
+canonical:
+  - "#1"
+candidates:
+  - "#1"
+cluster_refs:
+  - "#1"
+security_sensitive: false
+---
+
+# Merge job
+`;
+}
+
+function validMergePreflight(target) {
+  return {
+    target,
+    security_status: "cleared",
+    security_evidence: ["No security-sensitive labels or comments."],
+    comments_status: "resolved",
+    comments_evidence: ["No unresolved review threads."],
+    bot_comments_status: "resolved",
+    bot_comments_evidence: ["No unresolved review-bot comments."],
+    validation_commands: ["pnpm check:changed"],
+    codex_review: {
+      command: "/review",
+      status: "clean",
+      findings_addressed: true,
+      evidence: ["Codex /review returned clean."],
+    },
+  };
 }
 
 function fixEnabledJob() {

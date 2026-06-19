@@ -322,6 +322,7 @@ function postFlightToApplyAction(action) {
     status: action.status,
     classification: "fix_pr",
     reason: action.reason,
+    expected_head_sha: action.expected_head_sha ?? null,
   };
 }
 

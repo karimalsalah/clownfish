@@ -743,6 +743,7 @@ function sanitizeApplyAction(action) {
     reason: action.reason ?? null,
     merged_at: action.merged_at ?? null,
     merge_commit_sha: action.merge_commit_sha ?? null,
+    expected_head_sha: action.expected_head_sha ?? null,
     live_state: action.live_state ?? null,
     live_updated_at: action.live_updated_at ?? null,
     apply_attempt: action.apply_attempt ?? null,
@@ -814,6 +815,7 @@ function postFlightToApplyAction(action) {
       reason: action.reason ?? null,
       merged_at: null,
       merge_commit_sha: action.merge_commit_sha ?? null,
+      expected_head_sha: action.expected_head_sha ?? null,
       live_state: action.live_state ?? null,
       live_updated_at: null,
     };
@@ -827,6 +829,7 @@ function postFlightToApplyAction(action) {
     reason: action.reason ?? null,
     merged_at: action.merged_at ?? null,
     merge_commit_sha: action.merge_commit_sha ?? null,
+    expected_head_sha: action.expected_head_sha ?? null,
     live_state: action.status === "executed" ? "merged" : null,
     live_updated_at: null,
   };

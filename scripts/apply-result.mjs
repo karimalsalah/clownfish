@@ -463,6 +463,29 @@ function applyMergeAction({ job, result, action, dryRun, allowMissingUpdatedAt, 
     };
   }
 
+  const expectedHeadSha = String(action.expected_head_sha ?? "");
+  if (!/^[0-9a-f]{40}$/i.test(expectedHeadSha)) {
+    return {
+      ...base,
+      status: "blocked",
+      reason: "merge action requires expected_head_sha as a 40-character Git SHA",
+      live_state: live.state,
+      live_updated_at: live.updated_at,
+    };
+  }
+  const liveHeadSha = String(pullRequest.head?.sha ?? "");
+  if (liveHeadSha !== expectedHeadSha) {
+    return {
+      ...base,
+      status: "blocked",
+      reason: "pull request head changed since worker review",
+      expected_head_sha: expectedHeadSha,
+      live_head_sha: liveHeadSha || null,
+      live_state: live.state,
+      live_updated_at: live.updated_at,
+    };
+  }
+
   const mergeBlock = validateMergeablePullRequest({ pullRequest, view });
   if (mergeBlock) {
     return {
@@ -519,7 +542,16 @@ function applyMergeAction({ job, result, action, dryRun, allowMissingUpdatedAt, 
     };
   }
 
-  ghWithRetry(["pr", "merge", String(target), "--repo", result.repo, "--squash"]);
+  ghWithRetry([
+    "pr",
+    "merge",
+    String(target),
+    "--repo",
+    result.repo,
+    "--squash",
+    "--match-head-commit",
+    expectedHeadSha,
+  ]);
   const merged = fetchPullRequest(result.repo, target);
   return {
     ...base,
@@ -530,6 +562,7 @@ function applyMergeAction({ job, result, action, dryRun, allowMissingUpdatedAt, 
     merged_at: merged.merged_at ?? null,
     merge_commit_sha: merged.merge_commit_sha ?? null,
     merge_method: "squash",
+    expected_head_sha: expectedHeadSha,
   };
 }
 

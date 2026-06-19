@@ -521,6 +521,10 @@ function validateMergePreflight(mergePreflight, mergeActions, failures) {
   }
   for (const action of mergeActions) {
     const target = normalizeRef(action.target);
+    const expectedHeadSha = String(action.expected_head_sha ?? "");
+    if (!/^[0-9a-f]{40}$/i.test(expectedHeadSha)) {
+      failures.push(`${target} merge action requires expected_head_sha as a 40-character Git SHA`);
+    }
     const preflight = preflightByTarget.get(target);
     if (!preflight) {
       failures.push(`${target} merge action missing merge_preflight entry`);

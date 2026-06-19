@@ -32,6 +32,7 @@ const maxLiveWorkers = readMaxLiveWorkers(args);
 const waitForCapacity = Boolean(args["wait-for-capacity"]);
 const execute = Boolean(args.execute || args.live);
 const openExecuteWindow = Boolean(args["open-execute-window"] || args.live);
+const openMergeWindow = Boolean(args["open-merge-window"]);
 const requestedMode = typeof args.mode === "string" ? args.mode : null;
 const requestedRunId = args["run-id"] ?? (looksLikeRunId(args._[0]) ? args._[0] : null);
 
@@ -41,7 +42,7 @@ const resolved = requestedRunId
 
 if (!resolved.source_job) {
   console.error(
-    "usage: node scripts/requeue-job.mjs <job.md|run-id> [--mode plan|execute|autonomous] [--execute] [--open-execute-window] [--runner label] [--execution-runner label] [--model model] [--max-live-workers 50] [--wait-for-capacity]",
+    "usage: node scripts/requeue-job.mjs <job.md|run-id> [--mode plan|execute|autonomous] [--execute] [--open-execute-window] [--open-merge-window] [--runner label] [--execution-runner label] [--model model] [--max-live-workers 50] [--wait-for-capacity]",
   );
   process.exit(2);
 }
@@ -67,6 +68,21 @@ if (mode !== job.frontmatter.mode) {
     `refusing requeue mode override: job frontmatter mode is ${job.frontmatter.mode}; promote the job before dispatching ${mode}`,
   );
 }
+if (openMergeWindow && !execute) {
+  throw new Error("--open-merge-window requires --execute");
+}
+if (openMergeWindow && !openExecuteWindow) {
+  throw new Error("--open-merge-window requires --open-execute-window");
+}
+if (openMergeWindow && !["execute", "autonomous"].includes(mode)) {
+  throw new Error("--open-merge-window requires execute or autonomous job mode");
+}
+if (
+  openMergeWindow &&
+  (job.frontmatter.allow_merge !== true || !job.frontmatter.allowed_actions.includes("merge"))
+) {
+  throw new Error("--open-merge-window requires a job with allow_merge: true and allowed_actions including merge");
+}
 
 const summary = {
   status: execute ? "dispatching" : "dry_run",
@@ -79,6 +95,8 @@ const summary = {
   execution_runner: executionRunner,
   model,
   max_live_workers: maxLiveWorkers,
+  open_execute_window: openExecuteWindow,
+  open_merge_window: openMergeWindow,
 };
 
 if (!execute) {
@@ -97,6 +115,9 @@ try {
     if (job.frontmatter.allow_fix_pr === true || job.frontmatter.allowed_actions.includes("fix")) {
       openGate("CLOWNFISH_ALLOW_FIX_PR");
     }
+  }
+  if (openMergeWindow) {
+    openGate("CLOWNFISH_ALLOW_MERGE");
   }
 
   assertGateOpenIfNeeded(mode);

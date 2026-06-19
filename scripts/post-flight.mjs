@@ -152,10 +152,23 @@ function finalizeFixPr(action) {
   }
 
   if (dryRun) {
+    const expectedHeadSha = String(pull.head?.sha ?? "");
     return {
       ...prBase,
-      status: "planned",
-      reason: "dry run",
+      status: /^[0-9a-f]{40}$/i.test(expectedHeadSha) ? "planned" : "blocked",
+      reason: /^[0-9a-f]{40}$/i.test(expectedHeadSha) ? "dry run" : "pull request head SHA is unavailable",
+      merge_method: "squash",
+      expected_head_sha: /^[0-9a-f]{40}$/i.test(expectedHeadSha) ? expectedHeadSha : null,
+      waited_ms: waitedMs,
+    };
+  }
+
+  const expectedHeadSha = String(pull.head?.sha ?? "");
+  if (!/^[0-9a-f]{40}$/i.test(expectedHeadSha)) {
+    return {
+      ...prBase,
+      status: "blocked",
+      reason: "pull request head SHA is unavailable",
       merge_method: "squash",
       waited_ms: waitedMs,
     };
@@ -168,12 +181,22 @@ function finalizeFixPr(action) {
       status: "blocked",
       reason: "merge requires CLOWNFISH_ALLOW_MERGE=1; labeled clownfish",
       merge_method: "squash",
+      expected_head_sha: expectedHeadSha,
       waited_ms: waitedMs,
     };
   }
 
   try {
-    ghWithRetry(["pr", "merge", String(parsed.number), "--repo", result.repo, "--squash"]);
+    ghWithRetry([
+      "pr",
+      "merge",
+      String(parsed.number),
+      "--repo",
+      result.repo,
+      "--squash",
+      "--match-head-commit",
+      expectedHeadSha,
+    ]);
   } catch (error) {
     const detail = commandErrorText(error);
     if (isRecoverableMergeRace(detail)) {
@@ -199,6 +222,7 @@ function finalizeFixPr(action) {
     merged_at: merged.merged_at ?? null,
     merge_commit_sha: merged.merge_commit_sha ?? null,
     merge_method: "squash",
+    expected_head_sha: expectedHeadSha,
     waited_ms: waitedMs,
   };
 }

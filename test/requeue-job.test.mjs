@@ -7,12 +7,21 @@ import test from "node:test";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
 
-test("requeue waits for preparation to capture execute gates", () => {
+test("requeue opens and restores an explicit merge window after gate capture", () => {
   const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-requeue-"));
   const bin = path.join(fixture, "bin");
   const state = path.join(fixture, "state.json");
   fs.mkdirSync(bin);
-  fs.writeFileSync(state, JSON.stringify({ viewCalls: 0, dispatchArgs: [], dispatchPayload: null }));
+  fs.writeFileSync(
+    state,
+    JSON.stringify({
+      viewCalls: 0,
+      dispatchArgs: [],
+      dispatchPayload: null,
+      variables: { CLOWNFISH_ALLOW_EXECUTE: "1", CLOWNFISH_ALLOW_MERGE: "0" },
+      gateSets: [],
+    }),
+  );
   fs.writeFileSync(
     path.join(bin, "gh"),
     `#!/usr/bin/env node
@@ -23,8 +32,11 @@ const args = process.argv.slice(2);
 const json = (value) => process.stdout.write(JSON.stringify(value));
 
 if (args[0] === "variable" && args[1] === "list") {
-  json([{ name: "CLOWNFISH_ALLOW_EXECUTE", value: "1" }]);
+  json(Object.entries(state.variables).map(([name, value]) => ({ name, value })));
 } else if (args[0] === "variable" && args[1] === "set") {
+  state.variables[args[2]] = args.at(-1);
+  state.gateSets.push({ name: args[2], value: args.at(-1) });
+  fs.writeFileSync(statePath, JSON.stringify(state));
   process.stdout.write("");
 } else if (args[0] === "api" && args.some((arg) => arg.endsWith("/dispatches"))) {
   state.dispatchArgs = args;
@@ -85,11 +97,12 @@ if (args[0] === "variable" && args[1] === "list") {
     process.execPath,
     [
       "scripts/requeue-job.mjs",
-      "jobs/openclaw/inbox/pr-close-canary-94489-20260618a.md",
+      "jobs/openclaw/outbox/finalized/merge-88551-cli-owned-auth-gate-20260619.md",
       "--mode",
-      "execute",
+      "autonomous",
       "--execute",
       "--open-execute-window",
+      "--open-merge-window",
     ],
     {
       cwd: repoRoot,
@@ -114,7 +127,33 @@ if (args[0] === "variable" && args[1] === "list") {
   assert.equal(finalState.dispatchPayload.client_payload.dry_run, false);
   assert.equal(finalState.dispatchPayload.client_payload.ref, "main");
   assert.equal(finalState.dispatchPayload.client_payload.required_ancestor_sha, headSha);
-  assert.match(report.dispatch_id, /^requeue-[0-9]+-pr-close-canary-94489-20260618a$/);
+  assert.match(report.dispatch_id, /^requeue-[0-9]+-merge-88551-cli-owned-auth-gate-20260619$/);
+  assert.deepEqual(
+    finalState.gateSets.filter((entry) => entry.name === "CLOWNFISH_ALLOW_MERGE"),
+    [
+    { name: "CLOWNFISH_ALLOW_MERGE", value: "1" },
+    { name: "CLOWNFISH_ALLOW_MERGE", value: "0" },
+    ],
+  );
+  assert.equal(finalState.variables.CLOWNFISH_ALLOW_MERGE, "0");
+});
+
+test("requeue refuses a merge window without the explicit execute window", () => {
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/requeue-job.mjs",
+      "jobs/openclaw/outbox/finalized/merge-88551-cli-owned-auth-gate-20260619.md",
+      "--mode",
+      "autonomous",
+      "--execute",
+      "--open-merge-window",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /--open-merge-window requires --open-execute-window/);
 });
 
 test("requeue rejects a write-mode override until the job itself is promoted", () => {
