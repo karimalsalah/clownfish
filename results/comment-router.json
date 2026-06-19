@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-19T06:24:27.169Z",
+  "updated_at": "2026-06-19T06:45:51.856Z",
   "commands": [
     {
       "idempotency_key": "clawsweeper-repair:openclaw/openclaw:74102:4341160275:2026-04-29T05:39:44Z:clawsweeper_auto_repair",
@@ -5597,6 +5597,126 @@
       "processed_at": "2026-06-19T06:24:27.169Z",
       "target": {
         "kind": "issue"
+      }
+    },
+    {
+      "idempotency_key": "comment-router:openclaw/openclaw:94321:4749165123:2026-06-19T06:45:19Z:automerge",
+      "comment_id": "4749165123",
+      "comment_version_key": "4749165123:2026-06-19T06:45:19Z",
+      "comment_url": "https://github.com/openclaw/openclaw/pull/94321#issuecomment-4749165123",
+      "comment_created_at": "2026-06-19T06:45:19Z",
+      "comment_updated_at": "2026-06-19T06:45:19Z",
+      "repo": "openclaw/openclaw",
+      "issue_number": 94321,
+      "author": "vincentkoc",
+      "author_association": "MEMBER",
+      "trigger": "slash",
+      "command": "automerge",
+      "intent": "automerge",
+      "trusted_bot": false,
+      "trusted_bot_author": null,
+      "automation_source": null,
+      "repair_reason": null,
+      "expected_head_sha": null,
+      "finding_id": null,
+      "status": "executed",
+      "processed_at": "2026-06-19T06:45:51.856Z",
+      "target": {
+        "kind": "pull_request",
+        "branch": "fix/issue-94317-telegram-html-table-escape",
+        "head_sha": "94a721231d87152bbc26de71ba88eec8dba90634",
+        "cluster_id": "automerge-openclaw-openclaw-94321",
+        "job_path": "jobs/openclaw/inbox/automerge-openclaw-openclaw-94321.md"
+      }
+    },
+    {
+      "idempotency_key": "clawsweeper-repair:openclaw/openclaw:94777:4748308012:2026-06-19T06:43:41Z:clawsweeper_auto_repair",
+      "comment_id": "4748308012",
+      "comment_version_key": "4748308012:2026-06-19T06:43:41Z",
+      "comment_url": "https://github.com/openclaw/openclaw/pull/94777#issuecomment-4748308012",
+      "comment_created_at": "2026-06-19T03:42:03Z",
+      "comment_updated_at": "2026-06-19T06:43:41Z",
+      "repo": "openclaw/openclaw",
+      "issue_number": 94777,
+      "author": "clawsweeper[bot]",
+      "author_association": "CONTRIBUTOR",
+      "trigger": "trusted_bot",
+      "command": "clawsweeper auto repair",
+      "intent": "clawsweeper_auto_repair",
+      "trusted_bot": true,
+      "trusted_bot_author": "clawsweeper[bot]",
+      "automation_source": "clawsweeper",
+      "repair_reason": "structured ClawSweeper marker: fix-required (finding=review-feedback sha=30e1ee1732e3ebf8c7cce5c148cd5ad3b99df270)",
+      "expected_head_sha": "30e1ee1732e3ebf8c7cce5c148cd5ad3b99df270",
+      "finding_id": "review-feedback",
+      "status": "skipped",
+      "processed_at": "2026-06-19T06:45:51.856Z",
+      "target": {
+        "kind": "pull_request",
+        "branch": "fix/issue-94317-telegram-html-tables",
+        "head_sha": "48362188e5be6a77331031bc765bbcad3a267824",
+        "cluster_id": null,
+        "job_path": null
+      }
+    },
+    {
+      "idempotency_key": "clawsweeper-repair:openclaw/openclaw:94311:4736755154:2026-06-19T06:44:12Z:clawsweeper_auto_repair",
+      "comment_id": "4736755154",
+      "comment_version_key": "4736755154:2026-06-19T06:44:12Z",
+      "comment_url": "https://github.com/openclaw/openclaw/pull/94311#issuecomment-4736755154",
+      "comment_created_at": "2026-06-18T00:35:22Z",
+      "comment_updated_at": "2026-06-19T06:44:12Z",
+      "repo": "openclaw/openclaw",
+      "issue_number": 94311,
+      "author": "clawsweeper[bot]",
+      "author_association": "CONTRIBUTOR",
+      "trigger": "trusted_bot",
+      "command": "clawsweeper auto repair",
+      "intent": "clawsweeper_auto_repair",
+      "trusted_bot": true,
+      "trusted_bot_author": "clawsweeper[bot]",
+      "automation_source": "clawsweeper",
+      "repair_reason": "structured ClawSweeper verdict: needs-human (sha=e6ec815e52ae6d40ea6c521400ac1642fe8102ef)",
+      "expected_head_sha": "e6ec815e52ae6d40ea6c521400ac1642fe8102ef",
+      "finding_id": null,
+      "status": "skipped",
+      "processed_at": "2026-06-19T06:45:51.856Z",
+      "target": {
+        "kind": "pull_request",
+        "branch": "fix/issue-94289-lossless-llm-override",
+        "head_sha": "e6ec815e52ae6d40ea6c521400ac1642fe8102ef",
+        "cluster_id": null,
+        "job_path": null
+      }
+    },
+    {
+      "idempotency_key": "clawsweeper-repair:openclaw/openclaw:93962:4726763223:2026-06-19T06:45:00Z:clawsweeper_auto_repair",
+      "comment_id": "4726763223",
+      "comment_version_key": "4726763223:2026-06-19T06:45:00Z",
+      "comment_url": "https://github.com/openclaw/openclaw/pull/93962#issuecomment-4726763223",
+      "comment_created_at": "2026-06-17T06:36:05Z",
+      "comment_updated_at": "2026-06-19T06:45:00Z",
+      "repo": "openclaw/openclaw",
+      "issue_number": 93962,
+      "author": "clawsweeper[bot]",
+      "author_association": "CONTRIBUTOR",
+      "trigger": "trusted_bot",
+      "command": "clawsweeper auto repair",
+      "intent": "clawsweeper_auto_repair",
+      "trusted_bot": true,
+      "trusted_bot_author": "clawsweeper[bot]",
+      "automation_source": "clawsweeper",
+      "repair_reason": "structured ClawSweeper verdict: needs-human (sha=db7b04181dba35ab1e03b3faddfef75e74ef4e01)",
+      "expected_head_sha": "db7b04181dba35ab1e03b3faddfef75e74ef4e01",
+      "finding_id": null,
+      "status": "skipped",
+      "processed_at": "2026-06-19T06:45:51.856Z",
+      "target": {
+        "kind": "pull_request",
+        "branch": "fix/92361-descriptor-registration-warning",
+        "head_sha": "db7b04181dba35ab1e03b3faddfef75e74ef4e01",
+        "cluster_id": null,
+        "job_path": null
       }
     }
   ]
