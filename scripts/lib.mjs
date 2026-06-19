@@ -620,8 +620,9 @@ function isGithubRef(value) {
   return /^#?[0-9]+$/.test(text) || /^https:\/\/github\.com\/[^/]+\/[^/]+\/(?:issues|pull)\/[0-9]+/.test(text);
 }
 
-export function parseArgs(argv) {
+export function parseArgs(argv, { booleanKeys = [] } = {}) {
   const args = { _: [] };
+  const booleans = new Set(booleanKeys);
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (!arg.startsWith("--")) {
@@ -630,7 +631,7 @@ export function parseArgs(argv) {
     }
     const key = arg.slice(2);
     const next = argv[i + 1];
-    if (!next || next.startsWith("--")) {
+    if (booleans.has(key) || !next || next.startsWith("--")) {
       args[key] = true;
     } else {
       args[key] = next;

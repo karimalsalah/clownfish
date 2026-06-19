@@ -4,7 +4,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { parseArgs, parseJob, repoRoot } from "./lib.mjs";
 
-const args = parseArgs(process.argv.slice(2));
+const args = parseArgs(process.argv.slice(2), { booleanKeys: ["write", "json"] });
 const inboxDir = path.resolve(repoRoot(), String(args.inbox ?? "jobs/openclaw/inbox"));
 const owner = String(args.owner ?? "openclaw");
 const write = Boolean(args.write);

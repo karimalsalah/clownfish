@@ -226,6 +226,44 @@ test("prune-inbox preserves example jobs even when writing", () => {
   assert.equal(fs.existsSync(examplePath), true);
 });
 
+test("prune-inbox keeps a positional job path after --write", () => {
+  const fixture = makeFixture();
+  const targetPath = path.join(fixture.inbox, "target-example.md");
+  writeJob(targetPath, {
+    clusterId: "example-autonomous-cron-timeout",
+    mode: "autonomous",
+    refs: ["#1", "#2"],
+  });
+  writeJob(path.join(fixture.inbox, "other-example.md"), {
+    clusterId: "example-cron-timeout",
+    mode: "plan",
+    refs: ["#3", "#4"],
+  });
+
+  const result = spawnSync(
+    process.execPath,
+    [
+      "scripts/prune-inbox-jobs.mjs",
+      "--inbox",
+      fixture.inbox,
+      "--live",
+      "false",
+      "--write",
+      targetPath,
+      "--json",
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+  assert.equal(payload.summary.checked, 1);
+  assert.equal(payload.rows.length, 1);
+  assert.equal(path.basename(payload.rows[0].job), "target-example.md");
+  assert.equal(fs.existsSync(targetPath), true);
+  assert.equal(fs.existsSync(path.join(fixture.inbox, "other-example.md")), true);
+});
+
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-examples-"));
   const inbox = path.join(root, "inbox");
