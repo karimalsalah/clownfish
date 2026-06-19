@@ -123,6 +123,21 @@ export function parseCommand(body) {
   return null;
 }
 
+export function selectCommandCandidates(comments, { limit, parse } = {}) {
+  const max = Number(limit);
+  if (!Number.isInteger(max) || max < 1) throw new Error("command candidate limit must be a positive integer");
+  if (typeof parse !== "function") throw new Error("command candidate parser must be a function");
+
+  const selected = [];
+  for (const comment of comments ?? []) {
+    const parsed = parse(comment);
+    if (!parsed) continue;
+    selected.push({ comment, parsed });
+    if (selected.length >= max) break;
+  }
+  return selected;
+}
+
 export function parseTrustedAutomation(comment, { trustedAuthors = new Set() } = {}) {
   const author = String(comment?.user?.login ?? "").toLowerCase();
   if (!trustedAuthors.has(author)) return null;

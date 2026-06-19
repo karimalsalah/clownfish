@@ -170,7 +170,9 @@ Live preflight hydrates job-provided refs by default and records linked refs wit
 
 ## Maintainer Comment Routing
 
-`npm run comment-router` scans recent issue and PR comments in the target repo.
+`npm run comment-router` scans recent issue and PR comments in the target repo. Its
+`--max-comments` limit applies after command parsing, so unrelated comment traffic
+cannot starve maintainer commands from the current lookback window.
 It accepts only maintainer-authored commands, gated by GitHub
 `author_association` values `OWNER`, `MEMBER`, or `COLLABORATOR` by default.
 Contributor comments are ignored without a reply.

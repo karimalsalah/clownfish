@@ -16,6 +16,7 @@ import {
   parseTrustedAutomation,
   renderAutomergeJob,
   renderResponse,
+  selectCommandCandidates,
 } from "../scripts/comment-router-core.mjs";
 import { parseSimpleYaml, validateJob } from "../scripts/lib.mjs";
 
@@ -105,6 +106,28 @@ test("parseCommand recognizes Clownfish bot mentions", () => {
 test("parseCommand ignores unrelated comments", () => {
   assert.equal(parseCommand("please fix ci when you get a chance"), null);
   assert.equal(parseCommand("/not-clownfish fix ci"), null);
+});
+
+test("selectCommandCandidates caps commands after skipping unrelated comment chatter", () => {
+  const comments = [
+    ...Array.from({ length: 20 }, (_, index) => ({ id: `noise-${index}`, body: "looks good to me" })),
+    { id: "command-1", body: "/clownfish automerge" },
+    { id: "command-2", body: "/clownfish fix ci" },
+    { id: "command-3", body: "/clownfish rebase" },
+  ];
+
+  const selected = selectCommandCandidates(comments, {
+    limit: 2,
+    parse: (comment) => parseCommand(comment.body),
+  });
+
+  assert.deepEqual(
+    selected.map(({ comment, parsed }) => ({ id: comment.id, intent: parsed.intent })),
+    [
+      { id: "command-1", intent: "automerge" },
+      { id: "command-2", intent: "fix_ci" },
+    ],
+  );
 });
 
 test("parseTrustedAutomation accepts only trusted ClawSweeper repair signals", () => {

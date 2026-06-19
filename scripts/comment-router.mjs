@@ -27,6 +27,7 @@ import {
   parseTrustedAutomation,
   renderAutomergeJob,
   renderResponse,
+  selectCommandCandidates,
 } from "./comment-router-core.mjs";
 import {
   appendLedger,
@@ -117,12 +118,14 @@ const ledger = readLedger(ledgerPath());
 const processedCommentVersions = new Set((ledger.commands ?? []).map(commentVersionKey).filter(Boolean));
 const plannedAutoRepairHeads = new Set();
 const collaboratorPermissionCache = new Map();
-const comments = listRecentComments().slice(0, maxComments);
+const comments = listRecentComments();
+const commandCandidates = selectCommandCandidates(comments, {
+  limit: maxComments,
+  parse: (comment) => parseCommand(comment.body) ?? parseTrustedAutomation(comment, { trustedAuthors: trustedBots }),
+});
 const commands = [];
 
-for (const comment of comments) {
-  const parsed = parseCommand(comment.body) ?? parseTrustedAutomation(comment, { trustedAuthors: trustedBots });
-  if (!parsed) continue;
+for (const { comment, parsed } of commandCandidates) {
   const issueNumber = issueNumberFromUrl(comment.issue_url);
   const command = {
     idempotency_key: idempotencyKey(parsed, issueNumber, comment.id, comment.updated_at),
