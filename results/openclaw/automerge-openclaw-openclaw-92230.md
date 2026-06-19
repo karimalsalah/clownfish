@@ -2,14 +2,14 @@
 repo: "openclaw/openclaw"
 cluster_id: "automerge-openclaw-openclaw-92230"
 mode: "autonomous"
-run_id: "27809118708"
-workflow_run_id: "27809118708"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27809118708"
-head_sha: "7b098933c29cc0ac8d160e5b666058b97ab63065"
+run_id: "27809289520"
+workflow_run_id: "27809289520"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27809289520"
+head_sha: "f6bd14630ee6b9b0b68aa12df0df2d8a503afd24"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-19T06:21:51.088Z"
-canonical: "#92230"
+published_at: "2026-06-19T06:47:18.997Z"
+canonical: "https://github.com/openclaw/openclaw/pull/92230"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/92230"
 actions_total: 2
@@ -17,7 +17,7 @@ fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27809118708](https://github.com/openclaw/clownfish/actions/runs/27809118708)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27809289520](https://github.com/openclaw/clownfish/actions/runs/27809289520)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #92230
+Canonical: https://github.com/openclaw/openclaw/pull/92230
 
 ## Summary
 
-PR #92230 is the canonical automerge target, but it is not merge-ready because ClawSweeper found one actionable review finding: the new /model menu is built from configured provider catalog rows while the existing /model switch path enforces the allowed model set. The branch is safe to repair because the hydrated artifact shows the PR is open, maintainer_can_modify is true, security_sensitive is false, and the branch head is d08ef1836b90eea6b46facd08b32c14b8e279a18.
+PR #92230 is the calibrated canonical repair target. The branch is open, editable by maintainers, and non-security-sensitive, but the hydrated ClawSweeper review identifies an actionable blocker: the new /model menu choices come from provider catalog rows while the existing switch path enforces agents.defaults.models allowlist policy. Emit a repair-contributor-branch artifact; do not merge or close because both actions are blocked by the job.
 
 ## Impact
 
@@ -47,7 +47,7 @@ PR #92230 is the canonical automerge target, but it is not merge-ready because C
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -64,9 +64,9 @@ PR #92230 is the canonical automerge target, but it is not merge-ready because C
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair contributor PR #92230 by keeping the dynamic /model argument menu but making its choice catalog match the same allowed model set enforced by the existing /model switch path. The safest shape is to keep command-registry.shared.ts browser-safe, then have commands-registry.ts resolve dynamic choice context from the visibility-filtered catalog when cfg has agents.defaults.models allowlist entries.",
+  "summary": "Repair PR #92230 by keeping the /model native argument menu but filtering choices through the established model allowlist/visibility contract so Slack and other native command surfaces do not offer models that /model will reject.",
   "pr_title": "feat: add model switch choices to /model",
-  "pr_body": "Summary:\n- keep the /model argument menu from #92230\n- align menu choices with the established model visibility/allowlist used by /model switching\n- preserve bare /model status behavior when no menu choices are available\n\nVerification:\n- node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts\n- node scripts/run-vitest.mjs extensions/slack/src/monitor/slash.test.ts extensions/telegram/src/bot-native-command-menu.test.ts extensions/discord/src/monitor/native-command.command-arg.test.ts\n- git diff --check HEAD~1..HEAD\n\nCredit:\n- Source PR: https://github.com/openclaw/openclaw/pull/92230\n- Thanks @clawSean for the original /model menu implementation.",
+  "pr_body": "## Summary\n- keep #92230's native `/model` argument menu\n- filter model choices through the same configured-model allowlist used by the `/model` switch path\n- preserve bare `/model` status behavior when no valid choices are available\n\n## Repair notes\nClownfish is repairing @clawSean's source PR in place. The ClawSweeper blocker was that provider catalog rows could appear in the menu even when `agents.defaults.models` would reject the selected model. The repair should keep the choice UI but align it with the existing allowed-model contract.\n\n## Verification\n- `node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts`\n- `pnpm check:changed`",
   "likely_files": [
     "src/auto-reply/commands-registry.shared.ts",
     "src/auto-reply/commands-registry.ts",
@@ -76,19 +76,18 @@ PR #92230 is the canonical automerge target, but it is not merge-ready because C
   ],
   "validation_commands": [
     "node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts",
-    "node scripts/run-vitest.mjs extensions/slack/src/monitor/slash.test.ts extensions/telegram/src/bot-native-command-menu.test.ts extensions/discord/src/monitor/native-command.command-arg.test.ts",
-    "git diff --check HEAD~1..HEAD"
+    "pnpm check:changed"
   ],
   "credit_notes": [
-    "Repair the existing contributor branch for PR #92230 when possible; preserve @clawSean as the source PR author.",
-    "If branch update unexpectedly fails, any replacement PR body must credit @clawSean and link https://github.com/openclaw/openclaw/pull/92230 as the source PR."
+    "Repair contributor branch for @clawSean's PR #92230; preserve the original author and commit credit.",
+    "Do not replace the PR unless branch update unexpectedly fails; maintainer_can_modify is true in the hydrated artifact."
   ],
   "source_job": "jobs/openclaw/inbox/automerge-openclaw-openclaw-92230.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -96,26 +95,26 @@ PR #92230 is the canonical automerge target, but it is not merge-ready because C
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/92230 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #92230 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #92230 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| https://github.com/openclaw/openclaw/pull/92230 | fix_needed | planned | canonical | Repair is required before the comment router can request another exact-head ClawSweeper review; merge is blocked by job policy and by the outstanding review finding. |
-| cluster:automerge-openclaw-openclaw-92230 | build_fix_artifact | planned |  | Emit an executable repair plan for the contributor branch, preserving @clawSean credit and avoiding a replacement PR. |
+| #92230 | fix_needed | planned | canonical | Repair is needed before automerge review can proceed; branch is safe to update, and the fix scope is bounded to command-registry model choice policy and tests. |
+| cluster:automerge-openclaw-openclaw-92230 | build_fix_artifact | planned |  | Job allows fix and raise_pr but blocks merge/close; an executable repair artifact is the correct autonomous outcome. |
 
 ## Needs Human
 
