@@ -2,22 +2,22 @@
 repo: "openclaw/openclaw"
 cluster_id: "automerge-openclaw-openclaw-94622"
 mode: "autonomous"
-run_id: "27813721567"
-workflow_run_id: "27813721567"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27813721567"
-head_sha: "241c318ecbd41754be08ba6578a28a48d4fc1efc"
+run_id: "27875370777"
+workflow_run_id: "27875370777"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27875370777"
+head_sha: "b9ea876fdcb5ab9314b59cc4dc4a84d155c81760"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-19T08:09:42.283Z"
-canonical: "#94622"
+published_at: "2026-06-20T15:29:33.008Z"
+canonical: "https://github.com/openclaw/openclaw/pull/94622"
 canonical_issue: null
-canonical_pr: "#94622"
+canonical_pr: "https://github.com/openclaw/openclaw/pull/94622"
 actions_total: 2
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
-apply_blocked: 0
+apply_blocked: 1
 apply_skipped: 0
 needs_human_count: 0
 ---
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27813721567](https://github.com/openclaw/clownfish/actions/runs/27813721567)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27875370777](https://github.com/openclaw/clownfish/actions/runs/27875370777)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #94622
+Canonical: https://github.com/openclaw/openclaw/pull/94622
 
 ## Summary
 
-Planned a bounded Clownfish repair loop for PR #94622. The hydrated PR is open, maintainer-modifiable, non-security-sensitive, and opted into automerge, but it is not merge-ready because ClawSweeper requested maintainer review for the new build environment variable surface and a relevant check is failing.
+#94622 is the canonical automerge repair target. The hydrated artifact shows the PR is open, maintainer-editable, small, and non-security-sensitive, but it is not merge-ready because GitHub reports mergeable=false/mergeable_state=dirty and the latest ClawSweeper review requires maintainer/review follow-through for the added build env surface. Merge and close are blocked by job policy, so the safe path is to repair the contributor branch and rerun validation/review.
 
 ## Impact
 
@@ -47,7 +47,7 @@ Planned a bounded Clownfish repair loop for PR #94622. The hydrated PR is open, 
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
-| Apply blocked | 0 |
+| Apply blocked | 1 |
 | Apply skipped | 0 |
 | Needs human | 0 |
 
@@ -64,33 +64,28 @@ Planned a bounded Clownfish repair loop for PR #94622. The hydrated PR is open, 
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair PR #94622 in place on the contributor branch. Keep the existing tsdown heap override design intact unless the failing check proves a branch-caused issue, address only the security-fast failure or any required ClawSweeper follow-up, preserve tayoun's contribution, and request a fresh ClawSweeper review for the exact repaired head.",
-  "pr_title": "fix(build): repair tsdown heap override automerge blockers",
-  "pr_body": "Repair pass for Clownfish automerge on #94622.\n\nSource PR: https://github.com/openclaw/openclaw/pull/94622\nOriginal contributor: @tayoun\n\nScope:\n- Keep the tsdown heap override change focused on scripts/tsdown-build.mjs and test/scripts/tsdown-build.test.ts.\n- Investigate the failing security-fast check and change only branch-caused issues.\n- Preserve the existing proof and test coverage for OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB precedence, inherited NODE_OPTIONS behavior, and malformed values.\n\nValidation:\n- pnpm install --frozen-lockfile\n- pnpm exec oxfmt --check --threads=1 scripts/tsdown-build.mjs test/scripts/tsdown-build.test.ts\n- pnpm exec oxlint scripts/tsdown-build.mjs test/scripts/tsdown-build.test.ts\n- node scripts/test-projects.mjs test/scripts/tsdown-build.test.ts\n- pnpm tsgo:core:test\n- pnpm tsgo:core\n- git diff --check\n- rerun or inspect security-fast for this exact head\n\nCredit: this repair carries forward @tayoun's source PR and attribution.",
+  "summary": "Repair PR #94622 in place by rebasing/resolving conflicts against current main, preserving @tayoun's tsdown heap override, then rerunning the focused tests plus the repository changed gate and requesting a fresh ClawSweeper/Codex review before any separate merge lane acts.",
+  "pr_title": "fix(build): allow tsdown heap override",
+  "pr_body": "## What Problem This Solves\n\nSome constrained build hosts need an explicit way to set the tsdown Node heap cap when automatic cgroup/proc memory detection or inherited NODE_OPTIONS does not match the host's usable memory.\n\n## Why This Change Was Made\n\nThis repairs and preserves @tayoun's contributor PR #94622 by rebasing/resolving the dirty branch state, keeping the narrow OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB override, and retaining strict positive-integer parsing for malformed values.\n\n## User Impact\n\nOperators can set OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB for tsdown builds while the existing platform, cgroup, proc, and NODE_OPTIONS behavior remains the fallback when the override is unset.\n\n## Evidence\n\n- Source PR: https://github.com/openclaw/openclaw/pull/94622\n- Current main inspected: 2252674168f7951332f7a7627a50267e2e68b031\n- Planned validation: node scripts/run-vitest.mjs test/scripts/tsdown-build.test.ts; git diff --check; pnpm check:changed\n- Fresh ClawSweeper/Codex review required after repair before any merge decision.",
   "likely_files": [
     "scripts/tsdown-build.mjs",
     "test/scripts/tsdown-build.test.ts"
   ],
   "validation_commands": [
-    "pnpm install --frozen-lockfile",
-    "pnpm exec oxfmt --check --threads=1 scripts/tsdown-build.mjs test/scripts/tsdown-build.test.ts",
-    "pnpm exec oxlint scripts/tsdown-build.mjs test/scripts/tsdown-build.test.ts",
-    "node scripts/test-projects.mjs test/scripts/tsdown-build.test.ts",
-    "pnpm tsgo:core:test",
-    "pnpm tsgo:core",
+    "node scripts/run-vitest.mjs test/scripts/tsdown-build.test.ts",
     "git diff --check",
-    "rerun or inspect the failing security-fast check for PR #94622 after the repair"
+    "pnpm check:changed"
   ],
   "credit_notes": [
-    "Source PR: https://github.com/openclaw/openclaw/pull/94622",
-    "Contributor credit: tayoun authored the original fix(build): allow tsdown heap override patch and should remain credited in the repaired branch or replacement narrative if replacement later becomes necessary."
+    "Preserve @tayoun as the source contributor for https://github.com/openclaw/openclaw/pull/94622.",
+    "Keep the PR body/release-note context focused on the build-time OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB operator override and its validation."
   ],
   "source_job": "jobs/openclaw/inbox/automerge-openclaw-openclaw-94622.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "pushed",
+  "terminal": true
 }
 ```
 
@@ -98,26 +93,26 @@ Planned a bounded Clownfish repair loop for PR #94622. The hydrated PR is open, 
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | pushed | https://github.com/openclaw/openclaw/pull/94622 |  |  |
 
 ## Apply Actions
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #94622 | merge_canonical | blocked | fix_pr | job does not allow merge |
 
 ## Apply Audit
 
 | Attempt | Source | Target | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |  |
+|  | post_flight | #94622 | merge_canonical | blocked | job does not allow merge |
 
 ## Worker Action Matrix
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #94622 | fix_needed | planned | canonical | The PR should remain the canonical repair target, but Clownfish cannot recommend merge under this job because merge is blocked, ClawSweeper has not produced a passing merge verdict for the exact head, and security-fast is failing. |
-| #94622 | build_fix_artifact | planned | canonical | A contributor-branch repair is the narrow executable path allowed by the job: repair the failing relevant check if branch-caused, preserve tayoun's authorship, rerun targeted validation, and request a fresh ClawSweeper review. |
+| #94622 | fix_needed | planned | canonical | Repair the existing maintainer-editable contributor branch instead of replacing it; merge and close are blocked by job policy. |
+| cluster:automerge-openclaw-openclaw-94622 | build_fix_artifact | planned |  | Build an executable repair plan for the existing contributor branch. |
 
 ## Needs Human
 
