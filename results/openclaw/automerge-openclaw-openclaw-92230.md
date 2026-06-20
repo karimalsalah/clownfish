@@ -2,20 +2,20 @@
 repo: "openclaw/openclaw"
 cluster_id: "automerge-openclaw-openclaw-92230"
 mode: "autonomous"
-run_id: "27875426635"
-workflow_run_id: "27875426635"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27875426635"
-head_sha: "b9ea876fdcb5ab9314b59cc4dc4a84d155c81760"
-workflow_conclusion: "failure"
+run_id: "27876530859"
+workflow_run_id: "27876530859"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27876530859"
+head_sha: "16e084b8052e638b3f937e49e3c81c8b676927df"
+workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-20T15:58:31.938Z"
+published_at: "2026-06-20T16:11:40.381Z"
 canonical: "https://github.com/openclaw/openclaw/pull/92230"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/92230"
 actions_total: 2
-fix_executed: 0
-fix_failed: 0
-fix_blocked: 0
+fix_executed: 1
+fix_failed: 1
+fix_blocked: 1
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
@@ -26,9 +26,9 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27875426635](https://github.com/openclaw/clownfish/actions/runs/27875426635)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27876530859](https://github.com/openclaw/clownfish/actions/runs/27876530859)
 
-Workflow conclusion: failure
+Workflow conclusion: success
 
 Worker result: planned
 
@@ -36,16 +36,16 @@ Canonical: https://github.com/openclaw/openclaw/pull/92230
 
 ## Summary
 
-PR #92230 is the canonical repair target. It is open, editable by maintainers, and non-security-sensitive in the hydrated preflight, but it is not merge-ready because the preflight shows unstable merge state plus failing relevant checks. The executable path is to repair the contributor branch directly, preserve @clawSean's source PR credit, rerun focused command-registry/Discord tests plus `pnpm check:changed`, and request a fresh exact-head ClawSweeper/Codex review before any merge router action.
+#92230 is the open canonical PR. It is maintainer-editable, but the latest ClawSweeper review for head 88999c4921eb426c21095300651423e98aed552d blocks automerge on a concrete Telegram compatibility finding, so the executable path is to repair the contributor branch rather than merge or replace it.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
 | Worker actions | 2 |
-| Fix executed | 0 |
-| Fix failed | 0 |
-| Fix blocked | 0 |
+| Fix executed | 1 |
+| Fix failed | 1 |
+| Fix blocked | 1 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
@@ -64,34 +64,33 @@ PR #92230 is the canonical repair target. It is open, editable by maintainers, a
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair PR #92230 in place so the `/model` native command menu feature can pass checks and fresh review. Scope is limited to the shared command registry/model choices and Discord native command behavior touched by the PR, plus any exact ClawSweeper/Codex review findings on the current head.",
+  "summary": "Repair #92230 on the existing contributor branch by preserving Telegram's dedicated bare /model picker/status flow while keeping the shared /model argsMenu behavior for Slack/Discord. Address the ClawSweeper P1 finding, then re-run focused tests, pnpm check:changed, and a fresh ClawSweeper/Codex review before any later merge router decision.",
   "pr_title": "feat: add model switch choices to /model",
-  "pr_body": "## What Problem This Solves\n\nRepairs the existing contributor PR #92230 so native `/model` command surfaces can offer configured model choices instead of requiring users to type provider/model ids manually.\n\n## Why This Change Was Made\n\nClownfish should keep the fix on @clawSean's source branch because maintainers can modify it and the diff is bounded. The repair pass should address the current failing checks (`checks-node-agentic-agents-core-auth`, `check-test-types`) plus any actionable ClawSweeper/Codex review feedback on head `9610b037d2fbf39d38f091ebcfa596bb3ff796d1`.\n\n## User Impact\n\nUsers of native command menus can select configured models from `/model` where the channel supports argument menus, while bare `/model` should continue showing status or the Discord model picker behavior as appropriate.\n\n## Evidence\n\nSource PR: https://github.com/openclaw/openclaw/pull/92230\nContributor credit: @clawSean\nRequired validation: `node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts`; `node scripts/run-vitest.mjs extensions/discord/src/monitor/native-command.model-picker.test.ts`; `pnpm check:changed`.\nFresh ClawSweeper/Codex review is required after repair before any merge router action.",
+  "pr_body": "What Problem This Solves\n\nAdds configured model choices to the shared /model command metadata so native command surfaces can offer model switching without requiring users to type provider/model values.\n\nWhy This Change Was Made\n\nKeep the shared registry as the source of command argument choices, while preserving Telegram's existing dedicated bare /model picker/status path. Telegram should not lose compact model-picker callbacks or hide long configured model refs just because the shared arg menu exists.\n\nUser Impact\n\nSlack/Discord can expose configured /model choices. Telegram keeps the current /model status/provider-browser behavior and long-model selection compatibility.\n\nEvidence\n\nSource PR: https://github.com/openclaw/openclaw/pull/92230\nClawSweeper blocker addressed: preserve Telegram's dedicated /model picker for model choices.\nValidation to run: node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts; pnpm check:changed.",
   "likely_files": [
+    "extensions/telegram/src/bot-native-commands.ts",
+    "extensions/telegram/src/bot-native-commands.test.ts",
+    "extensions/telegram/src/command-ui.ts",
+    "extensions/telegram/src/native-command-callback-data.ts",
     "src/auto-reply/commands-registry.shared.ts",
-    "src/auto-reply/commands-registry.ts",
-    "src/auto-reply/commands-registry.types.ts",
     "src/auto-reply/commands-registry.test.ts",
-    "src/auto-reply/thinking.shared.ts",
     "extensions/discord/src/monitor/native-command.ts",
     "extensions/discord/src/monitor/native-command.model-picker.test.ts"
   ],
   "validation_commands": [
-    "node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts",
-    "node scripts/run-vitest.mjs extensions/discord/src/monitor/native-command.model-picker.test.ts",
+    "node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts",
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve @clawSean as the source contributor for https://github.com/openclaw/openclaw/pull/92230.",
-    "Repair the existing branch `clawSean/slack-model-menu` rather than opening a replacement unless branch update unexpectedly becomes unsafe.",
-    "Keep user-facing release-note context in the PR body/squash message; do not edit CHANGELOG.md for this normal PR repair."
+    "Repair the existing contributor branch for https://github.com/openclaw/openclaw/pull/92230 so @clawSean keeps source PR attribution.",
+    "PR body should keep release-note context for the user-facing /model command menu improvement; do not edit CHANGELOG.md for this normal PR repair."
   ],
   "source_job": "jobs/openclaw/inbox/automerge-openclaw-openclaw-92230.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
-  "repair_status": null,
-  "terminal": null
+  "repair_status": "executed",
+  "terminal": true
 }
 ```
 
@@ -99,7 +98,9 @@ PR #92230 is the canonical repair target. It is open, editable by maintainers, a
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| repair_contributor_branch | failed |  |  | validation command failed (pnpm test:serial extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts src/auto-reply/commands-registry.test.ts): $ node scripts/test-projects-serial.mjs extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts src/auto-reply/commands-registry.test.ts [test] starting test/vitest/vitest.auto-reply.config.ts [test] starting test/vitest/vitest.extension-discord.config.ts [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m [41m[1m FAIL [22m[49m [30m[42m extension-discord [49m[39m extensions/discord/src/monitor/native-command.model-picker.test.ts[2m > [22mDiscord model picker interactions[2m > [22mopens the Discord model picker for bare /model when model choices are configured [31m[1mAssertionError[22m: expected "loadDiscordModelPickerData" to be called with arguments: [ { …(4) }, 'main' ][90m Number of calls: [1m0[22m [31m[39m [36m [2m❯[22m extensions/discord/src/monitor/native-command.model-picker.test.ts:[2m447:21[22m[39m [90m445|[39m await (command as { run: (interaction: unknown) => Promise<void> }… [90m446|[39m [90m447|[39m [34mexpect[39m(loadSpy)[33m.[39m[34mtoHaveBeenCalledWith[39m(cfg[33m,[39m [32m"main"[39m)[33m;[39m [90m |[39m [31m^[39m [90m448|[39m [34mex... |
+| repair_contributor_branch | blocked | https://github.com/openclaw/openclaw/pull/92230 |  | validation command failed (pnpm test:serial extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts src/auto-reply/commands-registry.test.ts): $ node scripts/test-projects-serial.mjs extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts src/auto-reply/commands-registry.test.ts [test] starting test/vitest/vitest.auto-reply.config.ts [test] starting test/vitest/vitest.extension-discord.config.ts [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m [41m[1m FAIL [22m[49m [30m[42m extension-discord [49m[39m extensions/discord/src/monitor/native-command.model-picker.test.ts[2m > [22mDiscord model picker interactions[2m > [22mopens the Discord model picker for bare /model when model choices are configured [31m[1mAssertionError[22m: expected "loadDiscordModelPickerData" to be called with arguments: [ { …(4) }, 'main' ][90m Number of calls: [1m0[22m [31m[39m [36m [2m❯[22m extensions/discord/src/monitor/native-command.model-picker.test.ts:[2m447:21[22m[39m [90m445|[39m await (command as { run: (interaction: unknown) => Promise<void> }… [90m446|[39m [90m447|[39m [34mexpect[39m(loadSpy)[33m.[39m[34mtoHaveBeenCalledWith[39m(cfg[33m,[39m [32m"main"[39m)[33m;[39m [90m |[39m [31m^[39m [90m448|[39m [34mex... |
+| automerge_repair_outcome_comment | executed | #92230 |  |  |
 
 ## Apply Actions
 
@@ -117,8 +118,8 @@ PR #92230 is the canonical repair target. It is open, editable by maintainers, a
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92230 | fix_needed | planned | canonical | The PR is the canonical and editable repair branch, but unstable merge state, failing checks, and outstanding ClawSweeper/Codex review feedback make it repair-only for this worker. |
-| cluster:automerge-openclaw-openclaw-92230 | build_fix_artifact | planned |  | Build an executable repair plan for the existing contributor PR branch. |
+| #92230 | fix_needed | planned | canonical | Repair the existing contributor PR branch to address the latest ClawSweeper finding; do not merge or close because both actions are blocked by the job. |
+| cluster:automerge-openclaw-openclaw-92230 | build_fix_artifact | planned |  | Build a narrow executable repair artifact for the existing PR branch. |
 
 ## Needs Human
 
