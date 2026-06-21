@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "automerge-openclaw-openclaw-92230"
 mode: "autonomous"
-run_id: "27876530859"
-workflow_run_id: "27876530859"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27876530859"
-head_sha: "16e084b8052e638b3f937e49e3c81c8b676927df"
+run_id: "27893247570"
+workflow_run_id: "27893247570"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27893247570"
+head_sha: "ea9e242e08a6006a9751cb4c522fee9e4ac24cb2"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-20T16:11:40.381Z"
+published_at: "2026-06-21T04:22:05.834Z"
 canonical: "https://github.com/openclaw/openclaw/pull/92230"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/92230"
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27876530859](https://github.com/openclaw/clownfish/actions/runs/27876530859)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27893247570](https://github.com/openclaw/clownfish/actions/runs/27893247570)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/92230
 
 ## Summary
 
-#92230 is the open canonical PR. It is maintainer-editable, but the latest ClawSweeper review for head 88999c4921eb426c21095300651423e98aed552d blocks automerge on a concrete Telegram compatibility finding, so the executable path is to repair the contributor branch rather than merge or replace it.
+#92230 is the open canonical PR for adding model switch choices to /model. It is maintainer-editable, but it is not merge-ready: the latest hydrated ClawSweeper review reports an actionable Telegram compatibility issue on the PR head, and relevant checks include failures. Because the job permits fix/raise_pr but blocks close/merge, the executable path is to repair the existing contributor branch and preserve @clawSean's source PR credit.
 
 ## Impact
 
@@ -64,26 +64,25 @@ Canonical: https://github.com/openclaw/openclaw/pull/92230
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair #92230 on the existing contributor branch by preserving Telegram's dedicated bare /model picker/status flow while keeping the shared /model argsMenu behavior for Slack/Discord. Address the ClawSweeper P1 finding, then re-run focused tests, pnpm check:changed, and a fresh ClawSweeper/Codex review before any later merge router decision.",
+  "summary": "Repair #92230 in place so Telegram native /model argument menus do not degrade into partial menus when one or more configured choices cannot fit Telegram callback-data limits. The branch should keep the shared /model choices feature, preserve Discord behavior, and fall back to the existing Telegram browse/status path when a complete native menu cannot be encoded safely.",
   "pr_title": "feat: add model switch choices to /model",
-  "pr_body": "What Problem This Solves\n\nAdds configured model choices to the shared /model command metadata so native command surfaces can offer model switching without requiring users to type provider/model values.\n\nWhy This Change Was Made\n\nKeep the shared registry as the source of command argument choices, while preserving Telegram's existing dedicated bare /model picker/status path. Telegram should not lose compact model-picker callbacks or hide long configured model refs just because the shared arg menu exists.\n\nUser Impact\n\nSlack/Discord can expose configured /model choices. Telegram keeps the current /model status/provider-browser behavior and long-model selection compatibility.\n\nEvidence\n\nSource PR: https://github.com/openclaw/openclaw/pull/92230\nClawSweeper blocker addressed: preserve Telegram's dedicated /model picker for model choices.\nValidation to run: node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts; pnpm check:changed.",
+  "pr_body": "What Problem This Solves\n\nAdds configured model choices to the native /model command while keeping Telegram behavior compatible with callback-data limits.\n\nWhy This Change Was Made\n\nThe source PR from @clawSean teaches the shared command registry to expose configured provider/model choices. Clownfish should repair the existing branch in place so Telegram only sends a native argument menu when every rendered choice can be encoded safely; otherwise it should fall back to the existing model browse/status path instead of sending a partial menu.\n\nUser Impact\n\nSlack/Discord-style native command menus can present model picks for /model, and Telegram users avoid incomplete model menus when long provider/model refs exceed Telegram callback limits.\n\nEvidence\n\nSource PR: https://github.com/openclaw/openclaw/pull/92230\nPlanned validation: node scripts/run-vitest.mjs extensions/telegram/src/bot-native-commands.test.ts extensions/discord/src/monitor/native-command.model-picker.test.ts src/auto-reply/commands-registry.test.ts; pnpm check:changed\nClawSweeper blocker to address: Telegram currently skips over-limit choices and still sends a partial /model menu instead of falling back to the browse picker.",
   "likely_files": [
     "extensions/telegram/src/bot-native-commands.ts",
     "extensions/telegram/src/bot-native-commands.test.ts",
     "extensions/telegram/src/command-ui.ts",
     "extensions/telegram/src/native-command-callback-data.ts",
-    "src/auto-reply/commands-registry.shared.ts",
-    "src/auto-reply/commands-registry.test.ts",
-    "extensions/discord/src/monitor/native-command.ts",
-    "extensions/discord/src/monitor/native-command.model-picker.test.ts"
+    "extensions/discord/src/monitor/native-command.model-picker.test.ts",
+    "src/auto-reply/commands-registry.test.ts"
   ],
   "validation_commands": [
-    "node scripts/run-vitest.mjs src/auto-reply/commands-registry.test.ts extensions/discord/src/monitor/native-command.model-picker.test.ts extensions/telegram/src/bot-native-commands.test.ts",
+    "node scripts/run-vitest.mjs extensions/telegram/src/bot-native-commands.test.ts extensions/discord/src/monitor/native-command.model-picker.test.ts src/auto-reply/commands-registry.test.ts",
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Repair the existing contributor branch for https://github.com/openclaw/openclaw/pull/92230 so @clawSean keeps source PR attribution.",
-    "PR body should keep release-note context for the user-facing /model command menu improvement; do not edit CHANGELOG.md for this normal PR repair."
+    "Preserve @clawSean as the original contributor for https://github.com/openclaw/openclaw/pull/92230.",
+    "Keep repair commits on the existing maintainer-editable PR branch when possible so attribution and discussion remain on the source PR.",
+    "Release-note context should credit the contributor-visible behavior: /model can offer configured model choices while Telegram falls back safely when native callback limits would otherwise produce an incomplete menu."
   ],
   "source_job": "jobs/openclaw/inbox/automerge-openclaw-openclaw-92230.md",
   "security_sensitive": false,
@@ -118,8 +117,8 @@ Canonical: https://github.com/openclaw/openclaw/pull/92230
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92230 | fix_needed | planned | canonical | Repair the existing contributor PR branch to address the latest ClawSweeper finding; do not merge or close because both actions are blocked by the job. |
-| cluster:automerge-openclaw-openclaw-92230 | build_fix_artifact | planned |  | Build a narrow executable repair artifact for the existing PR branch. |
+| #92230 | fix_needed | planned | canonical | Repair the existing contributor PR branch to address the ClawSweeper Telegram compatibility finding and failing relevant checks; do not merge or close because both actions are blocked by the job. |
+| cluster:automerge-openclaw-openclaw-92230 | build_fix_artifact | planned |  | Build an executable repair plan for the existing PR branch rather than a replacement branch. |
 
 ## Needs Human
 
