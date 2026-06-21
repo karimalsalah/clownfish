@@ -2,15 +2,15 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1306-intake-20260621b"
 mode: "plan"
-run_id: "27893689622"
-workflow_run_id: "27893689622"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893689622"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898765870"
+workflow_run_id: "27898765870"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898765870"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:40:09.294Z"
-canonical: "#88253"
-canonical_issue: "#88253"
+published_at: "2026-06-21T08:34:48.439Z"
+canonical: null
+canonical_issue: null
 canonical_pr: null
 actions_total: 6
 fix_executed: 0
@@ -26,17 +26,17 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893689622](https://github.com/openclaw/clownfish/actions/runs/27893689622)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898765870](https://github.com/openclaw/clownfish/actions/runs/27898765870)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: #88253
+Canonical: unknown
 
 ## Summary
 
-Planning from the provided preflight artifact in read-only mode. Security-sensitive hydrated refs are quarantined item-by-item; the only non-security linked issue is kept related because it describes a distinct announce-routing product request rather than the sandbox default allowlist failure.
+Plan-mode classification only. The hydrated preflight marks the canonical issue and overlapping fix PRs as security-sensitive, so those exact refs are routed to central OpenClaw security handling. The one non-security linked feature issue is related but not part of this closeout/fix lane.
 
 ## Impact
 
@@ -73,12 +73,12 @@ Planning from the provided preflight artifact in read-only mode. Security-sensit
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #88253 | route_security | planned | security_sensitive | The canonical issue is live but the artifact marks it security-sensitive, so it must be routed to central OpenClaw security handling rather than dedupe cleanup. |
-| #27445 | keep_related | planned | related | Same broad message-delivery/orchestration family, but the root cause and requested product surface differ, so it should not be closed as a duplicate of #88253. |
-| #75148 | route_security | planned | security_sensitive | The hydrated PR is security-sensitive, so it is read-only and out of scope for Clownfish backlog cleanup. |
-| #84989 | route_security | planned | security_sensitive | The issue concerns cross-session outbound channel authority and is marked security-sensitive, so it must be quarantined to central security handling. |
-| #88356 | keep_closed | skipped | security_sensitive | Already closed refs must not receive closure actions; this closed security-sensitive PR is historical context only. |
-| #93224 | route_security | planned | security_sensitive | The PR is open and hydrated but explicitly security-sensitive and excluded as existing overlap, so Clownfish should route it to central security handling instead of planning merge or closure. |
+| #88253 | route_security | planned | security_sensitive | The canonical issue changes default sandbox tool capability and is explicitly marked security-sensitive in live preflight state, so ProjectClownfish must not close, label, comment, merge, or fix it. |
+| #93224 | route_security | planned | security_sensitive | The PR is an excluded overlap ref and is explicitly security-sensitive; route it without merge or close recommendation. |
+| #75148 | route_security | planned | security_sensitive | This is a security-sensitive partial-overlap PR, not a closure or merge candidate for this plan-mode cluster. |
+| #84989 | route_security | planned | security_sensitive | The issue is explicitly security-sensitive and represents a distinct authority-scope decision, so route it rather than dedupe it into #88253. |
+| #88356 | route_security | planned | security_sensitive | Historical closed PR is security-sensitive context only; no closure action is valid. |
+| #27445 | keep_related | planned | related | Related message-delivery/subagent-routing work, but not the same root cause and not closable as a duplicate of the security-routed canonical. |
 
 ## Needs Human
 

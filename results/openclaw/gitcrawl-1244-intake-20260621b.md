@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1244-intake-20260621b"
 mode: "plan"
-run_id: "27893682224"
-workflow_run_id: "27893682224"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893682224"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898763489"
+workflow_run_id: "27898763489"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898763489"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:39:18.140Z"
+published_at: "2026-06-21T08:34:48.388Z"
 canonical: "#41495"
 canonical_issue: "#41495"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893682224](https://github.com/openclaw/clownfish/actions/runs/27893682224)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898763489](https://github.com/openclaw/clownfish/actions/runs/27898763489)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #41495
 
 ## Summary
 
-Plan mode only. Keep #41495 as the live canonical issue. Treat #93101 as a related candidate fix path, but do not close the issue as fixed by candidate or recommend merge because the hydrated PR still has a failing Real behavior proof check and a ClawSweeper review blocker. Keep already-closed #81135 as historical partial-overlap context only.
+#41495 remains the live canonical issue. #93101 is a related open candidate fix but is excluded as existing-overlap context and is not merge/close actionable in this job, especially with failed real behavior proof and unresolved review concerns. #81135 is closed historical context only.
 
 ## Impact
 
@@ -73,9 +73,9 @@ Plan mode only. Keep #41495 as the live canonical issue. Treat #93101 as a relat
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #41495 | keep_canonical | planned | canonical |  |
-| #81135 | keep_closed | skipped | related | Already closed; retain only as related historical context. |
-| #93101 | keep_related | planned | fixed_by_candidate | Candidate fix is related to the canonical issue, but proof/review blockers and excluded-overlap scope prevent merge or fixed-by-candidate closeout in this plan. |
+| #41495 | keep_canonical | planned | canonical | The representative is still open and remains the best hydrated canonical for this root cause. |
+| #93101 | keep_related | planned | related | The PR is related to the canonical root cause and may be a candidate fix path, but this plan-mode job cannot merge or repair it and should not close the issue as fixed by it. |
+| #81135 | keep_closed | skipped | superseded | Already closed historical context; no mutation should be planned. |
 
 ## Needs Human
 

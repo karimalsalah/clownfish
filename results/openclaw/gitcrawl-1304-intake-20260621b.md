@@ -2,16 +2,16 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1304-intake-20260621b"
 mode: "plan"
-run_id: "27893689141"
-workflow_run_id: "27893689141"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893689141"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898766027"
+workflow_run_id: "27898766027"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898766027"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:40:09.292Z"
+published_at: "2026-06-21T08:34:48.444Z"
 canonical: "#78177"
 canonical_issue: "#78177"
-canonical_pr: "#94112"
+canonical_pr: null
 actions_total: 3
 fix_executed: 0
 fix_failed: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893689141](https://github.com/openclaw/clownfish/actions/runs/27893689141)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898766027](https://github.com/openclaw/clownfish/actions/runs/27898766027)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #78177
 
 ## Summary
 
-Plan-mode classification only. #78177 remains the open canonical issue for the reply-scaffolding and bare `(no output)` leak. The hydrated active PR #94112 is context from an excluded existing-overlap cluster and is the current fix candidate, but this job does not allow merge, fix, or raise_pr actions. The closed earlier PR #78189 stays closed as historical superseded context.
+Plan-mode classification only. #78177 remains the live canonical issue. #94112 is a hydrated read-only existing-overlap PR and appears to be the active candidate fix for the same root cause, but merge/fix/post-merge closeout are blocked by this job. #78189 is already closed and should receive no closure action.
 
 ## Impact
 
@@ -73,9 +73,9 @@ Plan-mode classification only. #78177 remains the open canonical issue for the r
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #78177 | keep_canonical | planned | canonical | The representative issue is still open, hydrated, non-security-sensitive, and remains the best canonical thread. |
-| #78189 | keep_closed | skipped | superseded | Already-closed refs must not receive closure actions; #78189 is historical superseded context only. |
-| #94112 | keep_related | planned | fixed_by_candidate | #94112 is the active fix candidate for the canonical issue, but it is an excluded existing-overlap context ref and mutating merge/fix work is blocked in this plan job. |
+| #78177 | keep_canonical | planned | canonical | #78177 is the only open issue in the actionable candidate set and remains the best canonical report for this root cause. |
+| #94112 | keep_related | planned | fixed_by_candidate | #94112 is related as the active candidate fix for the canonical issue, but this worker should not recommend merge or closeout because the job explicitly excludes this overlap ref from actionable scope and blocks merge/fix actions. |
+| #78189 | keep_closed | skipped | superseded | Closed historical PRs must not receive closure actions; keep it as closed context and preserve its evidence as prior related work. |
 
 ## Needs Human
 

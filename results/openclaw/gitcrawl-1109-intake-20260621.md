@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1109-intake-20260621"
 mode: "plan"
-run_id: "27893347853"
-workflow_run_id: "27893347853"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893347853"
-head_sha: "5fab7ab68745edec7ccb5bdb036f71a154fd266b"
+run_id: "27898763544"
+workflow_run_id: "27898763544"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898763544"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:24:00.104Z"
+published_at: "2026-06-21T08:34:48.408Z"
 canonical: "#94426"
 canonical_issue: "#94426"
-canonical_pr: "#94471"
-actions_total: 8
+canonical_pr: null
+actions_total: 2
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893347853](https://github.com/openclaw/clownfish/actions/runs/27893347853)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898763544](https://github.com/openclaw/clownfish/actions/runs/27898763544)
 
 Workflow conclusion: success
 
@@ -36,13 +36,13 @@ Canonical: #94426
 
 ## Summary
 
-Plan-mode classification only. #94426 is the live canonical issue for the isPortBusy IPv4-only loopback occupant bug. The linked open PRs are related candidate fixes, but no merge, fix PR, or closure is planned because the job is read-only, merge/fix actions are blocked, and several PRs still have proof or check/review blockers.
+Plan-mode classification for the single actionable open candidate. #94426 should remain the live canonical issue for the non-security isPortBusy address-family bug; security-sensitive context #94394 is routed read-only to central security handling. Existing overlap PRs are context only and were not selected for mutation in this job.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 8 |
+| Worker actions | 2 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -73,14 +73,8 @@ Plan-mode classification only. #94426 is the live canonical issue for the isPort
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #94379 | keep_closed | skipped | related | Already closed historical context; keep as related evidence only. |
-| #94415 | keep_closed | skipped | related | Already closed related PR for the sibling root-cause family. |
-| #94426 | keep_canonical | planned | canonical | This is the best live canonical for the remaining non-overlap cluster; it should stay open until a focused linked fix lands. |
-| #94448 | keep_related | planned | fixed_by_candidate | Related candidate fix for #94426, but not the clearest canonical fix because the bot review still flags proof and unknown-status behavior concerns. |
-| #94456 | keep_related | planned | fixed_by_candidate | Related candidate fix for #94426, but failing checks and bot findings block merge or fixed-by-candidate closeout. |
-| #94463 | keep_related | planned | fixed_by_candidate | Related candidate fix for #94426, but failing checks and proof gap block merge or issue closeout. |
-| #94471 | keep_related | planned | fixed_by_candidate | Best hydrated candidate fix for #94426 because it addresses the unknown-status fail-open concern and includes proof evidence, but this run cannot merge or close. |
-| #94949 | keep_related | planned | fixed_by_candidate | Related candidate fix for #94426, but it is not the canonical fix candidate while #94471 has addressed the fail-closed concern and proof comment. |
+| #94426 | keep_canonical | planned | canonical | #94426 is the only live actionable non-security item and remains the clearest canonical tracker for the isPortBusy IPv4-only occupant bug. |
+| #94394 | route_security | planned | security_sensitive | Security-sensitive context is out of scope for Clownfish backlog cleanup and should be routed to central OpenClaw security handling only. |
 
 ## Needs Human
 

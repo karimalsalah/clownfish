@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1324-intake-20260621b"
 mode: "plan"
-run_id: "27893691417"
-workflow_run_id: "27893691417"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893691417"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898766743"
+workflow_run_id: "27898766743"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898766743"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:40:47.963Z"
-canonical: null
-canonical_issue: null
+published_at: "2026-06-21T08:34:48.446Z"
+canonical: "#83879"
+canonical_issue: "#83879"
 canonical_pr: null
-actions_total: 1
+actions_total: 4
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,23 +26,23 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893691417](https://github.com/openclaw/clownfish/actions/runs/27893691417)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898766743](https://github.com/openclaw/clownfish/actions/runs/27898766743)
 
 Workflow conclusion: success
 
 Worker result: planned
 
-Canonical: unknown
+Canonical: #83879
 
 ## Summary
 
-Representative #83879 is already closed in the hydrated preflight state, so no close, label, comment, merge, or fix action is planned. No hydrated open candidate remains to promote as the live canonical; excluded overlap #93188 is context only and linked #84782 was unavailable, so it is not usable as a canonical or closure target.
+Plan-only classification: the representative/canonical issue #83879 is already closed in hydrated live state, and there are no remaining open actionable candidate issues or PRs in this cluster. No close, label, comment, merge, or fix action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 1 |
+| Worker actions | 4 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -73,7 +73,10 @@ Representative #83879 is already closed in the hydrated preflight state, so no c
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #83879 | keep_closed | skipped | canonical | #83879 was the representative/canonical hint, but it is already closed in live hydrated state and there is no other hydrated open candidate in scope to promote. |
+| #83879 | keep_closed | skipped | canonical | Already closed items must not receive closure actions; keep as historical canonical context only. |
+| #93188 | keep_closed | skipped | superseded | Closed read-only context; no action should be replayed. |
+| #93880 | keep_closed | skipped | related | Related historical fix path for one mixed-PR sub-surface; not a canonical fix for #83879's CLI parser test-gap cluster. |
+| #93185 | keep_closed | skipped | independent | Independent already-closed context ref; no cluster action required. |
 
 ## Needs Human
 

@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1242-intake-20260621"
 mode: "plan"
-run_id: "27893352331"
-workflow_run_id: "27893352331"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893352331"
-head_sha: "5fab7ab68745edec7ccb5bdb036f71a154fd266b"
+run_id: "27898763380"
+workflow_run_id: "27898763380"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898763380"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:24:00.109Z"
+published_at: "2026-06-21T08:34:48.378Z"
 canonical: "#88812"
 canonical_issue: "#88812"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893352331](https://github.com/openclaw/clownfish/actions/runs/27893352331)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898763380](https://github.com/openclaw/clownfish/actions/runs/27898763380)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #88812
 
 ## Summary
 
-Read-only plan keeps #88812 as the live canonical for cross-channel reply latency decomposition. #94459 is the open implementation candidate but is excluded as existing-overlap context and is not merge-ready because it has failing checks and unresolved review concerns. #84725 remains related but distinct Codex warm-turn setup latency work. Closed linked refs are kept closed as historical evidence only.
+Plan-only classification completed from the hydrated preflight artifact. #88812 remains the live canonical issue for cross-channel reply latency decomposition. #94459 is the linked implementation candidate, but it is excluded overlap context for this job and is not merge/close-ready because checks fail, mergeability is unresolved, and review-bot findings remain. No GitHub mutations are planned.
 
 ## Impact
 
@@ -73,12 +73,12 @@ Read-only plan keeps #88812 as the live canonical for cross-channel reply latenc
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #88812 | keep_canonical | planned | canonical | #88812 is still the best live canonical for this cluster; no close, label, merge, or fix mutation is allowed or needed in plan mode. |
-| #94459 | keep_related | planned | fixed_by_candidate | #94459 is related as the current candidate fix for #88812, but merge/fixed-by-candidate closeout is blocked by excluded-overlap scope, failing checks, unresolved review concerns, and blocked merge/fix actions. |
-| #84725 | keep_related | planned | related | #84725 belongs to the same latency family but has a distinct Codex warm-turn harness setup scope, so it should not be closed or folded into #88812. |
-| #86231 | keep_closed | skipped | superseded | Already-closed context ref; no closure action is valid. |
-| #88811 | keep_closed | skipped | fixed_by_candidate | Already-closed adjacent trace-correlation issue; no closure action is valid. |
-| #88821 | keep_closed | skipped | related | Merged historical PR is related context and partial prerequisite work, not an open action target for this plan. |
+| #88812 | keep_canonical | planned | canonical | #88812 is still open, hydrated, non-security-sensitive, and remains the best live canonical for the remaining cross-channel reply latency decomposition work. |
+| #94459 | keep_related | planned | fixed_by_candidate | #94459 is related as the current candidate fix for #88812, but this plan cannot recommend merge or fixed-by-candidate closeout because the job blocks merge/fix actions and the hydrated PR has failing checks plus unresolved review-bot concerns. |
+| #84725 | keep_related | planned | related | #84725 shares the latency/diagnostics area but has a narrower Codex warm-turn setup root cause, so it should not be closed or folded into #88812 in this cluster. |
+| #86231 | keep_closed | skipped | superseded | Already-closed refs are historical evidence only and must not receive closure actions. |
+| #88811 | keep_closed | skipped | related | #88811 is related context that was already resolved/closed; no close action is valid. |
+| #88821 | keep_closed | skipped | related | #88821 is merged historical context for the trace-correlation neighbor issue, not the remaining canonical fix for #88812. |
 
 ## Needs Human
 

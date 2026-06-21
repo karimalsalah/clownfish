@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1325-intake-20260621b"
 mode: "plan"
-run_id: "27893692050"
-workflow_run_id: "27893692050"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893692050"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898766766"
+workflow_run_id: "27898766766"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898766766"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:40:09.299Z"
+published_at: "2026-06-21T08:34:48.448Z"
 canonical: "#84623"
 canonical_issue: "#84623"
 canonical_pr: null
-actions_total: 5
+actions_total: 6
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893692050](https://github.com/openclaw/clownfish/actions/runs/27893692050)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898766766](https://github.com/openclaw/clownfish/actions/runs/27898766766)
 
 Workflow conclusion: success
 
@@ -36,13 +36,13 @@ Canonical: #84623
 
 ## Summary
 
-Plan-only classification: #84623 remains the live canonical issue for duplicate identical non-streaming final payload delivery. The only directly linked candidate fix #94294 is already closed unmerged, so no closure, merge, or fix action is available in this job. Adjacent linked issues/PRs are either closed historical context or distinct reply-delivery root causes.
+Plan-mode classification only. #84623 remains the live canonical for duplicate identical non-streaming final payload delivery through dispatchReplyFromConfig. Adjacent hydrated refs are distinct related delivery issues or already-closed historical context; no close, merge, label, comment, fix, or PR action is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 5 |
+| Worker actions | 6 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -73,11 +73,12 @@ Plan-only classification: #84623 remains the live canonical issue for duplicate 
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #84623 | keep_canonical | planned | canonical | #84623 is the best live canonical for this cluster and remains open with source-repro evidence; no mutating action is permitted in plan mode. |
-| #49381 | keep_related | planned | related | Related duplicate-final symptom family, but not the same root cause as #84623; keep open outside this canonical family. |
-| #41362 | keep_closed | skipped | related | Already closed historical related context only. |
-| #90943 | keep_closed | skipped | related | Already closed historical related context only. |
-| #94294 | keep_closed | skipped | fixed_by_candidate | Historically the candidate fix for #84623, but already closed unmerged; keep as closed context and keep #84623 open. |
+| https://github.com/openclaw/openclaw/issues/84623 | keep_canonical | planned | canonical | Best surviving open report for this cluster's root cause. |
+| https://github.com/openclaw/openclaw/pull/94294 | keep_closed | skipped | fixed_by_candidate | Historical candidate fix for the canonical issue, but already closed and not actionable in this plan job. |
+| https://github.com/openclaw/openclaw/issues/49381 | keep_related | planned | related | Same duplicate-delivery symptom family, but a distinct channel/failover coordination root cause. |
+| https://github.com/openclaw/openclaw/issues/76935 | keep_related | planned | related | Adjacent duplicate/repetitive reply symptom, but not a true duplicate of the canonical. |
+| https://github.com/openclaw/openclaw/pull/41362 | keep_closed | skipped | related | Already merged historical related fix with a distinct Mattermost block-streaming/threading root cause. |
+| https://github.com/openclaw/openclaw/pull/90943 | keep_closed | skipped | related | Already merged related delivery-routing work, not the live canonical for this narrower cluster. |
 
 ## Needs Human
 

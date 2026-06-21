@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1245-intake-20260621b"
 mode: "plan"
-run_id: "27893682756"
-workflow_run_id: "27893682756"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893682756"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898763556"
+workflow_run_id: "27898763556"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898763556"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:39:18.143Z"
+published_at: "2026-06-21T08:34:48.411Z"
 canonical: "#92425"
 canonical_issue: "#92425"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893682756](https://github.com/openclaw/clownfish/actions/runs/27893682756)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898763556](https://github.com/openclaw/clownfish/actions/runs/27898763556)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92425
 
 ## Summary
 
-Plan-mode classification only. #92425 remains the live canonical issue for the Skill Workshop 160-byte description limit because it is open, hydrated, non-security-sensitive, and current main is still reported to enforce the 160-byte contract. Closed linked PRs are retained as historical evidence only; no close, merge, fix, label, or comment mutation is planned.
+Read-only plan classification: #92425 remains the live canonical open issue for the Skill Workshop 160-byte description limit. The linked implementation attempts are already closed and should stay historical evidence only. The hydrated security-sensitive linked PR #91311 is quarantined separately and does not block the non-security canonical issue classification.
 
 ## Impact
 
@@ -73,10 +73,10 @@ Plan-mode classification only. #92425 remains the live canonical issue for the S
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92425 | keep_canonical | planned | canonical | This is the only open actionable candidate and remains the best live canonical thread. |
-| #92427 | keep_closed | skipped | superseded | Closed historical same-root PR; no mutation is valid or needed. |
-| #92898 | keep_closed | skipped | superseded | Existing-overlap closed context only; keep as evidence for #92425. |
-| #91311 | keep_closed | skipped | independent | Closed merged PR in the same general Skill Workshop area, but a different root cause. |
+| #91311 | route_security | planned | security_sensitive | Hydrated linked ref is explicitly security-sensitive, so it is routed to central security handling without affecting #92425. |
+| #92425 | keep_canonical | planned | canonical | Best surviving open thread for the still-unresolved product/API decision; no duplicate close, fix PR, or merge is allowed in this job. |
+| #92427 | keep_closed | skipped | superseded | Closed unmerged same-root-cause implementation attempt; keep as historical evidence under #92425. |
+| #92898 | keep_closed | skipped | related | Closed existing-overlap implementation context; keep as non-actionable evidence while #92425 remains canonical. |
 
 ## Needs Human
 

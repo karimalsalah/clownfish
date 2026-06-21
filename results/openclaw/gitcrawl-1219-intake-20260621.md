@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1219-intake-20260621"
 mode: "plan"
-run_id: "27893349860"
-workflow_run_id: "27893349860"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893349860"
-head_sha: "5fab7ab68745edec7ccb5bdb036f71a154fd266b"
+run_id: "27898763517"
+workflow_run_id: "27898763517"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898763517"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:23:11.706Z"
+published_at: "2026-06-21T08:34:48.392Z"
 canonical: "#93279"
 canonical_issue: null
 canonical_pr: "#93279"
-actions_total: 3
+actions_total: 7
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893349860](https://github.com/openclaw/clownfish/actions/runs/27893349860)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898763517](https://github.com/openclaw/clownfish/actions/runs/27898763517)
 
 Workflow conclusion: success
 
@@ -36,13 +36,13 @@ Canonical: #93279
 
 ## Summary
 
-Plan-mode classification only. The job's only actionable candidate, #93770, is already closed in hydrated live state, so no close/comment/label mutation is valid. Hydrated context shows merged PR #93279 as the canonical implemented fix for restoring standard Telegram sendMessage delivery by default and making rich messages opt-in. Linked issue #94309 is already closed and related to remaining Quote & Reply behavior questions rather than an open duplicate-cleanup target.
+Plan-only classification. The actionable candidate #93770 is already closed. The best hydrated fix for the original default Telegram rich-message readability regression is merged PR #93279. Open PR #93579 is related but excluded as existing-overlap context and tracks a different opt-in auto-detect feature path, so no live canonical should be selected inside this job.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 3 |
+| Worker actions | 7 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -73,9 +73,13 @@ Plan-mode classification only. The job's only actionable candidate, #93770, is a
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93279 | keep_closed | skipped | canonical | Already merged canonical fix; no mutation is allowed or needed. |
-| #93770 | keep_closed | skipped | fixed_by_candidate | The originally requested default fallback behavior is covered by merged PR #93279, but the target is already closed. |
-| #94309 | keep_closed | skipped | related | Already closed related follow-up context; remaining product-scope questions should not be forced into this closed duplicate-cleanup cluster. |
+| #93279 | keep_closed | skipped | canonical | Merged historical canonical fix for the default rich-message readability regression; no closure action is valid for an already-closed PR. |
+| #93545 | route_security | planned | security_sensitive | Security-sensitive linked ref is out of ProjectClownfish backlog-cleanup scope and should route to central OpenClaw security handling only. |
+| #93564 | keep_closed | skipped | superseded | Already closed by maintainer as not the desired product contract; no mutation is valid. |
+| #93579 | keep_related | planned | related | Related open PR belongs to an existing overlap job and should not become the live canonical for this cluster. |
+| #93770 | keep_closed | skipped | fixed_by_candidate | Actionable candidate is already closed and covered by merged PR #93279; no close/comment/label action should be planned. |
+| #93838 | keep_closed | skipped | superseded | Closed representative from existing-overlap context is historical evidence only. |
+| #94309 | keep_closed | skipped | fixed_by_candidate | Already closed as implemented by #93279; no mutation is valid. |
 
 ## Needs Human
 

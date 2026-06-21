@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1240-intake-20260621"
 mode: "plan"
-run_id: "27893351332"
-workflow_run_id: "27893351332"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893351332"
-head_sha: "5fab7ab68745edec7ccb5bdb036f71a154fd266b"
+run_id: "27898763625"
+workflow_run_id: "27898763625"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898763625"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:24:00.107Z"
+published_at: "2026-06-21T08:34:48.423Z"
 canonical: "#92827"
 canonical_issue: "#92827"
 canonical_pr: null
@@ -19,14 +19,14 @@ fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 0
+needs_human_count: 2
 ---
 
 # gitcrawl-1240-intake-20260621
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893351332](https://github.com/openclaw/clownfish/actions/runs/27893351332)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898763625](https://github.com/openclaw/clownfish/actions/runs/27898763625)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #92827
 
 ## Summary
 
-Read-only plan: quarantine #92827 because the hydrated preflight marks it security-sensitive. Keep the linked WebChat/QQBot items as context only; no close, merge, comment, label, or fix PR is planned.
+Read-only plan: #92827 is still open but the hydrated preflight marks it security-sensitive, so it should be routed to central OpenClaw security handling. The existing-overlap PR #92872 is also security-sensitive and should be routed only as a read-only context item. The WebChat empty-bootstrap-roots refs #67915/#78034 are a related non-security overlap, not duplicates of the sandbox QQBot/WebChat boundary issue.
 
 ## Impact
 
@@ -49,7 +49,7 @@ Read-only plan: quarantine #92827 because the hydrated preflight marks it securi
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 0 |
+| Needs human | 2 |
 
 ## Fix Execution Actions
 
@@ -73,13 +73,14 @@ Read-only plan: quarantine #92827 because the hydrated preflight marks it securi
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #92827 | route_security | planned | security_sensitive | Security-sensitive item is out of ProjectClownfish cleanup scope and should route to central OpenClaw security handling. |
-| #92872 | keep_related | planned | related | Related non-security PR context for the QQBot side of #92827, but excluded from this job's actionable refs and not mergeable in plan mode. |
-| #67915 | keep_related | planned | related | Same media symptom family, but the artifact identifies a distinct WebChat bootstrap-root root cause and canonical issue. |
-| #78034 | keep_related | planned | related | Related WebChat candidate fix for #67915; it should stay in its own review path and is not actionable in this cluster. |
-| #66020 | keep_closed | skipped | related | Already closed related QQBot media-boundary context; no mutation is valid. |
-| #89459 | keep_closed | skipped | related | Already closed related WebChat media allowlist context; no mutation is valid. |
+| #66020 | keep_closed | skipped | related | Already-closed historical context only. |
+| #67915 | keep_related | planned | related | Related WebChat media symptom family, but a different non-security root cause and canonical family. |
+| #78034 | keep_related | planned | related | Keep as the related candidate fix for the separate #67915 WebChat bootstrap issue. |
+| #89459 | keep_closed | skipped | related | Already-closed WebChat workspace-root context only. |
+| #92827 | route_security | planned | security_sensitive | Security-sensitive sandbox/WebChat/QQBot media-boundary report must be routed to central OpenClaw security handling, not dedupe-closed or fixed by ProjectClownfish. |
+| #92872 | route_security | planned | security_sensitive | Security-sensitive existing-overlap PR should be quarantined as read-only context and not merged, closed, commented on, or used for ProjectClownfish fix work. |
 
 ## Needs Human
 
-- none
+- #92827 requires central OpenClaw security/product review before any close, merge, or fix path.
+- #92872 requires central OpenClaw security handling as an existing-overlap security-sensitive PR.

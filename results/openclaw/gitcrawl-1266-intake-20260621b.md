@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1266-intake-20260621b"
 mode: "plan"
-run_id: "27893684047"
-workflow_run_id: "27893684047"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893684047"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898764148"
+workflow_run_id: "27898764148"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898764148"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:40:09.273Z"
+published_at: "2026-06-21T08:34:48.426Z"
 canonical: "#56068"
 canonical_issue: "#56068"
 canonical_pr: null
-actions_total: 5
+actions_total: 6
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893684047](https://github.com/openclaw/clownfish/actions/runs/27893684047)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898764148](https://github.com/openclaw/clownfish/actions/runs/27898764148)
 
 Workflow conclusion: success
 
@@ -36,13 +36,13 @@ Canonical: #56068
 
 ## Summary
 
-Plan-only classification for cluster gitcrawl-1266-intake-20260621b. #56068 remains the live canonical issue. #93699 is a related open fix candidate from the excluded existing-overlap context and should not be acted on by this intake job. Closed linked PRs are historical context only.
+Read-only plan: keep #56068 as the canonical open issue. #93699 is an already-excluded overlapping open fix PR and should remain related context, not a mutation target in this job. Closed PRs remain historical evidence only; #84599 is an independent contributor dashboard issue.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 5 |
+| Worker actions | 6 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -73,11 +73,12 @@ Plan-only classification for cluster gitcrawl-1266-intake-20260621b. #56068 rema
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #56068 | keep_canonical | planned | canonical |  |
-| #56103 | keep_closed | skipped | superseded | Already closed; historical evidence only. |
-| #91653 | keep_closed | skipped | superseded | Already closed; historical evidence only. |
-| #92949 | keep_closed | skipped | superseded | Already closed; historical evidence only. |
-| #93699 | keep_related | planned | related | Open existing-overlap fix candidate; classify as related context for this intake job, not an actionable merge or close target. |
+| #56068 | keep_canonical | planned | canonical | #56068 remains the best live canonical tracker for this root cause. |
+| #93699 | keep_related | planned | related | #93699 is the active overlapping fix candidate for #56068, but this job excludes existing-overlap refs and blocks merge/fix actions. |
+| #56103 | keep_closed | skipped | superseded | Already-closed PRs are historical evidence only and must not receive closure actions. |
+| #91653 | keep_closed | skipped | related | Already-closed PRs are historical evidence only and must not receive closure actions. |
+| #92949 | keep_closed | skipped | related | Already-closed PRs are historical evidence only and must not receive closure actions. |
+| #84599 | keep_independent | planned | independent | #84599 is unrelated coordination/dashboard work and should not be acted on in this cluster. |
 
 ## Needs Human
 
