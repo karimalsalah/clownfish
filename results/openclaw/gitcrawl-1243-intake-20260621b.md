@@ -2,17 +2,17 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1243-intake-20260621b"
 mode: "plan"
-run_id: "27893681841"
-workflow_run_id: "27893681841"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893681841"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898763413"
+workflow_run_id: "27898763413"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898763413"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:39:18.137Z"
+published_at: "2026-06-21T08:33:53.167Z"
 canonical: null
 canonical_issue: null
 canonical_pr: null
-actions_total: 1
+actions_total: 2
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893681841](https://github.com/openclaw/clownfish/actions/runs/27893681841)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898763413](https://github.com/openclaw/clownfish/actions/runs/27898763413)
 
 Workflow conclusion: success
 
@@ -36,13 +36,13 @@ Canonical: unknown
 
 ## Summary
 
-Hydrated live state shows the representative issue #42351 is already closed as of 2026-06-16T10:47:33Z. No open hydrated candidate remains in this cluster, and excluded overlap ref #92893 is context only, so no replacement live canonical can be selected in this plan.
+Plan-mode classification only. The representative issue #42351 is already closed in the hydrated preflight state, and the excluded overlap PR #92893 is also already closed and unmerged. There is no open candidate left in this cluster to promote as a live canonical, and no GitHub mutation is planned.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 1 |
+| Worker actions | 2 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
@@ -73,7 +73,8 @@ Hydrated live state shows the representative issue #42351 is already closed as o
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #42351 | keep_closed | skipped |  | Already closed in live hydrated state; no mutation is valid or needed. |
+| #42351 | keep_closed | skipped | canonical | Already closed; keep as historical canonical context only. |
+| #92893 | keep_closed | skipped | superseded | Already closed context PR; no close, merge, or fix action is allowed or needed in this plan job. |
 
 ## Needs Human
 

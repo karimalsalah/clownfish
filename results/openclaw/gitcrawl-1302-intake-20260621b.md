@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-1302-intake-20260621b"
 mode: "plan"
-run_id: "27893688560"
-workflow_run_id: "27893688560"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27893688560"
-head_sha: "e446e7d79e74bd9bb902ecb1186dfa1f3693af84"
+run_id: "27898765848"
+workflow_run_id: "27898765848"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27898765848"
+head_sha: "235915800bae334c4c4446fe4ca178fb46b1cb9b"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-21T04:40:09.291Z"
+published_at: "2026-06-21T08:33:53.175Z"
 canonical: "#78481"
 canonical_issue: "#78481"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27893688560](https://github.com/openclaw/clownfish/actions/runs/27893688560)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27898765848](https://github.com/openclaw/clownfish/actions/runs/27898765848)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: #78481
 
 ## Summary
 
-Plan-mode classification only. #78481 remains the canonical open issue for the narrow Control UI coalesced update feedback bug. #93082 is the hydrated open UI fix candidate but is context-only for this job and not merge/close ready because Real behavior proof is failing. #84334 is adjacent backend restart-token work, not the same root cause. Already-closed linked issues remain closed.
+Read-only plan: keep #78481 as the live canonical for the narrow Control UI coalesced-update feedback issue. The hydrated PR #93082 is the related open UI fix candidate but is excluded as existing-overlap context and has failing real-behavior proof, so no merge or fixed-by closeout is planned. The hydrated PR #84334 is adjacent backend restart-token work, not a duplicate or replacement for #78481. Closed linked issues remain historical context only.
 
 ## Impact
 
@@ -73,11 +73,11 @@ Plan-mode classification only. #78481 remains the canonical open issue for the n
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #78481 | keep_canonical | planned | canonical | Best surviving canonical for the narrow UI coalesced-update feedback root cause; no closure is planned in read-only plan mode. |
-| #93082 | keep_related | planned | fixed_by_candidate | Useful hydrated fix candidate for the canonical issue, but excluded as existing-overlap context and not merge-ready because the proof check is failing. |
-| #84334 | keep_related | planned | related | Same update.run coalescing symptom family, but a distinct backend restart-token root cause rather than the narrow UI feedback issue. |
-| #84459 | keep_closed | skipped | superseded | Already closed historical context; no mutation is valid. |
-| #84808 | keep_closed | skipped | duplicate | Already closed duplicate/superseded context; no mutation is valid. |
+| #78481 | keep_canonical | planned | canonical |  |
+| #93082 | keep_related | planned | fixed_by_candidate | Merge and fixed-by closeout are blocked in this plan because #93082 is an excluded existing-overlap ref, merge is blocked by job frontmatter, and Real behavior proof is failing. |
+| #84334 | keep_related | planned | related | Adjacent backend restart-token work should remain separate from the narrow Control UI feedback canonical. |
+| #84459 | keep_closed | skipped | superseded | Already closed; no action is available or needed in plan mode. |
+| #84808 | keep_closed | skipped | duplicate | Already closed; no duplicate close action is valid. |
 
 ## Needs Human
 
