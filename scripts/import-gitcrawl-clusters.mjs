@@ -525,14 +525,25 @@ function fetchLiveState(number) {
       cwd: repoRoot(),
       encoding: "utf8",
       maxBuffer: 2 * 1024 * 1024,
+      env: {
+        ...process.env,
+        CLICOLOR: "0",
+        CLICOLOR_FORCE: "0",
+        GH_FORCE_TTY: "0",
+        NO_COLOR: "1",
+      },
       stdio: ["ignore", "pipe", "pipe"],
     },
   );
-  const item = JSON.parse(payload)?.data?.repository?.issueOrPullRequest;
+  const item = JSON.parse(stripAnsi(payload))?.data?.repository?.issueOrPullRequest;
   const state = String(item?.state ?? "").toLowerCase();
   if (state === "open") return "open";
   if (state === "closed" || state === "merged") return "closed";
   throw new Error(`GitHub live state unavailable for #${number}`);
+}
+
+function stripAnsi(value) {
+  return String(value).replace(/\u001b\[[0-?]*[ -/]*[@-~]/g, "");
 }
 
 function sqliteJson(sql) {
