@@ -43,6 +43,15 @@ const NON_MUTATING_KEEP_ACTIONS = new Set(["keep_canonical", "keep_related", "ke
 
 const args = parseArgs(process.argv.slice(2));
 const inputs = args._;
+const SKIP_RESULT_SCAN_DIRS = new Set([
+  ".git",
+  ".pnpm",
+  "build",
+  "coverage",
+  "dist",
+  "node_modules",
+  "target",
+]);
 
 if (inputs.length === 0) {
   console.error("usage: node scripts/review-results.mjs <result.json|run-dir|artifact-dir> [...]");
@@ -74,11 +83,23 @@ function findResultPaths(inputPath) {
   if (fs.statSync(inputPath).isFile()) {
     return path.basename(inputPath) === "result.json" ? [inputPath] : [];
   }
+  const direct = path.join(inputPath, "result.json");
+  if (fs.existsSync(direct) && fs.statSync(direct).isFile()) return [direct];
+  return findNamedFiles(inputPath, "result.json");
+}
+
+function findNamedFiles(root, filename) {
   const out = [];
-  for (const entry of fs.readdirSync(inputPath, { recursive: true })) {
-    const candidate = path.join(inputPath, String(entry));
-    if (path.basename(candidate) === "result.json" && fs.statSync(candidate).isFile()) {
-      out.push(candidate);
+  const stack = [root];
+  while (stack.length > 0) {
+    const dir = stack.pop();
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const candidate = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (!SKIP_RESULT_SCAN_DIRS.has(entry.name)) stack.push(candidate);
+        continue;
+      }
+      if (entry.isFile() && entry.name === filename) out.push(candidate);
     }
   }
   return out.sort();
@@ -764,12 +785,8 @@ function isUnsupportedExecutorValidationCommand(command) {
 function readSiblingJson(runDir, filename) {
   const direct = path.join(runDir, filename);
   if (fs.existsSync(direct)) return JSON.parse(fs.readFileSync(direct, "utf8"));
-  for (const entry of fs.readdirSync(runDir, { recursive: true })) {
-    const candidate = path.join(runDir, String(entry));
-    if (path.basename(candidate) === filename && fs.statSync(candidate).isFile()) {
-      return JSON.parse(fs.readFileSync(candidate, "utf8"));
-    }
-  }
+  const [candidate] = findNamedFiles(runDir, filename);
+  if (candidate) return JSON.parse(fs.readFileSync(candidate, "utf8"));
   return null;
 }
 

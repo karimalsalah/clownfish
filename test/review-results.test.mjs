@@ -60,6 +60,28 @@ test("review-results fails explicit worker failed status", () => {
   assert.match(result.stdout, /worker result status is failed/);
 });
 
+test("review-results skips target checkouts when scanning run directories", () => {
+  const dir = makeResultDir({
+    status: "planned",
+    summary: "direct result",
+  });
+  const targetDir = path.join(dir, "target", "nested");
+  fs.mkdirSync(targetDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(targetDir, "result.json"),
+    `${JSON.stringify({ status: "failed", summary: "target checkout result must be ignored" }, null, 2)}\n`,
+  );
+
+  const result = review(dir);
+
+  assert.equal(result.status, 0, result.stdout || result.stderr);
+  const parsed = JSON.parse(result.stdout);
+  assert.equal(parsed.reports.length, 1);
+  assert.equal(path.basename(parsed.reports[0].result), "result.json");
+  assert.doesNotMatch(parsed.reports[0].result.split(path.sep).join("/"), /target/);
+  assert.doesNotMatch(result.stdout, /target checkout result must be ignored/);
+});
+
 test("review-results allows actionless blocked maintainer decisions", () => {
   const dir = makeResultDir({
     status: "blocked",
