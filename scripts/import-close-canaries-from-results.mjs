@@ -262,6 +262,8 @@ function isHumanHoldLabel(label) {
     normalized === "clawsweeper:needs-maintainer-review" ||
     normalized === "clawsweeper:needs-product-decision" ||
     normalized === "clawsweeper:needs-live-repro" ||
+    normalized === "clawsweeper:automerge" ||
+    normalized.startsWith("merge-risk:") ||
     /^status: .*needs proof$/.test(normalized) ||
     /^status: .*waiting on author$/.test(normalized)
   );
