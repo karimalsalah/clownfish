@@ -402,6 +402,40 @@ test("apply-result pins a clean merge to the reviewed PR head", () => {
   assert.deepEqual(mergeArgs.slice(-3), ["--squash", "--match-head-commit", EXPECTED_HEAD_SHA]);
 });
 
+test("apply-result polls transient unknown mergeability before merge", () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-apply-"));
+  const binDir = path.join(tmp, "bin");
+  const callLogPath = path.join(tmp, "gh-calls.jsonl");
+  const mergeStatePath = path.join(tmp, "merge-state");
+  fs.mkdirSync(binDir, { recursive: true });
+  fs.writeFileSync(callLogPath, "");
+  writeReadyMergeGhStub(binDir, {
+    headSha: EXPECTED_HEAD_SHA,
+    mergeViews: [
+      { mergeable: "UNKNOWN", mergeStateStatus: "UNKNOWN" },
+      { mergeable: "MERGEABLE", mergeStateStatus: "CLEAN" },
+    ],
+  });
+
+  const jobPath = path.join(tmp, "job.md");
+  const resultPath = path.join(tmp, "result.json");
+  const reportPath = path.join(tmp, "apply-report.json");
+  fs.writeFileSync(jobPath, mergeJobMarkdown());
+  fs.writeFileSync(resultPath, `${JSON.stringify(mergeResultJson(), null, 2)}\n`);
+
+  const result = apply(jobPath, resultPath, reportPath, binDir, {
+    dryRun: false,
+    allowMerge: true,
+    callLogPath,
+    mergeStatePath,
+    env: { CLOWNFISH_APPLY_MERGEABLE_POLL_DELAY_MS: "0" },
+  });
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+  assert.equal(report.actions[0].status, "executed");
+});
+
 test("apply-result allows unstable merge state when latest checks are clean", () => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-apply-"));
   const binDir = path.join(tmp, "bin");
@@ -436,7 +470,7 @@ test("apply-result allows unstable merge state when latest checks are clean", ()
   assert.equal(report.actions[0].status, "executed");
 });
 
-function apply(jobPath, resultPath, reportPath, binDir, { dryRun = true, callLogPath, allowMerge = false, mergeStatePath } = {}) {
+function apply(jobPath, resultPath, reportPath, binDir, { dryRun = true, callLogPath, allowMerge = false, mergeStatePath, env = {} } = {}) {
   const args = ["scripts/apply-result.mjs", jobPath, resultPath];
   if (dryRun) args.push("--dry-run");
   args.push("--report", reportPath);
@@ -452,6 +486,7 @@ function apply(jobPath, resultPath, reportPath, binDir, { dryRun = true, callLog
         ...(callLogPath ? { GH_CALL_LOG: callLogPath } : {}),
         ...(allowMerge ? { CLOWNFISH_ALLOW_MERGE: "1" } : {}),
         ...(mergeStatePath ? { MERGE_STATE: mergeStatePath } : {}),
+        ...env,
       },
       encoding: "utf8",
     },
@@ -565,15 +600,23 @@ if (args[0] === "api" && args[1] === "repos/openclaw/openclaw/issues/60063") {
 
 function writeReadyMergeGhStub(
   binDir,
-  { headSha, mergeStateStatus = "CLEAN", statusCheckRollup = [{ name: "CI", status: "COMPLETED", conclusion: "SUCCESS" }] },
+  {
+    headSha,
+    mergeStateStatus = "CLEAN",
+    mergeViews = null,
+    statusCheckRollup = [{ name: "CI", status: "COMPLETED", conclusion: "SUCCESS" }],
+  },
 ) {
   const ghPath = path.join(binDir, "gh");
+  const viewCountPath = path.join(binDir, "view-count");
   fs.writeFileSync(
     ghPath,
     `#!/usr/bin/env node
 const fs = require("node:fs");
 const args = process.argv.slice(2);
 const merged = Boolean(process.env.MERGE_STATE && fs.existsSync(process.env.MERGE_STATE));
+const mergeViews = ${JSON.stringify(mergeViews)};
+const viewCountPath = ${JSON.stringify(viewCountPath)};
 if (process.env.GH_CALL_LOG) fs.appendFileSync(process.env.GH_CALL_LOG, JSON.stringify(args) + "\\n");
 function write(value) {
   process.stdout.write(JSON.stringify(value));
@@ -607,11 +650,14 @@ if (args[0] === "api" && args[1] === "repos/openclaw/openclaw/issues/60063") {
 } else if (args[0] === "api" && args[1] === "graphql") {
   write({ data: { repository: { pullRequest: { reviewThreads: { pageInfo: { hasNextPage: false }, nodes: [] } } } } });
 } else if (args[0] === "pr" && args[1] === "view" && args[2] === "60063") {
+  const count = fs.existsSync(viewCountPath) ? Number(fs.readFileSync(viewCountPath, "utf8")) : 0;
+  fs.writeFileSync(viewCountPath, String(count + 1));
+  const mergeView = Array.isArray(mergeViews) ? mergeViews[Math.min(count, mergeViews.length - 1)] : {};
   write({
     baseRefName: "main",
     isDraft: false,
-    mergeable: "MERGEABLE",
-    mergeStateStatus: ${JSON.stringify(mergeStateStatus)},
+    mergeable: mergeView.mergeable ?? "MERGEABLE",
+    mergeStateStatus: mergeView.mergeStateStatus ?? ${JSON.stringify(mergeStateStatus)},
     reviewDecision: "APPROVED",
     statusCheckRollup: ${JSON.stringify(statusCheckRollup)}
   });

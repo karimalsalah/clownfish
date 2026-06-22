@@ -464,7 +464,7 @@ function applyMergeAction({ job, result, action, dryRun, allowMissingUpdatedAt, 
   }
 
   const pullRequest = fetchPullRequest(result.repo, target);
-  const view = fetchPullRequestView(result.repo, target);
+  const view = fetchSettledPullRequestView(result.repo, target);
   const mergedAt = pullRequest.merged_at ?? view.mergedAt ?? null;
   if (mergedAt) {
     return {
@@ -1018,6 +1018,24 @@ function fetchPullRequestView(repo, number) {
   ]);
 }
 
+function fetchSettledPullRequestView(repo, number) {
+  const attempts = positiveInteger(process.env.CLOWNFISH_APPLY_MERGEABLE_POLL_ATTEMPTS, 6);
+  const delayMs = nonNegativeInteger(process.env.CLOWNFISH_APPLY_MERGEABLE_POLL_DELAY_MS, 5000);
+  let latest = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    latest = fetchPullRequestView(repo, number);
+    if (!hasUnknownMergeability(latest)) return latest;
+    if (attempt < attempts && delayMs > 0) {
+      execFileSync("sleep", [String(delayMs / 1000)], { stdio: "ignore" });
+    }
+  }
+  return latest;
+}
+
+function hasUnknownMergeability(view) {
+  return ["", "UNKNOWN"].includes(String(view?.mergeable ?? "").toUpperCase()) || ["", "UNKNOWN"].includes(String(view?.mergeStateStatus ?? "").toUpperCase());
+}
+
 function findExistingComment(repo, number, marker, body) {
   const comments = ghPaged(`repos/${repo}/issues/${number}/comments`);
   return comments.find((comment) => comment.body?.includes(marker) || comment.body === body);
@@ -1049,6 +1067,16 @@ function writePayload(name, value) {
   const file = path.join(dir, `${name}-${Date.now()}.json`);
   fs.writeFileSync(file, JSON.stringify(value), "utf8");
   return file;
+}
+
+function positiveInteger(value, fallback) {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function nonNegativeInteger(value, fallback) {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed >= 0 ? parsed : fallback;
 }
 
 function ghJson(ghArgs) {
