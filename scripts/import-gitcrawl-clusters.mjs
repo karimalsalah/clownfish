@@ -112,7 +112,6 @@ for (const clusterId of clusterIds) {
     skipCluster(clusterId, "not_found", "cluster not found", { title: "" });
     continue;
   }
-  if (liveStateFilter) members = applyLiveStates(members);
   const representativeTitle = members[0].representative_title ?? "";
   const overlappingRefs = members
     .map((member) => Number(member.number))
@@ -130,11 +129,11 @@ for (const clusterId of clusterIds) {
     continue;
   }
 
-  const securitySensitiveMembers = members.filter((member) =>
+  let securitySensitiveMembers = members.filter((member) =>
     hasDeterministicSecuritySignal({ labels: safeJson(member.labels_json) }) ||
     hasSecuritySignalText(member.title, member.body),
   );
-  const targetMembers = overlapPolicy === "exclude-existing"
+  let targetMembers = overlapPolicy === "exclude-existing"
     ? members.filter((member) => !overlappingRefSet.has(Number(member.number)))
     : members;
   if (targetMembers.length === 0) {
@@ -156,6 +155,16 @@ for (const clusterId of clusterIds) {
       labels: unique(blockedLabelMembers.flatMap((item) => item.labels)),
     });
     continue;
+  }
+  if (liveStateFilter) {
+    members = applyLiveStates(members);
+    securitySensitiveMembers = members.filter((member) =>
+      hasDeterministicSecuritySignal({ labels: safeJson(member.labels_json) }) ||
+      hasSecuritySignalText(member.title, member.body),
+    );
+    targetMembers = overlapPolicy === "exclude-existing"
+      ? members.filter((member) => !overlappingRefSet.has(Number(member.number)))
+      : members;
   }
   const targetMemberNumbers = new Set(targetMembers.map((member) => Number(member.number)));
   const targetSecuritySensitiveMembers = securitySensitiveMembers.filter((member) =>
