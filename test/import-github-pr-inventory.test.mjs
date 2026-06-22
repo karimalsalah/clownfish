@@ -111,6 +111,31 @@ test("remediation inventory enables plan and autonomous finalization recommendat
   assert.match(autonomousJob, /deterministic applicator\/executor owns the actual merge or fix PR mutation/);
 });
 
+test("remediation inventory can use search source for faster ready PR intake", () => {
+  const fixture = makeFixture();
+  writeFakeGh(fixture.gh);
+  writeExistingJob(path.join(fixture.existing, "active.md"), "#106");
+
+  const result = runImport(
+    fixture,
+    "--strategy",
+    "remediation",
+    "--inventory-source",
+    "search",
+    "--bucket",
+    "ready_for_maintainer",
+    "--limit",
+    "all",
+  );
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+
+  assert.equal(payload.options.inventory_source, "search");
+  assert.equal(payload.options.search_limit, 1000);
+  assert.deepEqual(payload.candidates.map((candidate) => candidate.ref), ["#109"]);
+  assert.equal(payload.totals.fetched_open_prs, 4);
+});
+
 function runImport(fixture, ...extraArgs) {
   const write = extraArgs.includes("--write");
   const defaultExistingDir = extraArgs.includes("--default-existing-dir");
@@ -229,10 +254,38 @@ function writeFakeGh(filePath) {
       assignees: { nodes: [] },
     },
   );
+  const searchOnlyPull = {
+    number: 109,
+    title: "search ready candidate",
+    url: "https://github.com/openclaw/openclaw/pull/109",
+    createdAt: "2026-01-01T00:00:00Z",
+    updatedAt: "2026-01-09T00:00:00Z",
+    isDraft: false,
+    author: { login: "contributor-109" },
+    authorAssociation: "CONTRIBUTOR",
+    labels: { nodes: [{ name: "proof: sufficient" }, { name: "status: ready for maintainer look" }] },
+    assignees: { nodes: [] },
+  };
+  const searchPulls = [106, 107, 105].map((number) => {
+    const pull = pulls.find((item) => item.number === number);
+    return {
+      ...pull,
+      labels: pull.labels.nodes,
+      assignees: pull.assignees.nodes,
+      commentsCount: Number(pull.comments?.totalCount ?? 0),
+      body: "",
+    };
+  }).concat({
+    ...searchOnlyPull,
+    labels: searchOnlyPull.labels.nodes,
+    assignees: searchOnlyPull.assignees.nodes,
+    commentsCount: 0,
+    body: "",
+  });
   fs.writeFileSync(
     filePath,
     `#!/usr/bin/env node
-console.log(${JSON.stringify(JSON.stringify({
+const payload = process.argv[2] === "search" ? ${JSON.stringify(searchPulls)} : ${JSON.stringify({
   data: {
     repository: {
       pullRequests: {
@@ -241,7 +294,8 @@ console.log(${JSON.stringify(JSON.stringify({
       },
     },
   },
-}))});
+})};
+console.log(JSON.stringify(payload));
 `,
     { mode: 0o755 },
   );

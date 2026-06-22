@@ -27,6 +27,7 @@ const mode = String(args.mode ?? "autonomous");
 const existingResultsActionPolicy = String(
   args["existing-results-action-policy"] ?? args.existing_results_action_policy ?? "terminal",
 );
+const inventorySource = String(args["inventory-source"] ?? args.inventory_source ?? args.source ?? "graphql");
 const strategy = String(args.strategy ?? "triage");
 const limit = limitArg("limit", 100);
 const batchSize = numberArg("batch-size", 5);
@@ -38,6 +39,7 @@ const includeRefs = optionalRefsFile(args["include-refs-file"] ?? args.include_r
 const minScore = numberArg("min-score", 2);
 const maxFiles = numberArg("max-files", 120);
 const limitForHydration = limit === "all" ? 500 : Number(limit);
+const searchLimit = numberArg("search-limit", Math.min(Math.max(limitForHydration * 20, 200), 1000));
 const lowSignalHydrateLimit = numberArg("low-signal-hydrate-limit", Math.max(limitForHydration * 12, 300));
 const blockedLowSignalLabelPatterns = compileLabelPatterns(
   argValues(process.argv.slice(2), ["block-label", "block_label"], args["block-label"] ?? args.block_label ?? DEFAULT_LOW_SIGNAL_BLOCK_LABELS),
@@ -48,6 +50,7 @@ const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_
 
 if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) die("--repo must be owner/repo");
 if (!["plan", "autonomous"].includes(mode)) die("--mode must be plan or autonomous");
+if (!["graphql", "search"].includes(inventorySource)) die("--inventory-source must be graphql or search");
 if (!["triage", "remediation", "low-signal"].includes(strategy)) die("--strategy must be triage, remediation, or low-signal");
 if (!["stale", "recent", "bucket"].includes(sort)) die("--sort must be stale, recent, or bucket");
 if (!["all", "terminal"].includes(existingResultsActionPolicy)) die("--existing-results-action-policy must be all or terminal");
@@ -93,9 +96,11 @@ const payload = sanitizeJsonValue({
       strategy === "low-signal" ? blockedLowSignalLabelPatterns.map((pattern) => pattern.source) : [],
     skip_existing: skipExisting,
     include_security_candidates: includeSecurity,
+    search_limit: inventorySource === "search" ? searchLimit : null,
     include_refs_file: includeRefs
       ? path.relative(repoRoot(), path.resolve(String(args["include-refs-file"] ?? args.include_refs_file)))
       : null,
+    inventory_source: inventorySource,
     existing_results_action_policy: existingResultsActionPolicy,
     existing_dir: path.relative(repoRoot(), existingDir),
     existing_results_dir: path.relative(repoRoot(), existingResultsDir),
@@ -118,6 +123,10 @@ if (jsonOutput) {
 
 function fetchOpenPullRequests() {
   if (fetchOpenPullRequests.cache) return fetchOpenPullRequests.cache;
+  if (inventorySource === "search") {
+    fetchOpenPullRequests.cache = fetchOpenPullRequestsFromSearch();
+    return fetchOpenPullRequests.cache;
+  }
   const query = `query($endCursor:String){
     repository(owner:${jsonString(owner)}, name:${jsonString(name)}) {
       pullRequests(states:OPEN, first:100, after:$endCursor, orderBy:{field:UPDATED_AT, direction:ASC}) {
@@ -156,6 +165,77 @@ function fetchOpenPullRequests() {
   }
   fetchOpenPullRequests.cache = pulls;
   return pulls;
+}
+
+function fetchOpenPullRequestsFromSearch() {
+  const fields = [
+    "assignees",
+    "author",
+    "authorAssociation",
+    "body",
+    "commentsCount",
+    "createdAt",
+    "isDraft",
+    "labels",
+    "number",
+    "title",
+    "updatedAt",
+    "url",
+  ].join(",");
+  const ghArgs = [
+    "search",
+    "prs",
+    "--repo",
+    repo,
+    "--state",
+    "open",
+    "--sort",
+    "updated",
+    "--order",
+    sort === "recent" ? "desc" : "asc",
+    "--limit",
+    String(searchLimit),
+    "--json",
+    fields,
+  ];
+  if (strategy === "remediation") {
+    ghArgs.push("--label", "status: 👀 ready for maintainer look", "--label", "proof: sufficient");
+  }
+  const pulls = ghJsonWithRetry(ghArgs, { operation: "search open pull request inventory" });
+  if (!Array.isArray(pulls)) throw new Error("GitHub PR search returned a non-array payload");
+  return pulls.map(normalizeSearchPullRequest);
+}
+
+function normalizeSearchPullRequest(raw) {
+  return {
+    number: raw.number,
+    title: raw.title,
+    url: raw.url,
+    createdAt: raw.createdAt,
+    updatedAt: raw.updatedAt,
+    isDraft: raw.isDraft,
+    changedFiles: raw.changedFiles,
+    additions: raw.additions,
+    deletions: raw.deletions,
+    author: typeof raw.author === "string" ? { login: raw.author } : raw.author,
+    authorAssociation: raw.authorAssociation,
+    body: raw.body,
+    labels: { nodes: arrayNodes(raw.labels, "name") },
+    assignees: { nodes: arrayNodes(raw.assignees, "login") },
+    comments: { totalCount: Number(raw.commentsCount ?? raw.comments?.totalCount ?? 0) },
+    reviews: { totalCount: Number(raw.reviewsCount ?? raw.reviews?.totalCount ?? 0) },
+  };
+}
+
+function arrayNodes(value, key) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (typeof item === "string") return { [key]: item };
+      if (item && typeof item === "object") return item;
+      return null;
+    })
+    .filter(Boolean);
 }
 
 function classifyCandidate(raw) {
