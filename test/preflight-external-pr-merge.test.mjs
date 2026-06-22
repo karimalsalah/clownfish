@@ -15,6 +15,7 @@ test("external merge preflight is exact-head, read-only, and refuses unresolved 
   assert.match(script, /PR head changed during checkout/);
   assert.match(script, /function ensureMergeBase/);
   assert.match(script, /--deepen/);
+  assert.match(script, /--unshallow/);
   assert.match(script, /if \(secret\) redacted = redacted\.replaceAll/);
   assert.match(script, /base advanced before validation/);
   assert.match(script, /unresolved review thread/);

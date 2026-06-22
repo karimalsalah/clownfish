@@ -417,7 +417,18 @@ function ensureMergeBase({ cwd, baseBranch, pullRequest, ref }) {
     run("git", ["fetch", "--no-tags", "--deepen", String(depth), "origin", `${baseBranch}:refs/remotes/origin/${baseBranch}`], { cwd });
     run("git", ["fetch", "--no-tags", "--deepen", String(depth), "origin", `pull/${pullRequest}/head:${ref}`], { cwd });
   }
+  if (isShallowRepository(cwd)) {
+    run(
+      "git",
+      ["fetch", "--no-tags", "--unshallow", "origin", `${baseBranch}:refs/remotes/origin/${baseBranch}`, `pull/${pullRequest}/head:${ref}`],
+      { cwd },
+    );
+  }
   run("git", ["merge-base", `origin/${baseBranch}`, "HEAD"], { cwd });
+}
+
+function isShallowRepository(cwd) {
+  return run("git", ["rev-parse", "--is-shallow-repository"], { cwd }).trim() === "true";
 }
 
 function prepareTargetToolchain(cwd) {
