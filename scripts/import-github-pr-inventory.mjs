@@ -43,6 +43,10 @@ const minScore = numberArg("min-score", 2);
 const maxFiles = numberArg("max-files", 120);
 const limitForHydration = limit === "all" ? 500 : Number(limit);
 const searchLimit = numberArg("search-limit", Math.min(Math.max(limitForHydration * 20, 200), 1000));
+const prListFallbackSearchLimit = numberArg(
+  "pr-list-fallback-search-limit",
+  Math.min(searchLimit, Math.max(limitForHydration * 12, 120)),
+);
 const lowSignalHydrateLimit = numberArg("low-signal-hydrate-limit", Math.max(limitForHydration * 12, 300));
 const blockedLowSignalLabelPatterns = compileLabelPatterns(
   argValues(process.argv.slice(2), ["block-label", "block_label"], args["block-label"] ?? args.block_label ?? DEFAULT_LOW_SIGNAL_BLOCK_LABELS),
@@ -104,6 +108,7 @@ const payload = sanitizeJsonValue({
       ? path.relative(repoRoot(), path.resolve(String(args["include-refs-file"] ?? args.include_refs_file)))
       : null,
     inventory_source: inventorySource,
+    pr_list_fallback_search_limit: inventorySource === "pr-list" ? prListFallbackSearchLimit : null,
     existing_results_action_policy: existingResultsActionPolicy,
     existing_dir: path.relative(repoRoot(), existingDir),
     existing_results_dir: path.relative(repoRoot(), existingResultsDir),
@@ -214,7 +219,82 @@ function fetchOpenPullRequestsFromSearch() {
 }
 
 function fetchOpenPullRequestsFromPrList() {
-  const fields = [
+  const search = String(
+    args.search ??
+      args["pr-list-search"] ??
+      args.pr_list_search ??
+      remediationPrListSearchQuery(),
+  );
+  let pulls;
+  try {
+    pulls = ghJsonWithRetry(
+      [
+        "pr",
+        "list",
+        "--repo",
+        repo,
+        "--state",
+        "open",
+        "--search",
+        search,
+        "--limit",
+        String(searchLimit),
+        "--json",
+        prListFields(),
+      ],
+      { operation: "list open pull request inventory" },
+    );
+  } catch (error) {
+    if (!isRetryableGhError(error)) throw error;
+    console.error("list open pull request inventory failed after retries; falling back to search plus per-PR hydration");
+    pulls = fetchOpenPullRequestsFromPrListFallback();
+  }
+  if (!Array.isArray(pulls)) throw new Error("GitHub PR list returned a non-array payload");
+  return pulls.map(normalizePrListPullRequest).filter((pull) => !prListMergeBlocker(pull));
+}
+
+function fetchOpenPullRequestsFromPrListFallback() {
+  const searchCandidates = fetchOpenPullRequestsFromSearch()
+    .filter((pull) => {
+      const ref = `#${pull.number}`;
+      if (includeRefs && !includeRefs.has(ref)) return false;
+      if (skipExisting && existingRefs.has(ref)) return false;
+      const labels = labelNames(pull.labels);
+      if (!includeSecurity && hasExactSecuritySignal({ title: pull.title, labels })) return false;
+      return true;
+    })
+    .slice(0, prListFallbackSearchLimit);
+  const pulls = [];
+  for (const pull of searchCandidates) {
+    const hydrated = hydratePullRequestForPrListFallback(pull.number);
+    if (!hydrated) continue;
+    const normalized = normalizePrListPullRequest(hydrated);
+    if (prListMergeBlocker(normalized)) continue;
+    pulls.push(hydrated);
+    if (limit !== "all" && pulls.length >= limitForHydration) break;
+  }
+  return pulls;
+}
+
+function hydratePullRequestForPrListFallback(number) {
+  const pull = ghJsonWithRetry(
+    [
+      "pr",
+      "view",
+      String(number),
+      "--repo",
+      repo,
+      "--json",
+      prListFields(),
+    ],
+    { operation: `hydrate pull request #${number}` },
+  );
+  if (!pull || typeof pull !== "object") return null;
+  return pull;
+}
+
+function prListFields() {
+  return [
     "assignees",
     "author",
     "baseRefName",
@@ -235,31 +315,6 @@ function fetchOpenPullRequestsFromPrList() {
     "updatedAt",
     "url",
   ].join(",");
-  const search = String(
-    args.search ??
-      args["pr-list-search"] ??
-      args.pr_list_search ??
-      remediationPrListSearchQuery(),
-  );
-  const pulls = ghJsonWithRetry(
-    [
-      "pr",
-      "list",
-      "--repo",
-      repo,
-      "--state",
-      "open",
-      "--search",
-      search,
-      "--limit",
-      String(searchLimit),
-      "--json",
-      fields,
-    ],
-    { operation: "list open pull request inventory" },
-  );
-  if (!Array.isArray(pulls)) throw new Error("GitHub PR list returned a non-array payload");
-  return pulls.map(normalizePrListPullRequest).filter((pull) => !prListMergeBlocker(pull));
 }
 
 function remediationPrListSearchQuery() {

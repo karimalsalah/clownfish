@@ -160,6 +160,31 @@ test("remediation inventory pr-list source filters obvious merge blockers", () =
   assert.equal(payload.totals.fetched_open_prs, 2);
 });
 
+test("remediation inventory pr-list source falls back to per-PR hydration on GitHub 502s", () => {
+  const fixture = makeFixture();
+  writeFakeGh(fixture.gh, { failPrList: true });
+  writeExistingJob(path.join(fixture.existing, "active.md"), "#109");
+
+  const result = runImport(
+    fixture,
+    "--strategy",
+    "remediation",
+    "--inventory-source",
+    "pr-list",
+    "--bucket",
+    "ready_for_maintainer",
+    "--limit",
+    "all",
+  );
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+
+  assert.match(result.stderr, /falling back to search plus per-PR hydration/);
+  assert.equal(payload.options.inventory_source, "pr-list");
+  assert.deepEqual(payload.candidates.map((candidate) => candidate.ref), ["#110"]);
+  assert.equal(payload.totals.fetched_open_prs, 1);
+});
+
 function runImport(fixture, ...extraArgs) {
   const write = extraArgs.includes("--write");
   const defaultExistingDir = extraArgs.includes("--default-existing-dir");
@@ -203,7 +228,7 @@ function makeFixture() {
   return { root, out, existing, results, gh };
 }
 
-function writeFakeGh(filePath) {
+function writeFakeGh(filePath, options = {}) {
   const pulls = [101, 102, 103, 104].map((number) => ({
     number,
     title: `candidate ${number}`,
@@ -290,22 +315,6 @@ function writeFakeGh(filePath) {
     labels: { nodes: [{ name: "proof: sufficient" }, { name: "status: ready for maintainer look" }] },
     assignees: { nodes: [] },
   };
-  const searchPulls = [106, 107, 105].map((number) => {
-    const pull = pulls.find((item) => item.number === number);
-    return {
-      ...pull,
-      labels: pull.labels.nodes,
-      assignees: pull.assignees.nodes,
-      commentsCount: Number(pull.comments?.totalCount ?? 0),
-      body: "",
-    };
-  }).concat({
-    ...searchOnlyPull,
-    labels: searchOnlyPull.labels.nodes,
-    assignees: searchOnlyPull.assignees.nodes,
-    commentsCount: 0,
-    body: "",
-  });
   const cleanPrListPull = {
     number: 110,
     title: "clean ready candidate",
@@ -324,6 +333,29 @@ function writeFakeGh(filePath) {
     commentsCount: 0,
     body: "",
   };
+  const searchPulls = [106, 107, 105].map((number) => {
+    const pull = pulls.find((item) => item.number === number);
+    return {
+      ...pull,
+      labels: pull.labels.nodes,
+      assignees: pull.assignees.nodes,
+      commentsCount: Number(pull.comments?.totalCount ?? 0),
+      body: "",
+    };
+  }).concat({
+    ...searchOnlyPull,
+    labels: searchOnlyPull.labels.nodes,
+    assignees: searchOnlyPull.assignees.nodes,
+    commentsCount: 0,
+    body: "",
+  }).concat(options.failPrList ? [{
+    ...cleanPrListPull,
+    baseRefName: undefined,
+    mergeable: undefined,
+    mergeStateStatus: undefined,
+    reviewDecision: undefined,
+    statusCheckRollup: undefined,
+  }] : []);
   const dirtyPrListPull = {
     ...cleanPrListPull,
     number: 111,
@@ -352,7 +384,18 @@ function writeFakeGh(filePath) {
   fs.writeFileSync(
     filePath,
     `#!/usr/bin/env node
-const payload = process.argv[2] === "search" ? ${JSON.stringify(searchPulls)} : process.argv[2] === "pr" ? ${JSON.stringify(prListPulls)} : ${JSON.stringify({
+const prListPulls = ${JSON.stringify(prListPulls)};
+if (process.argv[2] === "pr" && process.argv[3] === "list" && ${JSON.stringify(Boolean(options.failPrList))}) {
+  console.error("HTTP 502: 502 Bad Gateway (https://api.github.com/graphql)");
+  process.exit(1);
+}
+const payload = process.argv[2] === "search"
+  ? ${JSON.stringify(searchPulls)}
+  : process.argv[2] === "pr" && process.argv[3] === "view"
+    ? prListPulls.find((pull) => String(pull.number) === String(process.argv[4])) ?? null
+    : process.argv[2] === "pr"
+      ? prListPulls
+      : ${JSON.stringify({
   data: {
     repository: {
       pullRequests: {
