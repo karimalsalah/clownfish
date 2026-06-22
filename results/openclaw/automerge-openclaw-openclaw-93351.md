@@ -2,19 +2,19 @@
 repo: "openclaw/openclaw"
 cluster_id: "automerge-openclaw-openclaw-93351"
 mode: "autonomous"
-run_id: "27948123982"
-workflow_run_id: "27948123982"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27948123982"
-head_sha: "35eda120fbf1c547e6043b9e300d395ed4a77fc8"
+run_id: "27948868456"
+workflow_run_id: "27948868456"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27948868456"
+head_sha: "d12cfe31acf39da99365d7ac1c73013e143ae6c9"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-22T11:07:45.497Z"
+published_at: "2026-06-22T11:48:18.449Z"
 canonical: "https://github.com/openclaw/openclaw/pull/93351"
 canonical_issue: null
 canonical_pr: "https://github.com/openclaw/openclaw/pull/93351"
 actions_total: 5
 fix_executed: 1
-fix_failed: 0
+fix_failed: 1
 fix_blocked: 1
 apply_executed: 0
 apply_blocked: 0
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27948123982](https://github.com/openclaw/clownfish/actions/runs/27948123982)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27948868456](https://github.com/openclaw/clownfish/actions/runs/27948868456)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/93351
 
 ## Summary
 
-PR #93351 is the canonical automerge repair target for `openclaw agent --message-file`. Current main at 5dc6e0ea77a0293d16a7a594689c62fd37cc5c80 still requires inline `--message` and has no `message-file`/`message-stdin` symbols. The PR branch is maintainer-editable, but the hydrated artifact shows failing exact-head checks and a ClawSweeper human-review pause, so the safe autonomous result is an executable repair artifact for the contributor branch, not merge or closure. Linked #79182/#79200 are the separate `openclaw message send --message-file` family; #94423 is a broader related agent input PR with stdin plus file input and failing proof.
+PR #93351 is the canonical automerge repair target for the bounded `openclaw agent --message-file` work. Current main at f378de9d5ba9d5fc8637de7fe443d4dfbd516a0b still has required inline `--message` only, while the maintainer-editable PR branch has failing exact-head checks and a ClawSweeper human-review pause, so the executable path is to repair the contributor branch, not merge or close. #79182/#79200 are the separate `openclaw message send --message-file` family, and #94423 is related but broader agent input work with stdin plus file input; those related refs are not part of the executable repair artifact.
 
 ## Impact
 
@@ -44,7 +44,7 @@ PR #93351 is the canonical automerge repair target for `openclaw agent --message
 | --- | ---: |
 | Worker actions | 5 |
 | Fix executed | 1 |
-| Fix failed | 0 |
+| Fix failed | 1 |
 | Fix blocked | 1 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
@@ -67,24 +67,24 @@ PR #93351 is the canonical automerge repair target for `openclaw agent --message
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair the maintainer-editable contributor branch for PR #93351 so the exact head can pass checks and receive a fresh ClawSweeper/Codex review before any separate merge gate. Keep the repair limited to `openclaw agent --message-file`, not separate message-send or stdin work.",
+  "summary": "Repair contributor PR #93351 in place so `openclaw agent` can accept `--message-file <path>` without breaking inline `--message`, slash-command rejection, Gateway dispatch, or local embedded dispatch. Keep the scope to the current PR files and the failing exact-head checks.",
   "pr_title": "feat(cli): add --message-file to openclaw agent",
-  "pr_body": "## What Problem This Solves\n\n`openclaw agent` currently requires inline `--message`, which is fragile for long Markdown, code blocks, JSON, and multiline prompts. PR #93351 is the canonical contributor implementation for adding a file-backed message input to the agent CLI, and this repair preserves contributor credit for @ooiuuii and the source PR.\n\n## Why This Change Was Made\n\nThis repair keeps the existing contributor branch as the canonical path and only addresses current exact-head blockers reported by Clownfish/ClawSweeper: failing `checks-node-core-tooling` / `check-test-types`, any stale review-gate issue still present at the current head, and the need for fresh validation. It must stay scoped to `openclaw agent --message-file`; separate message-send and stdin work are related but outside this executable artifact.\n\n## User Impact\n\nUsers can pass multiline agent prompts from a UTF-8 file without shell-escaping the content. Inline `--message` behavior and existing Gateway/local dispatch semantics should remain unchanged.\n\n## Evidence\n\nCurrent main 5dc6e0ea77a0293d16a7a594689c62fd37cc5c80 still has only required inline `--message` for `openclaw agent` and no `message-file`/`message-stdin` symbols. Validate with `pnpm check:changed` plus focused agent CLI parser/runtime tests before requesting fresh ClawSweeper/Codex review.",
+  "pr_body": "What Problem This Solves\n\n`openclaw agent` currently requires inline `--message`, which is fragile for multiline prompts, Markdown/code blocks, JSON, and shell-specific quoting. PR #93351 is the canonical narrow implementation for reading the agent message from a UTF-8 file.\n\nWhy This Change Was Made\n\nThis repair should update the maintainer-editable contributor branch for #93351 only. Keep `--message` behavior unchanged, preserve exact file content after the input boundary, reject conflicting or invalid message inputs, and ensure file-backed `/compact` is rejected through the same command guard before Gateway or embedded dispatch.\n\nUser Impact\n\nUsers can call `openclaw agent --agent ops --message-file ./task.md` without shell-escaping a long prompt. Existing inline `--message` calls should continue to behave as they do on main.\n\nEvidence\n\nCurrent main f378de9d5ba9d5fc8637de7fe443d4dfbd516a0b still requires inline `--message` in `src/cli/program/register.agent-turn.ts` and has no `--message-file` or `--message-stdin` symbols in the agent CLI path. Hydrated PR #93351 is open, maintainer-editable, and head cd05d4a0224e681324b6aed29f46f9dad915de5e, but exact-head checks currently fail on `checks-node-core-tooling` and `check-test-types`; rerun `pnpm check:changed` after repair.\n\nCredit\n\nThis is a repair of source PR #93351 and should preserve @ooiuuii's authorship and attribution on the contributor branch.",
   "likely_files": [
-    "docs/cli/agent.md",
-    "docs/tools/agent-send.md",
     "src/cli/program/register.agent-turn.ts",
     "src/cli/program/register.agent.test.ts",
     "src/commands/agent-via-gateway.ts",
-    "src/commands/agent-via-gateway.test.ts"
+    "src/commands/agent-via-gateway.test.ts",
+    "docs/cli/agent.md",
+    "docs/tools/agent-send.md"
   ],
   "validation_commands": [
-    "pnpm check:changed",
-    "pnpm test src/cli/program/register.agent.test.ts src/commands/agent-via-gateway.test.ts"
+    "pnpm check:changed"
   ],
   "credit_notes": [
-    "Repair source PR https://github.com/openclaw/openclaw/pull/93351 in place; preserve credit and attribution for @ooiuuii as the contributor author and source PR author.",
-    "Do not replace the contributor branch unless later live checkout proof shows it cannot be safely updated; if replacement becomes necessary, preserve @ooiuuii attribution in the PR body and closeout plan."
+    "Repair the existing maintainer-editable contributor branch for #93351; preserve @ooiuuii as the PR author and source of the implementation.",
+    "Do not borrow the broader stdin scope from #94423 in this repair; keep that contributor work as a related follow-up unless a maintainer explicitly asks to combine.",
+    "Do not borrow the separate `openclaw message send --message-file` implementation from #79200 in this repair; keep that contributor work on its own command surface."
   ],
   "source_job": "jobs/openclaw/outbox/finalized/automerge-openclaw-openclaw-93351.md",
   "security_sensitive": false,
@@ -99,7 +99,8 @@ PR #93351 is the canonical automerge repair target for `openclaw agent --message
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| execute_fix | blocked |  |  | fix artifact is too broad for autonomous execution; split into narrower jobs or explicitly set CLOWNFISH_ALLOW_BROAD_FIX_ARTIFACTS=1 |
+| repair_contributor_branch | failed |  |  | Codex /review did not pass after 2 attempt(s): Blocked on one changed-surface regression. Security-sensitive issues appear absent in the reviewed diff, and the supplied validation command (`pnpm check:changed`) is sufficient for this surface, but inline `--message` behavior no longer matches `origin/main` despite the artifact requiring it to stay unchanged. |
+| repair_contributor_branch | blocked | https://github.com/openclaw/openclaw/pull/93351 |  | Codex /review did not pass after 2 attempt(s): Blocked on one changed-surface regression. Security-sensitive issues appear absent in the reviewed diff, and the supplied validation command (`pnpm check:changed`) is sufficient for this surface, but inline `--message` behavior no longer matches `origin/main` despite the artifact requiring it to stay unchanged. |
 | automerge_repair_outcome_comment | executed | #93351 |  |  |
 
 ## Apply Actions
@@ -118,11 +119,11 @@ PR #93351 is the canonical automerge repair target for `openclaw agent --message
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #93351 | fix_needed | planned | canonical | Repair the maintainer-editable canonical contributor branch to clear failing exact-head checks and review-gate blockers before any later ClawSweeper merge gate. |
-| cluster:automerge-openclaw-openclaw-93351 | build_fix_artifact | planned |  | Build a repair-contributor-branch artifact so the executor can fetch the PR branch, inspect failed check logs, fix the smallest current-head issue, run review/validation, and request a fresh ClawSweeper gate. |
-| #79182 | keep_related | planned | related | Related message-file ergonomics family, but not the same command or canonical repair target. |
-| #79200 | keep_related | planned | related | Related but separate command family with its own active candidate path. |
-| #94423 | keep_related | planned | related | Overlapping agent CLI input work, but broader scope and separate proof blockers. |
+| #93351 | fix_needed | planned | canonical | Repair the maintainer-editable contributor branch and rerun changed validation; do not merge or close from this worker. |
+| cluster:automerge-openclaw-openclaw-93351 | build_fix_artifact | planned |  | Create an executable repair artifact for the canonical PR branch only. |
+| #79182 | keep_related | planned | related | Related CLI ergonomics family, but different command surface and canonical path. |
+| #79200 | keep_related | planned | related | Separate command surface; keep out of this automerge repair cluster. |
+| #94423 | keep_related | planned | related | Related broader follow-up, not the narrow automerge repair target. |
 
 ## Needs Human
 
