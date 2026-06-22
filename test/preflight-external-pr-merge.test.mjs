@@ -134,7 +134,7 @@ test("external merge preflight polls transient unknown mergeability", () => {
 test("external merge preflight tolerates non-actionable automation comments", () => {
   const fixture = makeFixture({
     mergeStateStatus: "UNSTABLE",
-    pullLabels: [{ name: "clownfish:automerge" }],
+    pullLabels: [{ name: "status: ready for maintainer look" }, { name: "proof: sufficient" }],
     statusCheckRollup: [
       {
         name: "Real behavior proof",
@@ -192,6 +192,18 @@ test("external merge preflight tolerates non-actionable automation comments", ()
         body: "Clownfish is on the reef for this PR. I tagged `clownfish:automerge`.",
         url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-3",
       },
+      {
+        author: { login: "external-reviewer" },
+        authorAssociation: "NONE",
+        body: "This seems like the right fix boundary and matches the reported behavior.",
+        url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-4",
+      },
+      {
+        author: { login: "contributor" },
+        authorAssociation: "CONTRIBUTOR",
+        body: "@clawsweeper re-review",
+        url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-5",
+      },
     ],
   });
   const child = spawnSync(
@@ -211,6 +223,37 @@ test("external merge preflight tolerates non-actionable automation comments", ()
 
   const report = JSON.parse(fs.readFileSync(path.join(fixture.runDir, "preflight-report.json"), "utf8"));
   assert.equal(report.status, "passed");
+});
+
+test("external merge preflight blocks actionable human comments", () => {
+  const fixture = makeFixture({
+    issueComments: [
+      {
+        author: { login: "reviewer" },
+        authorAssociation: "NONE",
+        body: "Please add a regression test before merge.",
+        url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-1",
+      },
+    ],
+  });
+  const child = spawnSync(
+    process.execPath,
+    ["scripts/preflight-external-pr-merge.mjs", fixture.jobPath, "--pr", "123", "--run-dir", fixture.runDir],
+    {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        PATH: `${fixture.binDir}${path.delimiter}${process.env.PATH}`,
+        CLOWNFISH_ALLOWED_OWNER: "openclaw",
+      },
+    },
+  );
+  assert.equal(child.status, 0, child.stderr || child.stdout);
+
+  const report = JSON.parse(fs.readFileSync(path.join(fixture.runDir, "preflight-report.json"), "utf8"));
+  assert.equal(report.status, "blocked");
+  assert.match(report.reason, /actionable top-level issue comment/);
 });
 
 test("external merge preflight blocks actionable comment findings", () => {

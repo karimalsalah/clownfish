@@ -670,7 +670,7 @@ function isActionableCommentEvidence(comment, { pull }) {
     );
   }
 
-  return true;
+  return hasActionableCommentConcern(body);
 }
 
 function isNonBlockingCommentEvidence(comment, { pull }) {
@@ -682,6 +682,7 @@ function isNonBlockingCommentEvidence(comment, { pull }) {
 
   if (isBenignAutomationComment({ author, body: normalized, pull })) return true;
   if (isMaintainerCommandComment({ association, body: normalized })) return true;
+  if (isReviewRequestComment(normalized)) return true;
 
   const pullAuthor = String(pull?.user?.login ?? "").toLowerCase();
   if (author && pullAuthor && author === pullAuthor && isAuthorStatusComment(normalized)) return true;
@@ -707,7 +708,7 @@ function isMaintainerCommandComment({ association, body }) {
 
 function isClawSweeperReadyReviewComment({ author, body, pull }) {
   if (!["clawsweeper", "clawsweeper[bot]"].includes(author)) return false;
-  if (!hasClownfishAutomergeLabel(pull)) return false;
+  if (!hasAutonomousMergeReadySignal(pull)) return false;
   if (!/^codex review:\s*needs maintainer review before merge\./.test(body)) return false;
   if (!/(review metrics:\*\*\s*none identified|review metrics:\s*none identified|result:\s*ready for maintainer review|no repair job is needed)/.test(body)) {
     return false;
@@ -715,8 +716,10 @@ function isClawSweeperReadyReviewComment({ author, body, pull }) {
   return !/found issues before merge|requested changes|changes requested|do not merge/.test(body);
 }
 
-function hasClownfishAutomergeLabel(pull) {
-  return (pull?.labels ?? []).some((label) => String(label?.name ?? "").toLowerCase() === "clownfish:automerge");
+function hasAutonomousMergeReadySignal(pull) {
+  const labels = (pull?.labels ?? []).map((label) => String(label?.name ?? "").toLowerCase());
+  if (labels.includes("clownfish:automerge")) return true;
+  return labels.some((label) => label.includes("ready for maintainer look")) && labels.includes("proof: sufficient");
 }
 
 function isAutomationAuthor(author) {
@@ -725,6 +728,16 @@ function isAutomationAuthor(author) {
 
 function isAuthorStatusComment(body) {
   return /\b(addressed|updated|added|fixed|ready for maintainer|marked `proof: sufficient`|please take a look|merge if)\b/.test(body);
+}
+
+function isReviewRequestComment(body) {
+  return /^@clawsweeper\s+(?:re-review|re-run|review)\b/.test(body);
+}
+
+function hasActionableCommentConcern(body) {
+  return /\b(?:requested changes|changes requested|needs changes?|needs fix|please fix|please add|please update|please address|must fix|must add|must update|blocking|blocker|regression|breaks?|broken|failing|failure|conflict|security|secret|credential|token|vulnerability|unsafe|do not merge|don't merge|hold off|not ready)\b/i.test(
+    body,
+  );
 }
 
 function evidenceExamples(items) {
