@@ -49,7 +49,6 @@ const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_
 if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) die("--repo must be owner/repo");
 if (!["plan", "autonomous"].includes(mode)) die("--mode must be plan or autonomous");
 if (!["triage", "remediation", "low-signal"].includes(strategy)) die("--strategy must be triage, remediation, or low-signal");
-if (strategy === "remediation" && mode !== "plan") die("--strategy remediation requires --mode plan");
 if (!["stale", "recent", "bucket"].includes(sort)) die("--sort must be stale, recent, or bucket");
 if (!["all", "terminal"].includes(existingResultsActionPolicy)) die("--existing-results-action-policy must be all or terminal");
 
@@ -353,6 +352,7 @@ function writeJob(batch, index) {
   const filePath = path.join(outDir, `${clusterId}.md`);
   const refs = batch.map((candidate) => candidate.ref);
   const remediation = strategy === "remediation";
+  const autonomousRemediation = remediation && mode === "autonomous";
   const allowedActions = remediation ? ["merge", "fix", "raise_pr"] : lowSignal ? ["comment", "close"] : ["comment", "label", "close"];
   const blockedActions = remediation
     ? ["comment", "label", "close", "force_push", "bypass_checks"]
@@ -412,25 +412,33 @@ function writeJob(batch, index) {
     )}`,
     `notes: ${quoteYaml(
       remediation
-        ? `Generated from live GitHub open PR inventory on ${now.toISOString()}; bucket=${bucket}; plan-only remediation assessment. No GitHub mutation is permitted from this job.`
+        ? `Generated from live GitHub open PR inventory on ${now.toISOString()}; bucket=${bucket}; ${
+            autonomousRemediation
+              ? "autonomous remediation assessment. Mutations are limited to deterministic merge/fix gates."
+              : "plan-only remediation assessment. No GitHub mutation is permitted from this job."
+          }`
         : lowSignal
           ? `Generated from live GitHub open PR inventory on ${now.toISOString()}; bucket=${bucket}; low-signal candidates were prefiltered for stale unassigned PRs. Maintainer comments and reviews are still rechecked by the worker and applicator before close.`
-        : `Generated from live GitHub open PR inventory on ${now.toISOString()}; bucket=${bucket}; only safe close/comment/label actions are allowed.`,
+          : `Generated from live GitHub open PR inventory on ${now.toISOString()}; bucket=${bucket}; only safe close/comment/label actions are allowed.`,
     )}`,
     "---",
     "",
     `# ${remediation ? "PR Remediation Inventory" : lowSignal ? "Low-Signal PR Sweep" : "Live PR Inventory"} ${index}`,
     "",
     remediation
-      ? "This is a high-volume plan-only remediation shard over fresh maintainer-ready pull requests."
+      ? `This is a high-volume ${autonomousRemediation ? "autonomous" : "plan-only"} remediation shard over fresh maintainer-ready pull requests.`
       : lowSignal
         ? "This is an opt-in low-signal cleanup shard over stale open pull requests from live GitHub inventory."
-      : `This is a high-volume live inventory shard over ${inventoryScope}.`,
+        : `This is a high-volume live inventory shard over ${inventoryScope}.`,
     "",
     "## Goal",
     "",
     remediation
-      ? "Hydrate live GitHub state for each listed PR and produce a current finalization path. Emit `merge_candidate` only with a complete merge preflight. Missing merge preflight alone is not a `needs_human` reason: it blocks only `merge_candidate`. Emit bounded `fix_needed` plus `build_fix_artifact` and `open_fix_pr` only for a concrete repair with a complete executable `fix_artifact`; otherwise classify the PR `keep_related` or `keep_independent`. Use `needs_human` only for unclear scope, active author follow-up, broad work, or another specific maintainer decision. Route security-sensitive PRs centrally. Do not perform mutations: this job is plan-only."
+      ? `Hydrate live GitHub state for each listed PR and produce a current finalization path. Emit \`merge_candidate\` only with a complete merge preflight. Missing merge preflight alone is not a \`needs_human\` reason: it blocks only \`merge_candidate\`. Emit bounded \`fix_needed\` plus \`build_fix_artifact\` and \`open_fix_pr\` only for a concrete repair with a complete executable \`fix_artifact\`; otherwise classify the PR \`keep_related\` or \`keep_independent\`. Use \`needs_human\` only for unclear scope, active author follow-up, broad work, or another specific maintainer decision. Route security-sensitive PRs centrally. ${
+          autonomousRemediation
+            ? "In autonomous mode, the deterministic applicator/executor owns the actual merge or fix PR mutation after re-fetching live state and enforcing merge preflight."
+            : "Do not perform mutations: this job is plan-only."
+        }`
       : lowSignal
         ? "Use `instructions/low-signal-prs.md`. Review only the listed open pull requests. Emit `close_low_signal` with `classification: \"low_signal\"` only when the PR is boringly clear under the low-signal policy and live GitHub state still has no maintainer signal. Otherwise emit `needs_human`, `keep_related`, or `keep_independent`. The deterministic applicator will re-fetch live state, reject non-PRs, reject maintainer-authored/reviewed/commented/assigned PRs, and close only planned `close_low_signal` actions."
       : "Hydrate live GitHub state for each listed PR and emit one conservative action per PR. Prefer `keep_related`, `keep_independent`, `needs_human`, or `route_security`. Emit close-style actions only when fresh live evidence makes the PR boringly superseded, duplicate, abandoned, or low-signal under existing policies. Do not merge, fix, or raise PRs.",

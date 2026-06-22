@@ -57,7 +57,7 @@ test("live PR inventory protects active structured job refs but not archived or 
   assert.equal(candidates.has("#104"), true);
 });
 
-test("remediation inventory is plan-only and enables finalization recommendations", () => {
+test("remediation inventory enables plan and autonomous finalization recommendations", () => {
   const fixture = makeFixture();
   writeFakeGh(fixture.gh);
 
@@ -92,9 +92,23 @@ test("remediation inventory is plan-only and enables finalization recommendation
   assert.match(job, /concrete repair with a complete executable `fix_artifact`/);
   assert.match(job, /classify the PR `keep_related` or `keep_independent`/);
 
-  const rejected = runImport(fixture, "--strategy", "remediation");
-  assert.notEqual(rejected.status, 0);
-  assert.match(rejected.stderr, /requires --mode plan/);
+  const autonomous = runImport(
+    fixture,
+    "--write",
+    "--strategy",
+    "remediation",
+    "--bucket",
+    "ready_for_maintainer",
+    "--skip-existing",
+    "false",
+  );
+  assert.equal(autonomous.status, 0, autonomous.stderr || autonomous.stdout);
+  const autonomousPayload = JSON.parse(autonomous.stdout);
+  const autonomousJob = fs.readFileSync(path.join(fixture.out, path.basename(autonomousPayload.generated[0].path)), "utf8");
+  assert.match(autonomousJob, /mode: autonomous/);
+  assert.match(autonomousJob, /autonomous remediation assessment/);
+  assert.match(autonomousJob, /Mutations are limited to deterministic merge\/fix gates/);
+  assert.match(autonomousJob, /deterministic applicator\/executor owns the actual merge or fix PR mutation/);
 });
 
 function runImport(fixture, ...extraArgs) {
