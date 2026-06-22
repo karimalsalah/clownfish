@@ -79,6 +79,20 @@ test("cluster import can ignore non-terminal published result actions", { skip: 
   assert.deepEqual(payload.generated[0].existing_overlap_refs, ["#102"]);
 });
 
+test("cluster import can live-skip stale local open refs", { skip: hasSqlite ? false : "sqlite3 missing" }, () => {
+  const fixture = makeFixture();
+  seedPortableGitcrawlDb(fixture.db);
+  const gh = writeFakeGh(fixture.root, () => "CLOSED");
+
+  const result = runImport(fixture, "--live-state-filter", "--gh-bin", gh);
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const payload = JSON.parse(result.stdout);
+
+  assert.equal(payload.options.live_state_filter, true);
+  assert.equal(payload.generated.length, 0);
+  assert.equal(payload.skipped[0].reason, "closed_only");
+});
+
 function runImport(fixture, ...extraArgs) {
   return spawnSync(
     process.execPath,
@@ -101,6 +115,32 @@ function runImport(fixture, ...extraArgs) {
     ],
     { cwd: repoRoot, encoding: "utf8" },
   );
+}
+
+function writeFakeGh(root, stateForNumber) {
+  const file = path.join(root, "fake-gh.mjs");
+  fs.writeFileSync(
+    file,
+    `#!/usr/bin/env node
+let number = null;
+for (const arg of process.argv.slice(2)) {
+  if (arg.startsWith("number=")) number = Number(arg.slice("number=".length));
+}
+const state = (${stateForNumber.toString()})(number);
+process.stdout.write(JSON.stringify({
+  data: {
+    repository: {
+      issueOrPullRequest: {
+        __typename: "Issue",
+        state,
+      },
+    },
+  },
+}));
+`,
+  );
+  fs.chmodSync(file, 0o755);
+  return file;
 }
 
 function makeFixture() {

@@ -43,6 +43,8 @@ const existingResultsOnly = Boolean(args["existing-results-only"] ?? args.existi
 const existingResultsActionPolicy = String(args["existing-results-action-policy"] ?? args.existing_results_action_policy ?? "all");
 const securityPolicy = securityPolicyArg();
 const overlapPolicy = String(args["overlap-policy"] ?? "skip-any");
+const liveStateFilter = Boolean(args["live-state-filter"] ?? args.live_state_filter);
+const ghCommand = String(args["gh-bin"] ?? args.gh_bin ?? process.env.CLOWNFISH_GH_BIN ?? "gh");
 const skipFeatureRequests = args["include-feature-requests"] !== true && args["skip-feature-requests"] !== "false";
 const includeBlockedLabels = Boolean(args["include-blocked-labels"] ?? args.include_blocked_labels);
 const blockedLabelPatterns = includeBlockedLabels
@@ -65,7 +67,7 @@ if (selectingFromGitcrawl) {
 
 if (clusterIds.length === 0) {
   console.error(
-    "usage: node scripts/import-gitcrawl-clusters.mjs <cluster-id> [...] [--from-gitcrawl] [--limit N] [--min-size N] [--min-open-members N] [--repo owner/repo] [--db path] [--out dir] [--existing-dir dir] [--existing-results-dir dir] [--existing-results-only] [--existing-results-action-policy all|terminal] [--mode plan|autonomous] [--suffix name] [--overlap-policy skip-any|skip-full|exclude-existing] [--security-policy skip-full|skip-any|include] [--block-label pattern] [--include-blocked-labels] [--dry-run] [--json] [--allow-instant-close] [--allow-merge true|false] [--allow-fix-pr true|false] [--allow-post-merge-close true|false]",
+    "usage: node scripts/import-gitcrawl-clusters.mjs <cluster-id> [...] [--from-gitcrawl] [--limit N] [--min-size N] [--min-open-members N] [--repo owner/repo] [--db path] [--out dir] [--existing-dir dir] [--existing-results-dir dir] [--existing-results-only] [--existing-results-action-policy all|terminal] [--mode plan|autonomous] [--suffix name] [--overlap-policy skip-any|skip-full|exclude-existing] [--security-policy skip-full|skip-any|include] [--block-label pattern] [--include-blocked-labels] [--live-state-filter] [--gh-bin gh] [--dry-run] [--json] [--allow-instant-close] [--allow-merge true|false] [--allow-fix-pr true|false] [--allow-post-merge-close true|false]",
   );
   process.exit(2);
 }
@@ -92,6 +94,7 @@ const existingClusterIds = skipExisting && !existingResultsOnly ? existingGitcra
 const existingMemberRefs = skipExisting ? existingMemberRefMap() : new Map();
 const initialExistingMemberRefCount = existingMemberRefs.size;
 const prefetchedMembers = selectingFromGitcrawl ? prefetchMembers(clusterIds) : null;
+const liveStateCache = new Map();
 const generated = [];
 const skipped = [];
 let createdCount = 0;
@@ -103,12 +106,13 @@ for (const clusterId of clusterIds) {
     continue;
   }
 
-  const members = prefetchedMembers?.get(clusterId) ?? sqliteJson(memberSql(clusterId));
+  let members = prefetchedMembers?.get(clusterId) ?? sqliteJson(memberSql(clusterId));
 
   if (members.length === 0) {
     skipCluster(clusterId, "not_found", "cluster not found", { title: "" });
     continue;
   }
+  if (liveStateFilter) members = applyLiveStates(members);
   const representativeTitle = members[0].representative_title ?? "";
   const overlappingRefs = members
     .map((member) => Number(member.number))
@@ -341,6 +345,8 @@ if (jsonOutput) {
       skip_existing: skipExisting,
       existing_results_only: existingResultsOnly,
       existing_results_action_policy: existingResultsActionPolicy,
+      live_state_filter: liveStateFilter,
+      gh_bin: liveStateFilter ? ghCommand : null,
       existing_dir: path.relative(repoRoot(), existingDir),
       existing_results_dir: path.relative(repoRoot(), existingResultsDir),
       skip_feature_requests: skipFeatureRequests,
@@ -465,6 +471,68 @@ function prefetchMembers(clusterIds) {
     byCluster.set(id, members);
   }
   return byCluster;
+}
+
+function applyLiveStates(members) {
+  const numbers = unique(members.map((member) => Number(member.number)).filter(Number.isSafeInteger));
+  const states = liveStatesForNumbers(numbers);
+  return members.map((member) => {
+    const number = Number(member.number);
+    const representativeNumber = Number(member.representative_number);
+    return {
+      ...member,
+      state: states.get(number) ?? member.state,
+      representative_state: states.get(representativeNumber) ?? member.representative_state,
+    };
+  });
+}
+
+function liveStatesForNumbers(numbers) {
+  const states = new Map();
+  for (const number of numbers) {
+    if (!liveStateCache.has(number)) liveStateCache.set(number, fetchLiveState(number));
+    states.set(number, liveStateCache.get(number));
+  }
+  return states;
+}
+
+function fetchLiveState(number) {
+  const [owner, name] = repo.split("/");
+  const query = `query($owner:String!,$name:String!,$number:Int!){
+    repository(owner:$owner,name:$name) {
+      issueOrPullRequest(number:$number) {
+        __typename
+        ... on Issue { state }
+        ... on PullRequest { state }
+      }
+    }
+  }`;
+  const payload = execFileSync(
+    ghCommand,
+    [
+      "api",
+      "graphql",
+      "-F",
+      `owner=${owner}`,
+      "-F",
+      `name=${name}`,
+      "-F",
+      `number=${number}`,
+      "-f",
+      `query=${query}`,
+    ],
+    {
+      cwd: repoRoot(),
+      encoding: "utf8",
+      maxBuffer: 2 * 1024 * 1024,
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
+  const item = JSON.parse(payload)?.data?.repository?.issueOrPullRequest;
+  const state = String(item?.state ?? "").toLowerCase();
+  if (state === "open") return "open";
+  if (state === "closed" || state === "merged") return "closed";
+  throw new Error(`GitHub live state unavailable for #${number}`);
 }
 
 function sqliteJson(sql) {
