@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "automerge-openclaw-openclaw-76668"
 mode: "autonomous"
-run_id: "27867197536"
-workflow_run_id: "27867197536"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/27867197536"
-head_sha: "8ab4d140bd398f3809697c401ff9a1bc5fe6f7e2"
+run_id: "27953164515"
+workflow_run_id: "27953164515"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/27953164515"
+head_sha: "cf022cccb3f7db38db17d2376c40d081d3270571"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-20T09:43:19.169Z"
+published_at: "2026-06-22T12:44:40.606Z"
 canonical: "https://github.com/openclaw/openclaw/pull/76668"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/76664"
 canonical_pr: "https://github.com/openclaw/openclaw/pull/76668"
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/27867197536](https://github.com/openclaw/clownfish/actions/runs/27867197536)
+Run: [https://github.com/openclaw/clownfish/actions/runs/27953164515](https://github.com/openclaw/clownfish/actions/runs/27953164515)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/pull/76668
 
 ## Summary
 
-PR #76668 remains the bounded canonical automerge repair target. The hydrated artifact shows it is open, non-security-sensitive, focused to one issue-template file, maintainer-can-modify is true, and it has no review comments; however merge is blocked by job policy and the artifact still has an unstable merge state plus a failing `check-test-types` check, so the executable path is to repair/rerun the contributor branch rather than merge or close anything from this worker.
+#76668 is the canonical automerge PR for the docs-focused bug intake request in #76664, but it is not merge-ready in this run because merge is blocked by job policy and the hydrated PR state shows mergeable_state=unstable with a failing checks-node-core-tooling check on head eb14d02fdc3b1f4422238ffb44e029c2461dba69. The branch is safe to repair because maintainer_can_modify=true, the diff is one issue-template file, review comments are hydrated with no inline review blockers, and ClawSweeper's latest review found no repair lane beyond final review/merge handling. Current main 73930764e642a545f688b891d46443e5ae19d5d7 still lacks .github/ISSUE_TEMPLATE/docs_bug_report.yml and the existing bug_report.yml requires runtime/model/provider fields, so a bounded repair of the existing contributor branch is the canonical path.
 
 ## Impact
 
@@ -59,16 +59,17 @@ PR #76668 remains the bounded canonical automerge repair target. The hydrated ar
   "source_refs": [
     "#76668",
     "#76664",
-    "#76619"
+    "#76619",
+    "#73649"
   ],
   "repair_strategy": "repair_contributor_branch",
   "planned_actions": [
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Repair the existing maintainer-editable contributor PR #76668 for automerge by rebasing/refetching the branch, preserving the one-file issue-template change, rerunning the changed gate, and sending it back through ClawSweeper/Codex review. Do not replace the PR unless the branch becomes uneditable or gains unrelated churn.",
+  "summary": "Repair the existing #76668 contributor branch rather than replacing it. Keep the patch limited to the docs bug issue-template addition, investigate or refresh the failing checks-node-core-tooling check on the current head, rebase/rerun as needed, and rerun the changed gate before sending the exact current head back through ClawSweeper/Codex review.",
   "pr_title": "meta(issue-template): add dedicated docs bug report form",
-  "pr_body": "## What Problem This Solves\nDocs-only bug reports currently go through the runtime bug form, which requires runtime/model/provider fields even when the defect is only in documentation. This carries forward @WadydX's focused contribution from https://github.com/openclaw/openclaw/pull/76668 and closes https://github.com/openclaw/openclaw/issues/76664.\n\n## Why This Change Was Made\nThe repair path should keep the existing contributor branch because maintainers can edit it and the diff is already narrow: one new GitHub issue form for docs bugs. Current `main` still lacks `.github/ISSUE_TEMPLATE/docs_bug_report.yml`, while the general bug form requires model/provider fields.\n\n## User Impact\nReporters get a docs-specific bug intake path with docs-relevant fields and automatic `bug`/`docs` labels. Runtime issue intake remains unchanged.\n\n## Evidence\n- Hydrated PR #76668 adds one file, `.github/ISSUE_TEMPLATE/docs_bug_report.yml`, +75/-0.\n- Hydrated PR #76668 has no review comments and maintainer_can_modify=true.\n- Hydrated checks include passing Real behavior proof but a failing `check-test-types` gate, so the executor should refresh/rebase and run `pnpm check:changed` before asking for the final review loop.",
+  "pr_body": "## What Problem This Solves\nDocs-only defects currently have to use the runtime bug form, which requires runtime/model/provider fields that are not relevant for documentation defects. This keeps #76664 moving through the existing contributor PR instead of replacing the author's work.\n\n## Why This Change Was Made\nCurrent main 73930764e642a545f688b891d46443e5ae19d5d7 has bug_report.yml, config.yml, and feature_request.yml under .github/ISSUE_TEMPLATE, but no docs_bug_report.yml. The existing bug report form still requires runtime/model/provider context, so a dedicated docs bug form is the narrow owner-boundary fix for docs intake.\n\n## User Impact\nUsers filing documentation defects get a docs-focused issue form with docs-relevant required fields, while the runtime bug report form stays unchanged for runtime defects.\n\n## Evidence\nSource PR: https://github.com/openclaw/openclaw/pull/76668\nCanonical issue: https://github.com/openclaw/openclaw/issues/76664\nCurrent blocker to repair before final review: checks-node-core-tooling failed on head eb14d02fdc3b1f4422238ffb44e029c2461dba69 and mergeable_state is unstable in the hydrated artifact.\nValidation to run after repair: git diff --check; pnpm check:changed.",
   "likely_files": [
     ".github/ISSUE_TEMPLATE/docs_bug_report.yml"
   ],
@@ -77,10 +78,11 @@ PR #76668 remains the bounded canonical automerge repair target. The hydrated ar
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Preserve @WadydX as the PR author and credit the original contribution in any repair comment or replacement body if replacement becomes necessary.",
-    "Source PR: https://github.com/openclaw/openclaw/pull/76668"
+    "Preserve @WadydX's contributor branch and PR history for https://github.com/openclaw/openclaw/pull/76668.",
+    "Do not open a replacement PR unless the branch becomes unsafe or uneditable; maintainer_can_modify is true in the hydrated artifact.",
+    "Release-note context belongs in the PR body or squash message; do not edit CHANGELOG.md for this normal PR repair."
   ],
-  "source_job": "jobs/openclaw/inbox/automerge-openclaw-openclaw-76668.md",
+  "source_job": "jobs/openclaw/outbox/finalized/automerge-openclaw-openclaw-76668.md",
   "security_sensitive": false,
   "security_routed_refs": [],
   "needs_human": [],
@@ -111,11 +113,11 @@ PR #76668 remains the bounded canonical automerge repair target. The hydrated ar
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #76668 | keep_canonical | planned | canonical | Canonical PR is useful and safe to repair, but not merge-ready under this worker because merge is blocked and the artifact has an unstable/failing-check state. |
-| #76664 | keep_canonical | planned | canonical | Keep the issue open until the candidate PR or a repaired equivalent lands; closure is blocked by job policy and the fix-first gate. |
-| #76619 | keep_closed | skipped | related | Already closed historical context only. |
-| cluster:automerge-openclaw-openclaw-76668 | fix_needed | planned |  | Bounded automerge repair is needed before the comment router can consider final merge. |
-| cluster:automerge-openclaw-openclaw-76668 | build_fix_artifact | planned |  | Provide an executable repair plan for the existing contributor PR. |
+| #76668 | fix_needed | planned | canonical | Automerge cannot proceed from this worker because merge is blocked by policy and the current hydrated PR head has an unstable merge state plus a failing relevant check. Repair the contributor branch and rerun the bounded validation/review loop. |
+| cluster:automerge-openclaw-openclaw-76668 | build_fix_artifact | planned |  | Build an executable repair artifact for the existing #76668 branch so the executor can refresh the head, investigate the failing tooling check, run the hard changed gate, and request a fresh review. |
+| #76664 | keep_canonical | planned | canonical | Keep the canonical issue open while the canonical PR repair path runs. |
+| #73649 | keep_related | planned | related | Related issue-template work, but not the same root cause or repair target for this cluster. |
+| #76619 | keep_closed | skipped | fixed_by_candidate | Closed context ref only; no closure or mutation action is valid. |
 
 ## Needs Human
 
