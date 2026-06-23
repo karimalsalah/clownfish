@@ -682,7 +682,7 @@ function isActionableCommentEvidence(comment, { pull }) {
   const author = String(comment.user?.login ?? comment.author?.login ?? "").toLowerCase();
 
   if (isReviewBot({ author: { login: author }, body })) {
-    return /found issues|requested changes|changes requested|needs human|do not merge|duplicate|superseded|security/i.test(
+    return /found issues|requested changes|changes requested|needs changes?|needs human|do not merge|duplicate|superseded|security/i.test(
       body,
     );
   }
@@ -707,6 +707,7 @@ function isNonBlockingCommentEvidence(comment, { pull }) {
 }
 
 function isBenignAutomationComment({ author, body, pull }) {
+  if (isStaleAutomationReviewComment({ author, body, pull })) return true;
   if (!isAutomationAuthor(author)) return false;
   if (isClawSweeperReadyReviewComment({ author, body, pull })) return true;
   return (
@@ -714,6 +715,30 @@ function isBenignAutomationComment({ author, body, pull }) {
       body,
     ) || /^<!--\s*(?:clawsweeper|clownfish)-command/.test(body)
   );
+}
+
+function isStaleAutomationReviewComment({ author, body, pull }) {
+  const headSha = String(pull?.head?.sha ?? "").toLowerCase();
+  if (!/^[0-9a-f]{40}$/.test(headSha)) return false;
+  if (!isReviewBot({ author: { login: author }, body })) return false;
+  const reviewedShas = commentReviewShas(body);
+  return reviewedShas.length > 0 && reviewedShas.every((sha) => sha !== headSha);
+}
+
+function commentReviewShas(body) {
+  const shas = new Set();
+  const normalized = String(body ?? "").toLowerCase();
+  const patterns = [
+    /<!--\s*clawsweeper-(?:verdict|action):[^>]*\bsha=([0-9a-f]{40})\b[^>]*-->/g,
+    /\blast reviewed commit:\s*(?:https?:\/\/\S+\/commit\/)?([0-9a-f]{40})\b/g,
+    /\breviewed against\s*(?:\[[^\]]+\]\()?https?:\/\/\S+\/commit\/([0-9a-f]{40})\)?/g,
+  ];
+  for (const pattern of patterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      shas.add(match[1]);
+    }
+  }
+  return [...shas];
 }
 
 function isMaintainerCommandComment({ association, body }) {
@@ -746,7 +771,10 @@ function findHighRiskMergeLabel(labels) {
 }
 
 function isAutomationAuthor(author) {
-  return /\[bot\]$|bot$/.test(author) || ["clawsweeper", "openclaw-clownfish"].includes(author);
+  return (
+    /\[bot\]$|bot$/.test(author) ||
+    ["clawsweeper", "openclaw-clownfish", "openclaw-barnacle", "barnacle-openclaw", "greptile-apps"].includes(author)
+  );
 }
 
 function isAuthorStatusComment(body) {

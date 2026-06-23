@@ -323,6 +323,102 @@ test("external merge preflight blocks actionable comment findings", () => {
   assert.match(report.reason, /actionable top-level issue comment/);
 });
 
+test("external merge preflight ignores stale automation findings from previous heads", () => {
+  const fixture = makeFixture({
+    issueComments: [
+      {
+        author: { login: "clawsweeper" },
+        authorAssociation: "CONTRIBUTOR",
+        body: [
+          "Codex review: needs changes before merge.",
+          "",
+          "Review findings:",
+          "- [P2] Remove the stale changelog entry.",
+          "",
+          "<!-- clawsweeper-verdict:needs-changes item=123 sha=cccccccccccccccccccccccccccccccccccccccc confidence=high -->",
+          "<!-- clawsweeper-action:fix-required item=123 sha=cccccccccccccccccccccccccccccccccccccccc confidence=high finding=review-feedback -->",
+          "<!-- clawsweeper-review item=123 -->",
+        ].join("\n"),
+        url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-1",
+      },
+      {
+        author: { login: "barnacle-openclaw" },
+        authorAssociation: "NONE",
+        body: "This pull request has been automatically marked as stale due to inactivity.\nPlease add updates or it will be closed.",
+        url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-2",
+      },
+      {
+        author: { login: "greptile-apps" },
+        authorAssociation: "CONTRIBUTOR",
+        body: [
+          "Greptile review: found issues before merge.",
+          "",
+          "Please address the escaping issue before merging.",
+          "",
+          "Last reviewed commit: https://github.com/openclaw/openclaw/commit/dddddddddddddddddddddddddddddddddddddddd",
+        ].join("\n"),
+        url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-3",
+      },
+    ],
+  });
+  const child = spawnSync(
+    process.execPath,
+    ["scripts/preflight-external-pr-merge.mjs", fixture.jobPath, "--pr", "123", "--run-dir", fixture.runDir],
+    {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        PATH: `${fixture.binDir}${path.delimiter}${process.env.PATH}`,
+        CLOWNFISH_ALLOWED_OWNER: "openclaw",
+      },
+    },
+  );
+  assert.equal(child.status, 0, child.stderr || child.stdout);
+
+  const report = JSON.parse(fs.readFileSync(path.join(fixture.runDir, "preflight-report.json"), "utf8"));
+  assert.equal(report.status, "passed");
+});
+
+test("external merge preflight still blocks current-head automation findings", () => {
+  const fixture = makeFixture({
+    issueComments: [
+      {
+        author: { login: "clawsweeper" },
+        authorAssociation: "CONTRIBUTOR",
+        body: [
+          "Codex review: needs changes before merge.",
+          "",
+          "Review findings:",
+          "- [P2] Remove the stale changelog entry.",
+          "",
+          "<!-- clawsweeper-verdict:needs-changes item=123 sha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa confidence=high -->",
+          "<!-- clawsweeper-review item=123 -->",
+        ].join("\n"),
+        url: "https://github.com/openclaw/openclaw/pull/123#issuecomment-1",
+      },
+    ],
+  });
+  const child = spawnSync(
+    process.execPath,
+    ["scripts/preflight-external-pr-merge.mjs", fixture.jobPath, "--pr", "123", "--run-dir", fixture.runDir],
+    {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        PATH: `${fixture.binDir}${path.delimiter}${process.env.PATH}`,
+        CLOWNFISH_ALLOWED_OWNER: "openclaw",
+      },
+    },
+  );
+  assert.equal(child.status, 0, child.stderr || child.stdout);
+
+  const report = JSON.parse(fs.readFileSync(path.join(fixture.runDir, "preflight-report.json"), "utf8"));
+  assert.equal(report.status, "blocked");
+  assert.match(report.reason, /actionable top-level issue comment/);
+});
+
 test("external merge preflight blocks merge-risk labels", () => {
   const fixture = makeFixture({
     pullLabels: [{ name: "merge-risk: availability" }, { name: "proof: sufficient" }],
