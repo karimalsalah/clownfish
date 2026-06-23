@@ -2,13 +2,13 @@
 repo: "openclaw/openclaw"
 cluster_id: "gitcrawl-457-autonomous-refresh-20260623a"
 mode: "autonomous"
-run_id: "28005099777"
-workflow_run_id: "28005099777"
-run_url: "https://github.com/openclaw/clownfish/actions/runs/28005099777"
-head_sha: "c3d4877276db1f97103fe56d12a5ddad91fc73e0"
+run_id: "28005743478"
+workflow_run_id: "28005743478"
+run_url: "https://github.com/openclaw/clownfish/actions/runs/28005743478"
+head_sha: "1d8a2bf4dd43794e3f69a43f57aec66a463656fc"
 workflow_conclusion: "success"
 result_status: "planned"
-published_at: "2026-06-23T05:57:28.755Z"
+published_at: "2026-06-23T06:08:18.998Z"
 canonical: "https://github.com/openclaw/openclaw/issues/14861"
 canonical_issue: "https://github.com/openclaw/openclaw/issues/14861"
 canonical_pr: null
@@ -26,7 +26,7 @@ needs_human_count: 0
 
 Repo: openclaw/openclaw
 
-Run: [https://github.com/openclaw/clownfish/actions/runs/28005099777](https://github.com/openclaw/clownfish/actions/runs/28005099777)
+Run: [https://github.com/openclaw/clownfish/actions/runs/28005743478](https://github.com/openclaw/clownfish/actions/runs/28005743478)
 
 Workflow conclusion: success
 
@@ -36,7 +36,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/14861
 
 ## Summary
 
-#14861 remains the live canonical issue. Current main still lacks the requested structured Gateway startup outcome summary: Gmail watcher startup is only scheduled when an account exists, and the lifecycle wrapper suppresses the missing-account reason. No merge or close action is safe; emit a narrow new-fix artifact for #14861.
+#14861 remains the live canonical issue. Current main still suppresses the Gmail missing-account startup reason and only schedules the Gmail watcher when an account is configured, so the gateway has no structured startup outcome for that skipped sidecar. No open viable PR exists; the safe path is a narrow new fix PR rather than reviving closed, broad, or uneditable attempts.
 
 ## Impact
 
@@ -70,9 +70,9 @@ Canonical: https://github.com/openclaw/openclaw/issues/14861
     "fix_needed",
     "build_fix_artifact"
   ],
-  "summary": "Add a narrow redacted Gateway startup sidecar outcome summary for #14861, focused on the Gmail watcher missing-account and watcher startup result path. Current main schedules the Gmail watcher sidecar only when an account is configured and suppresses the missing-account reason, so operators still cannot see why that startup sidecar was skipped.",
-  "pr_title": "fix(gateway): summarize startup sidecar outcomes",
-  "pr_body": "## What Problem This Solves\n\nFixes #14861. Gateway startup currently gives no concise outcome summary for post-ready sidecars/hooks, so operators cannot tell whether the Gmail watcher started, skipped, or failed during boot.\n\n## Why This Change Was Made\n\nCurrent main only schedules the Gmail watcher sidecar when `hooks.gmail.account` exists, and `startGmailWatcherWithLogs` suppresses the `no gmail account configured` result. This leaves the concrete missing-account boot path silent. The fix should add a small fixed-vocabulary, redacted outcome summary for startup sidecars without logging accounts, provider details, command args, tokens, raw exception text, or local paths.\n\n## User Impact\n\nOperators get a concise Gateway boot summary such as Gmail watcher started/skipped/failed, including the missing-account skipped reason, while sensitive runtime details stay out of logs.\n\n## Evidence\n\n- Current main: `src/gateway/server-startup-post-attach.ts` schedules Gmail watcher only when an account exists.\n- Current main: `src/hooks/gmail-watcher.ts` returns `no gmail account configured` for hooks enabled without an account.\n- Current main: `src/hooks/gmail-watcher-lifecycle.ts` suppresses that reason.\n- Validation: `pnpm test src/hooks/gmail-watcher-lifecycle.test.ts src/gateway/server-startup-post-attach.test.ts` and `pnpm check:changed`.",
+  "summary": "Implement a narrow gateway startup observability repair for #14861. Current main suppresses the Gmail watcher missing-account reason and skips scheduling the watcher when no account is configured, leaving normal startup without a redacted sidecar outcome summary. The fix should add a small structured summary for Gmail watcher startup outcome states while preserving redaction and avoiding broad unrelated formatting churn.",
+  "pr_title": "fix(gateway): summarize Gmail watcher startup outcome",
+  "pr_body": "## What Problem This Solves\n\nFixes #14861. Gateway startup currently does not report a redacted sidecar outcome for the Gmail watcher when hooks are enabled but `hooks.gmail.account` is missing. That leaves operators with no normal startup signal for a skipped watcher.\n\n## Why This Change Was Made\n\nCurrent main only schedules the Gmail watcher when an account exists, and `startGmailWatcherWithLogs` suppresses the `no gmail account configured` reason. The fix should keep the startup path narrow by reporting a fixed-vocabulary, redacted outcome such as `gmail-watcher=skipped (no gmail account configured)` without logging accounts, tokens, command args, provider details, or local paths.\n\nPrior broad PR #86710 supplied useful context, but it was closed unmerged with an uneditable dirty branch and unrelated churn, so this PR should be an independent narrow implementation. Credit to @slucasmyer for the report in #14861.\n\n## User Impact\n\nOperators get an immediate, concise gateway startup signal for the Gmail watcher sidecar instead of a silent skip, improving production restart diagnosis without exposing sensitive configuration.\n\n## Evidence\n\n- Source inspection on main shows `src/hooks/gmail-watcher-lifecycle.ts` suppresses the missing-account reason.\n- Source inspection on main shows `src/gateway/server-startup-post-attach.ts` only schedules Gmail watcher startup when `hooks.gmail.account` exists.\n- Planned validation: `pnpm test src/hooks/gmail-watcher-lifecycle.test.ts src/gateway/server-startup-post-attach.test.ts` and `pnpm check:changed`.",
   "likely_files": [
     "src/gateway/server-startup-post-attach.ts",
     "src/gateway/server-startup-post-attach.test.ts",
@@ -84,8 +84,8 @@ Canonical: https://github.com/openclaw/openclaw/issues/14861
     "pnpm check:changed"
   ],
   "credit_notes": [
-    "Credit @slucasmyer as the reporter for #14861.",
-    "Do not list #86710 as a source PR for the executable fix artifact; it is excluded existing-overlap context with `merge-risk: 🚨 other` and must remain evidence only in this cluster."
+    "Credit @slucasmyer as the reporter of #14861 in the PR body.",
+    "#86710 by @ferminquant is useful historical context and proof, but it is closed, dirty, uneditable, broad, and has merge-risk: other; do not use it as executable source lineage or copy from its branch. If any idea or wording is directly reused after executor review, add explicit attribution in the PR body."
   ],
   "source_job": "jobs/openclaw/inbox/gitcrawl-457-autonomous-refresh-20260623a.md",
   "security_sensitive": false,
@@ -100,7 +100,7 @@ Canonical: https://github.com/openclaw/openclaw/issues/14861
 
 | Action | Status | Target | Branch | Reason |
 | --- | --- | --- | --- | --- |
-| open_fix_pr | blocked |  | clownfish/gitcrawl-457-autonomous-refresh-20260623a | validation command failed (pnpm check:changed): pnpm check:changed exited 2 |
+| execute_fix | blocked |  |  | validation command failed (pnpm check:changed): $ node scripts/check-changed.mjs [check:changed] lanes=core, coreTests, docs [check:changed] src/gateway/server-reload-handlers.test.ts: core test [check:changed] src/gateway/server-startup-post-attach.test.ts: core test [check:changed] src/gateway/server-startup-post-attach.ts: core production [check:changed] src/hooks/gmail-watcher-lifecycle.test.ts: core test [check:changed] src/hooks/gmail-watcher-lifecycle.ts: core production [check:changed] conflict markers $ node scripts/check-no-conflict-markers.mjs [check:changed] changelog attributions $ node scripts/check-changelog-attributions.mjs [check:changed] guarded extension wildcard re-exports $ node scripts/check-extension-wildcard-reexports.mjs [check:changed] plugin-sdk wildcard re-exports $ node scripts/check-plugin-sdk-wildcard-reexports.mjs [check:changed] duplicate scan target coverage $ node scripts/check-duplicates.mjs --coverage [check:changed] dependency pin guard $ node scripts/check-dependency-pins.mjs [check:changed] package patch guard $ node scripts/check-package-patches.mjs [check:changed] test temp creation report (warning-only) No new bare test temp-directory creation patterns found. [check:changed] typechec... |
 
 ## Apply Actions
 
@@ -118,14 +118,14 @@ Canonical: https://github.com/openclaw/openclaw/issues/14861
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| #14861 | fix_needed | planned | canonical | The issue is real and still present on current main; no viable open canonical PR exists, so a narrow new fix PR is needed. |
-| cluster:gitcrawl-457-autonomous-refresh-20260623a | build_fix_artifact | planned |  | Allowed fix/raise_pr job with a complete executable narrow plan and no merge-ready candidate. |
-| #12322 | keep_closed | skipped | independent | Closed historical context only; no mutation. |
-| #61704 | keep_closed | skipped | superseded | Closed historical context only; no mutation. |
-| #62661 | keep_closed | skipped | related | Closed merged related context only; no mutation. |
-| #63975 | keep_closed | skipped | related | Closed merged related context only; no mutation. |
-| #73187 | keep_closed | skipped | related | Closed historical context only; no mutation. |
-| #86710 | keep_closed | skipped | superseded | Closed excluded context only; no mutation. |
+| #14861 | fix_needed | planned | canonical | A real, narrow observability bug remains on current main and no viable open canonical PR exists. |
+| #12322 | keep_closed | skipped | independent | Historical linked context only; already closed and independent. |
+| #61704 | keep_closed | skipped | superseded | Closed unmerged historical attempt; do not mutate. |
+| #62661 | keep_closed | skipped | related | Already closed/merged and not the canonical fix for #14861. |
+| #63975 | keep_closed | skipped | related | Already closed/merged; useful architectural context only. |
+| #73187 | keep_closed | skipped | related | Already closed historical context only. |
+| #86710 | keep_closed | skipped | superseded | Closed existing-overlap context only; not a viable branch or source PR for automation. |
+| cluster:gitcrawl-457-autonomous-refresh-20260623a | build_fix_artifact | planned |  | Fix PRs are allowed, the canonical issue is open, and the executable repair is narrow. |
 
 ## Needs Human
 
