@@ -9,6 +9,7 @@ const repoRoot = path.resolve(import.meta.dirname, "..");
 const script = fs.readFileSync(path.join(repoRoot, "scripts", "preflight-external-pr-merge.mjs"), "utf8");
 const runnerScript = fs.readFileSync(path.join(repoRoot, "scripts", "run-external-merge-preflights.mjs"), "utf8");
 const workflow = fs.readFileSync(path.join(repoRoot, ".github", "workflows", "external-merge-preflight.yml"), "utf8");
+const intakeWorkflow = fs.readFileSync(path.join(repoRoot, ".github", "workflows", "checks-success-preflight-intake.yml"), "utf8");
 const clusterWorkflow = fs.readFileSync(path.join(repoRoot, ".github", "workflows", "cluster-worker.yml"), "utf8");
 const autonomousPrompt = fs.readFileSync(path.join(repoRoot, "prompts", "autonomous.md"), "utf8");
 const githubInventoryImporter = fs.readFileSync(path.join(repoRoot, "scripts", "import-github-pr-inventory.mjs"), "utf8");
@@ -66,6 +67,19 @@ test("cluster worker chains blocked merge candidates through external preflight"
   assert.match(clusterWorkflow, /- name: Run external merge preflights/);
   assert.match(clusterWorkflow, /npm run run-external-merge-preflights -- "\$\{\{ needs\.prepare\.outputs\.job \}\}" --latest --max-prs 2/);
   assert.match(clusterWorkflow, /- name: Run external merge preflights[\s\S]*?- name: Apply safe closure actions/);
+});
+
+test("daily checks-success intake feeds guarded external merge preflights", () => {
+  assert.match(intakeWorkflow, /cron: "17 7 \* \* \*"/);
+  assert.match(intakeWorkflow, /CLOWNFISH_CHECKS_SUCCESS_PREFLIGHT_ENABLED != '0'/);
+  assert.match(intakeWorkflow, /scripts\/import-github-pr-inventory\.mjs/);
+  assert.match(intakeWorkflow, /--strategy remediation/);
+  assert.match(intakeWorkflow, /--checks-success/);
+  assert.match(intakeWorkflow, /default: "30"/);
+  assert.match(intakeWorkflow, /default: ubuntu-latest/);
+  assert.match(intakeWorkflow, /git commit -m "chore: add daily checks-success preflight jobs"/);
+  assert.match(intakeWorkflow, /gh workflow run external-merge-preflight\.yml/);
+  assert.match(intakeWorkflow, /-f "apply=\$\{apply\}"/);
 });
 
 test("external merge preflight emits an applicator-valid exact-head merge artifact", () => {
