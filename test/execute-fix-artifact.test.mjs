@@ -84,17 +84,14 @@ test("execute-fix-artifact rejects checkpoint changes outside a declared file al
 
 test("execute-fix-artifact bounds auxiliary GitHub and git subprocesses by the fix deadline", () => {
   const source = fs.readFileSync(path.join(repoRoot, "scripts", "execute-fix-artifact.mjs"), "utf8");
-  const workflow = fs.readFileSync(path.join(repoRoot, ".github", "workflows", "cluster-worker.yml"), "utf8");
+  // The cluster-worker.yml workflow assertion was removed with the openclaw fleet kill
+  // (estate consolidation 2026-07-13) — the workflow no longer exists. See WORKFLOWS-KILLED.md.
 
   assert.match(source, /function runStatus\([\s\S]*?remainingFixExecutionMs/);
   assert.match(source, /function remoteBranchSha\([\s\S]*?runStatus\("git", \["ls-remote"/);
   assert.match(source, /function pushRecoverableBranch\([\s\S]*?const pushed = runStatus\("git", args/);
   assert.match(source, /function fetchRemoteRecoverableBranch\([\s\S]*?runStatus\("git", \["fetch", "origin"/);
   assert.match(source, /function closeSupersededSourcePr\([\s\S]*?const closed = runStatus\("gh", \["pr", "close"/);
-  assert.match(
-    workflow,
-    /- name: Execute credited fix artifact[\s\S]*?timeout-minutes: 60[\s\S]*?run: npm run execute-fix/,
-  );
 });
 
 test("execute-fix-artifact clears a partial clone before retrying with the write token", () => {
