@@ -51,6 +51,7 @@ test("dispatch accepts explicit App token auth for plan and capped execute mode"
   const fakeGhx = writeFakeGh(fixture.bin, "ghx");
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_HYDRATION_FIELDS: "1",
   };
@@ -120,6 +121,7 @@ test("dispatch refuses high-volume write mode without explicit override", () => 
   const fakeGhx = writeFakeGh(fixture.bin, "ghx");
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
   };
 
@@ -152,6 +154,7 @@ test("dispatch supports repository-worker canary dispatch", () => {
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
   };
@@ -197,6 +200,7 @@ test("repository-worker falls back only from the known GitHub schema 422", () =>
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
     EXPECT_REPOSITORY_DISPATCH_FALLBACK: "1",
@@ -244,6 +248,7 @@ test("repository-batch falls back only from the known GitHub schema 422", () => 
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_BATCH_FALLBACK: "1",
   };
@@ -291,6 +296,7 @@ test("repository-worker dispatch fetches main when a shallow checkout lacks orig
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
   };
@@ -340,6 +346,7 @@ test("repository-worker dispatch refreshes an existing stale origin/main ref", (
   writeStaleMainGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
     EXPECT_REQUIRED_ANCESTOR: "a".repeat(40),

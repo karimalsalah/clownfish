@@ -34,7 +34,7 @@ test("throttled dispatch waits for a transient publisher backlog", () => {
       "--publish-backlog-poll-ms",
       "1",
     ],
-    { cwd: repoRoot, encoding: "utf8", env: { ...process.env, FAKE_GHX_STATE: fixture.state } },
+    { cwd: repoRoot, encoding: "utf8", env: { ...process.env, CLOWNFISH_REPO: "openclaw/clownfish", FAKE_GHX_STATE: fixture.state } },
   );
 
   assert.equal(result.status, 0, result.stderr || result.stdout);
@@ -196,6 +196,7 @@ function runPublishBacklog({
       encoding: "utf8",
       env: {
         ...process.env,
+        CLOWNFISH_REPO: "openclaw/clownfish",
         PATH: `${fixture.bin}${path.delimiter}${process.env.PATH ?? ""}`,
         FAKE_GHX_RUNS: JSON.stringify(runs),
         FAKE_GHX_ARTIFACTS: JSON.stringify(artifactsByRunId),
