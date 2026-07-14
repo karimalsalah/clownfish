@@ -51,6 +51,7 @@ test("dispatch accepts explicit App token auth for plan and capped execute mode"
   const fakeGhx = writeFakeGh(fixture.bin, "ghx");
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_HYDRATION_FIELDS: "1",
   };
@@ -120,6 +121,7 @@ test("dispatch refuses high-volume write mode without explicit override", () => 
   const fakeGhx = writeFakeGh(fixture.bin, "ghx");
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
   };
 
@@ -152,6 +154,7 @@ test("dispatch supports repository-worker canary dispatch", () => {
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
   };
@@ -197,6 +200,7 @@ test("repository-worker falls back only from the known GitHub schema 422", () =>
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
     EXPECT_REPOSITORY_DISPATCH_FALLBACK: "1",
@@ -244,6 +248,7 @@ test("repository-batch falls back only from the known GitHub schema 422", () => 
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_BATCH_FALLBACK: "1",
   };
@@ -291,6 +296,7 @@ test("repository-worker dispatch fetches main when a shallow checkout lacks orig
   writeShallowCheckoutGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
   };
@@ -340,6 +346,7 @@ test("repository-worker dispatch refreshes an existing stale origin/main ref", (
   writeStaleMainGit(fixture.bin);
   const env = {
     ...process.env,
+    CLOWNFISH_REPO: "openclaw/clownfish",
     PATH: `${fixture.bin}${path.delimiter}${process.env.PATH}`,
     EXPECT_REPOSITORY_WORKER_FIELDS: "1",
     EXPECT_REQUIRED_ANCESTOR: "a".repeat(40),
@@ -383,38 +390,9 @@ test("repository-worker dispatch refreshes an existing stale origin/main ref", (
   assert.match(result.stdout, /dispatched 1\/1/);
 });
 
-test("cluster-worker repository dispatch guard accepts descendants", () => {
-  const workflow = fs.readFileSync(path.join(repoRoot, ".github/workflows/cluster-worker.yml"), "utf8");
-
-  assert.match(workflow, /required_ancestor_sha/);
-  assert.match(workflow, /parsedPayload && typeof parsedPayload === "object" \? parsedPayload : {}/);
-  assert.match(workflow, /spawnSync\("git", \["merge-base", "--is-ancestor", requiredAncestor, "HEAD"\]/);
-  assert.match(workflow, /--deepen=250/);
-  assert.match(workflow, /--unshallow/);
-  assert.match(workflow, /repository_dispatch worker requires required_ancestor_sha or legacy head_sha/);
-});
-
-test("cluster-worker respects per-job label permissions before tagging targets", () => {
-  const workflow = fs.readFileSync(path.join(repoRoot, ".github/workflows/cluster-worker.yml"), "utf8");
-
-  assert.match(workflow, /const allowLabels = allowedActions\.has\("label"\) && !blockedActions\.has\("label"\);/);
-  assert.match(workflow, /allow_labels=\$\{allowLabels \? "1" : "0"\}/);
-  assert.match(
-    workflow,
-    /needs\.prepare\.outputs\.allow_labels == '1'/,
-  );
-});
-
-test("cluster-worker snapshots write gates before the queued worker starts", () => {
-  const workflow = fs.readFileSync(path.join(repoRoot, ".github/workflows/cluster-worker.yml"), "utf8");
-
-  assert.match(workflow, /INPUT_ALLOW_EXECUTE: \$\{\{ vars\.CLOWNFISH_ALLOW_EXECUTE \|\| '0' \}\}/);
-  assert.match(workflow, /const allowExecute = writeMode && process\.env\.INPUT_ALLOW_EXECUTE === "1" \? "1" : "0";/);
-  assert.match(workflow, /allow_execute=\$\{allowExecute\}/);
-  assert.match(workflow, /CLOWNFISH_ALLOW_EXECUTE: \$\{\{ needs\.prepare\.outputs\.allow_execute \}\}/);
-  assert.match(workflow, /CLOWNFISH_ALLOW_FIX_PR: \$\{\{ needs\.prepare\.outputs\.allow_fix_pr \}\}/);
-  assert.match(workflow, /CLOWNFISH_ALLOW_MERGE: \$\{\{ needs\.prepare\.outputs\.allow_merge \}\}/);
-});
+// The three "cluster-worker ..." workflow-content guard tests were removed with the
+// openclaw fleet kill (estate consolidation 2026-07-13): the workflow they guarded,
+// .github/workflows/cluster-worker.yml, no longer exists in this repo. See WORKFLOWS-KILLED.md.
 
 function makeFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "clownfish-app-auth-"));
